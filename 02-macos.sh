@@ -373,11 +373,11 @@ defaults write com.apple.dock mouse-over-hilite-stack -bool true
 # Set the icon size of Dock items to 36 pixels
 defaults write com.apple.dock tilesize -int 36
 
-# Change minimize/maximize window effect
-defaults write com.apple.dock mineffect -string "scale"
+# # Change minimize/maximize window effect
+# defaults write com.apple.dock mineffect -string "scale"
 
-# Minimize windows into their application's icon
-defaults write com.apple.dock minimize-to-application -bool true
+# # Minimize windows into their application's icon
+# defaults write com.apple.dock minimize-to-application -bool true
 
 # Enable spring loading for all Dock items
 defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
