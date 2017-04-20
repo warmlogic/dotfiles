@@ -1,5 +1,9 @@
 # # Add `~/bin` to the `$PATH`
-# export PATH="$HOME/bin:$PATH";
+export PATH="$HOME/bin:$PATH";
+
+# https://conda.io/docs/help/silent.html
+source $HOME/miniconda3/bin/activate
+# export PATH="$HOME/miniconda3/bin:$PATH"
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
