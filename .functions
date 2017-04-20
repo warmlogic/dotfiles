@@ -197,15 +197,25 @@ function s() {
 	fi;
 }
 
-# `a` with no arguments opens the current directory in Atom Editor, otherwise
-# opens the given location
-function a() {
+# `sn` with no arguments opens the current directory in Sublime Text in a
+# new window, otherwise opens the given location in a new window
+function sn() {
 	if [ $# -eq 0 ]; then
-		atom .;
+		subl -n .;
 	else
-		atom "$@";
+		subl -n "$@";
 	fi;
 }
+
+# # `a` with no arguments opens the current directory in Atom Editor, otherwise
+# # opens the given location
+# function a() {
+# 	if [ $# -eq 0 ]; then
+# 		atom .;
+# 	else
+# 		atom "$@";
+# 	fi;
+# }
 
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
@@ -214,6 +224,16 @@ function v() {
 		vim .;
 	else
 		vim "$@";
+	fi;
+}
+
+# `e` with no arguments opens the current directory in Emacs, otherwise opens the
+# given location
+function e() {
+	if [ $# -eq 0 ]; then
+		emacs .;
+	else
+		emacs "$@";
 	fi;
 }
 
@@ -233,4 +253,57 @@ function o() {
 # small enough for one screen.
 function tre() {
 	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}
+
+# functions for setting up template Jupyter Notebooks
+nb-templatenb () {
+    # Usage: nb-templatenb [exploratory_data_analysis]
+    # Will download the most up-to-date Template notebook named with:
+    # today's date, your initials, and [an optional phrase].
+    # The example would yield a file named:
+    # 2016-08-12_mvm_exploratory_data_analysis.ipynb
+    curl -H 'Accept: application/vnd.github.v3.raw' -L \
+    https://api.github.com/repos/${mygithub}/svds-style/contents/notebooks/Template-Python.ipynb \
+    -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
+}
+
+nb-minimalnb () {
+    # Usage: nb-minimalnb [exploratory_data_analysis]
+    # Will download the most up-to-date Template notebook named with:
+    # today's date, your initials, and [an optional phrase].
+    # The example would yield a file named:
+    # 2016-08-12_mvm_exploratory_data_analysis.ipynb
+    curl -H 'Accept: application/vnd.github.v3.raw' -L \
+    https://api.github.com/repos/${mygithub}/svds-style/contents/notebooks/minimal-python.ipynb \
+    -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
+}
+
+# Create directory structure in current working directory
+# Inspired by https://drivendata.github.io/cookiecutter-data-science/
+nb-create-project () {
+    directories='data
+    docs
+    notebooks
+    reports
+    src'
+
+    ignore='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n'
+    ignore_nb='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n'
+
+    touch README.md
+    echo -e ${ignore} >> .gitignore
+    for dir_name in ${directories}
+    do
+      mkdir -p $dir_name
+      if [ $dir_name = "src" ]; then
+        # mkdir -p $dir_name/sql
+        touch $dir_name/__init__.py
+        mkdir -p $dir_name/data
+        mkdir -p $dir_name/features
+        mkdir -p $dir_name/models
+      fi
+      if [ $dir_name = "notebooks" ]; then
+        echo -e ${ignore_nb} >> $dir_name/.gitignore
+      fi
+    done
 }
