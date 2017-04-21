@@ -470,9 +470,9 @@ defaults write com.apple.dock wvous-br-modifier -int 262114
 # Safari & WebKit                                                             #
 ###############################################################################
 
-# Privacy: don't send search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+# # Privacy: don't send search queries to Apple
+# defaults write com.apple.Safari UniversalSearchEnabled -bool false
+# defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
 # Press Tab to highlight each item on a web page
 defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
@@ -490,11 +490,11 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 # # Allow hitting the Backspace key to go to the previous page in history
 # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
 
-# Hide Safari's bookmarks bar by default
+# Show Safari's bookmarks bar by default
 defaults write com.apple.Safari ShowFavoritesBar -bool true
 
-# Hide Safari's sidebar in Top Sites
-defaults write com.apple.Safari ShowSidebarInTopSites -bool false
+# Show Safari's sidebar in Top Sites
+defaults write com.apple.Safari ShowSidebarInTopSites -bool true
 
 # # Disable Safari's thumbnail cache for History and Top Sites
 # defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
@@ -530,13 +530,13 @@ defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
 # Warn about fraudulent websites
 defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
 
-# Disable plug-ins
-defaults write com.apple.Safari WebKitPluginsEnabled -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled -bool false
+# # Disable plug-ins
+# defaults write com.apple.Safari WebKitPluginsEnabled -bool false
+# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled -bool false
 
-# Disable Java
-defaults write com.apple.Safari WebKitJavaEnabled -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
+# # Disable Java
+# defaults write com.apple.Safari WebKitJavaEnabled -bool false
+# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
 
 # Block pop-up windows
 defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
@@ -591,37 +591,38 @@ defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnab
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
 sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 
-# Change indexing order and disable some search results
-# Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
-# 	MENU_DEFINITION
-# 	MENU_CONVERSION
-# 	MENU_EXPRESSION
-# 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-# 	MENU_WEBSEARCH             (send search queries to Apple)
-# 	MENU_OTHER
-defaults write com.apple.spotlight orderedItems -array \
-	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
-	'{"enabled" = 1;"name" = "PDF";}' \
-	'{"enabled" = 1;"name" = "FONTS";}' \
-	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
-	'{"enabled" = 0;"name" = "MESSAGES";}' \
-	'{"enabled" = 0;"name" = "CONTACT";}' \
-	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
-	'{"enabled" = 0;"name" = "IMAGES";}' \
-	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
-	'{"enabled" = 0;"name" = "MUSIC";}' \
-	'{"enabled" = 0;"name" = "MOVIES";}' \
-	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
-	'{"enabled" = 0;"name" = "SOURCE";}' \
-	'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
-	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
-	'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
-	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
-	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
-	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+# # Change indexing order and disable some search results
+# # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
+# # 	MENU_DEFINITION
+# # 	MENU_CONVERSION
+# # 	MENU_EXPRESSION
+# # 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
+# # 	MENU_WEBSEARCH             (send search queries to Apple)
+# # 	MENU_OTHER
+# defaults write com.apple.spotlight orderedItems -array \
+# 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
+# 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+# 	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
+# 	'{"enabled" = 1;"name" = "PDF";}' \
+# 	'{"enabled" = 1;"name" = "FONTS";}' \
+# 	'{"enabled" = 1;"name" = "DOCUMENTS";}' \
+# 	'{"enabled" = 1;"name" = "MESSAGES";}' \
+# 	'{"enabled" = 1;"name" = "CONTACT";}' \
+# 	'{"enabled" = 1;"name" = "EVENT_TODO";}' \
+# 	'{"enabled" = 1;"name" = "IMAGES";}' \
+# 	'{"enabled" = 1;"name" = "BOOKMARKS";}' \
+# 	'{"enabled" = 1;"name" = "MUSIC";}' \
+# 	'{"enabled" = 1;"name" = "MOVIES";}' \
+# 	'{"enabled" = 1;"name" = "PRESENTATIONS";}' \
+# 	'{"enabled" = 1;"name" = "SPREADSHEETS";}' \
+# 	'{"enabled" = 1;"name" = "SOURCE";}' \
+# 	'{"enabled" = 1;"name" = "MENU_DEFINITION";}' \
+# 	'{"enabled" = 1;"name" = "MENU_OTHER";}' \
+# 	'{"enabled" = 1;"name" = "MENU_CONVERSION";}' \
+# 	'{"enabled" = 1;"name" = "MENU_EXPRESSION";}' \
+# 	'{"enabled" = 1;"name" = "MENU_WEBSEARCH";}' \
+# 	'{"enabled" = 1;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+
 # Load new settings before rebuilding the index
 killall mds > /dev/null 2>&1
 # Make sure indexing is enabled for the main volume
@@ -644,7 +645,7 @@ tell application "Terminal"
 	local allOpenedWindows
 	local initialOpenedWindows
 	local windowID
-	set themeName to "Solarized Dark xterm-256color"
+	set themeName to "Solarized Dark"
 
 	(* Store the IDs of all the open terminal windows. *)
 	set initialOpenedWindows to id of every window
@@ -692,8 +693,8 @@ EOD
 # See: https://security.stackexchange.com/a/47786/8918
 defaults write com.apple.terminal SecureKeyboardEntry -bool true
 
-# Disable the annoying line marks
-defaults write com.apple.Terminal ShowLineMarks -int 0
+# # Disable the annoying line marks
+# defaults write com.apple.Terminal ShowLineMarks -int 0
 
 # # Install the Solarized Dark theme for iTerm
 # open "${HOME}/init/Solarized Dark.itermcolors"
@@ -767,8 +768,8 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Enable the automatic update check
 defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
-# Check for software updates daily, not just once per week
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+# # Check for software updates daily, not just once per week
+# defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Download newly available updates in background
 defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
@@ -855,7 +856,7 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 ###############################################################################
 
 # Install Sublime Text settings
-cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text*/Packages/User/Preferences.sublime-settings 2> /dev/null
+cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings 2> /dev/null
 
 ###############################################################################
 # Transmission.app                                                            #
