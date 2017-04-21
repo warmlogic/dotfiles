@@ -645,18 +645,44 @@ tell application "Terminal"
 	local allOpenedWindows
 	local initialOpenedWindows
 	local windowID
-	set themeName to "Solarized Dark"
+    set themeName to "Kakhi"
 
-	(* Store the IDs of all the open terminal windows. *)
-	set initialOpenedWindows to id of every window
+    (* Store the IDs of all the open terminal windows. *)
+    set initialOpenedWindows to id of every window
 
-	(* Open the custom theme so that it gets added to the list
-	   of available terminal themes (note: this will open two
-	   additional terminal windows). *)
-	do shell script "open '$HOME/init/" & themeName & ".terminal'"
+    (* Open the custom theme so that it gets added to the list
+       of available terminal themes (note: this will open two
+       additional terminal windows). *)
+    do shell script "open '$HOME/init/" & themeName & ".terminal'"
 
-	(* Wait a little bit to ensure that the custom theme is added. *)
-	delay 1
+    (* Wait a little bit to ensure that the custom theme is added. *)
+    delay 1
+
+    set themeName to "DarkOrange"
+
+    (* Store the IDs of all the open terminal windows. *)
+    set initialOpenedWindows to id of every window
+
+    (* Open the custom theme so that it gets added to the list
+       of available terminal themes (note: this will open two
+       additional terminal windows). *)
+    do shell script "open '$HOME/init/" & themeName & ".terminal'"
+
+    (* Wait a little bit to ensure that the custom theme is added. *)
+    delay 1
+
+    set themeName to "Solarized Dark"
+
+    (* Store the IDs of all the open terminal windows. *)
+    set initialOpenedWindows to id of every window
+
+    (* Open the custom theme so that it gets added to the list
+       of available terminal themes (note: this will open two
+       additional terminal windows). *)
+    do shell script "open '$HOME/init/" & themeName & ".terminal'"
+
+    (* Wait a little bit to ensure that the custom theme is added. *)
+    delay 1
 
 	(* Set the custom theme as the default terminal theme. *)
 	set default settings to settings set themeName
@@ -706,8 +732,8 @@ defaults write com.apple.terminal SecureKeyboardEntry -bool true
 # Time Machine                                                                #
 ###############################################################################
 
-# Prevent Time Machine from prompting to use new hard drives as backup volume
-defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+# # Prevent Time Machine from prompting to use new hard drives as backup volume
+# defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # # Disable local Time Machine backups
 # hash tmutil &> /dev/null && sudo tmutil disablelocal
@@ -742,11 +768,11 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # # Enable the debug menu in iCal (pre-10.8)
 # defaults write com.apple.iCal IncludeDebugMenu -bool true
 
-# Use plain text mode for new TextEdit documents
-defaults write com.apple.TextEdit RichText -int 0
-# Open and save files as UTF-8 in TextEdit
-defaults write com.apple.TextEdit PlainTextEncoding -int 4
-defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
+# # Use plain text mode for new TextEdit documents
+# defaults write com.apple.TextEdit RichText -int 0
+# # Open and save files as UTF-8 in TextEdit
+# defaults write com.apple.TextEdit PlainTextEncoding -int 4
+# defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
 # # Enable the debug menu in Disk Utility
 # defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
@@ -975,8 +1001,7 @@ for app in "Activity Monitor" \
 	"Spectacle" \
 	"SystemUIServer" \
 	"Terminal" \
-	"Transmission" \
-	"iCal"; do
+	"Transmission"; do
 	killall "${app}" &> /dev/null
 done
 # "Google Chrome Canary" \
