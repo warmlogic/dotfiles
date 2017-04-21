@@ -28,7 +28,3 @@ export LESS_TERMCAP_md="${yellow}";
 
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X';
-
-# For Jupyter Notebook templates in .functions
-export mygithub='warmlogic'
-export myinitials='mvm'

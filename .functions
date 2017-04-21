@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# For Jupyter Notebook templates
+export myinitials='mvm'
+
 # Create a new directory and enter it
 function mkd() {
 	mkdir -p "$@" && cd "$_";
@@ -263,7 +266,7 @@ nb-templatenb () {
     # The example would yield a file named:
     # 2016-08-12_mvm_exploratory_data_analysis.ipynb
     curl -H 'Accept: application/vnd.github.v3.raw' -L \
-    https://api.github.com/repos/${mygithub}/svds-style/contents/notebooks/Template-Python.ipynb \
+    https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/Template-Python.ipynb \
     -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
 }
 
@@ -274,7 +277,7 @@ nb-minimalnb () {
     # The example would yield a file named:
     # 2016-08-12_mvm_exploratory_data_analysis.ipynb
     curl -H 'Accept: application/vnd.github.v3.raw' -L \
-    https://api.github.com/repos/${mygithub}/svds-style/contents/notebooks/minimal-python.ipynb \
+    https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/minimal-python.ipynb \
     -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
 }
 
