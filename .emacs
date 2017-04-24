@@ -152,26 +152,26 @@
 ;; Set initial frame dimensions
 (setq initial-frame-alist
       '(
-	(top . 30)
-	(left . 10)
-;;	(width . 80)
-;;	(height . 51) ;; large display
-;;	(height . 45) ;; 15"
-;;	(alpha . (100 90))  ;; transparency; active inactive
-	))
+    (top . 30)
+    (left . 10)
+;;  (width . 80)
+;;  (height . 51) ;; large display
+;;  (height . 45) ;; 15"
+;;  (alpha . (100 90))  ;; transparency; active inactive
+    ))
 
 ;; set up frame defaults
 (setq default-frame-alist
       '(
-	(width . 80)
-;;	(height . 51) ;; large display
-	(height . 45) ;; 15"
-	(alpha . (100 90))  ;; transparency; active inactive
-	(cursor-color . "Black")
+    (width . 80)
+;;  (height . 51) ;; large display
+    (height . 45) ;; 15"
+    (alpha . (100 90))  ;; transparency; active inactive
+    (cursor-color . "Black")
         ;; don't use the following font with a small display
-;;	(font . "-apple-monaco-medium-r-normal--14-160-72-72-m-160-iso10646-1")
-;;	(font . "-apple-anonymous-medium-r-normal--14-0-0-0-m-0-iso10646-1")
-	))
+;;  (font . "-apple-monaco-medium-r-normal--14-160-72-72-m-160-iso10646-1")
+;;  (font . "-apple-anonymous-medium-r-normal--14-0-0-0-m-0-iso10646-1")
+    ))
 
 (when (boundp 'aquamacs-version)
   ;; Some fancy frame color stuph
@@ -188,7 +188,7 @@
       (select-frame old-frame))
     (setq frame-colors-index (1+ frame-colors-index))
     (if (<= (length frame-colors-list) frame-colors-index)
-	(setq frame-colors-index 0)))
+    (setq frame-colors-index 0)))
   (add-hook `after-make-frame-functions `make-frame-cycle-color)
 
   ;; set the starting color (random, then cycle from there)
@@ -220,7 +220,7 @@
  '(current-language-environment "Latin-1")
  '(default-input-method "latin-1-prefix")
  '(flyspell-issue-welcome-flag nil)
- '(flyspell-tex-command-regexp "\\(\\(begin\\|end\\)[ 	]*{\\|\\(shortcite[a-z*]*\\|\\cite[a-z*]*\\|label\\|ref\\|eqref\\|usepackage\\|documentclass\\)[ 	]*\\(\\[[^]]*\\]\\)?{[^{}]*\\)")
+ '(flyspell-tex-command-regexp "\\(\\(begin\\|end\\)[   ]*{\\|\\(shortcite[a-z*]*\\|\\cite[a-z*]*\\|label\\|ref\\|eqref\\|usepackage\\|documentclass\\)[    ]*\\(\\[[^]]*\\]\\)?{[^{}]*\\)")
  '(global-font-lock-mode t nil (font-lock))
  '(global-hl-line-mode 1)
  '(matlab-auto-fill t)
