@@ -96,8 +96,8 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 # # Disable the crash reporter
 # defaults write com.apple.CrashReporter DialogType -string "none"
 
-# Set Help Viewer windows to non-floating mode
-defaults write com.apple.helpviewer DevMode -bool true
+# # Set Help Viewer windows to non-floating mode
+# defaults write com.apple.helpviewer DevMode -bool true
 
 # # Fix for the ancient UTF-8 bug in QuickLook (https://mths.be/bbo)
 # # Commented out, as this is known to cause problems in various Adobe apps :(
@@ -170,8 +170,8 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 # # Disable "natural" (Lion-style) scrolling
 # defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
-# Increase sound quality for Bluetooth headphones/headsets
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+# # Increase sound quality for Bluetooth headphones/headsets
+# defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
@@ -191,21 +191,21 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
-# Set language and text formats
-# Note: if you're in the US, replace
-# `"en" "nl"` with `"en-US"`
-# `en_GB` with `en_US`
-# `EUR` with `USD`
-# `Centimeters` with `Inches`
-# `true` with `false`
-defaults write NSGlobalDomain AppleLanguages -array "en-US"
-defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
-defaults write NSGlobalDomain AppleMeasurementUnits -string "Inches"
-defaults write NSGlobalDomain AppleMetricUnits -bool false
+# # Set language and text formats
+# # Note: if you're in the US, replace
+# # `"en" "nl"` with `"en-US"`
+# # `en_GB` with `en_US`
+# # `EUR` with `USD`
+# # `Centimeters` with `Inches`
+# # `true` with `false`
+# defaults write NSGlobalDomain AppleLanguages -array "en-US"
+# defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
+# defaults write NSGlobalDomain AppleMeasurementUnits -string "Inches"
+# defaults write NSGlobalDomain AppleMetricUnits -bool false
 
 # # This should supposedly set up the clock to display YYYY-MM-DD h:m a
 # # But it sticks with default "MMM d  h:mm a"
-# Let's use itsycal instead.
+# # Let's use itsycal instead (installed with brew)
 # defaults write com.apple.menuextra.clock "DateFormat" -string "y-MM-dd h:mm a"
 
 # Show language menu in the top right corner of the boot screen
@@ -251,10 +251,12 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 # # Finder: disable window animations and Get Info animations
 # defaults write com.apple.finder DisableAllAnimations -bool true
 
-# Set Desktop as the default location for new Finder windows
-# For other paths, use `PfLo` and `file:///full/path/here/`
-defaults write com.apple.finder NewWindowTarget -string "PfDe"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Desktop/"
+# Set the default location for new Finder windows
+# Home: `PfHm`, `file://${HOME}/`
+# Desktop: `PfDe`, `file://${HOME}/Desktop/`
+# Other: `PfLo`, `file:///full/path/here/`
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
 # Show icons for hard drives, servers, and removable media on the desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
@@ -271,19 +273,18 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # Finder: show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
-# # Finder: show path bar
-# defaults write com.apple.finder ShowPathbar -bool true
+# Finder: show path bar
+defaults write com.apple.finder ShowPathbar -bool true
 
 # Display full POSIX path as Finder window title
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
-# Keep folders on top when sorting by name
-defaults write com.apple.finder _FXSortFoldersFirst -bool true
+# # Keep folders on top when sorting by name
+# defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
 # When performing a search, default mode
-# # current folder
-# defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-# previous search scope
+# current folder: "SCcf"
+# previous search scope: "SCsp"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCsp"
 
 # Disable the warning when changing a file extension
@@ -333,9 +334,11 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 # /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 
 # Use column view in all Finder windows by default
-# Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
-# Nlsv = list view
-# clmv = column view
+# Four-letter codes for the other view modes: `icnv`, `Nlsv`, `clmv`, `Flwv`
+# Icon view: "icnv"
+# List view: "Nlsv"
+# Column view: "clmv"
+# Flow view: "Flwv"
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
 # # Disable the warning before emptying the Trash
@@ -374,7 +377,7 @@ defaults write com.apple.dock mouse-over-hilite-stack -bool true
 # Set the icon size of Dock items to 36 pixels
 defaults write com.apple.dock tilesize -int 36
 
-# # Change minimize/maximize window effect
+# # Change minimize/maximize window effect ("genie", "scale")
 # defaults write com.apple.dock mineffect -string "scale"
 
 # # Minimize windows into their application's icon
@@ -485,7 +488,7 @@ defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 # Set Safari's home page to `about:blank` for faster loading
 defaults write com.apple.Safari HomePage -string "about:blank"
 
-# Prevent Safari from opening ‘safe' files automatically after downloading
+# Prevent Safari from opening "safe" files automatically after downloading
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 
 # # Allow hitting the Backspace key to go to the previous page in history
@@ -543,11 +546,11 @@ defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
 defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
 
-# # Disable auto-playing video
-# defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
-# defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
-# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-# defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+# Disable auto-playing video
+defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
+defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
 
 # Enable "Do Not Track"
 defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
@@ -933,13 +936,13 @@ defaults write org.m0k.transmission RandomPort -bool true
 # # Show the app window when clicking the menu bar icon
 # defaults write com.twitter.twitter-mac MenuItemBehavior -int 1
 
-# # Enable the hidden ‘Develop' menu
+# # Enable the hidden 'Develop' menu
 # defaults write com.twitter.twitter-mac ShowDevelopMenu -bool true
 
 # # Open links in the background
 # defaults write com.twitter.twitter-mac openLinksInBackground -bool true
 
-# # Allow closing the ‘new tweet' window by pressing `Esc`
+# # Allow closing the 'new tweet' window by pressing `Esc`
 # defaults write com.twitter.twitter-mac ESCClosesComposeWindow -bool true
 
 # # Show full names rather than Twitter handles
