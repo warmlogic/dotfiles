@@ -8,7 +8,7 @@ alias .....="cd ../../../.."
 # alias ~="cd ~" # `cd` is probably faster to type though
 # alias -- -="cd -"
 
-# Shortcuts
+# # Shortcuts
 # alias d="cd ~/Documents/Dropbox"
 # alias dl="cd ~/Downloads"
 # alias dt="cd ~/Desktop"
@@ -26,12 +26,16 @@ else # macOS `ls`
     export LSCOLORS='BxBxhxDxfxhxhxhxhxcxcx'
 fi
 
-# List all files colorized in long format
-alias l="ls -lF ${colorflag}"
-
-# List all files colorized in long format, including dot files
-alias la="ls -laF ${colorflag}"
-
+# List files with file info markers
+alias l="ls -F ${colorflag}"
+# List files in long format
+alias ll="ls -lF ${colorflag}"
+# List all files, including dot files
+alias la="ls -aF ${colorflag}"
+# List all files in long format, including dot files
+alias lla="ls -laF ${colorflag}"
+# List all files in long format, including dot files, with human-readable sizes
+alias lah="ls -lahF ${colorflag}"
 # List only directories
 alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 
@@ -57,7 +61,7 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 alias update_macos_brew='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup;'
 
 # Google Chrome
-# alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 # alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
 
 # IP addresses
@@ -150,12 +154,12 @@ alias map="xargs -n1"
 # alias stfu="osascript -e 'set volume output muted true'"
 # alias pumpitup="osascript -e 'set volume output volume 100'"
 
-# # Kill all the tabs in Chrome to free up memory
-# # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
-# alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
-# Lock the screen (when going AFK)
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+# # Lock the screen (when going AFK)
+# alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
