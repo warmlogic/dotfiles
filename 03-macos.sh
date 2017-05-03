@@ -34,14 +34,14 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # # Menu bar: hide the Time Machine, Volume, and User icons
 # defaults -currentHost write dontAutoLoad -array \
-# 	"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-# 	"/System/Library/CoreServices/Menu Extras/Volume.menu" \
-# 	"/System/Library/CoreServices/Menu Extras/User.menu"
+#   "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+#   "/System/Library/CoreServices/Menu Extras/Volume.menu" \
+#   "/System/Library/CoreServices/Menu Extras/User.menu"
 # defaults write com.apple.systemuiserver menuExtras -array \
-# 	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-# 	"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-# 	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
-# 	"/System/Library/CoreServices/Menu Extras/Clock.menu"
+#   "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+#   "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+#   "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+#   "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 # # Set highlight color to green
 # defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
@@ -363,9 +363,9 @@ chflags nohidden ~/Library
 # Expand the following File Info panes:
 # "General", "Open with", and "Sharing & Permissions"
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
-	General -bool true \
-	OpenWith -bool true \
-	Privileges -bool true
+    General -bool true \
+    OpenWith -bool true \
+    Privileges -bool true
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
@@ -597,35 +597,35 @@ defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnab
 
 # # Change indexing order and disable some search results
 # # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
-# # 	MENU_DEFINITION
-# # 	MENU_CONVERSION
-# # 	MENU_EXPRESSION
-# # 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-# # 	MENU_WEBSEARCH             (send search queries to Apple)
-# # 	MENU_OTHER
+# #     MENU_DEFINITION
+# #     MENU_CONVERSION
+# #     MENU_EXPRESSION
+# #     MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
+# #     MENU_WEBSEARCH             (send search queries to Apple)
+# #     MENU_OTHER
 # defaults write com.apple.spotlight orderedItems -array \
-# 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-# 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-# 	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
-# 	'{"enabled" = 1;"name" = "PDF";}' \
-# 	'{"enabled" = 1;"name" = "FONTS";}' \
-# 	'{"enabled" = 1;"name" = "DOCUMENTS";}' \
-# 	'{"enabled" = 1;"name" = "MESSAGES";}' \
-# 	'{"enabled" = 1;"name" = "CONTACT";}' \
-# 	'{"enabled" = 1;"name" = "EVENT_TODO";}' \
-# 	'{"enabled" = 1;"name" = "IMAGES";}' \
-# 	'{"enabled" = 1;"name" = "BOOKMARKS";}' \
-# 	'{"enabled" = 1;"name" = "MUSIC";}' \
-# 	'{"enabled" = 1;"name" = "MOVIES";}' \
-# 	'{"enabled" = 1;"name" = "PRESENTATIONS";}' \
-# 	'{"enabled" = 1;"name" = "SPREADSHEETS";}' \
-# 	'{"enabled" = 1;"name" = "SOURCE";}' \
-# 	'{"enabled" = 1;"name" = "MENU_DEFINITION";}' \
-# 	'{"enabled" = 1;"name" = "MENU_OTHER";}' \
-# 	'{"enabled" = 1;"name" = "MENU_CONVERSION";}' \
-# 	'{"enabled" = 1;"name" = "MENU_EXPRESSION";}' \
-# 	'{"enabled" = 1;"name" = "MENU_WEBSEARCH";}' \
-# 	'{"enabled" = 1;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+#   '{"enabled" = 1;"name" = "APPLICATIONS";}' \
+#   '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+#   '{"enabled" = 1;"name" = "DIRECTORIES";}' \
+#   '{"enabled" = 1;"name" = "PDF";}' \
+#   '{"enabled" = 1;"name" = "FONTS";}' \
+#   '{"enabled" = 1;"name" = "DOCUMENTS";}' \
+#   '{"enabled" = 1;"name" = "MESSAGES";}' \
+#   '{"enabled" = 1;"name" = "CONTACT";}' \
+#   '{"enabled" = 1;"name" = "EVENT_TODO";}' \
+#   '{"enabled" = 1;"name" = "IMAGES";}' \
+#   '{"enabled" = 1;"name" = "BOOKMARKS";}' \
+#   '{"enabled" = 1;"name" = "MUSIC";}' \
+#   '{"enabled" = 1;"name" = "MOVIES";}' \
+#   '{"enabled" = 1;"name" = "PRESENTATIONS";}' \
+#   '{"enabled" = 1;"name" = "SPREADSHEETS";}' \
+#   '{"enabled" = 1;"name" = "SOURCE";}' \
+#   '{"enabled" = 1;"name" = "MENU_DEFINITION";}' \
+#   '{"enabled" = 1;"name" = "MENU_OTHER";}' \
+#   '{"enabled" = 1;"name" = "MENU_CONVERSION";}' \
+#   '{"enabled" = 1;"name" = "MENU_EXPRESSION";}' \
+#   '{"enabled" = 1;"name" = "MENU_WEBSEARCH";}' \
+#   '{"enabled" = 1;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
 
 # # Load new settings before rebuilding the index
 # killall mds > /dev/null 2>&1
@@ -646,9 +646,9 @@ osascript <<EOD
 
 tell application "Terminal"
 
-	local allOpenedWindows
-	local initialOpenedWindows
-	local windowID
+    local allOpenedWindows
+    local initialOpenedWindows
+    local windowID
     set themeName to "Kakhi"
 
     (* Store the IDs of all the open terminal windows. *)
@@ -688,27 +688,27 @@ tell application "Terminal"
     (* Wait a little bit to ensure that the custom theme is added. *)
     delay 1
 
-	(* Set the custom theme as the default terminal theme. *)
-	set default settings to settings set themeName
+    (* Set the custom theme as the default terminal theme. *)
+    set default settings to settings set themeName
 
-	(* Get the IDs of all the currently opened terminal windows. *)
-	set allOpenedWindows to id of every window
+    (* Get the IDs of all the currently opened terminal windows. *)
+    set allOpenedWindows to id of every window
 
-	repeat with windowID in allOpenedWindows
+    repeat with windowID in allOpenedWindows
 
-		(* Close the additional windows that were opened in order
-		   to add the custom theme to the list of terminal themes. *)
-		if initialOpenedWindows does not contain windowID then
-			close (every window whose id is windowID)
+        (* Close the additional windows that were opened in order
+           to add the custom theme to the list of terminal themes. *)
+        if initialOpenedWindows does not contain windowID then
+            close (every window whose id is windowID)
 
-		(* Change the theme for the initial opened terminal windows
-		   to remove the need to close them in order for the custom
-		   theme to be applied. *)
-		else
-			set current settings of tabs of (every window whose id is windowID) to settings set themeName
-		end if
+        (* Change the theme for the initial opened terminal windows
+           to remove the need to close them in order for the custom
+           theme to be applied. *)
+        else
+            set current settings of tabs of (every window whose id is windowID) to settings set themeName
+        end if
 
-	end repeat
+    end repeat
 
 end tell
 
@@ -850,11 +850,11 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 
 # Use the system-native print preview dialog
 defaults write com.google.Chrome DisablePrintPreview -bool true
-# defaults write com.google.Chrome.canary DisablePrintPreview -bool true
+defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 
 # Expand the print dialog by default
 defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
-# defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
+defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 
 ###############################################################################
 # GPGMail 2                                                                   #
@@ -991,24 +991,24 @@ defaults write org.m0k.transmission RandomPort -bool true
 ###############################################################################
 
 for app in "Activity Monitor" \
-	"Address Book" \
-	"Calendar" \
-	"cfprefsd" \
-	"Google Chrome" \
-	"Contacts" \
-	"Dock" \
-	"Finder" \
-	"Mail" \
-	"Messages" \
-	"Photos" \
-	"Safari" \
-	"Spectacle" \
-	"SystemUIServer" \
-	"Terminal" \
-	"Transmission"; do
-	killall "${app}" &> /dev/null
+    "Address Book" \
+    "Calendar" \
+    "cfprefsd" \
+    "Google Chrome" \
+    "Google Chrome Canary" \
+    "Contacts" \
+    "Dock" \
+    "Finder" \
+    "Mail" \
+    "Messages" \
+    "Photos" \
+    "Safari" \
+    "Spectacle" \
+    "SystemUIServer" \
+    "Terminal" \
+    "Transmission"; do
+    killall "${app}" &> /dev/null
 done
-# "Google Chrome Canary" \
 # "Opera" \
 # "SizeUp" \
 # "Tweetbot" \
