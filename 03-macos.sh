@@ -503,8 +503,8 @@ defaults write com.apple.Safari ShowSidebarInTopSites -bool true
 # # Disable Safari's thumbnail cache for History and Top Sites
 # defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
 
-# Enable Safari's debug menu
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+# # Enable Safari's debug menu
+# defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 
 # Make Safari's search banners default to Contains instead of Starts With
 defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
