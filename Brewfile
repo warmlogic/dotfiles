@@ -91,6 +91,7 @@ brew 'm-cli'
 
 cask 'google-cloud-sdk'
 cask 'google-chrome'
+cash 'google-chrome-canary'
 # cask 'sublime-text'
 cask 'sublime-text-dev'
 cask 'aquamacs'
@@ -109,6 +110,7 @@ cask 'toggldesktop'
 cask 'selfcontrol'
 cask 'transmission'
 cask 'vlc'
+cask 'flux'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 
@@ -128,7 +130,6 @@ cask 'qlvideo'
 # # Not installing these applications via brew cask
 
 # cask 'slack'
-# cask 'flux'
 # cask 'sourcetree'
 # cask 'spotify'
 # cask 'spotify-notifications'
