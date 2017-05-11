@@ -497,8 +497,8 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 # Show Safari's bookmarks bar by default
 defaults write com.apple.Safari ShowFavoritesBar -bool true
 
-# Show Safari's sidebar in Top Sites
-defaults write com.apple.Safari ShowSidebarInTopSites -bool true
+# # Show Safari's sidebar in Top Sites
+# defaults write com.apple.Safari ShowSidebarInTopSites -bool true
 
 # # Disable Safari's thumbnail cache for History and Top Sites
 # defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
@@ -546,11 +546,11 @@ defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
 defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
 
-# Disable auto-playing video
-defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
-defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+# # Disable auto-playing video
+# defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
+# defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
+# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+# defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
 
 # Enable "Do Not Track"
 defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
