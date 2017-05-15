@@ -478,9 +478,9 @@ defaults write com.apple.dock wvous-br-modifier -int 262114
 # defaults write com.apple.Safari UniversalSearchEnabled -bool false
 # defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
-# Press Tab to highlight each item on a web page
-defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
+# # Press Tab to highlight each item on a web page
+# defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
+# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
 
 # Show the full URL in the address bar (note: this still hides the scheme)
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
@@ -494,8 +494,24 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 # # Allow hitting the Backspace key to go to the previous page in history
 # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
 
+# Show status bar
+defaults write com.apple.Safari ShowStatusBar -bool true
+
 # Show Safari's bookmarks bar by default
 defaults write com.apple.Safari ShowFavoritesBar -bool true
+defaults write com.apple.Safari "ShowFavoritesBar-v2" -bool true
+
+# Always show tab bar
+defaults write com.apple.Safari AlwaysShowTabBar -bool true
+
+# # Safari opens with: A new window
+# defaults write com.apple.Safari AlwaysRestoreSessionAtLaunch -bool false
+
+# New windows open with: Empty Page (1), Favorites (4)
+defaults write com.apple.Safari NewWindowBehavior -int 4
+
+# New tabs open with: Empty Page (1), Favorites (4)
+defaults write com.apple.Safari NewTabBehavior -int 4
 
 # # Show Safari's sidebar in Top Sites
 # defaults write com.apple.Safari ShowSidebarInTopSites -bool true
