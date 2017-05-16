@@ -58,7 +58,8 @@ alias week='date +%V'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # Get macOS Software Updates, and update installed Homebrew and installed packages
-alias update_macos_brew='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup;'
+alias update_macos='sudo softwareupdate -i -a;'
+alias update_brew='brew update; brew upgrade; brew cleanup;'
 
 # Google Chrome
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
