@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 echo "Install all Mac App Store apps first!"
 echo "1Password"
+echo "Slack"
 echo "Mail Notifr"
 echo "Deliveries"
 echo "Just Focus"

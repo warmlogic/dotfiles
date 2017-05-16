@@ -94,7 +94,6 @@ cask 'google-chrome'
 cash 'google-chrome-canary'
 cask 'google-cloud-sdk'
 cask 'sublime-text-dev'
-cask 'slack'
 cask 'aquamacs'
 cask 'github-desktop'
 cask 'dropbox'
@@ -116,6 +115,7 @@ cask 'wordservice'
 
 # # Not installing these applications via brew cask
 
+# cask 'slack'
 # cash 'google-drive'
 # cask 'sublime-text'
 # cask 'slack-beta'
