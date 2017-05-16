@@ -259,26 +259,36 @@ function tre() {
 }
 
 # functions for setting up template Jupyter Notebooks
-nb-templatenb () {
-    # Usage: nb-templatenb [exploratory_data_analysis]
+nb-presentationnb () {
+    # Usage: nb-presentationnb [filename_suffix]
     # Will download the most up-to-date Template notebook named with:
-    # today's date, your initials, and [an optional phrase].
-    # The example would yield a file named:
-    # 2016-08-12_mvm_exploratory_data_analysis.ipynb
-    curl -H 'Accept: application/vnd.github.v3.raw' -L \
-    https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/Template-Python.ipynb \
-    -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
+    # today's date, your initials, and [an optional suffix].
+    # `nb-presentationnb project_findings` would yield a file named:
+    # 2016-08-12_mvm_project_findings.ipynb
+    # wget version - won't overwrite
+    wget -nc --show-progress --header "Accept: application/vnd.github.v3.raw" \
+    -O date +%Y-%m-%d`_${myinitials}_$1.ipynb \
+    https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/template-presentation-python.ipynb
+    # # curl version - will overwrite
+    # curl -H 'Accept: application/vnd.github.v3.raw' -L \
+    # https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/template-presentation-python.ipynb \
+    # -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
 }
 
-nb-minimalnb () {
-    # Usage: nb-minimalnb [exploratory_data_analysis]
+nb-dailynb () {
+    # Usage: nb-dailynb [filename_suffix]
     # Will download the most up-to-date Template notebook named with:
-    # today's date, your initials, and [an optional phrase].
-    # The example would yield a file named:
+    # today's date, your initials, and [an optional suffix].
+    # `nb-dailynb exploratory_data_analysis` would yield a file named:
     # 2016-08-12_mvm_exploratory_data_analysis.ipynb
-    curl -H 'Accept: application/vnd.github.v3.raw' -L \
-    https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/minimal-python.ipynb \
-    -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
+    # wget version - won't overwrite
+    wget -nc --show-progress --header "Accept: application/vnd.github.v3.raw" \
+    -O date +%Y-%m-%d`_${myinitials}_$1.ipynb \
+    https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/template-daily-python.ipynb
+    # # curl version - will overwrite
+    # curl -H 'Accept: application/vnd.github.v3.raw' -L \
+    # https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/template-daily-python.ipynb \
+    # -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
 }
 
 # Create directory structure in current working directory
