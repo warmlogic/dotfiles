@@ -474,6 +474,19 @@ defaults write com.apple.dock wvous-br-modifier -int 262114
 # Safari & WebKit                                                             #
 ###############################################################################
 
+# # Have to manually install extensions:
+# # In Safari Extensions Gallery:
+# 1Password
+# Ghostery
+# Instapaper
+# Clean Links for Google
+# The Camelizer
+# # Not in Safari Extensions Gallery:
+# uBlock Origin https://github.com/el1t/uBlock-Safari
+# Boomerang for Gmail http://www.boomeranggmail.com
+# Reddit Enhancement Suite http://redditenhancementsuite.com
+# mailto: https://github.com/gage006/mailto-chromeextension
+
 # # Privacy: don't send search queries to Apple
 # defaults write com.apple.Safari UniversalSearchEnabled -bool false
 # defaults write com.apple.Safari SuppressSearchSuggestions -bool true
