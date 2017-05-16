@@ -14,8 +14,6 @@ tap 'homebrew/versions'
 # Use GNU instead of BSD commands
 # the with-default-names uses normal name, rather than
 brew 'coreutils'
-# brew 'binutils'
-# brew 'diffutils'
 brew 'findutils', args: ['with-default-names']
 brew 'gawk'
 brew 'gnu-indent', args: ['with-default-names']
@@ -44,34 +42,23 @@ brew 'git'
 brew 'git-lfs'
 brew 'git-flow'
 brew 'git-extras'
-# brew 'hub'
 
 # Amazon command line interface
 brew 'awscli'
 
-# Simple cheat-sheets; install and run $ cheat tar
+# Simple cheat-sheets; install and run `$ cheat tar`
 brew 'cheat'
 
-# brew 'ctags'
-brew 'file-formula'
+brew 'file-formula' # guess file type
 brew 'gcc'
 brew 'gpatch'
-# brew 'gpg'
-# brew 'jsonpp'
 brew 'less'
 brew 'make'
-# brew 'most'
 brew 'rsync'
-# # Don't use non-native ssh if storing passphrase in Keychain
-# brew 'openssh'
-# brew 'ssh-copy-id'
 brew 'imagemagick', args: ['with-webp']
 
 brew 'pandoc'
 brew 'rename'
-# brew 'svn'
-# brew 'the_silver_searcher'
-# Using tmux
 brew 'tmux'
 # This apparently helps tmux work without problems.
 brew 'reattach-to-user-namespace'
@@ -87,30 +74,57 @@ brew 'emacs', args: ['--with-cocoa']
 # Mac Swiss Army Knife https://github.com/rgcr/m-cli
 brew 'm-cli'
 
+# # not installing
+# brew 'binutils'
+# brew 'diffutils'
+# brew 'hub'
+# brew 'ctags'
+# brew 'gpg'
+# brew 'jsonpp'
+# brew 'svn'
+# brew 'the_silver_searcher'
+# brew 'most'
+# # Don't use non-native ssh if storing passphrase in Keychain
+# brew 'openssh'
+# brew 'ssh-copy-id'
+
 # Install additional applications
 
-cask 'google-cloud-sdk'
 cask 'google-chrome'
 cash 'google-chrome-canary'
-# cask 'sublime-text'
+cask 'google-cloud-sdk'
 cask 'sublime-text-dev'
+cask 'slack'
 cask 'aquamacs'
 cask 'github-desktop'
 cask 'dropbox'
-cask 'arq'
-cask 'keybase'
 cask 'caffeine'
 cask 'spectacle'
 cask 'quicksilver'
+cask 'vlc'
+cask 'flux'
 cask 'yujitach-menumeters'
 cask 'itsycal'
 cask 'omnidisksweeper'
+cask 'arq'
+cask 'keybase'
 cask 'harvest'
-cask 'toggldesktop'
 cask 'selfcontrol'
 cask 'transmission'
-cask 'vlc'
-cask 'flux'
+cask 'the-unarchiver'
+cask 'wordservice'
+
+# # Not installing these applications via brew cask
+
+# cash 'google-drive'
+# cask 'sublime-text'
+# cask 'slack-beta'
+# cask 'toggldesktop'
+# cask 'iterm2'
+# cask 'sourcetree'
+# cask 'spotify'
+# cask 'spotify-notifications'
+# cask 'adobe-reader'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 
@@ -127,15 +141,6 @@ cask 'suspicious-package'
 cask 'quicklookase'
 cask 'qlvideo'
 
-# # Not installing these applications via brew cask
-
-# cask 'slack'
-# cask 'sourcetree'
-# cask 'spotify'
-# cask 'spotify-notifications'
-# cask 'iterm2'
-# cask 'adobe-reader'
-
-# # This installs helper functions.
+# # This installs helper functions for downloading jupyter notebook templates.
 # tap 'jbwhit/tap'
 # brew 'nb3automation'

@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
+echo "Install all Mac App Store apps first!"
+echo "1Password"
+echo "Mail Notifr"
+echo "Deliveries"
+echo "Just Focus"
+echo "GarageBand"
+echo "iMovie"
+echo "Keynote"
+echo "Numbers"
+echo "Pages"
+read -p "Press any key to continue... " -n1 -s
+echo ""
 
 # Install command-line tools using Homebrew.
 
@@ -8,18 +20,18 @@ sudo -v
 # Get homebrew
 # Modified from: https://github.com/pathikrit/mac-setup-script/blob/master/setup.sh
 if test ! $(which brew); then
-  echo "Installing Xcode ..."
+  echo "Installing Xcode command line developer tools..."
   xcode-select --install
 
-  echo "Installing Homebrew ..."
+  echo "Installing Homebrew..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
-  echo "Updating Homebrew ..."
+  echo "Updating Homebrew..."
   brew update
   brew upgrade
 fi
 
-# This installs the Brewfile
+# Install everything in Brewfile
 brew bundle
 
 # Switch to using brew-installed bash as default shell
