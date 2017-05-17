@@ -12,7 +12,8 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
 
 1. Update macOS to the latest version with the Mac App Store
 1. Install Xcode from the Mac App Store, open it and accept the license agreement
-1. Copy public and private SSH keys to `~/.ssh` and make sure they're set to `600`
+1. Copy public and private SSH keys to `~/.ssh` and `chmod` to `600`
+    - Set up SSH keys in Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
 1. Clone this repo (e.g., to `~/src/dotfiles`) and `cd`
 1. Run `01-bootstrap.sh` to copy necessary files (hidden and otherwise)
 1. `cp .extra ~/.extra` and edit, if desired (explained below)
