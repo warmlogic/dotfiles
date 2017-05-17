@@ -12,7 +12,7 @@ tap 'caskroom/versions'
 tap 'homebrew/versions'
 
 # Use GNU instead of BSD commands
-# the with-default-names uses normal name, rather than
+# the with-default-names uses normal name, rather than g-prefixed
 brew 'coreutils'
 brew 'findutils', args: ['with-default-names']
 brew 'gawk'
@@ -60,7 +60,7 @@ brew 'imagemagick', args: ['with-webp']
 brew 'pandoc'
 brew 'rename'
 brew 'tmux'
-# This apparently helps tmux work without problems.
+# This helps tmux work on a Mac: https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
 brew 'reattach-to-user-namespace'
 
 # Visualize directory structure
@@ -73,6 +73,9 @@ brew 'emacs', args: ['--with-cocoa']
 
 # Mac Swiss Army Knife https://github.com/rgcr/m-cli
 brew 'm-cli'
+
+# Support for Mac App Store apps: https://github.com/mas-cli/mas
+brew 'mas'
 
 # # not installing
 # brew 'binutils'
@@ -90,50 +93,50 @@ brew 'm-cli'
 
 # Install additional applications
 
-cask 'google-chrome'
-cash 'google-chrome-canary'
-cask 'google-cloud-sdk'
+cask 'slack'
 cask 'sublime-text-dev'
 cask 'aquamacs'
+cask 'google-chrome'
+cash 'google-chrome-canary'
+cash 'google-drive'
+cask 'google-cloud-sdk'
 cask 'github-desktop'
+cask 'arq'
 cask 'dropbox'
 cask 'caffeine'
 cask 'spectacle'
 cask 'quicksilver'
-cask 'vlc'
 cask 'flux'
 cask 'yujitach-menumeters'
 cask 'itsycal'
-cask 'omnidisksweeper'
-cask 'arq'
 cask 'keybase'
 cask 'harvest'
+cask 'omnidisksweeper'
 cask 'selfcontrol'
 cask 'transmission'
+cask 'vlc'
 cask 'the-unarchiver'
 cask 'wordservice'
 
 # # Not installing these applications via brew cask
 
-# cask 'slack'
-# cash 'google-drive'
-# cask 'sublime-text'
 # cask 'slack-beta'
-# cask 'toggldesktop'
+# cask 'sublime-text'
 # cask 'iterm2'
+# cask 'macdown'
+# cask 'toggldesktop'
 # cask 'sourcetree'
+# cask 'adobe-reader'
 # cask 'spotify'
 # cask 'spotify-notifications'
-# cask 'adobe-reader'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
-
 cask 'qlcolorcode'
-cask 'qlstephen'
 cask 'qlmarkdown'
 cask 'quicklook-json'
-cask 'qlprettypatch'
 cask 'quicklook-csv'
+cask 'qlstephen'
+cask 'qlprettypatch'
 cask 'betterzipql'
 cask 'qlimagesize'
 cask 'webpquicklook'
@@ -141,6 +144,20 @@ cask 'suspicious-package'
 cask 'quicklookase'
 cask 'qlvideo'
 
-# # This installs helper functions for downloading jupyter notebook templates.
+# Install Mac App Store apps
+mas '1Password', id: 443987910
+# mas 'Slack', id: 803453959
+mas 'Mail Notifr', id: 808154494
+mas 'Deliveries', id: 924726344
+mas 'JustFocus', id: 1142151959
+mas 'GarageBand', id: 682658836
+mas 'iMovie', id: 408981434
+mas 'Keynote', id: 409183694
+mas 'Numbers', id: 409203825
+mas 'Pages', id: 409201541
+
+# # This installs helper functions for downloading jupyter notebook templates
+# # https://github.com/jbwhit/homebrew-tap
+# # https://github.com/jbwhit/automation
 # tap 'jbwhit/tap'
 # brew 'nb3automation'

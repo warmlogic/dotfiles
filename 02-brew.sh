@@ -1,22 +1,12 @@
 #!/usr/bin/env bash
-echo "Install all Mac App Store apps first!"
-echo "1Password"
-echo "Slack"
-echo "Mail Notifr"
-echo "Deliveries"
-echo "Just Focus"
-echo "GarageBand"
-echo "iMovie"
-echo "Keynote"
-echo "Numbers"
-echo "Pages"
-read -p "Press any key to continue... " -n1 -s
-echo ""
 
 # Install command-line tools using Homebrew.
 
 # Ask for the administrator password upfront.
 sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `02-brew.sh` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Get homebrew
 # Modified from: https://github.com/pathikrit/mac-setup-script/blob/master/setup.sh
