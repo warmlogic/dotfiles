@@ -1,15 +1,34 @@
 #!/usr/bin/env bash
 
-wget -O ~/Downloads/Miniconda3-latest-MacOSX-x86_64.sh https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
-bash ~/Downloads/Miniconda3-latest-MacOSX-x86_64.sh -b -p $HOME/miniconda3
+mc_filename="Miniconda3-latest-MacOSX-x86_64.sh"
+mc_dl_path="$HOME/Downloads/$mc_filename"
+mc_dir="$HOME/miniconda3"
+
+# # Exit if miniconda file already exists
+# {
+# if [ -f "$mc_dl_path" ]; then
+#     echo "$mc_dl_path already exists! Delete before running this script to ensure installation is up-to-date."
+#     exit 0
+# fi
+# }
+
+# Download miniconda file only if it does not already exist
+{
+if [ ! -f "$mc_dl_path" ]; then
+    wget --show-progress -O $mc_dl_path https://repo.continuum.io/miniconda/$mc_filename
+fi
+}
+
+# install
+bash $mc_dl_path -b -p $mc_dir
 
 # Add to and source .bashrc
-export PATH="$HOME/miniconda3/bin:$PATH"
+export PATH="$mc_dir/bin:$PATH"
 # Clears history
 hash -r
 
-# Don't ask if you want to update
-conda config --set always_yes yes
+# # Don't ask if you want to update
+# conda config --set always_yes yes
 
 # -q for quiet
 conda update -q conda
