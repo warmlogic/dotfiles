@@ -60,7 +60,7 @@ brew 'imagemagick', args: ['with-webp']
 brew 'pandoc'
 brew 'rename'
 brew 'tmux'
-# This helps tmux work on a Mac: https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
+# Helps tmux work on macOS https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
 brew 'reattach-to-user-namespace'
 
 # Visualize directory structure
@@ -74,7 +74,7 @@ brew 'emacs', args: ['--with-cocoa']
 # Mac Swiss Army Knife https://github.com/rgcr/m-cli
 brew 'm-cli'
 
-# Support for Mac App Store apps: https://github.com/mas-cli/mas
+# Support for Mac App Store apps https://github.com/mas-cli/mas
 brew 'mas'
 
 # # not installing
@@ -139,13 +139,12 @@ cask 'qlmarkdown'
 cask 'quicklook-json'
 cask 'quicklook-csv'
 cask 'qlstephen'
-cask 'qlprettypatch'
-cask 'betterzipql'
-cask 'qlimagesize'
-cask 'webpquicklook'
-cask 'suspicious-package'
-cask 'quicklookase'
 cask 'qlvideo'
+# cask 'suspicious-package'
+# cask 'qlimagesize'
+# cask 'quicklookase'
+# cask 'qlprettypatch'
+# cask 'betterzipql'
 
 # Install Mac App Store apps
 mas '1Password', id: 443987910
