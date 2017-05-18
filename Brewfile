@@ -140,11 +140,11 @@ cask 'quicklook-json'
 cask 'quicklook-csv'
 cask 'qlstephen'
 cask 'qlvideo'
+cask 'betterzipql'
 # cask 'suspicious-package'
 # cask 'qlimagesize'
 # cask 'quicklookase'
 # cask 'qlprettypatch'
-# cask 'betterzipql'
 
 # Install Mac App Store apps
 mas '1Password', id: 443987910
