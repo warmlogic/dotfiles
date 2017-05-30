@@ -259,7 +259,7 @@ function tre() {
 }
 
 # functions for setting up template Jupyter Notebooks
-nb-presentationnb () {
+function nb-presentationnb () {
     # Usage: nb-presentationnb [filename_suffix]
     # Will download the most up-to-date Template notebook named with:
     # today's date, your initials, and [an optional suffix].
@@ -275,7 +275,7 @@ nb-presentationnb () {
     # -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
 }
 
-nb-dailynb () {
+function nb-dailynb () {
     # Usage: nb-dailynb [filename_suffix]
     # Will download the most up-to-date Template notebook named with:
     # today's date, your initials, and [an optional suffix].
@@ -293,7 +293,7 @@ nb-dailynb () {
 
 # Create directory structure in current working directory
 # Inspired by https://drivendata.github.io/cookiecutter-data-science/
-nb-create-project () {
+function nb-create-project () {
     directories='data
     docs
     notebooks
@@ -318,5 +318,14 @@ nb-create-project () {
       if [ $dir_name = "notebooks" ]; then
         echo -e ${ignore_nb} >> $dir_name/.gitignore
       fi
+    done
+}
+
+function brew_cask_check_updates () {
+    for cask in $(brew cask list -1); do
+      echo -n "${cask} : ";
+      caskLatest=$(brew cask info $cask | head -1 | awk -F: '{print $2}' | tr -d '[[:space:]]');
+      caskCurrentDir=$(brew cask info $cask | grep -e "^$(brew --prefix).*/${cask}/"| head -1| awk '{print $1}');
+      [ ! -d $(dirname ${caskCurrentDir})/${caskLatest} ] && echo "outdated ("$(basename ${caskCurrentDir})" -> "${caskLatest}")" || echo "current";
     done
 }
