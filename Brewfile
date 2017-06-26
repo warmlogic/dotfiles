@@ -119,6 +119,7 @@ cask 'lastfm'
 cask 'noisy'
 cask 'the-unarchiver'
 cask 'wordservice'
+cask 'kindle'
 
 # # Not installing these applications via brew cask
 
