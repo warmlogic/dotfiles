@@ -55,7 +55,8 @@ scikit-learn
 scipy
 numpy
 statsmodels
-tqdm'
+tqdm
+py-xgboost'
 
 # # removed:
 # mpld3
