@@ -120,6 +120,7 @@ cask 'noisy'
 cask 'the-unarchiver'
 cask 'wordservice'
 cask 'kindle'
+cask 'docker'
 
 # # Not installing these applications via brew cask
 
