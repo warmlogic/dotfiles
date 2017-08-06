@@ -230,13 +230,28 @@ function v() {
     fi;
 }
 
-# `e` with no arguments opens the current directory in Emacs, otherwise opens the
-# given location
+# # `e` with no arguments opens the current directory in Emacs, otherwise opens the
+# # given location
+# function e() {
+#   if [ $# -eq 0 ]; then
+#       emacs .;
+#   else
+#       emacs "$@";
+#   fi;
+# }
+
 function e() {
     if [ $# -eq 0 ]; then
-        emacs .;
+        open -a /Applications/Aquamacs.app .;
+        # /Applications/Aquamacs.app/Contents/MacOS/Aquamacs .;
     else
-        emacs "$@";
+        # Create the files as needed -- not as good as raw emacs, but acceptable
+        for f in "$@"
+        do
+            test -e $f || touch $f
+        done
+        open -a /Applications/Aquamacs.app "$@"
+        # /Applications/Aquamacs.app/Contents/MacOS/Aquamacs "$@"
     fi;
 }
 
