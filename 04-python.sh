@@ -56,10 +56,12 @@ scipy
 numpy
 statsmodels
 tqdm
+s3fs
 py-xgboost'
 
 # # removed:
 # mpld3
+# xlrd
 
 # # Only including r in py3 because conda install r and py2 don't work.
 # # If you need it, force
@@ -70,7 +72,21 @@ source activate py3
 
 # additional packages
 pip install missingno
-# pip install mplsvds
+# pip install lightgbm # https://github.com/Microsoft/LightGBM
+# pip install tensorflow
+# pip install keras
+# pip install ftfy # https://github.com/LuminosoInsight/python-ftfy
+# pip install -U spacy # https://spacy.io/
+# python -m spacy download en
+# pip install -U nltk
+# pip install gensim # https://radimrehurek.com/gensim/
+
+# # plotly and dash
+# pip install plotly # https://plot.ly/python/
+# pip install dash # The core dash backend
+# pip install dash-renderer # The dash front-end
+# pip install dash-html-components # HTML components
+# pip install dash-core-components # Supercharged components
 
 # Set the display name for this kernel
 python -m ipykernel install --user --name py3 --display-name "py3"
@@ -81,7 +97,6 @@ source deactivate
 
 # # additional packages
 # pip install missingno
-# # pip install mplsvds
 
 # # Set the display name for this kernel
 # python -m ipykernel install --user --name py2 --display-name "py2"
