@@ -81,6 +81,10 @@ You may also want Python 3 and a number of useful packages related to data analy
 ./04-python.sh
 ```
 
+## TODO
+
+Consider including an [IPython startup script](http://ipython.readthedocs.io/en/stable/interactive/tutorial.html?highlight=startup#startup-files).
+
 ## Feedback
 
 Suggestions/improvements [welcome](https://github.com/warmlogic/dotfiles/issues)!
