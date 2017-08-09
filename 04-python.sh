@@ -57,6 +57,7 @@ numpy
 statsmodels
 tqdm
 s3fs
+networkx
 py-xgboost'
 
 # # removed:
@@ -71,22 +72,23 @@ conda create -q --name py3 python=3 $packages -y
 source activate py3
 
 # additional packages
-pip install missingno
-# pip install lightgbm # https://github.com/Microsoft/LightGBM
-# pip install tensorflow
-# pip install keras
-# pip install ftfy # https://github.com/LuminosoInsight/python-ftfy
+pip install -U missingno
+pip install -U imbalanced-learn
+pip install -U lightgbm # https://github.com/Microsoft/LightGBM
+# pip install -U tensorflow
+# pip install -U keras
+# pip install -U ftfy # https://github.com/LuminosoInsight/python-ftfy
 # pip install -U spacy # https://spacy.io/
 # python -m spacy download en
 # pip install -U nltk
-# pip install gensim # https://radimrehurek.com/gensim/
+# pip install -U gensim # https://radimrehurek.com/gensim/
 
 # # plotly and dash
-# pip install plotly # https://plot.ly/python/
-# pip install dash # The core dash backend
-# pip install dash-renderer # The dash front-end
-# pip install dash-html-components # HTML components
-# pip install dash-core-components # Supercharged components
+# pip install -U plotly # https://plot.ly/python/
+# pip install -U dash # The core dash backend
+# pip install -U dash-renderer # The dash front-end
+# pip install -U dash-html-components # HTML components
+# pip install -U dash-core-components # Supercharged components
 
 # Set the display name for this kernel
 python -m ipykernel install --user --name py3 --display-name "py3"
