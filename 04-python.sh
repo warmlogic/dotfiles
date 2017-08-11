@@ -72,6 +72,7 @@ conda create -q --name py3 python=3 $packages -y
 source activate py3
 
 # additional packages
+pip install -U graphviz
 pip install -U missingno
 pip install -U imbalanced-learn
 pip install -U lightgbm # https://github.com/Microsoft/LightGBM

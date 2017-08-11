@@ -57,6 +57,8 @@ brew 'make'
 brew 'rsync'
 brew 'imagemagick', args: ['with-webp']
 
+brew 'graphviz' # for python tree model plotting
+
 brew 'pandoc'
 brew 'rename'
 brew 'tmux'
