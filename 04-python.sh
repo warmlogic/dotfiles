@@ -48,6 +48,8 @@ jupyter_contrib_nbextensions
 pyparsing
 matplotlib
 mkl
+cython
+blas
 seaborn
 pip
 pandas
