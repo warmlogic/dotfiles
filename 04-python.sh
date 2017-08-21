@@ -60,7 +60,8 @@ statsmodels
 tqdm
 s3fs
 networkx
-py-xgboost'
+py-xgboost
+pandas-datareader'
 
 # # removed:
 # mpld3
