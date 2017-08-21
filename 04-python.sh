@@ -49,7 +49,6 @@ pyparsing
 matplotlib
 mkl
 cython
-blas
 seaborn
 pip
 pandas
@@ -66,6 +65,7 @@ pandas-datareader'
 # # removed:
 # mpld3
 # xlrd
+# blas
 
 # # Only including r in py3 because conda install r and py2 don't work.
 # # If you need it, force
@@ -79,13 +79,14 @@ pip install -U graphviz
 pip install -U missingno
 pip install -U imbalanced-learn
 pip install -U lightgbm # https://github.com/Microsoft/LightGBM
-# pip install -U tensorflow
-# pip install -U keras
-# pip install -U ftfy # https://github.com/LuminosoInsight/python-ftfy
-# pip install -U spacy # https://spacy.io/
-# python -m spacy download en
-# pip install -U nltk
-# pip install -U gensim # https://radimrehurek.com/gensim/
+pip install -U tensorflow
+pip install -U keras
+pip install -U ftfy # https://github.com/LuminosoInsight/python-ftfy
+pip install -U spacy # https://spacy.io/
+python -m spacy download en
+pip install -U nltk
+pip install -U gensim # https://radimrehurek.com/gensim/
+pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
 
 # # plotly and dash
 # pip install -U plotly # https://plot.ly/python/
