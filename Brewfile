@@ -96,11 +96,10 @@ brew 'mas'
 # Install additional applications
 
 cask 'slack'
-cask 'sublime-text-dev'
+cask 'sublime-text'
 cask 'aquamacs'
 cask 'google-chrome'
-cash 'google-chrome-canary'
-cash 'google-drive'
+cask 'google-drive'
 cask 'google-cloud-sdk'
 cask 'github-desktop'
 cask 'dropbox'
@@ -127,8 +126,9 @@ cask 'kindle'
 
 # # Not installing these applications via brew cask
 
+# cask 'google-chrome-canary'
+# cask 'sublime-text-dev'
 # cask 'slack-beta'
-# cask 'sublime-text'
 # cask 'iterm2'
 # cask 'macdown'
 # cask 'toggldesktop'
