@@ -41,31 +41,55 @@ conda info -a
 # This adds the conda-forge channel below the defaults library
 conda config --append channels conda-forge
 
-packages='jupyter
+# with mkl
+packages='pip
+mkl
+numpy
+scipy
+scikit-learn
+pandas
+statsmodels
+matplotlib
+seaborn
+cython
+jupyter
 notebook
 ipywidgets
 jupyter_contrib_nbextensions
-pyparsing
-matplotlib
-mkl
-cython
-seaborn
-pip
-pandas
-scikit-learn
-scipy
-numpy
-statsmodels
 tqdm
 s3fs
 networkx
 py-xgboost
 pandas-datareader'
 
+# # no mkl
+# packages='pip
+# nomkl
+# numpy
+# scipy
+# scikit-learn
+# pandas
+# statsmodels
+# matplotlib
+# seaborn
+# cython
+# jupyter
+# notebook
+# ipywidgets
+# jupyter_contrib_nbextensions
+# tqdm
+# s3fs
+# networkx
+# py-xgboost
+# pandas-datareader'
+
 # # removed:
 # mpld3
 # xlrd
+# nomkl
+# openblas # need this with nomkl?
 # blas
+# pyparsing
 
 # # Only including r in py3 because conda install r and py2 don't work.
 # # If you need it, force
