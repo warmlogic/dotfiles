@@ -56,7 +56,6 @@ jupyter
 notebook
 ipywidgets
 jupyter_contrib_nbextensions
-tqdm
 s3fs
 networkx
 py-xgboost
@@ -77,7 +76,6 @@ pandas-datareader'
 # notebook
 # ipywidgets
 # jupyter_contrib_nbextensions
-# tqdm
 # s3fs
 # networkx
 # py-xgboost
@@ -99,6 +97,7 @@ conda create -q --name py3 python=3 $packages -y
 source activate py3
 
 # additional packages
+pip install -U tqdm
 pip install -U graphviz
 pip install -U missingno
 pip install -U imbalanced-learn
