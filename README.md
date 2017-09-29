@@ -85,6 +85,7 @@ You may also want Python 3 and a number of useful packages related to data analy
 
 - Create `requirements.txt` file for pip, so we can run `pip install -r requirements.txt` instead of individual install commands
 - Consider including an [IPython startup script](http://ipython.readthedocs.io/en/stable/interactive/tutorial.html?highlight=startup#startup-files).
+- Set up "Open in Chrome" and "Open in Safari" AppleScripts, as described [here](https://www.engadget.com/2011/03/14/use-applescript-to-open-current-safari-url-in-google-chrome/).
 
 ## Feedback
 
