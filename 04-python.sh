@@ -97,6 +97,7 @@ conda create -q --name py3 python=3 $packages -y
 source activate py3
 
 # additional packages
+pip install -U xlrd
 pip install -U tqdm
 pip install -U graphviz
 pip install -U missingno
