@@ -58,7 +58,6 @@ ipywidgets
 jupyter_contrib_nbextensions
 s3fs
 networkx
-py-xgboost
 pandas-datareader'
 
 # # no mkl
@@ -78,10 +77,10 @@ pandas-datareader'
 # jupyter_contrib_nbextensions
 # s3fs
 # networkx
-# py-xgboost
 # pandas-datareader'
 
 # # removed:
+# xgboost
 # mpld3
 # xlrd
 # nomkl
@@ -97,6 +96,7 @@ conda create -q --name py3 python=3 $packages -y
 source activate py3
 
 # additional packages
+pip install -U xgboost
 pip install -U xlrd
 pip install -U tqdm
 pip install -U graphviz

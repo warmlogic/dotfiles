@@ -51,6 +51,7 @@ brew 'cheat'
 
 brew 'file-formula' # guess file type
 brew 'gcc'
+brew 'gcc@5' # for `pip install -U xgboost` because it won't use gcc-7
 brew 'gpatch'
 brew 'less'
 brew 'make'
