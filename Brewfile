@@ -14,7 +14,7 @@ tap 'homebrew/versions'
 # Use GNU instead of BSD commands
 # the with-default-names uses normal name, rather than g-prefixed
 brew 'coreutils'
-brew 'findutils', args: ['with-default-names']
+brew 'findutils'
 brew 'gawk'
 brew 'gnu-indent', args: ['with-default-names']
 brew 'gnu-sed', args: ['with-default-names']
