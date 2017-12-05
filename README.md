@@ -11,16 +11,16 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
 ### Quick instructions overview
 
 1. Update macOS to the latest version with the Mac App Store
-1. Install Xcode from the Mac App Store, open it and accept the license agreement
+1. (Optional, not needed if not doing iOS or Mac app development) Install Xcode from the Mac App Store, open it and accept the license agreement
 1. Copy public and private SSH keys to `~/.ssh` and `chmod` to `600`
     - Set up SSH keys in Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
 1. Clone this repo (e.g., to `~/src/dotfiles`) and `cd`
 1. Run `01-bootstrap.sh` to copy necessary files (hidden and otherwise)
 1. `cp .extra ~/.extra` and edit, if desired (explained below)
-1. Run `02-brew.sh` to install apps (installs Xcode command line developer tools first)
+1. Run `02-brew.sh` to install apps (this script installs the Xcode command line tools before installing brew)
 1. Run `03-macos.sh` to set up macOS preferences
 1. Restart your computer
-1. Run `04-python.sh` to set up a Python 3 conda environment
+1. Run `04-python.sh` to set up a Python 3 conda environment named `py3`
 1. Set up installed applications (look at `Brewfile` as a reminder of what was installed)
 
 More details below.
