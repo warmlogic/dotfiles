@@ -80,13 +80,11 @@ pandas-datareader'
 # pandas-datareader'
 
 # # removed:
-# xgboost
 # mpld3
-# xlrd
+# pyparsing
 # nomkl
 # openblas # need this with nomkl?
 # blas
-# pyparsing
 
 # # Only including r in py3 because conda install r and py2 don't work.
 # # If you need it, force
@@ -96,21 +94,33 @@ conda create -q --name py3 python=3 $packages -y
 source activate py3
 
 # additional packages
+pip install -U lightgbm # https://github.com/Microsoft/LightGBM
 pip install -U xgboost
+pip install -U imbalanced-learn
 pip install -U xlrd
 pip install -U tqdm
 pip install -U graphviz
 pip install -U missingno
-pip install -U imbalanced-learn
-pip install -U lightgbm # https://github.com/Microsoft/LightGBM
-pip install -U tensorflow
-pip install -U keras
+pip install -U pytest
+# pip install -U kaggle-cli
+
+# NLP packages
 pip install -U ftfy # https://github.com/LuminosoInsight/python-ftfy
 pip install -U spacy # https://spacy.io/
 python -m spacy download en
-pip install -U nltk
+# pip install -U thinc # https://github.com/explosion/thinc
 pip install -U gensim # https://radimrehurek.com/gensim/
-pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
+# pip install -U nltk
+# pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
+# pip install -U fuzzywuzzy # https://github.com/seatgeek/fuzzywuzzy
+# pip install -U python-Levenshtein # for fuzzywuzzy
+# pip install -U textacy # https://github.com/chartbeat-labs/textacy
+# pip install -U pattern # https://github.com/clips/pattern
+
+# neural network packages
+# pip install -U tensorflow
+# pip install -U keras
+# http://pytorch.org/
 
 # # plotly and dash
 # pip install -U plotly # https://plot.ly/python/
@@ -125,9 +135,6 @@ source deactivate
 
 # conda create -q --name py2 python=2 $packages -y
 # source activate py2
-
-# # additional packages
-# pip install missingno
 
 # # Set the display name for this kernel
 # python -m ipykernel install --user --name py2 --display-name "py2"
