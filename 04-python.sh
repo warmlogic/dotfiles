@@ -57,8 +57,7 @@ notebook
 ipywidgets
 jupyter_contrib_nbextensions
 s3fs
-networkx
-pandas-datareader'
+networkx'
 
 # # no mkl
 # packages='pip
@@ -99,19 +98,21 @@ pip install -U xgboost
 pip install -U imbalanced-learn
 pip install -U xlrd
 pip install -U tqdm
+pip install -U pandas-profiling # https://github.com/pandas-profiling/pandas-profiling
+pip install -U pandas-datareader # https://github.com/pydata/pandas-datareader
 pip install -U graphviz
-pip install -U missingno
+pip install -U missingno # https://github.com/ResidentMario/missingno
 pip install -U pytest
 # pip install -U kaggle-cli
 
 # NLP packages
 pip install -U ftfy # https://github.com/LuminosoInsight/python-ftfy
+pip install -U nltk
 pip install -U spacy # https://spacy.io/
 python -m spacy download en
 # pip install -U thinc # https://github.com/explosion/thinc
 pip install -U gensim # https://radimrehurek.com/gensim/
-# pip install -U nltk
-# pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
+pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
 # pip install -U fuzzywuzzy # https://github.com/seatgeek/fuzzywuzzy
 # pip install -U python-Levenshtein # for fuzzywuzzy
 # pip install -U textacy # https://github.com/chartbeat-labs/textacy
