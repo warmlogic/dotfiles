@@ -106,7 +106,6 @@ cask 'dropbox'
 cask 'box-sync'
 cask 'github-desktop'
 cask 'arq'
-cask 'the-unarchiver'
 cask 'spectacle'
 cask 'yujitach-menumeters'
 cask 'itsycal'
@@ -115,19 +114,20 @@ cask 'keybase'
 cask 'omnidisksweeper'
 cask 'noisy'
 cask 'rescuetime'
-cask 'selfcontrol'
 cask 'transmission'
 cask 'vlc'
 cask 'lastfm'
 cask 'wordservice'
 cask 'kindle'
 cask 'docker'
+cask 'ngrok'
 cask 'quicksilver'
 
 # # Not installing these applications via brew cask
 
 # cask 'flux'
 # cask 'harvest'
+# cask 'selfcontrol'
 # cask 'google-chrome-canary'
 # cask 'google-backup-and-sync'
 # cask 'box-edit'
@@ -141,6 +141,7 @@ cask 'quicksilver'
 # cask 'spotify'
 # cask 'spotify-notifications'
 # cask 'oversight'
+# cask 'mactex'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 cask 'qlcolorcode'
@@ -159,6 +160,7 @@ cask 'betterzipql'
 mas '1Password', id: 443987910
 # mas 'Slack', id: 803453959
 mas 'Mail Notifr', id: 808154494
+mas 'The Unarchiver', id: 425424353
 mas 'Deliveries', id: 924726344
 mas 'JustFocus', id: 1142151959
 mas 'GarageBand', id: 682658836
