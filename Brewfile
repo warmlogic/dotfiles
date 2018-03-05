@@ -120,7 +120,6 @@ cask 'lastfm'
 cask 'wordservice'
 cask 'kindle'
 cask 'docker'
-cask 'ngrok'
 cask 'quicksilver'
 
 # # Not installing these applications via brew cask
@@ -142,6 +141,8 @@ cask 'quicksilver'
 # cask 'spotify-notifications'
 # cask 'oversight'
 # cask 'mactex'
+# cask 'ngrok'
+# cask 'shiftit'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 cask 'qlcolorcode'
