@@ -121,6 +121,7 @@ cask 'wordservice'
 cask 'kindle'
 cask 'docker'
 cask 'quicksilver'
+cask 'now'
 
 # # Not installing these applications via brew cask
 
