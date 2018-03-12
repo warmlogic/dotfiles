@@ -121,7 +121,8 @@ cask 'wordservice'
 cask 'kindle'
 cask 'docker'
 cask 'quicksilver'
-cask 'now'
+cask 'jupyter-notebook-viewer'
+cask 'now' # zeit.co
 
 # # Not installing these applications via brew cask
 
