@@ -1,8 +1,7 @@
-# # Add `~/bin` to the `$PATH`
+# Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
-# https://conda.io/docs/user-guide/install/macos.html#installing-in-silent-mode
-# source $HOME/miniconda3/bin/activate
+# https://conda.io/docs/user-guide/install/macos.html
 export PATH="$HOME/miniconda3/bin:$PATH"
 
 # Load the shell dotfiles, and then some:
