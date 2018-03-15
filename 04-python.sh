@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
 
-mc_filename="Miniconda3-latest-MacOSX-x86_64.sh"
-mc_dl_path="$HOME/Downloads/$mc_filename"
-mc_dir="$HOME/miniconda3"
+MC_FILENAME="Miniconda3-latest-MacOSX-x86_64.sh"
+MC_DL_PATH="$HOME/Downloads/$MC_FILENAME"
+MC_DIR="$HOME/miniconda3"
 
 # # Exit if miniconda file already exists
 # {
-# if [ -f "$mc_dl_path" ]; then
-#     echo "$mc_dl_path already exists! Delete before running this script to ensure installation is up-to-date."
+# if [ -f "$MC_DL_PATH" ]; then
+#     echo "$MC_DL_PATH already exists! Delete before running this script to ensure installation is up-to-date."
 #     exit 0
 # fi
 # }
 
 # Download miniconda file only if it does not already exist
 {
-if [ ! -f "$mc_dl_path" ]; then
-    wget --show-progress -O $mc_dl_path https://repo.continuum.io/miniconda/$mc_filename
+if [ ! -f "$MC_DL_PATH" ]; then
+    wget --show-progress -O $MC_DL_PATH https://repo.continuum.io/miniconda/$MC_FILENAME
 fi
 }
 
 # install
-bash $mc_dl_path -b -p $mc_dir
+bash $MC_DL_PATH -b -p $MC_DIR
 
 # Add to and source .bashrc
-export PATH="$mc_dir/bin:$PATH"
+export PATH="$MC_DIR/bin:$PATH"
 # Clears history
 hash -r
 
