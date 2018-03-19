@@ -333,6 +333,10 @@ function nb-create-project () {
         mkdir -p $dir_name/models
         mkdir -p $dir_name/visualization
         # mkdir -p $dir_name/sql
+        touch $dir_name/data/__init__.py
+        touch $dir_name/features/__init__.py
+        touch $dir_name/models/__init__.py
+        touch $dir_name/visualization/__init__.py
       fi
       if [ $dir_name = "data" ]; then
         mkdir -p $dir_name/external
