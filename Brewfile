@@ -123,6 +123,8 @@ cask 'docker'
 cask 'quicksilver'
 cask 'jupyter-notebook-viewer'
 cask 'now' # zeit.co
+cask 'tunnelblick' # VPN
+cask 'avast-security'
 
 # # Not installing these applications via brew cask
 
