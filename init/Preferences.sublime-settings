@@ -7,7 +7,7 @@
     "default_encoding": "UTF-8",
     "default_line_ending": "unix",
     "detect_indentation": false,
-    "draw_white_space": "all",
+    "draw_white_space": "selection",
     "draw_centered": true,
     "ensure_newline_at_eof_on_save": false,
     "file_exclude_patterns":
