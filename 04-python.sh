@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-MC_FILENAME="Miniconda3-latest-MacOSX-x86_64.sh"
-MC_DL_PATH="$HOME/Downloads/$MC_FILENAME"
+MC_DL_FILE="Miniconda3-latest-MacOSX-x86_64.sh"
+MC_DL_PATH="$HOME/Downloads/$MC_DL_FILE"
 MC_DIR="$HOME/miniconda3"
 
 # # Exit if miniconda file already exists
@@ -15,7 +15,7 @@ MC_DIR="$HOME/miniconda3"
 # Download miniconda file only if it does not already exist
 {
 if [ ! -f "$MC_DL_PATH" ]; then
-    wget --show-progress -O $MC_DL_PATH https://repo.continuum.io/miniconda/$MC_FILENAME
+    wget --show-progress -O $MC_DL_PATH https://repo.continuum.io/miniconda/$MC_DL_FILE
 fi
 }
 
@@ -34,6 +34,8 @@ hash -r
 conda update -q conda
 
 conda install -n root _license
+
+conda upgrade -y --all
 
 # List info in case things don't work
 conda info -a
@@ -109,7 +111,7 @@ pip install -U pytest
 pip install -U ftfy # https://github.com/LuminosoInsight/python-ftfy
 pip install -U nltk
 pip install -U spacy # https://spacy.io/
-python -m spacy download en
+python -m spacy download en_core_web_lg
 # pip install -U thinc # https://github.com/explosion/thinc
 pip install -U gensim # https://radimrehurek.com/gensim/
 pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
