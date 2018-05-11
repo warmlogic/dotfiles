@@ -7,9 +7,7 @@ cask_args appdir: '/Applications'
 
 # List of brew repositories
 tap 'homebrew/bundle'
-tap 'homebrew/dupes'
 tap 'caskroom/versions'
-tap 'homebrew/versions'
 
 # Use GNU instead of BSD commands
 # the with-default-names uses normal name, rather than g-prefixed
@@ -124,7 +122,9 @@ cask 'quicksilver'
 cask 'jupyter-notebook-viewer'
 cask 'now' # zeit.co
 cask 'tunnelblick' # VPN
-cask 'avast-security'
+cask 'postman'
+# cask 'avast-security'
+# cask 'sophos-anti-virus-home-edition'
 
 # # Not installing these applications via brew cask
 
@@ -155,7 +155,7 @@ cask 'quicklook-json'
 cask 'quicklook-csv'
 cask 'qlstephen'
 cask 'qlvideo'
-cask 'betterzipql'
+cask 'betterzip'
 # cask 'suspicious-package'
 # cask 'qlimagesize'
 # cask 'quicklookase'
