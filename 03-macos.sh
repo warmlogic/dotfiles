@@ -60,8 +60,8 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
 # (Uncomment if you're on an older Mac that messes up the animation)
 #defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
 
-# Increase window resize speed for Cocoa applications
-defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+# # Increase window resize speed for Cocoa applications
+# defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -87,8 +87,8 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
 defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 
-# Disable Resume system-wide
-defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+# # Disable Resume system-wide
+# defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
 # # Disable automatic termination of inactive apps
 # defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
@@ -479,9 +479,12 @@ defaults write com.apple.dock wvous-br-modifier -int 262114
 # # In Safari Extensions Gallery:
 # 1Password
 # Ghostery
+# DuckDuckGo Privacy Essentials
 # Instapaper
 # Clean Links for Google
+# Clearbit Connect
 # The Camelizer
+# json-lite
 # # Not in Safari Extensions Gallery:
 # uBlock Origin https://github.com/el1t/uBlock-Safari
 # Boomerang for Gmail http://www.boomeranggmail.com
@@ -607,11 +610,11 @@ defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreade
 defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
 defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
 
-# Disable inline attachments (just show the icons)
-defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
+# # Disable inline attachments (just show the icons)
+# defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 
-# Disable automatic spell checking
-defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
+# # Disable automatic spell checking
+# defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
 
 ###############################################################################
 # Spotlight                                                                   #
@@ -860,8 +863,8 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 # # Disable automatic emoji substitution (i.e. use plain text smileys)
 # defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
 
-# Disable smart quotes as it's annoying for messages that contain code
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
+# # Disable smart quotes as it's annoying for messages that contain code
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
 
 # # Disable continuous spell checking
 # defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
@@ -957,31 +960,6 @@ defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
 defaults write org.m0k.transmission RandomPort -bool true
 
 ###############################################################################
-# Twitter.app                                                                 #
-###############################################################################
-
-# # Disable smart quotes as it's annoying for code tweets
-# defaults write com.twitter.twitter-mac AutomaticQuoteSubstitutionEnabled -bool false
-
-# # Show the app window when clicking the menu bar icon
-# defaults write com.twitter.twitter-mac MenuItemBehavior -int 1
-
-# # Enable the hidden 'Develop' menu
-# defaults write com.twitter.twitter-mac ShowDevelopMenu -bool true
-
-# # Open links in the background
-# defaults write com.twitter.twitter-mac openLinksInBackground -bool true
-
-# # Allow closing the 'new tweet' window by pressing `Esc`
-# defaults write com.twitter.twitter-mac ESCClosesComposeWindow -bool true
-
-# # Show full names rather than Twitter handles
-# defaults write com.twitter.twitter-mac ShowFullNames -bool true
-
-# # Hide the app in the background if it's not the front-most window
-# defaults write com.twitter.twitter-mac HideInBackground -bool true
-
-###############################################################################
 # Tweetbot.app                                                                #
 ###############################################################################
 
@@ -1042,5 +1020,4 @@ done
 # "Opera" \
 # "SizeUp" \
 # "Tweetbot" \
-# "Twitter" \
 echo "Done. Note that some of these changes require a logout/restart to take effect."
