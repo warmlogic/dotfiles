@@ -87,58 +87,60 @@ networkx'
 # openblas # need this with nomkl?
 # blas
 
-# # Only including r in py3 because conda install r and py2 don't work.
-# # If you need it, force
-# conda create -q --name py3 --channel r r r-irkernel r-recommended r-essentials rpy2 python=3 $packages -y
-
+# Option 1: Create separate environment called py3
 conda create -q --name py3 python=3 $packages -y
 source activate py3
 
-# additional packages
-pip install -U lightgbm # https://github.com/Microsoft/LightGBM
-pip install -U xgboost
-pip install -U imbalanced-learn
+# # Option 2: Create the py3 environment with R (does not work with py2)
+# conda create -q --name py3 --channel r r r-irkernel r-recommended r-essentials rpy2 python=3 $packages -y
+
+# Dataset profiling and loading
 pip install -U xlrd
-pip install -U tqdm
 pip install -U pandas-profiling # https://github.com/pandas-profiling/pandas-profiling
-pip install -U pandas-datareader # https://github.com/pydata/pandas-datareader
-pip install -U graphviz
 pip install -U missingno # https://github.com/ResidentMario/missingno
-pip install -U pytest
+pip install -U imbalanced-learn
+pip install -U pandas-datareader # https://github.com/pydata/pandas-datareader
 # pip install -U kaggle-cli
 
-# NLP packages
-pip install -U ftfy # https://github.com/LuminosoInsight/python-ftfy
-pip install -U nltk
+# Utility packages
+pip install -U graphviz
+pip install -U tqdm
+pip install -U pytest
+
+# ML packages
+pip install -U lightgbm # https://github.com/Microsoft/LightGBM
+pip install -U xgboost
+
+# Foundational NLP packages
 pip install -U spacy # https://spacy.io/
 python -m spacy download en_core_web_lg
-# pip install -U thinc # https://github.com/explosion/thinc
 pip install -U gensim # https://radimrehurek.com/gensim/
-pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
-# pip install -U fuzzywuzzy # https://github.com/seatgeek/fuzzywuzzy
-# pip install -U python-Levenshtein # for fuzzywuzzy
-# pip install -U textacy # https://github.com/chartbeat-labs/textacy
+pip install -U nltk
+
+# NLP building on top of spaCy or others
+pip install -U textacy # https://github.com/chartbeat-labs/textacy
+# pip install -U thinc # https://github.com/explosion/thinc
 # pip install -U pattern # https://github.com/clips/pattern
 
-# neural network packages
+# NLP utilities
+pip install -U ftfy # https://github.com/LuminosoInsight/python-ftfy
+pip install -U fuzzywuzzy # https://github.com/seatgeek/fuzzywuzzy
+pip install -U python-Levenshtein # for fuzzywuzzy
+pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
+
+# Neural network packages
 # pip install -U tensorflow
 # pip install -U keras
 # http://pytorch.org/
 
-# # plotly and dash
+# # Dlotly and Dash
 # pip install -U plotly # https://plot.ly/python/
 # pip install -U dash # The core dash backend
 # pip install -U dash-renderer # The dash front-end
 # pip install -U dash-html-components # HTML components
 # pip install -U dash-core-components # Supercharged components
 
-# Set the display name for this kernel
+# Add Jupyter kernel for this environment and set the display name
+# http://ipython.readthedocs.io/en/stable/install/kernel_install.html#kernels-for-different-environments
 python -m ipykernel install --user --name py3 --display-name "py3"
 source deactivate
-
-# conda create -q --name py2 python=2 $packages -y
-# source activate py2
-
-# # Set the display name for this kernel
-# python -m ipykernel install --user --name py2 --display-name "py2"
-# source deactivate
