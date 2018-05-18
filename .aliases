@@ -170,8 +170,9 @@ alias path='echo -e ${PATH//:/\\n}'
 
 # Activate conda environments
 # alias envpy2="source activate py2"
-alias envpy3="source activate py3"
-alias sd="source deactivate"
+# alias envpy3="source activate py3"
+# alias sd="source deactivate"
+alias envpy3="conda activate py3"
 
 # launch a Jupyter Notebook server
 alias nb-server="jupyter notebook"
