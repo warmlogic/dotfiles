@@ -62,25 +62,6 @@ jupyter_contrib_nbextensions
 s3fs
 networkx'
 
-# # no mkl
-# packages='pip
-# nomkl
-# numpy
-# scipy
-# scikit-learn
-# pandas
-# statsmodels
-# matplotlib
-# seaborn
-# cython
-# jupyter
-# notebook
-# ipywidgets
-# jupyter_contrib_nbextensions
-# s3fs
-# networkx
-# pandas-datareader'
-
 # # removed:
 # mpld3
 # pyparsing
@@ -136,7 +117,7 @@ pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
 # pip install -U keras
 # http://pytorch.org/
 
-# # Dlotly and Dash
+# # Plotly and Dash
 # pip install -U plotly # https://plot.ly/python/
 # pip install -U dash # The core dash backend
 # pip install -U dash-renderer # The dash front-end
@@ -146,7 +127,6 @@ pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
 # Add Jupyter kernel for this environment and set the display name
 # http://ipython.readthedocs.io/en/stable/install/kernel_install.html#kernels-for-different-environments
 python -m ipykernel install --user --name py3 --display-name "py3"
-source deactivate
 
 # # "source activate"
 # echo '' >> ~/.bash_profile
@@ -158,3 +138,5 @@ source deactivate
 echo '' >> ~/.bash_profile
 echo '# enable conda activate' >> ~/.bash_profile
 echo '. $HOME/'$MC_DIR'/etc/profile.d/conda.sh' >> ~/.bash_profile
+echo '# activate the py3 environment' >> ~/.bash_profile
+echo 'conda activate py3' >> ~/.bash_profile
