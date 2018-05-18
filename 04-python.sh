@@ -31,9 +31,9 @@ hash -r
 # conda config --set always_yes yes
 
 # -q for quiet
-conda update -q conda
+conda update -q conda -y
 
-conda install -n root _license
+conda install -n root _license -y
 
 conda upgrade -y --all
 
@@ -94,20 +94,22 @@ source activate py3
 # # Option 2: Create the py3 environment with R (does not work with py2)
 # conda create -q --name py3 --channel r r r-irkernel r-recommended r-essentials rpy2 python=3 $packages -y
 
-# Dataset profiling and loading
+# Dataset loading and profiling
 pip install -U xlrd
 pip install -U pandas-profiling # https://github.com/pandas-profiling/pandas-profiling
 pip install -U missingno # https://github.com/ResidentMario/missingno
-pip install -U imbalanced-learn
+
+# External datasets
 pip install -U pandas-datareader # https://github.com/pydata/pandas-datareader
 # pip install -U kaggle-cli
 
 # Utility packages
-pip install -U graphviz
 pip install -U tqdm
 pip install -U pytest
+pip install -U graphviz
 
 # ML packages
+pip install -U imbalanced-learn
 pip install -U lightgbm # https://github.com/Microsoft/LightGBM
 pip install -U xgboost
 
