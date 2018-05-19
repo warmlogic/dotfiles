@@ -87,6 +87,8 @@ pip install -U pandas-datareader # https://github.com/pydata/pandas-datareader
 
 # Utility packages
 pip install -U tqdm
+pip install -U nbdime # nbdiff
+nbdime config-git --enable --global
 pip install -U pytest
 pip install -U graphviz
 
