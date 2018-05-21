@@ -69,12 +69,9 @@ networkx'
 # openblas # need this with nomkl?
 # blas
 
-# Option 1: Create separate environment called py3
+# Create separate environment called py3
 conda create -q --name py3 python=3 $packages -y
 source activate py3
-
-# # Option 2: Create the py3 environment with R (does not work with py2)
-# conda create -q --name py3 --channel r r r-irkernel r-recommended r-essentials rpy2 python=3 $packages -y
 
 # Dataset loading and profiling
 pip install -U xlrd
@@ -88,7 +85,7 @@ pip install -U pandas-datareader # https://github.com/pydata/pandas-datareader
 # Utility packages
 pip install -U tqdm
 pip install -U nbdime # nbdiff
-nbdime config-git --enable --global
+nbdime config-git --enable --global # nbdiff
 pip install -U pytest
 pip install -U graphviz
 
@@ -96,6 +93,12 @@ pip install -U graphviz
 pip install -U imbalanced-learn
 pip install -U lightgbm # https://github.com/Microsoft/LightGBM
 pip install -U xgboost
+# auto-sklearn http://automl.github.io/auto-sklearn/stable/installation.html
+curl https://raw.githubusercontent.com/automl/auto-sklearn/master/requirements.txt | xargs -n 1 -L 1 pip install
+pip install -U auto-sklearn
+# TPOT http://epistasislab.github.io/tpot/installing/
+pip install -U deap update_checker stopit
+pip install -U tpot
 
 # Foundational NLP packages
 pip install -U spacy # https://spacy.io/
@@ -114,10 +117,10 @@ pip install -U fuzzywuzzy # https://github.com/seatgeek/fuzzywuzzy
 pip install -U python-Levenshtein # for fuzzywuzzy
 pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
 
-# Neural network packages
+# # Neural network packages
 # pip install -U tensorflow
 # pip install -U keras
-# http://pytorch.org/
+# # http://pytorch.org/
 
 # # Plotly and Dash
 # pip install -U plotly # https://plot.ly/python/
@@ -135,6 +138,8 @@ python -m ipykernel install --user --name py3 --display-name "py3"
 # echo '# enable source activate' >> ~/.bash_profile
 # echo '# https://conda.io/docs/user-guide/install/macos.html' >> ~/.bash_profile
 # echo 'export PATH="$HOME/'$MC_DIR'/bin:$PATH"' >> ~/.bash_profile
+# echo '# activate the py3 environment' >> ~/.bash_profile
+# echo 'source activate py3' >> ~/.bash_profile
 
 # "conda activate"
 echo '' >> ~/.bash_profile
