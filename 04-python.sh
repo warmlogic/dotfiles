@@ -86,11 +86,13 @@ pip install -U pandas-datareader # https://github.com/pydata/pandas-datareader
 pip install -U tqdm
 pip install -U nbdime # nbdiff
 nbdime config-git --enable --global # nbdiff
-pip install -U pytest
+# pip install -U pytest
+# pip install -U nose
 pip install -U graphviz
 
 # ML packages
 pip install -U imbalanced-learn
+pip install -U lime # https://github.com/marcotcr/lime
 pip install -U lightgbm # https://github.com/Microsoft/LightGBM
 pip install -U xgboost
 # auto-sklearn http://automl.github.io/auto-sklearn/stable/installation.html
