@@ -81,6 +81,23 @@ You may also want Python 3 and a number of useful packages related to data analy
 ./04-python.sh
 ```
 
+### Additional setup
+
+#### SublimeText Packages
+
+- [Package Control](https://packagecontrol.io/installation)
+- [WordCount](https://github.com/titoBouzout/WordCount)
+- [Pretty JSON](https://github.com/dzhibas/SublimePrettyJson)
+- [MarkdownHighlighting](https://github.com/braver/MarkdownHighlighting)
+- [INI](https://github.com/clintberry/sublime-text-2-ini)
+- [rsub](https://github.com/henrikpersson/rsub) ([see instructions](http://caitriggs.com/blog/using-sublime-text-editor-ec2-instance/))
+
+#### Jupyter Notebook Extensions
+
+- ExecuteTime
+- spellchecker
+- Table of Contents (2)
+
 ## TODO
 
 - Create `requirements.txt` file for pip, so we can run `pip install -r requirements.txt` instead of individual install commands
