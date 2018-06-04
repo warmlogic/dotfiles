@@ -122,7 +122,8 @@ cask 'quicksilver'
 cask 'jupyter-notebook-viewer'
 cask 'now' # zeit.co
 cask 'tunnelblick' # VPN
-cask 'postman'
+# cask 'postman'
+cask 'insomnia'
 # cask 'avast-security'
 # cask 'sophos-anti-virus-home-edition'
 
