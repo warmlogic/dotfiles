@@ -35,6 +35,6 @@ export MANPAGER='less -X';
 # Set AWS defaults
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html
-# export AWS_DEFAULT_PROFILE=personal # or run `export AWS_PROFILE=personal`
-# export AWS_DEFAULT_REGION=us-west-2
-# export AWS_DEFAULT_OUTPUT=text
+# export AWS_DEFAULT_PROFILE=personal; # or run `export AWS_PROFILE=personal`
+# export AWS_DEFAULT_REGION=us-west-2;
+# export AWS_DEFAULT_OUTPUT=text;
