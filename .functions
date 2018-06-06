@@ -318,7 +318,7 @@ function nb-create-project () {
     reports
     src'
 
-    ignore='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n/data\n'
+    ignore='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n/data\n.env\nconfig.ini\n'
     ignore_nb='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n'
 
     touch README.md
