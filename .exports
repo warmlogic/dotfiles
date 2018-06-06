@@ -29,6 +29,9 @@ export LESS_TERMCAP_md="${yellow}";
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X';
 
+# set Ansaro environment variables
+# export ANSARO_REPO_ROOT=$HOME/github/ansaro;
+
 # Set AWS defaults
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html
