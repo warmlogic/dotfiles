@@ -73,6 +73,9 @@ networkx'
 conda create -q --name py3 python=3 $packages -y
 source activate py3
 
+# Amazon command line interface
+pip install -U awscli
+
 # Dataset loading and profiling
 pip install -U xlrd
 pip install -U pandas-profiling # https://github.com/pandas-profiling/pandas-profiling

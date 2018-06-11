@@ -41,9 +41,6 @@ brew 'git-lfs'
 brew 'git-flow'
 brew 'git-extras'
 
-# Amazon command line interface
-brew 'awscli'
-
 # Simple cheat-sheets; install and run `$ cheat tar`
 brew 'cheat'
 
