@@ -1,0 +1,16 @@
+{
+  "load_extensions": {
+    "toc2/main": true,
+    "execute_time/ExecuteTime": true,
+    "spellchecker/main": true,
+    "collapsible_headings/main": true,
+    "select_keymap/main": true,
+    "highlight_selected_word/main": true
+  },
+  "toc2": {
+    "toc_cell": true
+  },
+  "ExecuteTime": {
+    "clear_timings_on_clear_output": true
+  }
+}
