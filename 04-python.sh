@@ -73,8 +73,11 @@ networkx'
 conda create -q --name py3 python=3 $packages -y
 source activate py3
 
-# Amazon command line interface
+# Amazon AWS command line interface
 pip install -U awscli
+
+# For provisioning AWS spot instances
+pip install -U spotr # https://github.com/samuelreh/spotr
 
 # Dataset loading and profiling
 pip install -U xlrd
