@@ -4,7 +4,6 @@
     "execute_time/ExecuteTime": true,
     "spellchecker/main": true,
     "collapsible_headings/main": true,
-    "select_keymap/main": true,
     "highlight_selected_word/main": true
   },
   "toc2": {
