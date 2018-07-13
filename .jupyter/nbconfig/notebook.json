@@ -4,12 +4,17 @@
     "execute_time/ExecuteTime": true,
     "spellchecker/main": true,
     "collapsible_headings/main": true,
-    "highlight_selected_word/main": true
+    "highlight_selected_word/main": true,
+    "scroll_down/main": true
   },
   "toc2": {
     "toc_cell": true
   },
   "ExecuteTime": {
     "clear_timings_on_clear_output": true
+  },
+  "scrollDownIsEnabled": true,
+  "highlight_selected_word": {
+    "enable_on_load": true
   }
 }
