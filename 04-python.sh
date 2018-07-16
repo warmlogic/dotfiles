@@ -44,7 +44,6 @@ conda info -a
 # This adds the conda-forge channel below the defaults library
 conda config --append channels conda-forge
 
-# with mkl
 packages='pip
 mkl
 numpy
@@ -62,13 +61,6 @@ jupyter_contrib_nbextensions
 s3fs
 networkx'
 
-# # removed:
-# mpld3
-# pyparsing
-# nomkl
-# openblas # need this with nomkl?
-# blas
-
 # Create separate environment called py3
 conda create -q --name py3 python=3 $packages -y
 source activate py3
@@ -81,12 +73,12 @@ pip install -U spotr # https://github.com/samuelreh/spotr
 
 # Dataset loading and profiling
 pip install -U xlrd
-pip install -U pandas-profiling # https://github.com/pandas-profiling/pandas-profiling
 pip install -U missingno # https://github.com/ResidentMario/missingno
+pip install -U pandas-profiling # https://github.com/pandas-profiling/pandas-profiling
 
 # External datasets
 pip install -U pandas-datareader # https://github.com/pydata/pandas-datareader
-# pip install -U kaggle-cli
+pip install -U kaggle-cli
 
 # Utility packages
 pip install -U tqdm
@@ -110,7 +102,8 @@ pip install -U tpot
 
 # Foundational NLP packages
 pip install -U spacy # https://spacy.io/
-python -m spacy download en_core_web_lg
+python -m spacy download en
+# python -m spacy download en_core_web_lg
 pip install -U gensim # https://radimrehurek.com/gensim/
 pip install -U nltk
 
