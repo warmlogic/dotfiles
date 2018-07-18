@@ -1,0 +1,17 @@
+{
+    "python_interpreter": "~/miniconda3/bin/python",
+
+    // "anaconda_tooltip_theme": "popup",
+
+    // "anaconda_linting_behaviour": "always",
+    "anaconda_linting_behaviour": "load-save",
+
+    "anaconda_linter_phantoms": false,
+
+    "mypy": true,
+
+    "pep8_ignore":
+    [
+        "E501"
+    ],
+}
