@@ -88,17 +88,28 @@ You may also want Python 3 and a number of useful packages related to data analy
 #### SublimeText Packages
 
 - [Package Control](https://packagecontrol.io/installation)
+- [Anaconda](http://damnwidget.github.io/anaconda/)
 - [WordCount](https://github.com/titoBouzout/WordCount)
 - [Pretty JSON](https://github.com/dzhibas/SublimePrettyJson)
-- [MarkdownHighlighting](https://github.com/braver/MarkdownHighlighting)
+- [MarkdownEditing](https://github.com/SublimeText-Markdown/MarkdownEditing)
+    + Change color scheme to ArcDark
 - [INI](https://github.com/clintberry/sublime-text-2-ini)
 - [rsub](https://github.com/henrikpersson/rsub) ([see instructions](http://caitriggs.com/blog/using-sublime-text-editor-ec2-instance/))
 
+Could use these for additional Python linting setup:
+- [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter)
+- [SublimeLinter-contrib-mypy](https://github.com/fredcallaway/SublimeLinter-contrib-mypy)
+
 #### Jupyter Notebook Extensions
+
+These should be automatically turned on, via `.jupyter/nbconfig/notebook.js`
 
 - ExecuteTime
 - spellchecker
 - Table of Contents (2)
+- Collapsible headings
+- Highlight selected word
+- Scroll down
 
 ## TODO
 
