@@ -65,6 +65,9 @@ networkx'
 conda create -q --name py3 python=3 $packages -y
 source activate py3
 
+# For Python file linting
+pip install -U mypy
+
 # Amazon AWS command line interface
 pip install -U awscli
 
