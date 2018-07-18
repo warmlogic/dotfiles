@@ -1,17 +1,18 @@
 {
     "python_interpreter": "~/miniconda3/bin/python",
 
-    // "anaconda_tooltip_theme": "popup",
-
     // "anaconda_linting_behaviour": "always",
     "anaconda_linting_behaviour": "load-save",
 
     "anaconda_linter_phantoms": false,
 
+    "anaconda_gutter_marks": true,
+    "anaconda_gutter_theme": "alpha",
+
     "mypy": true,
 
     "pep8_ignore":
     [
-        "E501"
+        "E501"  // line too long
     ],
 }
