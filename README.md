@@ -12,24 +12,32 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
 
 ### Quick instructions overview
 
-1. Update macOS to the latest version with the Mac App Store
-1. (Optional, not needed if not doing iOS or Mac app development) Install Xcode from the Mac App Store, open it and accept the license agreement
-1. Copy public and private SSH keys to `~/.ssh` and `chmod` to `600`
-    - Set up SSH keys in Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
-1. Clone this repo (e.g., to `~/src/dotfiles`) and `cd`
+1. Update macOS to the latest version via the Mac App Store
+1. Install the Xcode command line developer tools (required for `git`): `xcode-select --install`
+1. While you're waiting
+    1. [Generate a new ssh key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/): `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`
+    1. [Add your new public key to your GitHub account settings](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/) [here](https://github.com/settings/keys): `pbcopy < ~/.ssh/id_rsa.pub`
+1. Clone this repo
+    1. `mkdir -p ~/github/warmlogic`
+    1. `cd ~/github/warmlogic/`
+    1. `git clone git@github.com:warmlogic/dotfiles.git`
+    1. `cd ~/github/warmlogic/dotfiles/`
 1. Run `01-bootstrap.sh` to copy necessary files (hidden and otherwise)
 1. `cp .extra ~/.extra` and edit, if desired (explained below)
-1. Run `02-brew.sh` to install apps (this script installs the Xcode command line tools before installing brew)
+1. Ensure `02-brew.sh` includes only the programs you want to install
+    1. Run `02-brew.sh` to install apps (this script ensures the Xcode command line tools are installed before installing brew)
 1. Run `03-macos.sh` to set up macOS preferences
 1. Restart your computer
 1. Run `04-python.sh` to set up a Python 3 conda environment named `py3`
 1. Set up installed applications (look at `Brewfile` as a reminder of what was installed)
+1. If needed, copy public and private ssh keys from previous computer to `~/.ssh/` and `chmod` to `600`
+    - Set up `~/.ssh/config` to add ssh keys to Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
 
 More details below.
 
 ### Using Git and the bootstrap script
 
-Clone the repository wherever you want (I keep it in `~/src/dotfiles`). The bootstrapper script (`01-bootstrap.sh`) will pull in the latest version and copy the files to your home folder.
+Clone the repository wherever you want (I keep it in `~/github/warmlogic/dotfiles`). The bootstrapper script (`01-bootstrap.sh`) will pull in the latest version and copy the files to your home folder.
 
 `cd` into your local `dotfiles` repository, and start the installation:
 
