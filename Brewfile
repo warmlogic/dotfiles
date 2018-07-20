@@ -91,6 +91,7 @@ brew 'mas'
 
 # Install additional applications
 
+cask '1password'
 cask 'slack'
 cask 'sublime-text'
 cask 'aquamacs'
@@ -99,7 +100,6 @@ cask 'google-drive-file-stream'
 cask 'google-cloud-sdk'
 cask 'dropbox'
 cask 'box-sync'
-cask 'github-desktop'
 cask 'arq'
 cask 'spectacle'
 cask 'yujitach-menumeters'
@@ -115,17 +115,18 @@ cask 'lastfm'
 cask 'wordservice'
 cask 'kindle'
 cask 'docker'
-cask 'quicksilver'
+# cask 'quicksilver'
 cask 'jupyter-notebook-viewer'
-cask 'now' # zeit.co
 cask 'tunnelblick' # VPN
 # cask 'postman'
 cask 'insomnia'
+# cask 'now' # zeit.co
 # cask 'avast-security'
 # cask 'sophos-anti-virus-home-edition'
 
 # # Not installing these applications via brew cask
 
+# cask 'github-desktop'
 # cask 'flux'
 # cask 'harvest'
 # cask 'selfcontrol'
@@ -160,17 +161,17 @@ cask 'betterzip'
 # cask 'qlprettypatch'
 
 # Install Mac App Store apps
-mas '1Password', id: 443987910
+# mas '1Password', id: 443987910
 # mas 'Slack', id: 803453959
 mas 'Mail Notifr', id: 808154494
 mas 'The Unarchiver', id: 425424353
 mas 'Deliveries', id: 924726344
 mas 'JustFocus', id: 1142151959
-mas 'GarageBand', id: 682658836
-mas 'iMovie', id: 408981434
+# mas 'GarageBand', id: 682658836
+# mas 'iMovie', id: 408981434
 mas 'Keynote', id: 409183694
-mas 'Numbers', id: 409203825
-mas 'Pages', id: 409201541
+# mas 'Numbers', id: 409203825
+# mas 'Pages', id: 409201541
 
 # # This installs helper functions for downloading jupyter notebook templates
 # # https://github.com/jbwhit/homebrew-tap
