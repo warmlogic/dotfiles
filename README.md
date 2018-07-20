@@ -32,6 +32,7 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
 1. Set up installed applications (look at `Brewfile` as a reminder of what was installed)
 1. If needed, copy public and private ssh keys from previous computer to `~/.ssh/` and `chmod` to `600`
     - Set up `~/.ssh/config` to add ssh keys to Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
+- [Set up "Open in Safari or Chrome URL in Other Browser AppleScript + Automator Workflow](https://gist.github.com/warmlogic/e6b2f30640b4c5de2077373fb53f6df3)
 
 More details below.
 
@@ -123,7 +124,6 @@ These should be automatically turned on, via `.jupyter/nbconfig/notebook.js`
 
 - Create `requirements.txt` file for pip, so we can run `pip install -r requirements.txt` instead of individual install commands
 - Consider including an [IPython startup script](http://ipython.readthedocs.io/en/stable/interactive/tutorial.html?highlight=startup#startup-files).
-- Set up "Open in Chrome" and "Open in Safari" AppleScripts, as described [here](https://www.engadget.com/2011/03/14/use-applescript-to-open-current-safari-url-in-google-chrome/).
 
 ## Feedback
 
