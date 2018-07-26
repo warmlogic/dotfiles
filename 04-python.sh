@@ -112,6 +112,8 @@ pip install -U nltk
 
 # NLP building on top of spaCy or others
 pip install -U textacy # https://github.com/chartbeat-labs/textacy
+# pip install -U textblob # https://github.com/sloria/TextBlob
+# python -m textblob.download_corpora # downloads NLTK data
 # pip install -U thinc # https://github.com/explosion/thinc
 # pip install -U pattern # https://github.com/clips/pattern
 
@@ -120,6 +122,10 @@ pip install -U ftfy # https://github.com/LuminosoInsight/python-ftfy
 pip install -U fuzzywuzzy # https://github.com/seatgeek/fuzzywuzzy
 pip install -U python-Levenshtein # for fuzzywuzzy
 pip install -U pyldavis # https://github.com/bmabey/pyLDAvis
+
+# Spell checking
+# pip install -U pyenchant # https://github.com/rfk/pyenchant
+# pip install -U language_check # https://github.com/myint/language-check
 
 # # Neural network packages
 # pip install -U tensorflow
