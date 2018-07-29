@@ -69,8 +69,8 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
 # # Disable the "Are you sure you want to open this application?" dialog
 # defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# Remove duplicates in the "Open With" menu (also see `fixopenwith` alias)
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+# # Remove duplicates in the "Open With" menu (also see `fixopenwith` alias)
+# /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
 # # Display ASCII control characters using caret notation in standard text views
 # # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
