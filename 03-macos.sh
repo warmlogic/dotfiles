@@ -469,8 +469,7 @@ defaults write com.apple.dock wvous-br-modifier -int 262144
 # uBlock Origin
 # Instapaper
 # Clean Links for Google
-# json-lite
-# DuckDuckGo Privacy Essentials
+# Safari+mailto+Gmail: https://github.com/Famlam/mailto-chromeextension
 
 # # Privacy: don't send search queries to Apple
 # defaults write com.apple.Safari UniversalSearchEnabled -bool false
@@ -879,8 +878,8 @@ cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ 
 
 cp -r init/Anaconda.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Anaconda.sublime-settings
 
-# Set Sublime Text as the default application for text files
-defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}'
+# # Set Sublime Text as the default application for text files
+# defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}'
 
 ###############################################################################
 # Spectacle.app                                                               #
