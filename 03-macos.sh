@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# ~/.macos — https://mths.be/macos
+# ~/.macos
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we're about to change
@@ -468,8 +468,9 @@ defaults write com.apple.dock wvous-br-modifier -int 262144
 # 1Password
 # uBlock Origin
 # Instapaper
-# Clean Links for Google
-# Safari+mailto+Gmail: https://github.com/Famlam/mailto-chromeextension
+# Open Mail.app and set default mail app to MailNotifr
+# Not doing: Clean Links for Google
+# Not doing: Safari + mailto -> Gmail https://github.com/Famlam/mailto-chromeextension
 
 # # Privacy: don't send search queries to Apple
 # defaults write com.apple.Safari UniversalSearchEnabled -bool false
