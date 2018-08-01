@@ -92,6 +92,7 @@ nbdime config-git --enable --global # nbdiff
 pip install -U graphviz
 
 # ML packages
+pip install -U rfpimp # https://github.com/parrt/random-forest-importances
 pip install -U imbalanced-learn
 pip install -U lime # https://github.com/marcotcr/lime
 pip install -U lightgbm # https://github.com/Microsoft/LightGBM
