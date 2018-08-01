@@ -5,7 +5,8 @@
     "spellchecker/main": true,
     "collapsible_headings/main": true,
     "highlight_selected_word/main": true,
-    "scroll_down/main": true
+    "scroll_down/main": true,
+    "notify/notify": true
   },
   "toc2": {
     "toc_cell": true
@@ -16,5 +17,8 @@
   "scrollDownIsEnabled": true,
   "highlight_selected_word": {
     "enable_on_load": true
+  },
+  "notify": {
+    "sticky": false
   }
 }
