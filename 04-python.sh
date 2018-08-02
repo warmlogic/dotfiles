@@ -81,7 +81,7 @@ pip install -U pandas-profiling # https://github.com/pandas-profiling/pandas-pro
 
 # External datasets
 pip install -U pandas-datareader # https://github.com/pydata/pandas-datareader
-pip install -U kaggle-cli
+pip install -U kaggle
 
 # Utility packages
 pip install -U tqdm
