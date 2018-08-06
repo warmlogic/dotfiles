@@ -1,0 +1,90 @@
+name: py3
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - bleach
+  - bz2file
+  - cycler
+  - cython
+  - decorator
+  - feather-format
+  - freetype
+  - html5lib
+  - icu
+  - ipykernel
+  - ipython
+  - ipywidgets
+  - jsonschema
+  - jupyter
+  - jupyter_client
+  - jupyter_console
+  - jupyter_core
+  - jupyter_contrib_nbextensions
+  - libiconv
+  - libpng
+  - matplotlib
+  - mkl
+  - nb_conda_kernels
+  - nbconvert
+  - nbdime  # for nbdiff
+  - nbformat
+  # - networkx
+  - nose
+  - notebook
+  - numpy
+  - olefile
+  - pandas
+  - patsy
+  - pillow
+  # - pip
+  - pytest
+  - python=3.6.*
+  - python-dateutil
+  - pytz
+  - scikit-learn
+  - scipy
+  - seaborn
+  - setuptools
+  - s3fs
+  - smart_open
+  - spacy  # https://spacy.io/
+  - sqlite
+  - statsmodels
+  - swig
+  - tqdm
+  - xlrd
+  - widgetsnbextension
+  - awscli
+  - mypy  # linter
+  - missingno
+  - pandas-profiling
+  - pandas-summary
+  - pandas-datareader
+  - imbalanced-learn
+  - scikit-image  # for lime
+  - lightgbm  # https://github.com/Microsoft/LightGBM
+  - gensim  # https://radimrehurek.com/gensim/
+  - nltk
+  - textacy  # https://github.com/chartbeat-labs/textacy
+  - textblob  # https://github.com/sloria/TextBlob
+  # - thinc # https://github.com/explosion/thinc
+  # - pattern # https://github.com/clips/pattern
+  - ftfy  # https://github.com/LuminosoInsight/python-ftfy
+  - fuzzywuzzy  # https://github.com/seatgeek/fuzzywuzzy
+  - python-levenshtein  # for fuzzywuzzy
+  - pyldavis  # https://github.com/bmabey/pyLDAvis
+  - pip:
+    - kaggle
+    - isoweek
+    - graphviz
+    - sklearn-pandas
+    - rfpimp  # https://github.com/parrt/random-forest-importances
+    - lime  # https://github.com/marcotcr/lime
+    - deap  # for tpot
+    - update_checker  # for tpot
+    - stopit  # for tpot
+    - tpot  # http://epistasislab.github.io/tpot/installing/
+    # - pyenchant  # https://github.com/rfk/pyenchant
+    # - language-check  # https://github.com/myint/language-check
+    # - spotr  # https://github.com/samuelreh/spotr

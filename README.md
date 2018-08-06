@@ -122,7 +122,6 @@ These should be automatically turned on, via `.jupyter/nbconfig/notebook.js`
 
 ## TODO
 
-- Create `requirements.txt` file for pip, so we can run `pip install -r requirements.txt` instead of individual install commands
 - Consider including an [IPython startup script](http://ipython.readthedocs.io/en/stable/interactive/tutorial.html?highlight=startup#startup-files).
 
 ## Feedback
