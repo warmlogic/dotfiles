@@ -44,8 +44,6 @@ conda info -a
 # This adds the conda-forge channel below the defaults library
 conda config --append channels conda-forge
 
-# TODO configure for https://github.com/Anaconda-Platform/nb_conda_kernels
-
 # packages='pip
 # mkl
 # numpy
