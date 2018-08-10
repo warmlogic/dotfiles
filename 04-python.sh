@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# to manually nuke the current miniconda install
+# rm -rf ~/miniconda3 ~/.condarc ~/.conda ~/.continuum ~/.jupyter ~/.ipython
+
 MC_DIR="miniconda3"
 MC_DL_FILE="Miniconda3-latest-MacOSX-x86_64.sh"
 MC_DL_PATH="$HOME/Downloads/$MC_DL_FILE"
@@ -43,6 +46,11 @@ conda info -a
 
 # This adds the conda-forge channel below the defaults library
 conda config --append channels conda-forge
+
+# copy jupyter settings
+if [ ! -d "$HOME/.jupyter" ]; then
+  cp -r .jupyter $HOME/.jupyter
+fi
 
 # packages for base environment
 packages='awscli
