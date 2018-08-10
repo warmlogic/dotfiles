@@ -37,7 +37,7 @@ dependencies:
   - pandas
   - patsy
   - pillow
-  # - pip
+  - pip
   - pytest
   - python=3.6.*
   - python-dateutil
@@ -75,6 +75,7 @@ dependencies:
   - python-levenshtein  # for fuzzywuzzy
   - pyldavis  # https://github.com/bmabey/pyLDAvis
   - pip:
+    - pip
     - kaggle
     - isoweek
     - graphviz

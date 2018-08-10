@@ -34,7 +34,7 @@ hash -r
 # -q for quiet
 conda update -q conda -y
 
-conda install -n root _license -y
+conda install -n base _license -y
 
 conda upgrade --all -y
 
@@ -44,53 +44,81 @@ conda info -a
 # This adds the conda-forge channel below the defaults library
 conda config --append channels conda-forge
 
-# packages='pip
-# mkl
-# numpy
-# scipy
-# scikit-learn
-# pandas
-# statsmodels
-# matplotlib
-# seaborn
-# cython
-# feather-format
-# jupyter
-# notebook
-# ipywidgets
-# jupyter_contrib_nbextensions
-# nb_conda_kernels
-# s3fs
-# networkx'
+# packages for base environment
+packages='awscli
+cython
+feather-format
+ipykernel
+ipython
+ipywidgets
+jupyter
+jupyter_contrib_nbextensions
+matplotlib
+mkl
+mypy
+nb_conda_kernels
+nbconvert
+nbdime
+nbformat
+nose
+notebook
+numpy
+pandas
+pip
+pytest
+s3fs
+scipy
+seaborn
+smart_open
+tqdm
+widgetsnbextension
+xlrd'
 
-# Create separate environment called py3
-conda install -n base pip ipython ipykernel nb_conda_kernels -y
+# Install packages to run Jupyter Notebook server with automatic kernels per environment via nb_conda_kernels
+conda install -n base $packages -y
+
+# enable usage of conda command
+. $HOME/$MC_DIR/etc/profile.d/conda.sh
+
+conda activate base
+
+# enable nb_conda_kernels
+python -m nb_conda_kernels.install --enable --prefix="${CONDA_PREFIX}"
+
+# configure git to use nbdiff
+nbdime config-git --enable --global # nbdiff
+
+# upgrade/install a couple packages in base via pip
 pip install -U pip
-conda env create -f init/environment-py3.yml -q --force
-# conda create -q --name py3 python=3 $packages -y
+pip install -U kaggle
 
-# # "source activate"
+# conda deactivate
+
+# create the py3 environment with lots of good packages
+conda env create -f init/environment-py3.yml -q --force
+
+# add "source activate" to ~/.bash_profile, enable using it for other envs
 # echo '' >> ~/.bash_profile
 # echo '# enable source activate' >> ~/.bash_profile
 # echo '# https://conda.io/docs/user-guide/install/macos.html' >> ~/.bash_profile
 # echo 'export PATH="$HOME/'$MC_DIR'/bin:$PATH"' >> ~/.bash_profile
-# echo '# activate the py3 environment' >> ~/.bash_profile
-# echo 'source activate py3' >> ~/.bash_profile
+# echo '# activate the base environment' >> ~/.bash_profile
+# echo 'source activate base' >> ~/.bash_profile
 
-# "conda activate"
+# add "conda activate" to ~/.bash_profile, enable using it for other envs
 echo '' >> ~/.bash_profile
 echo '# enable conda activate' >> ~/.bash_profile
 echo '. $HOME/'$MC_DIR'/etc/profile.d/conda.sh' >> ~/.bash_profile
 echo '# activate the base environment' >> ~/.bash_profile
 echo 'conda activate' >> ~/.bash_profile
 
-. $HOME/$MC_DIR/etc/profile.d/conda.sh
-source ~/.bash_profile
-
-python -m nb_conda_kernels.install --enable
-
+# activate the py3 environment
 conda activate py3
 
+# need to update pip in py3
+pip install -U pip
+
+# because it's difficult to install xgboost on macOS via environment-py3.yml
 conda install xgboost -y
 
 # # For Python file linting
@@ -114,7 +142,7 @@ conda install xgboost -y
 # Utility packages
 # pip install -U tqdm
 # pip install -U nbdime # nbdiff
-nbdime config-git --enable --global # nbdiff
+# nbdime config-git --enable --global # nbdiff
 # pip install -U pytest
 # pip install -U nose
 # pip install -U graphviz
@@ -172,4 +200,5 @@ python -m spacy download en
 # # http://ipython.readthedocs.io/en/stable/install/kernel_install.html#kernels-for-different-environments
 # python -m ipykernel install --user --name py3 --display-name "py3"
 
+# deactivate py3 environment
 conda deactivate
