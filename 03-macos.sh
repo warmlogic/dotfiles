@@ -115,11 +115,11 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 # Disable automatic period substitution as it's annoying when typing code
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
-# # Disable smart quotes as they're annoying when typing code
-# defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+# Disable smart quotes as they're annoying when typing code
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-# # Disable auto-correct
-# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # # all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
@@ -142,6 +142,17 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 # sudo chflags uchg /private/var/vm/sleepimage
 
 ###############################################################################
+# Sound                                                                       #
+###############################################################################
+
+# Alert volume
+# Slider level:
+#  "75%": 0.7788008
+#  "50%": 0.6065307
+#  "25%": 0.4723665
+defaults write NSGlobalDomain com.apple.sound.beep.volume -float 0.6065307
+
+###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 
@@ -161,13 +172,6 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
 # # Increase sound quality for Bluetooth headphones/headsets
 # defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
-
-# Alert volume
-# Slider level:
-#  "75%": 0.7788008
-#  "50%": 0.6065307
-#  "25%": 0.4723665
-defaults write NSGlobalDomain com.apple.sound.beep.volume -float 0.6065307
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
