@@ -75,17 +75,18 @@ dependencies:
   - python-levenshtein  # for fuzzywuzzy
   - pyldavis  # https://github.com/bmabey/pyLDAvis
   - pip:
-    - pip
     - kaggle
-    - isoweek
-    - graphviz
-    - sklearn-pandas
-    - rfpimp  # https://github.com/parrt/random-forest-importances
+    - eli5  # https://github.com/TeamHG-Memex/eli5
     - lime  # https://github.com/marcotcr/lime
+    - rfpimp  # https://github.com/parrt/random-forest-importances
+    - deon  # https://github.com/drivendataorg/deon/
     - deap  # for tpot
     - update_checker  # for tpot
     - stopit  # for tpot
     - tpot  # http://epistasislab.github.io/tpot/installing/
+    - isoweek  # https://github.com/gisle/isoweek
+    - graphviz
+    - sklearn-pandas  # https://github.com/scikit-learn-contrib/sklearn-pandas
     # - pyenchant  # https://github.com/rfk/pyenchant
     # - language-check  # https://github.com/myint/language-check
     # - spotr  # https://github.com/samuelreh/spotr
