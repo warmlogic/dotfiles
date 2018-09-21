@@ -79,6 +79,7 @@ dependencies:
     - eli5  # https://github.com/TeamHG-Memex/eli5
     - lime  # https://github.com/marcotcr/lime
     - rfpimp  # https://github.com/parrt/random-forest-importances
+    - pdpbox  # https://github.com/SauceCat/PDPbox
     - deon  # https://github.com/drivendataorg/deon/
     - deap  # for tpot
     - update_checker  # for tpot
