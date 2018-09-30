@@ -57,6 +57,7 @@ dependencies:
   - widgetsnbextension
   - awscli
   - mypy  # linter
+  - pylint  # linter
   - missingno
   - pandas-profiling
   - pandas-summary
