@@ -73,6 +73,7 @@ notebook
 numpy
 pandas
 pip
+pylint
 pytest
 s3fs
 scipy
@@ -131,6 +132,7 @@ conda install xgboost -y
 
 # # For Python file linting
 # pip install -U mypy
+# pip install -U pylint
 
 # # Amazon AWS command line interface
 # pip install -U awscli
