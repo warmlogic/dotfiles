@@ -190,6 +190,26 @@ function getcertnames() {
     fi;
 }
 
+# `c` with no arguments opens the current directory in VS Code, otherwise
+# opens the given location
+function c() {
+    if [ $# -eq 0 ]; then
+        code .;
+    else
+        code "$@";
+    fi;
+}
+
+# `cn` with no arguments opens the current directory in VS Code in a
+# new window, otherwise opens the given location in a new window
+function cn() {
+    if [ $# -eq 0 ]; then
+        code -n .;
+    else
+        code -n "$@";
+    fi;
+}
+
 # `s` with no arguments opens the current directory in Sublime Text, otherwise
 # opens the given location
 function s() {
