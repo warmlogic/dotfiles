@@ -94,6 +94,7 @@ brew 'mas'
 
 cask '1password'
 cask 'slack'
+cask 'visual-studio-code'
 cask 'sublime-text'
 cask 'jupyter-notebook-viewer'
 cask 'arq'
