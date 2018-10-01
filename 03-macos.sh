@@ -888,6 +888,13 @@ defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls
 # defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 
 ###############################################################################
+# Visual Studio Code                                                          #
+###############################################################################
+
+# Install Visual Studio Code settings
+cp -r init/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json 2> /dev/null
+
+###############################################################################
 # Sublime Text                                                                #
 ###############################################################################
 
@@ -895,9 +902,6 @@ defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls
 cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings 2> /dev/null
 
 cp -r init/Anaconda.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Anaconda.sublime-settings
-
-# # Set Sublime Text as the default application for text files
-# defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}'
 
 ###############################################################################
 # Spectacle.app                                                               #
@@ -943,13 +947,6 @@ cp -r init/spectacle.json ~/Library/Application\ Support/Spectacle/Shortcuts.jso
 
 # # Randomize port on launch
 # defaults write org.m0k.transmission RandomPort -bool true
-
-###############################################################################
-# Tweetbot.app                                                                #
-###############################################################################
-
-# # Bypass the annoyingly slow t.co URL shortener
-# defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 
 ###############################################################################
 # Kill affected applications                                                  #
