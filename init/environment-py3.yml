@@ -56,8 +56,9 @@ dependencies:
   - xlrd
   - widgetsnbextension
   - awscli
-  - mypy  # linter
+  - flake8  # linter
   - pylint  # linter
+  - mypy  # linter
   - missingno
   - pandas-profiling
   - pandas-summary

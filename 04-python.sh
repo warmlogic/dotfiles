@@ -56,6 +56,7 @@ fi
 packages='awscli
 cython
 feather-format
+flake8
 ipykernel
 ipython
 ipywidgets
@@ -131,8 +132,9 @@ pip install -U pip
 conda install xgboost -y
 
 # # For Python file linting
-# pip install -U mypy
+# pip install -U flake8
 # pip install -U pylint
+# pip install -U mypy
 
 # # Amazon AWS command line interface
 # pip install -U awscli
