@@ -39,7 +39,6 @@ dependencies:
   - pillow
   - pip
   - pytest
-  - python=3.6.*
   - python-dateutil
   - pytz
   - scikit-learn
