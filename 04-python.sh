@@ -54,6 +54,7 @@ fi
 
 # packages for base environment
 packages='awscli
+bz2file
 cython
 feather-format
 flake8
@@ -122,9 +123,9 @@ pip install -U pip
 # Additional ML packages
 # because it's difficult to install xgboost on macOS via environment-py3.yml
 conda install xgboost -y
-# auto-sklearn http://automl.github.io/auto-sklearn/stable/installation.html
-curl https://raw.githubusercontent.com/automl/auto-sklearn/master/requirements.txt | xargs -n 1 -L 1 pip install
-pip install -U auto-sklearn
+# # auto-sklearn http://automl.github.io/auto-sklearn/stable/installation.html
+# curl https://raw.githubusercontent.com/automl/auto-sklearn/master/requirements.txt | xargs -n 1 -L 1 pip install
+# pip install -U auto-sklearn
 
 # Foundational NLP packages
 python -m spacy download en
