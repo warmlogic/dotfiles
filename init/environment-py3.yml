@@ -27,68 +27,78 @@ dependencies:
   - mkl
   - nb_conda_kernels
   - nbconvert
-  - nbdime  # for nbdiff
+  - nbdime  # nbdiff
   - nbformat
   # - networkx
-  - nose
+  - nose  # test
   - notebook
   - numpy
-  - olefile
   - pandas
-  - patsy
+  - patsy  # for statsmodels
   - pillow
   - pip
-  - pytest
+  - pytest  # test
+  - python=3.6.*
   - python-dateutil
   - pytz
   - scikit-learn
   - scipy
   - seaborn
   - setuptools
-  - s3fs
-  - smart_open
-  - spacy  # https://spacy.io/
+  - awscli  # AWS
+  - s3fs  # AWS
+  - smart_open  # for gensim
+  - spacy  # NLP https://spacy.io/
   - sqlite
   - statsmodels
   - swig
-  - tqdm
-  - xlrd
+  - olefile  # MS Office files
+  - xlrd  # MS Office files
+  - tqdm  # utility
   - widgetsnbextension
-  - awscli
+  - jedi  # autocomplete
   - flake8  # linter
   - pylint  # linter
   - mypy  # linter
-  - missingno
-  - pandas-profiling
-  - pandas-summary
-  - pandas-datareader
-  - imbalanced-learn
+  - missingno  # data profiling
+  - pandas-profiling  # data profiling
+  - pandas-summary  # data profiling
+  - pandas-datareader  # data access
+  - imbalanced-learn  # ML utility
   - scikit-image  # for lime
-  - lightgbm  # https://github.com/Microsoft/LightGBM
-  - gensim  # https://radimrehurek.com/gensim/
-  - nltk
-  - textacy  # https://github.com/chartbeat-labs/textacy
-  - textblob  # https://github.com/sloria/TextBlob
-  # - thinc # https://github.com/explosion/thinc
-  # - pattern # https://github.com/clips/pattern
-  - ftfy  # https://github.com/LuminosoInsight/python-ftfy
-  - fuzzywuzzy  # https://github.com/seatgeek/fuzzywuzzy
-  - python-levenshtein  # for fuzzywuzzy
-  - pyldavis  # https://github.com/bmabey/pyLDAvis
+  - lightgbm  # ML https://github.com/Microsoft/LightGBM
+  - gensim  # NLP https://radimrehurek.com/gensim/
+  - nltk  # NLP
+  - textacy  # NLP https://github.com/chartbeat-labs/textacy
+  - textblob  # NLP https://github.com/sloria/TextBlob
+  # - thinc # NLP https://github.com/explosion/thinc
+  # - pattern # NLP https://github.com/clips/pattern
+  - ftfy  # NLP https://github.com/LuminosoInsight/python-ftfy
+  - fuzzywuzzy  # NLP https://github.com/seatgeek/fuzzywuzzy
+  - python-levenshtein  # NLP for fuzzywuzzy
+  - pyldavis  # NLP https://github.com/bmabey/pyLDAvis
   - pip:
-    - kaggle
-    - eli5  # https://github.com/TeamHG-Memex/eli5
-    - lime  # https://github.com/marcotcr/lime
-    - rfpimp  # https://github.com/parrt/random-forest-importances
-    - pdpbox  # https://github.com/SauceCat/PDPbox
-    - deon  # https://github.com/drivendataorg/deon/
+    - kaggle  # data access
+    - eli5  # explaining models https://github.com/TeamHG-Memex/eli5
+    - lime  # explaining models https://github.com/marcotcr/lime
+    - pdpbox  # explaining models https://github.com/SauceCat/PDPbox
+    - shap  # explaining models https://github.com/slundberg/shap
+    - rfpimp  # RF feature importance https://github.com/parrt/random-forest-importances
+    - deon  # ethics checklist https://github.com/drivendataorg/deon/
     - deap  # for tpot
     - update_checker  # for tpot
     - stopit  # for tpot
     - tpot  # http://epistasislab.github.io/tpot/installing/
     - isoweek  # https://github.com/gisle/isoweek
-    - graphviz
+    - graphviz  # tree visualization
     - sklearn-pandas  # https://github.com/scikit-learn-contrib/sklearn-pandas
-    # - pyenchant  # https://github.com/rfk/pyenchant
-    # - language-check  # https://github.com/myint/language-check
-    # - spotr  # https://github.com/samuelreh/spotr
+    # - pyenchant  # spelling https://github.com/rfk/pyenchant
+    # - language-check  # grammar https://github.com/myint/language-check
+    # - spotr  # AWS https://github.com/samuelreh/spotr
+    # - tensorflow  # NN
+    # - keras  # NN
+    # - plotly  # Plotly and Dash https://plot.ly/python/
+    # - dash  # Plotly and Dash - The core dash backend
+    # - dash-renderer  # Plotly and Dash - The dash front-end
+    # - dash-html-components  # Plotly and Dash - HTML components
+    # - dash-core-components  # Plotly and Dash - Supercharged components
