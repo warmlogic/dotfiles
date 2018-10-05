@@ -94,6 +94,16 @@ You may also want Python 3 and a number of useful packages related to data analy
 
 ### Additional setup
 
+#### Visual Studio Code Extensions
+
+- Brewfile
+- Markdown All in One
+- markdownlint
+- Python
+- Remote VSCode
+- SQL Server
+- Visual Studio IntelliCode (Preview)
+
 #### SublimeText Packages
 
 - [Package Control](https://packagecontrol.io/installation)
@@ -101,11 +111,12 @@ You may also want Python 3 and a number of useful packages related to data analy
 - [WordCount](https://github.com/titoBouzout/WordCount)
 - [Pretty JSON](https://github.com/dzhibas/SublimePrettyJson)
 - [MarkdownEditing](https://github.com/SublimeText-Markdown/MarkdownEditing)
-    + Change color scheme to ArcDark
+    - Change color scheme to ArcDark
 - [INI](https://github.com/clintberry/sublime-text-2-ini)
 - [rsub](https://github.com/henrikpersson/rsub) ([see instructions](http://caitriggs.com/blog/using-sublime-text-editor-ec2-instance/))
 
 Could use these for additional Python linting setup:
+
 - [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter)
 - [SublimeLinter-contrib-mypy](https://github.com/fredcallaway/SublimeLinter-contrib-mypy)
 
