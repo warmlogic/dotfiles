@@ -41,4 +41,5 @@
         "default": true,
         "MD007": { "indent": 4 }
     },
+    "editor.wordWrap": "on",
 }
