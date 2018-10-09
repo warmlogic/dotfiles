@@ -47,11 +47,6 @@ conda info -a
 # This adds the conda-forge channel below the defaults library
 conda config --append channels conda-forge
 
-# copy jupyter settings
-if [ ! -d "$HOME/.jupyter" ]; then
-  cp -r .jupyter $HOME/.jupyter
-fi
-
 # packages for base environment
 packages='awscli
 bz2file
@@ -97,6 +92,12 @@ conda activate base
 # enable nb_conda_kernels
 python -m nb_conda_kernels.install --enable --prefix="${CONDA_PREFIX}"
 
+# copy nbextension files into jupyter server's search dir and edit some config files
+jupyter contrib nbextension install --user
+
+# copy jupyter settings, including enabled extensions
+cp -r .jupyter/ $HOME/.jupyter/
+
 # configure git to use nbdiff
 nbdime config-git --enable --global # nbdiff
 
@@ -127,7 +128,7 @@ conda install xgboost -y
 # curl https://raw.githubusercontent.com/automl/auto-sklearn/master/requirements.txt | xargs -n 1 -L 1 pip install
 # pip install -U auto-sklearn
 
-# Foundational NLP packages
+# download and link spacy language model
 python -m spacy download en
 # python -m spacy download en_core_web_lg
 
