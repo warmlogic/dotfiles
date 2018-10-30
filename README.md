@@ -97,12 +97,14 @@ You may also want Python 3 and a number of useful packages related to data analy
 #### Visual Studio Code Extensions
 
 - Brewfile
+- LaTeX Workshop
 - Markdown All in One
 - markdownlint
 - Python
 - Remote VSCode
+- Spell Right
 - SQL Server
-- Visual Studio IntelliCode (Preview)
+- Visual Studio IntelliCode - Preview
 
 #### SublimeText Packages
 
