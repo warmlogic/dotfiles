@@ -99,7 +99,7 @@ cask 'sublime-text'
 cask 'jupyter-notebook-viewer'
 cask 'docker'
 cask 'arq'
-cask 'spectacle'
+cask 'spectacle'  # window manager
 cask 'itsycal'
 cask 'keybase'
 cask 'firefox'
@@ -113,14 +113,16 @@ cask 'kindle'
 
 # # Not installing these applications via brew cask
 
+# cask 'oversight'  # alert on camera or mic usage
 # cask 'tunnelblick'  # VPN
 # cask 'transmission'
 # cask 'aquamacs'
 # cask 'yujitach-menumeters'
 # cask 'shiftit'  # window manager
-# cask 'oversight'
 # cask 'google-chrome'
-# cask 'google-drive-file-stream'
+# cask 'google-chrome-canary'
+# cask 'google-drive-file-stream'  # work
+# cask 'google-backup-and-sync'  # personal
 # cask 'google-cloud-sdk'
 # cask 'dropbox'
 # cask 'rescuetime'
@@ -138,8 +140,6 @@ cask 'kindle'
 # cask 'sourcetree'
 # cask 'flux'
 # cask 'selfcontrol'
-# cask 'google-chrome-canary'
-# cask 'google-backup-and-sync'
 # cask 'sublime-text-dev'
 # cask 'slack-beta'
 # cask 'iterm2'
