@@ -339,7 +339,7 @@ function nb-create-project () {
     src'
 
     ignore='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n/data\n.env\nconfig.ini\n'
-    ignore_nb='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n'
+    # ignore_nb='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n'
 
     if [ ! -f README.md ]; then
         touch README.md
@@ -355,7 +355,6 @@ function nb-create-project () {
     do
       mkdir -p $dir_name
       if [ $dir_name = "src" ]; then
-        touch $dir_name/__init__.py
         mkdir -p $dir_name/data
         mkdir -p $dir_name/features
         mkdir -p $dir_name/models
@@ -372,13 +371,13 @@ function nb-create-project () {
         mkdir -p $dir_name/processed
         mkdir -p $dir_name/raw
       fi
-      if [ $dir_name = "notebooks" ]; then
-        if [ ! -f $dir_name/.gitignore ]; then
-          echo -e ${ignore_nb} >> $dir_name/.gitignore
-        else
-          echo $dir_name'/.gitignore already exists, not initializing'
-        fi
-      fi
+    #   if [ $dir_name = "notebooks" ]; then
+    #     if [ ! -f $dir_name/.gitignore ]; then
+    #       echo -e ${ignore_nb} >> $dir_name/.gitignore
+    #     else
+    #       echo $dir_name'/.gitignore already exists, not initializing'
+    #     fi
+    #   fi
     done
 }
 
