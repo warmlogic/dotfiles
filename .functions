@@ -338,7 +338,7 @@ function nb-create-project () {
     reports
     src'
 
-    ignore='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n/data\n.env\nconfig.ini\n.vscode'
+    ignore='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__\n/data/*\n.env\nconfig.ini\n.vscode'
     # ignore_nb='.DS_Store\n*~\n*.pyc\n.ipynb_checkpoints\n__pycache__'
 
     if [ ! -f README.md ]; then
