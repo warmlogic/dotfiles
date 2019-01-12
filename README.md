@@ -12,10 +12,11 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
 
 ### Quick instructions overview
 
-1. Update macOS to the latest version via the Mac App Store
+1. Update macOS to the latest version
 1. Install the Xcode command line developer tools (required for `git`): `xcode-select --install`
-1. While you're waiting
+1. While you're waiting, create credentials for this computer and add to GitHub.
     1. [Generate a new ssh key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/): `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`
+    1. [Log in to GitHub](https://github.com/login)
     1. [Add your new public key to your GitHub account settings](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/) [here](https://github.com/settings/keys): `pbcopy < ~/.ssh/id_rsa.pub`
 1. Clone this repo
     1. `mkdir -p ~/github/warmlogic`
@@ -24,7 +25,8 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
     1. `cd ~/github/warmlogic/dotfiles/`
 1. Run `01-bootstrap.sh` to copy necessary files (hidden and otherwise)
 1. `cp .extra ~/.extra` and edit, if desired (explained below)
-1. Ensure `02-brew.sh` includes only the programs you want to install
+1. If installing Mac App Store apps with Brew, sign in to the Mac App Store
+1. Ensure `Brewfile` includes only the programs you want to install
     1. Run `02-brew.sh` to install apps (this script ensures the Xcode command line tools are installed before installing brew)
 1. Run `03-macos.sh` to set up macOS preferences
 1. Restart your computer
