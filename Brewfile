@@ -92,7 +92,7 @@ brew 'mas'
 
 # Install additional applications
 
-cask '1password'
+cask '1password6'
 cask 'slack'
 cask 'visual-studio-code'
 cask 'sublime-text'
@@ -108,11 +108,11 @@ cask 'omnidisksweeper'
 cask 'protonvpn'  # VPN
 cask 'wordservice'
 cask 'caffeine'
-cask 'noisy'
 cask 'kindle'
 
 # # Not installing these applications via brew cask
 
+# cask 'noisy'
 # cask 'oversight'  # alert on camera or mic usage
 # cask 'tunnelblick'  # VPN
 # cask 'transmission'
