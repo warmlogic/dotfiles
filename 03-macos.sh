@@ -429,6 +429,9 @@ defaults write com.apple.dock mru-spaces -bool false
 # # Automatically hide and show the Dock
 # defaults write com.apple.dock autohide -bool true
 
+# Don’t show recent applications in Dock
+defaults write com.apple.dock show-recents -bool false
+
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
@@ -483,10 +486,10 @@ defaults write com.apple.dock wvous-br-modifier -int 262144
 # # Have to manually install extensions:
 # # In Safari Extensions Gallery:
 # 1Password
-# uBlock Origin
-# Instapaper
+# Wipr (ad block)
+# Clean Links for Google
 # Open Mail.app and set default mail app to MailNotifr
-# Not doing: Clean Links for Google
+# Not doing: uBlock Origin
 # Not doing: Safari + mailto -> Gmail https://github.com/Famlam/mailto-chromeextension
 
 # # Privacy: don't send search queries to Apple
@@ -512,9 +515,8 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 # Show status bar
 defaults write com.apple.Safari ShowStatusBar -bool true
 
-# Show Safari's bookmarks bar by default
-defaults write com.apple.Safari ShowFavoritesBar -bool true
-defaults write com.apple.Safari "ShowFavoritesBar-v2" -bool true
+# Hide Safari’s bookmarks bar by default
+defaults write com.apple.Safari ShowFavoritesBar -bool false
 
 # Always show tab bar
 defaults write com.apple.Safari AlwaysShowTabBar -bool true
