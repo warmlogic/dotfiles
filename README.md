@@ -96,6 +96,20 @@ You may also want Python 3 and a number of useful packages related to data analy
 
 ### Additional setup
 
+
+
+#### Calendar
+
+- Add accounts with your calendars to Internet Accounts (System Preferences)
+- Itsycal format: `h:mm a`, show day
+- Turn off system clock
+
+#### Safari Extensions
+
+- 1Password
+- Wipr
+- Clean Links for Google
+
 #### Visual Studio Code Extensions
 
 - Brewfile
