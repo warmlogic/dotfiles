@@ -107,7 +107,7 @@ cask 'vlc'
 cask 'omnidisksweeper'
 cask 'protonvpn'  # VPN
 cask 'wordservice'
-cask 'caffeine'
+# cask 'keepingyouawake'
 cask 'kindle'
 
 # # Not installing these applications via brew cask
@@ -166,6 +166,7 @@ cask 'betterzip'
 mas 'Mail Notifr', id: 808154494
 mas 'The Unarchiver', id: 425424353
 mas 'Deliveries', id: 924726344
+mas 'Amphetamine', id: 937984704
 mas 'JustFocus', id: 1142151959
 mas 'Wipr', id: 1320666476
 mas 'Binaural', id: 946812450
