@@ -92,7 +92,6 @@ brew 'mas'
 
 # Install additional applications
 
-cask '1password6'
 cask 'slack'
 cask 'visual-studio-code'
 cask 'sublime-text'
@@ -103,37 +102,36 @@ cask 'spectacle'  # window manager
 cask 'itsycal'
 cask 'keybase'
 cask 'firefox'
+cask 'google-chrome'
 cask 'vlc'
 cask 'omnidisksweeper'
 cask 'protonvpn'  # VPN
 cask 'wordservice'
-# cask 'keepingyouawake'
 cask 'kindle'
+cask 'postico'  # databases
+# cask 'zoomus'
 
 # # Not installing these applications via brew cask
 
-# cask 'noisy'
+# cask 'yujitach-menumeters'
 # cask 'oversight'  # alert on camera or mic usage
+# cask 'noisy'
 # cask 'tunnelblick'  # VPN
 # cask 'transmission'
 # cask 'aquamacs'
-# cask 'yujitach-menumeters'
 # cask 'shiftit'  # window manager
-# cask 'google-chrome'
 # cask 'google-chrome-canary'
-# cask 'google-drive-file-stream'  # work
+# cask 'google-drive-file-stream'  # gsuite
 # cask 'google-backup-and-sync'  # personal
 # cask 'google-cloud-sdk'
+# cask 'keepingyouawake'  # replacement for Caffeine
 # cask 'dropbox'
-# cask 'rescuetime'
+# cask 'rescuetime'  # creepy
 # cask 'postman'
 # cask 'insomnia'
 # cask 'macdown'
 # cask 'mactex'
 # cask 'ngrok'
-# cask 'now'  # zeit.co
-# cask 'avast-security'
-# cask 'sophos-anti-virus-home-edition'
 # cask 'lastfm'
 # cask 'quicksilver'
 # cask 'github-desktop'
@@ -141,10 +139,8 @@ cask 'kindle'
 # cask 'flux'
 # cask 'selfcontrol'
 # cask 'sublime-text-dev'
-# cask 'slack-beta'
 # cask 'iterm2'
 # cask 'harvest'
-# cask 'toggldesktop'
 # cask 'adobe-reader'
 # cask 'spotify'
 # cask 'spotify-notifications'
@@ -163,10 +159,11 @@ cask 'betterzip'
 # cask 'qlprettypatch'
 
 # Install Mac App Store apps
+mas '1Password', id: 443987910  # 1Password 6
 mas 'Mail Notifr', id: 808154494
 mas 'The Unarchiver', id: 425424353
 mas 'Deliveries', id: 924726344
-mas 'Amphetamine', id: 937984704
+mas 'Amphetamine', id: 937984704  # replacement for Caffeine
 mas 'JustFocus', id: 1142151959
 mas 'Wipr', id: 1320666476
 mas 'Binaural', id: 946812450
@@ -175,5 +172,4 @@ mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 # mas 'GarageBand', id: 682658836
 # mas 'iMovie', id: 408981434
-# mas '1Password', id: 443987910
 # mas 'Slack', id: 803453959
