@@ -13,6 +13,7 @@ tap 'caskroom/versions'
 # the with-default-names uses normal name, rather than g-prefixed
 brew 'coreutils'
 brew 'findutils'
+brew 'readline'
 brew 'gawk'
 brew 'gnu-indent', args: ['with-default-names']
 brew 'gnu-sed', args: ['with-default-names']
@@ -92,6 +93,7 @@ brew 'mas'
 
 # Install additional applications
 
+cask '1password'  # 1Password 7
 cask 'slack'
 cask 'visual-studio-code'
 cask 'sublime-text'
@@ -159,7 +161,6 @@ cask 'betterzip'
 # cask 'qlprettypatch'
 
 # Install Mac App Store apps
-mas '1Password', id: 443987910  # 1Password 6
 mas 'Mail Notifr', id: 808154494
 mas 'The Unarchiver', id: 425424353
 mas 'Deliveries', id: 924726344
@@ -170,6 +171,7 @@ mas 'Binaural', id: 946812450
 mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
+# mas '1Password', id: 443987910  # 1Password 6
 # mas 'GarageBand', id: 682658836
 # mas 'iMovie', id: 408981434
 # mas 'Slack', id: 803453959
