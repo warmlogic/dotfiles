@@ -42,4 +42,7 @@
         "MD007": { "indent": 4 }
     },
     "editor.wordWrap": "on",
+    "window.zoomLevel": 0,
+    "search.showLineNumbers": true,
+    "search.useIgnoreFiles": false,
 }
