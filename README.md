@@ -113,14 +113,18 @@ You may also want Python 3 and a number of useful packages related to data analy
 #### Visual Studio Code Extensions
 
 - Brewfile
+- Docker
 - LaTeX Workshop
+- macros
 - Markdown All in One
 - markdownlint
 - Python
 - Remote VSCode
 - Spell Right
-- SQL Server
+- SQL Server (mssql)
+- Terraform
 - Visual Studio IntelliCode - Preview
+- VS Code Jupyter Notebook Previewer
 
 #### SublimeText Packages
 
