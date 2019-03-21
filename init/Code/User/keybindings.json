@@ -1,0 +1,11 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "ctrl+k",
+        "command": "macros.cutToTheEnd"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "macros.yank"
+    },
+]

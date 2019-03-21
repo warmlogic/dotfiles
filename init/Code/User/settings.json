@@ -45,4 +45,18 @@
     "window.zoomLevel": 0,
     "search.showLineNumbers": true,
     "search.useIgnoreFiles": false,
+    "editor.quickSuggestionsDelay": 350,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+    // Make VS Code behave like a respectable macOS app (almost... not a separate kill ring)
+    "macros": {
+        "cutToTheEnd": [
+            "cursorEndSelect",
+            "editor.action.clipboardCutAction"
+        ],
+        "yank": [
+            "editor.action.clipboardPasteAction"
+        ]
+    },
 }
