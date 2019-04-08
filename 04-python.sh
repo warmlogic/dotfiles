@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # to manually nuke the current miniconda install
 # rm -rf ~/miniconda3 ~/.condarc ~/.conda ~/.continuum ~/.jupyter ~/.ipython ~/.local/share/jupyter/ ~/Library/Jupyter
