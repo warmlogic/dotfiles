@@ -55,10 +55,6 @@ dependencies:
   - xlrd  # MS Office files
   - tqdm  # utility
   - widgetsnbextension
-  - jedi  # autocomplete
-  - flake8  # linter
-  - pylint  # linter
-  - mypy  # linter
   - missingno  # data profiling
   - pandas-profiling  # data profiling
   - pandas-summary  # data profiling
@@ -77,6 +73,11 @@ dependencies:
   - python-levenshtein  # NLP for fuzzywuzzy
   - pyldavis  # NLP https://github.com/bmabey/pyLDAvis
   - pip:
+    # - jedi  # autocomplete
+    - black  # formatter
+    - flake8  # linter
+    # - pylint  # linter
+    # - mypy  # linter
     - kaggle  # data access
     - eli5  # explaining models https://github.com/TeamHG-Memex/eli5
     - lime  # explaining models https://github.com/marcotcr/lime
