@@ -22,13 +22,13 @@ export LESS_TERMCAP_md="${yellow}";
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X';
 
-# set environment variables
-# export GIT_REPO_ROOT=$HOME/github/warmlogic;
-# export ANSARO_REPO_ROOT=$HOME/github/ansaro;
+# # set environment variables
+# export MY_REPO_ROOT=$HOME/github/warmlogic;
+# export BRANCH_REPO_ROOT=$HOME/github/branch;
 
-# Set AWS defaults
-# https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
-# https://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html
+# # Set AWS defaults
+# # https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
+# # https://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html
 # export AWS_DEFAULT_PROFILE=personal; # or run `export AWS_PROFILE=personal`
 # export AWS_DEFAULT_REGION=us-west-2;
 # export AWS_DEFAULT_OUTPUT=text;
