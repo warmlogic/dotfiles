@@ -106,8 +106,8 @@ nbdime config-git --enable --global # nbdiff
 pip install -U pip
 pip install -U kaggle
 
-# create the py3 environment with lots of good packages
-conda env create -f init/environment-py3.yml -q --force
+# update the base environment with lots of good packages
+conda env update -f init/environment-py3.yml -q --force
 
 # add "conda activate" to ~/.bash_profile, enable using it for other envs
 echo '' >> ~/.bash_profile
@@ -116,14 +116,8 @@ echo '. $HOME/'$MC_DIR'/etc/profile.d/conda.sh' >> ~/.bash_profile
 echo '# activate the base environment' >> ~/.bash_profile
 echo 'conda activate' >> ~/.bash_profile
 
-# activate the py3 environment
-conda activate py3
-
-# update pip in environment
-pip install -U pip
-
 # Additional ML packages
-# because it's difficult to install xgboost on macOS via environment-py3.yml
+# because it's difficult to install xgboost on macOS via the environment file
 conda install xgboost -y
 # # auto-sklearn http://automl.github.io/auto-sklearn/stable/installation.html
 # curl https://raw.githubusercontent.com/automl/auto-sklearn/master/requirements.txt | xargs -n 1 -L 1 pip install
@@ -135,6 +129,3 @@ python -m spacy download en
 
 # # PyTorch
 # conda install pytorch torchvision -c pytorch  # http://pytorch.org/
-
-# deactivate py3 environment
-conda deactivate
