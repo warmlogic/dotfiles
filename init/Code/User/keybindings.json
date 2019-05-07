@@ -8,4 +8,12 @@
         "key": "ctrl+y",
         "command": "macros.yank"
     },
+    {
+        "key": "cmd+k cmd+s",
+        "command": "search.action.collapseSearchResults"
+    },
+    {
+        "key": "cmd+k cmd+e",
+        "command": "workbench.files.action.collapseExplorerFolders"
+    },
 ]

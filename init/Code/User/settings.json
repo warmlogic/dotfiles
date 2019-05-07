@@ -1,25 +1,44 @@
 {
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+    // Editor
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
-
     "editor.scrollBeyondLastLine": false,
     "editor.renderWhitespace": "boundary",
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 120,
+    "editor.quickSuggestionsDelay": 250,
+    "editor.suggestSelection": "first",
 
+    // View/Behavior
+    "window.zoomLevel": 0,
+    "breadcrumbs.enabled": true,
+    "workbench.statusBar.visible": true,
+    "workbench.activityBar.visible": true,
     "workbench.startupEditor": "none",
     "workbench.statusBar.feedback.visible": false,
+    "search.showLineNumbers": true,
+    "search.useIgnoreFiles": false,
 
+    // Don't report to MS
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
 
+    // -------- Python --------
     "python.analysis.logLevel": "Warning",
-    "python.venvPath": "~/miniconda3/envs",
+    "python.condaPath": "~/miniconda/bin/conda",
+    "python.venvPath": "~/miniconda/envs",
     "python.jediEnabled": false,
+    // Linting
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
-    "python.linting.lintOnSave": true,
+    "python.linting.flake8Path": "flake8",
+    // Formatting
+    "python.formatting.provider": "black",
 
-    //-------- Remote VSCode configuration --------
+    // -------- Remote VSCode configuration --------
     // Port number to use for connection.
     "remote.port": 52698,
     // Launch the server on start up.
@@ -29,27 +48,28 @@
     // If set to true, error for remote.port already in use won't be shown anymore.
     "remote.dontShowPortAlreadyInUseError": true,
 
+    // SQL
     "mssql.format.keywordCasing": "uppercase",
     "mssql.format.datatypeCasing": "uppercase",
     "mssql.format.placeCommasBeforeNextStatement": true,
     "mssql.format.placeSelectStatementReferencesOnNewLine": true,
 
+    // -------- Python --------
+    // Formatting
     "markdown.extension.orderedList.marker": "one",
-
+    "markdown.extension.italic.indicator": "_",
+    // Linting
     "markdownlint.run": "onSave",
     "markdownlint.config": {
         "default": true,
-        "MD007": { "indent": 4 }
+        "MD004": false, // Unordered List Style
+        "MD007": { "indent": 2 }, // Unordered List Indentation
+        "MD013": false, // Line Length
     },
-    "editor.wordWrap": "on",
-    "window.zoomLevel": 0,
-    "search.showLineNumbers": true,
-    "search.useIgnoreFiles": false,
-    "editor.quickSuggestionsDelay": 350,
-    "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
 
-    // Make VS Code behave like a respectable macOS app (almost... not a separate kill ring)
+    // -------- Copy/paste behavior --------
+    // Make VS Code behave like a respectable macOS app (almost... it's not a separate kill ring).
+    // Must also set up keybindings.json
     "macros": {
         "cutToTheEnd": [
             "cursorEndSelect",
