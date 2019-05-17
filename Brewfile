@@ -29,10 +29,10 @@ brew 'wget', args: ['with-iri']
 
 # Update tools that already exist on Mac
 
-# Newest version of Bash 4.x
+# Newest version of Bash
 brew 'bash'
-# Bash tab completion for Bash 4.x
-brew 'bash-completion2'
+# Bash tab completion for Bash
+brew 'bash-completion@2'
 # Better top command
 brew 'htop'
 
