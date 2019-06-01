@@ -3,6 +3,9 @@ channels:
   - defaults
   - conda-forge
 dependencies:
+  # - altair
+  # - vega_datasets
+  # - bokeh
   - bleach
   - bz2file
   - cycler
@@ -16,22 +19,24 @@ dependencies:
   - ipython
   - ipywidgets
   - jsonschema
-  - jupyter
-  - jupyter_client
-  - jupyter_console
-  - jupyter_core
-  - jupyter_contrib_nbextensions
+  - jupyterlab
+  - jupyter  # jupyter
+  - jupyter_client  # jupyter
+  - jupyter_console  # jupyter
+  - jupyter_core  # jupyter
+  - jupyter_contrib_nbextensions  # jupyter
+  - notebook  # jupyter
+  - widgetsnbextension  # jupyter
+  - nb_conda_kernels  # jupyter
   - libiconv
   - libpng
   - matplotlib
   - mkl
-  - nb_conda_kernels
-  - nbconvert
+  - nbconvert  # jupyter
   - nbdime  # nbdiff
-  - nbformat
+  - nbformat  # jupyter
   # - networkx
-  - nose  # test
-  - notebook
+  # - nose  # test
   - numpy
   - pandas
   - patsy  # for statsmodels
@@ -53,8 +58,8 @@ dependencies:
   - swig
   - olefile  # MS Office files
   - xlrd  # MS Office files
+  - xlsxwriter  # MS Office files
   - tqdm  # utility
-  - widgetsnbextension
   - missingno  # data profiling
   - pandas-profiling  # data profiling
   - pandas-summary  # data profiling
@@ -98,7 +103,5 @@ dependencies:
     # - tensorflow  # NN
     # - keras  # NN
     # - plotly  # Plotly and Dash https://plot.ly/python/
-    # - dash  # Plotly and Dash - The core dash backend
-    # - dash-renderer  # Plotly and Dash - The dash front-end
-    # - dash-html-components  # Plotly and Dash - HTML components
-    # - dash-core-components  # Plotly and Dash - Supercharged components
+    # - dash  # The core dash backend
+    # - dash-daq  # DAQ components

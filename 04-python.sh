@@ -58,12 +58,14 @@ ipykernel
 ipython
 ipywidgets
 jedi
+jupyterlab
 jupyter
 jupyter_contrib_nbextensions
+nb_conda_kernels
+widgetsnbextension
 matplotlib
 mkl
 mypy
-nb_conda_kernels
 nbconvert
 nbdime
 nbformat
@@ -79,8 +81,9 @@ scipy
 seaborn
 smart_open
 tqdm
-widgetsnbextension
-xlrd'
+olefile
+xlrd
+xlsxwriter'
 
 # Install packages to run Jupyter Notebook server with automatic kernels per environment via nb_conda_kernels
 conda install -n base $packages -y
