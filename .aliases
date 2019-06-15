@@ -16,7 +16,7 @@ alias .....="cd ../../../.."
 # alias h="history"
 # alias j="jobs"
 
-alias gs="git status"
+alias gst="git status"
 alias ga="git add"
 alias gb="git branch"
 alias gc="git commit"
@@ -185,9 +185,6 @@ alias reload="exec $SHELL -l"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
-
-# # Activate conda environments
-# alias envpy3="conda activate py3"
 
 # launch a Jupyter Notebook server
 alias nb-server="jupyter notebook"
