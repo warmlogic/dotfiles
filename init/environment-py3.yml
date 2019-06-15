@@ -57,8 +57,9 @@ dependencies:
   - statsmodels
   - swig
   - olefile  # MS Office files
-  - xlrd  # MS Office files
-  - xlsxwriter  # MS Office files
+  - xlrd  # MS Office (Excel) files
+  - xlsxwriter  # MS Office (Excel) files
+  - openpyxl  # MS Office (Excel) files
   - tqdm  # utility
   - missingno  # data profiling
   - pandas-profiling  # data profiling
