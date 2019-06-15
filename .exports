@@ -32,3 +32,5 @@ export MANPAGER='less -X';
 # export AWS_DEFAULT_PROFILE=personal; # or run `export AWS_PROFILE=personal`
 # export AWS_DEFAULT_REGION=us-west-2;
 # export AWS_DEFAULT_OUTPUT=text;
+
+# export GITHUB_AUTH_TOKEN='';
