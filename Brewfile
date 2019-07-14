@@ -111,12 +111,12 @@ cask 'protonvpn'  # VPN
 cask 'wordservice'
 cask 'kindle'
 cask 'postico'  # databases
+cask 'oversight'  # alert on camera or mic usage
 # cask 'zoomus'
 
 # # Not installing these applications via brew cask
 
 # cask 'yujitach-menumeters'
-# cask 'oversight'  # alert on camera or mic usage
 # cask 'noisy'
 # cask 'tunnelblick'  # VPN
 # cask 'transmission'
@@ -171,6 +171,7 @@ mas 'Binaural', id: 946812450
 mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
+mas 'Polyglot', id: 1471801525  # Safari extension for translation
 # mas '1Password', id: 443987910  # 1Password 6
 # mas 'GarageBand', id: 682658836
 # mas 'iMovie', id: 408981434
