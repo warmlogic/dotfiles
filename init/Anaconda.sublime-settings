@@ -1,5 +1,5 @@
 {
-    "python_interpreter": "~/miniconda3/envs/py3/bin/python",
+    "python_interpreter": "~/miniconda/bin/python",
 
     // "anaconda_linting_behaviour": "always",
     "anaconda_linting_behaviour": "load-save",
