@@ -69,7 +69,6 @@ mypy
 nbconvert
 nbdime
 nbformat
-nose
 notebook
 numpy
 pandas
@@ -79,7 +78,6 @@ pytest
 s3fs
 scipy
 seaborn
-smart_open
 tqdm
 olefile
 xlrd
@@ -105,9 +103,8 @@ cp -r .jupyter/ $HOME/.jupyter/
 # configure git to use nbdiff
 nbdime config-git --enable --global # nbdiff
 
-# upgrade/install a couple packages in base via pip
+# upgrade pip
 pip install -U pip
-pip install -U kaggle
 
 # update the base environment with lots of good packages
 conda env update -f init/environment-py3.yml -q --force
