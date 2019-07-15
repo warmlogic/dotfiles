@@ -51,7 +51,6 @@ dependencies:
   - setuptools
   - awscli  # AWS
   - s3fs  # AWS
-  - smart_open  # for gensim
   - spacy  # NLP https://spacy.io/
   - sqlite
   - statsmodels
@@ -68,7 +67,6 @@ dependencies:
   - imbalanced-learn  # ML utility
   - scikit-image  # for lime
   - lightgbm  # ML https://github.com/Microsoft/LightGBM
-  - gensim  # NLP https://radimrehurek.com/gensim/
   - nltk  # NLP
   - textacy  # NLP https://github.com/chartbeat-labs/textacy
   - textblob  # NLP https://github.com/sloria/TextBlob
@@ -85,6 +83,8 @@ dependencies:
     # - pylint  # linter
     # - mypy  # linter
     - kaggle  # data access
+    - gensim  # NLP https://radimrehurek.com/gensim/
+    - smart_open  # for gensim
     - eli5  # explaining models https://github.com/TeamHG-Memex/eli5
     - lime  # explaining models https://github.com/marcotcr/lime
     - pdpbox  # explaining models https://github.com/SauceCat/PDPbox
