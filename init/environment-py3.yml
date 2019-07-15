@@ -35,7 +35,7 @@ dependencies:
   - nbconvert  # jupyter
   - nbdime  # nbdiff
   - nbformat  # jupyter
-  # - networkx
+  - networkx
   # - nose  # test
   - numpy
   - pandas
@@ -82,6 +82,7 @@ dependencies:
     - flake8  # linter
     # - pylint  # linter
     # - mypy  # linter
+    - lda  # NLP
     - kaggle  # data access
     - gensim  # NLP https://radimrehurek.com/gensim/
     - smart_open  # for gensim
