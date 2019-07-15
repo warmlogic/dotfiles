@@ -48,48 +48,48 @@ conda info -a
 # This adds the conda-forge channel below the defaults library
 conda config --append channels conda-forge
 
-# packages for base environment
-packages='awscli
-bz2file
-cython
-feather-format
-flake8
-ipykernel
-ipython
-ipywidgets
-jedi
-jupyterlab
-jupyter
-jupyter_contrib_nbextensions
-nb_conda_kernels
-widgetsnbextension
-matplotlib
-mkl
-mypy
-nbconvert
-nbdime
-nbformat
-notebook
-numpy
-pandas
-pip
-pylint
-pytest
-s3fs
-scipy
-seaborn
-tqdm
-olefile
-xlrd
-xlsxwriter'
+# # packages for base environment
+# packages='awscli
+# bz2file
+# cython
+# feather-format
+# flake8
+# ipykernel
+# ipython
+# ipywidgets
+# jupyter
+# jupyter_contrib_nbextensions
+# matplotlib
+# mkl
+# nb_conda_kernels
+# nbconvert
+# nbdime
+# nbformat
+# notebook
+# numpy
+# pandas
+# pip
+# pytest
+# s3fs
+# scipy
+# seaborn
+# tqdm
+# widgetsnbextension
+# xlrd'
 
-# Install packages to run Jupyter Notebook server with automatic kernels per environment via nb_conda_kernels
-conda install -n base $packages -y
+# # Install packages to run Jupyter Notebook server with automatic kernels per environment via nb_conda_kernels
+# conda install -n base $packages -y
 
 # enable usage of conda command
 . $HOME/$MC_DIR/etc/profile.d/conda.sh
 
 conda activate base
+
+# upgrade pip
+pip install -U pip
+
+# update the base environment with lots of good packages
+conda env update -f init/environment-py3.yml -q
 
 # enable nb_conda_kernels
 python -m nb_conda_kernels.install --enable --prefix="${CONDA_PREFIX}"
@@ -101,13 +101,7 @@ jupyter contrib nbextension install --user
 cp -r .jupyter/ $HOME/.jupyter/
 
 # configure git to use nbdiff
-nbdime config-git --enable --global # nbdiff
-
-# upgrade pip
-pip install -U pip
-
-# update the base environment with lots of good packages
-conda env update -f init/environment-py3.yml -q --force
+nbdime config-git --enable --global
 
 # add "conda activate" to ~/.bash_profile, enable using it for other envs
 echo '' >> ~/.bash_profile
@@ -116,9 +110,9 @@ echo '. $HOME/'$MC_DIR'/etc/profile.d/conda.sh' >> ~/.bash_profile
 echo '# activate the base environment' >> ~/.bash_profile
 echo 'conda activate' >> ~/.bash_profile
 
-# Additional ML packages
-# because it's difficult to install xgboost on macOS via the environment file
-conda install xgboost -y
+# # Additional ML packages
+# # because it's difficult to install xgboost on macOS via the environment file
+# conda install xgboost -y
 # # auto-sklearn http://automl.github.io/auto-sklearn/stable/installation.html
 # curl https://raw.githubusercontent.com/automl/auto-sklearn/master/requirements.txt | xargs -n 1 -L 1 pip install
 # pip install -U auto-sklearn
