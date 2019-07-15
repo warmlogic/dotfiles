@@ -1,4 +1,4 @@
-name: py3
+name: base
 channels:
   - defaults
   - conda-forge
@@ -92,10 +92,10 @@ dependencies:
     - shap  # explaining models https://github.com/slundberg/shap
     - rfpimp  # RF feature importance https://github.com/parrt/random-forest-importances
     - deon  # ethics checklist https://github.com/drivendataorg/deon/
-    - deap  # for tpot
-    - update_checker  # for tpot
-    - stopit  # for tpot
-    - tpot  # http://epistasislab.github.io/tpot/installing/
+    # - deap  # for tpot
+    # - update_checker  # for tpot
+    # - stopit  # for tpot
+    # - tpot  # http://epistasislab.github.io/tpot/installing/
     - isoweek  # https://github.com/gisle/isoweek
     - graphviz  # tree visualization
     - sklearn-pandas  # https://github.com/scikit-learn-contrib/sklearn-pandas
@@ -104,6 +104,6 @@ dependencies:
     # - spotr  # AWS https://github.com/samuelreh/spotr
     # - tensorflow  # NN
     # - keras  # NN
-    # - plotly  # Plotly and Dash https://plot.ly/python/
-    # - dash  # The core dash backend
-    # - dash-daq  # DAQ components
+    - plotly  # Plotly and Dash https://plot.ly/python/
+    - dash  # The core dash backend
+    - dash-daq  # DAQ components
