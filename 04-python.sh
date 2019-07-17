@@ -118,8 +118,8 @@ echo 'conda activate' >> ~/.bash_profile
 # pip install -U auto-sklearn
 
 # download and link spacy language model
-python -m spacy download en
-# python -m spacy download en_core_web_lg
+# python -m spacy download en
+python -m spacy download en_core_web_lg
 
 # # PyTorch
 # conda install pytorch torchvision -c pytorch  # http://pytorch.org/
