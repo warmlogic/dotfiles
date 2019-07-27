@@ -38,7 +38,7 @@ hash -r
 # -q for quiet
 conda update -q conda -y
 
-conda install -n base _license -y
+# conda install -n base _license -y
 
 conda upgrade --all -y
 
