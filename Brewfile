@@ -112,6 +112,7 @@ cask 'wordservice'
 cask 'kindle'
 cask 'postico'  # databases
 cask 'oversight'  # alert on camera or mic usage
+cask 'mactex-no-gui'
 # cask 'zoomus'
 
 # # Not installing these applications via brew cask
@@ -132,7 +133,6 @@ cask 'oversight'  # alert on camera or mic usage
 # cask 'postman'
 # cask 'insomnia'
 # cask 'macdown'
-# cask 'mactex'
 # cask 'ngrok'
 # cask 'lastfm'
 # cask 'quicksilver'
