@@ -22,8 +22,12 @@ alias gb="git branch"
 alias gc="git commit"
 alias gd="git diff"
 alias gco="git checkout"
+alias gpo="git push origin"
 # alias gk="gitk --all&"
 # alias gx="gitx --all"
+# https://stackoverflow.com/a/17029936/2592858
+alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -d'
+alias git-remove-untracked-force='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
 # git log with add/delete stats for a given number of previous commits
 gl() {
