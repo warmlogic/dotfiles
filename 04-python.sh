@@ -9,13 +9,13 @@ MC_DL_FILE="Miniconda3-latest-MacOSX-x86_64.sh"
 MC_DL_PATH="$HOME/Downloads/$MC_DL_FILE"
 MC_DIR_PATH="$HOME/$MC_DIR"
 
-# # Exit if miniconda file already exists
-# {
-# if [ -f "$MC_DL_PATH" ]; then
-#     echo "$MC_DL_PATH already exists! Delete before running this script to ensure installation is up-to-date."
-#     exit 0
-# fi
-# }
+# Exit if miniconda file already exists
+{
+if [ -f "$MC_DL_PATH" ]; then
+    echo "$MC_DL_PATH already exists! Delete before running this script to ensure installation is up-to-date."
+    exit 0
+fi
+}
 
 # Download miniconda file only if it does not already exist
 {
