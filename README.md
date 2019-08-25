@@ -96,8 +96,6 @@ You may also want Python 3 and a number of useful packages related to data analy
 
 ### Additional setup
 
-
-
 #### Calendar
 
 - Add accounts with your calendars to Internet Accounts (System Preferences)
@@ -107,23 +105,35 @@ You may also want Python 3 and a number of useful packages related to data analy
 #### Safari Extensions
 
 - 1Password
-- Wipr
-- Clean Links for Google
+- [Wipr](https://apps.apple.com/us/app/wipr/id1320666476)
+- [Clean Links for Google](https://apps.apple.com/us/app/clean-links-for-google/id1467225874)
+- [Polyglot](https://apps.apple.com/us/app/polyglot/id1471801525)
+  - Turn off Instant Translation
 
 #### Visual Studio Code Extensions
 
+- autoDocstring
+- Beautify
 - Brewfile
 - Docker
+- Dracula Official
+- Excel Viewer
+- GitLens
 - LaTeX Workshop
 - macros
-- Markdown All in One
+- Markdown Preview
 - markdownlint
+- parquet-viewer
+- PostgreSQL
 - Python
+- python-string-sql
+- RainbowCSV
 - Remote VSCode
 - Spell Right
-- SQL Server (mssql)
+- SQLTools
 - Terraform
-- Visual Studio IntelliCode - Preview
+- Todo Tree
+- Visual Studio IntelliCode
 - VS Code Jupyter Notebook Previewer
 
 #### SublimeText Packages
@@ -143,6 +153,8 @@ Could use these for additional Python linting setup:
 - [SublimeLinter-contrib-mypy](https://github.com/fredcallaway/SublimeLinter-contrib-mypy)
 
 #### Jupyter Notebook Extensions
+
+(Note: Not updated for Jupyter Lab)
 
 These should be automatically turned on, via `.jupyter/nbconfig/notebook.js`
 
