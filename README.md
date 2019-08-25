@@ -120,14 +120,14 @@ You may also want Python 3 and a number of useful packages related to data analy
 - Excel Viewer
 - GitLens
 - LaTeX Workshop
-- macros
+- macros (for keybindings)
 - Markdown Preview
 - markdownlint
 - parquet-viewer
 - PostgreSQL
 - Python
 - python-string-sql
-- RainbowCSV
+- Rainbow CSV
 - Remote VSCode
 - Spell Right
 - SQLTools
