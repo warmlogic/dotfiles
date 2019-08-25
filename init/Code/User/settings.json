@@ -15,12 +15,13 @@
     // View/Behavior
     "window.zoomLevel": 0,
     "breadcrumbs.enabled": true,
+    "workbench.colorTheme": "Dracula",
     "workbench.statusBar.visible": true,
     "workbench.activityBar.visible": true,
     "workbench.startupEditor": "none",
-    "workbench.statusBar.feedback.visible": false,
     "search.showLineNumbers": true,
     "search.useIgnoreFiles": false,
+    "extensions.ignoreRecommendations": false,
 
     // Don't report to MS
     "telemetry.enableTelemetry": false,
@@ -37,6 +38,8 @@
     "python.linting.flake8Path": "flake8",
     // Formatting
     "python.formatting.provider": "black",
+    "autoDocstring.docstringFormat": "numpy",
+    "autoDocstring.includeName": true,
 
     // -------- Remote VSCode configuration --------
     // Port number to use for connection.
@@ -48,16 +51,7 @@
     // If set to true, error for remote.port already in use won't be shown anymore.
     "remote.dontShowPortAlreadyInUseError": true,
 
-    // SQL
-    "mssql.format.keywordCasing": "uppercase",
-    "mssql.format.datatypeCasing": "uppercase",
-    "mssql.format.placeCommasBeforeNextStatement": true,
-    "mssql.format.placeSelectStatementReferencesOnNewLine": true,
-
-    // -------- Python --------
-    // Formatting
-    "markdown.extension.orderedList.marker": "one",
-    "markdown.extension.italic.indicator": "_",
+    // -------- Markdown --------
     // Linting
     "markdownlint.run": "onSave",
     "markdownlint.config": {
@@ -79,4 +73,13 @@
             "editor.action.clipboardPasteAction"
         ]
     },
+
+    // -------- Source Control --------
+    "gitlens.codeLens.enabled": false,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+
+    // -------- Ruby --------
+    "solargraph.checkGemVersion": false,
 }
