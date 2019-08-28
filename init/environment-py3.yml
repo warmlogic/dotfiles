@@ -51,7 +51,6 @@ dependencies:
   - setuptools
   - awscli  # AWS
   - s3fs  # AWS
-  - spacy  # NLP https://spacy.io/
   - sqlite
   - statsmodels
   - swig
@@ -99,6 +98,7 @@ dependencies:
     - isoweek  # https://github.com/gisle/isoweek
     - graphviz  # tree visualization
     - sklearn-pandas  # https://github.com/scikit-learn-contrib/sklearn-pandas
+    - spacy  # NLP https://spacy.io/
     # - pyenchant  # spelling https://github.com/rfk/pyenchant
     # - language-check  # grammar https://github.com/myint/language-check
     # - spotr  # AWS https://github.com/samuelreh/spotr
