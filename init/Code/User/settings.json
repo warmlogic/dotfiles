@@ -31,6 +31,9 @@
     "python.analysis.logLevel": "Warning",
     "python.condaPath": "~/miniconda/bin/conda",
     "python.venvPath": "~/miniconda/envs",
+    // "python.autoComplete.extraPaths": [
+    //     "${env:REPO_ROOT}/reponame",
+    // ],
     "python.jediEnabled": false,
     // Linting
     "python.linting.pylintEnabled": false,
@@ -60,6 +63,8 @@
         "MD007": { "indent": 2 }, // Unordered List Indentation
         "MD013": false, // Line Length
     },
+    // Formatting
+    "markdown.extension.orderedList.marker": "one",
 
     // -------- Copy/paste behavior --------
     // Make VS Code behave like a respectable macOS app (almost... it's not a separate kill ring).

@@ -121,7 +121,7 @@ You may also want Python 3 and a number of useful packages related to data analy
 - GitLens
 - LaTeX Workshop
 - macros (for keybindings)
-- Markdown Preview
+- Markdown All in One
 - markdownlint
 - parquet-viewer
 - PostgreSQL
