@@ -117,6 +117,7 @@ cask 'mactex-no-gui'
 
 # # Not installing these applications via brew cask
 
+# cask 'hammerspoon'  # https://github.com/Hammerspoon/hammerspoon
 # cask 'yujitach-menumeters'
 # cask 'noisy'
 # cask 'tunnelblick'  # VPN
@@ -148,17 +149,16 @@ cask 'mactex-no-gui'
 # cask 'spotify-notifications'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
-cask 'qlcolorcode'
+cask 'qlcolorcode'  # syntax highlighting
 cask 'qlmarkdown'
 cask 'quicklook-json'
-cask 'quicklook-csv'
-cask 'qlstephen'
+cask 'qlstephen'  # view plain text files without a file extension
 cask 'qlvideo'
-cask 'betterzip'
+cask 'qlprettypatch'  # view .patch files
+cask 'qlimagesize'  # display image size and resolution
+cask 'betterzip'  # preview archives
+# cask 'quicklook-csv'
 # cask 'suspicious-package'
-# cask 'qlimagesize'
-# cask 'quicklookase'
-# cask 'qlprettypatch'
 
 # Install Mac App Store apps
 mas 'Mail Notifr', id: 808154494
@@ -172,6 +172,7 @@ mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 mas 'Polyglot', id: 1471801525  # Safari extension for translation
+mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
 # mas '1Password', id: 443987910  # 1Password 6
 # mas 'GarageBand', id: 682658836
 # mas 'iMovie', id: 408981434
