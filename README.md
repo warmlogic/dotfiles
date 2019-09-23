@@ -33,8 +33,8 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
 1. Run `04-python.sh` to set up a Python 3 conda environment named `py3`
 1. Set up installed applications (look at `Brewfile` as a reminder of what was installed)
 1. If needed, copy public and private ssh keys from previous computer to `~/.ssh/` and `chmod` to `600`
-    - Set up `~/.ssh/config` to add ssh keys to Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
-- [Set up "Open in Safari or Chrome URL in Other Browser AppleScript + Automator Workflow](https://gist.github.com/warmlogic/e6b2f30640b4c5de2077373fb53f6df3)
+   - Set up `~/.ssh/config` to add ssh keys to Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
+1. [Set up "Open in Safari or Chrome URL in Other Browser AppleScript + Automator Workflow](https://gist.github.com/warmlogic/e6b2f30640b4c5de2077373fb53f6df3)
 
 More details below.
 
@@ -105,9 +105,9 @@ You may also want Python 3 and a number of useful packages related to data analy
 #### Safari Extensions
 
 - 1Password
-- [Wipr](https://apps.apple.com/us/app/wipr/id1320666476)
-- [Clean Links for Google](https://apps.apple.com/us/app/clean-links-for-google/id1467225874)
-- [Polyglot](https://apps.apple.com/us/app/polyglot/id1471801525)
+- [Wipr](https://apps.apple.com/us/app/wipr/id1320666476) (installed via `Brewfile`)
+- [Clean Links for Google](https://apps.apple.com/us/app/clean-links-for-google/id1467225874) (installed via `Brewfile`)
+- [Polyglot](https://apps.apple.com/us/app/polyglot/id1471801525) (installed via `Brewfile`)
   - Turn off Instant Translation
 
 #### Visual Studio Code Extensions
@@ -143,7 +143,7 @@ You may also want Python 3 and a number of useful packages related to data analy
 - [WordCount](https://github.com/titoBouzout/WordCount)
 - [Pretty JSON](https://github.com/dzhibas/SublimePrettyJson)
 - [MarkdownEditing](https://github.com/SublimeText-Markdown/MarkdownEditing)
-    - Change color scheme to ArcDark
+  - Change color scheme to ArcDark
 - [INI](https://github.com/clintberry/sublime-text-2-ini)
 - [rsub](https://github.com/henrikpersson/rsub) ([see instructions](http://caitriggs.com/blog/using-sublime-text-editor-ec2-instance/))
 

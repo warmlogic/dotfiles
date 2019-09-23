@@ -112,7 +112,7 @@ cask 'wordservice'
 cask 'kindle'
 cask 'postico'  # databases
 cask 'oversight'  # alert on camera or mic usage
-cask 'mactex-no-gui'
+cask 'mactex-no-gui'  # latex
 # cask 'zoomus'
 
 # # Not installing these applications via brew cask
@@ -160,7 +160,7 @@ cask 'betterzip'  # preview archives
 # cask 'quicklook-csv'
 # cask 'suspicious-package'
 
-# Install Mac App Store apps
+# Install apps via Mac App Store
 mas 'Mail Notifr', id: 808154494
 mas 'The Unarchiver', id: 425424353
 mas 'Deliveries', id: 924726344
@@ -171,9 +171,12 @@ mas 'Binaural', id: 946812450
 mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
-mas 'Polyglot', id: 1471801525  # Safari extension for translation
 mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
-# mas '1Password', id: 443987910  # 1Password 6
+# mas '1Password', id: 1333542190  # 1Password 7
 # mas 'GarageBand', id: 682658836
 # mas 'iMovie', id: 408981434
 # mas 'Slack', id: 803453959
+
+# Install Safari extensions via Mac App Store
+mas 'Polyglot', id: 1471801525  # Safari extension for translation
+mas 'CleanLinksForGoogle', id: 1467225874  # Safari extension to remove Google redirect URLs
