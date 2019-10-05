@@ -76,6 +76,7 @@ dependencies:
   - python-levenshtein  # NLP for fuzzywuzzy
   - pyldavis  # NLP https://github.com/bmabey/pyLDAvis
   - pip:
+    - python-dotenv  # https://pypi.org/project/python-dotenv/
     # - jedi  # autocomplete
     - black  # formatter
     - flake8  # linter

@@ -77,6 +77,9 @@ brew 'm-cli'
 # Support for Mac App Store apps https://github.com/mas-cli/mas
 brew 'mas'
 
+# Heroku; run this after to use autocomplete with the CLI tools: heroku autocomplete --refresh-cache
+brew 'heroku/brew/heroku'
+
 # # not installing
 # brew 'binutils'
 # brew 'diffutils'
@@ -111,6 +114,7 @@ cask 'protonvpn'  # VPN
 cask 'wordservice'
 cask 'kindle'
 cask 'postico'  # databases
+cask 'postgres'  # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 cask 'oversight'  # alert on camera or mic usage
 cask 'mactex-no-gui'  # latex
 # cask 'zoomus'

@@ -33,3 +33,6 @@ fi;
 
 # Remove outdated versions from the cellar
 brew cleanup
+
+# use autocomplete with the Heroku CLI tools
+heroku autocomplete --refresh-cache
