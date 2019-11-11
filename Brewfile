@@ -100,26 +100,25 @@ cask 'slack'
 cask 'visual-studio-code'
 cask 'sublime-text'
 cask 'jupyter-notebook-viewer'
-cask 'docker'
-cask 'arq'
 cask 'spectacle'  # window manager
 cask 'itsycal'
 cask 'keybase'
 cask 'firefox'
-cask 'google-chrome'
 cask 'vlc'
 cask 'omnidisksweeper'
 cask 'protonvpn'  # VPN
 cask 'wordservice'
 cask 'kindle'
-cask 'postico'  # databases
-cask 'postgres'  # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 cask 'oversight'  # alert on camera or mic usage
 cask 'mactex-no-gui'  # latex
-# cask 'zoomus'
+cask 'docker'
+cask 'postico'  # databases
+cask 'postgres'  # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
 # # Not installing these applications via brew cask
 
+# cask 'arq'  # backup
+# cask 'zoomus'
 # cask 'hammerspoon'  # https://github.com/Hammerspoon/hammerspoon
 # cask 'yujitach-menumeters'
 # cask 'noisy'
@@ -127,13 +126,13 @@ cask 'mactex-no-gui'  # latex
 # cask 'transmission'
 # cask 'aquamacs'
 # cask 'shiftit'  # window manager
+# cask 'google-chrome'
 # cask 'google-chrome-canary'
 # cask 'google-drive-file-stream'  # gsuite
 # cask 'google-backup-and-sync'  # personal
 # cask 'google-cloud-sdk'
 # cask 'keepingyouawake'  # replacement for Caffeine
 # cask 'dropbox'
-# cask 'rescuetime'  # creepy
 # cask 'postman'
 # cask 'insomnia'
 # cask 'macdown'
@@ -142,7 +141,6 @@ cask 'mactex-no-gui'  # latex
 # cask 'quicksilver'
 # cask 'github-desktop'
 # cask 'sourcetree'
-# cask 'flux'
 # cask 'selfcontrol'
 # cask 'sublime-text-dev'
 # cask 'iterm2'
