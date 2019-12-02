@@ -70,6 +70,9 @@ brew 'unzip'
 brew 'vim', args: ['override-system-vi']
 brew 'emacs', args: ['--with-cocoa']
 
+# Easy cd https://github.com/rupa/z
+brew 'z'
+
 # Mac Swiss Army Knife https://github.com/rgcr/m-cli
 brew 'm-cli'
 

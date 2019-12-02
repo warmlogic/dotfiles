@@ -33,9 +33,14 @@ if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_
     export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
     source "$(brew --prefix)/share/bash-completion/bash_completion";
 elif [ -f "/usr/local/etc/profile.d/bash_completion.sh" ]; then
-	source "/usr/local/etc/profile.d/bash_completion.sh"
+    source "/usr/local/etc/profile.d/bash_completion.sh"
 elif [ -f /etc/bash_completion ]; then
     source /etc/bash_completion;
+fi;
+
+# z https://github.com/rupa/z
+if [ -f "/usr/local/etc/profile.d/z.sh" ]; then
+    source "/usr/local/etc/profile.d/z.sh"
 fi;
 
 # # Enable tab completion for `g` by marking it as an alias for `git`
