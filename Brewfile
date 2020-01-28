@@ -153,19 +153,19 @@ cask 'postgres'  # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Cont
 # cask 'spotify-notifications'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
-cask 'qlcolorcode'  # syntax highlighting
-cask 'qlmarkdown'
-cask 'quicklook-json'
 cask 'qlstephen'  # view plain text files without a file extension
-cask 'qlvideo'
-cask 'qlprettypatch'  # view .patch files
-cask 'qlimagesize'  # display image size and resolution
-cask 'betterzip'  # preview archives
+cask 'qlmarkdown'
+# cask 'qlcolorcode'  # syntax highlighting
+# cask 'quicklook-json'
+# cask 'qlvideo'
+# cask 'qlprettypatch'  # view .patch files
+# cask 'qlimagesize'  # display image size and resolution
 # cask 'quicklook-csv'
+cask 'betterzip'  # preview archives
 # cask 'suspicious-package'
 
 # Install apps via Mac App Store
-mas 'Mail Notifr', id: 808154494
+# mas 'Mail Notifr', id: 808154494
 mas 'The Unarchiver', id: 425424353
 mas 'Deliveries', id: 924726344
 mas 'Amphetamine', id: 937984704  # replacement for Caffeine
