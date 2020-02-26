@@ -46,10 +46,10 @@ brew 'git-extras'
 brew 'cheat'
 
 brew 'file-formula' # guess file type
-brew 'gcc'
-brew 'gcc@8'
 brew 'gpatch'
 brew 'less'
+# https://xgboost.readthedocs.io/en/latest/build.html#building-on-osx
+brew 'libomp'  # for xgboost
 brew 'make'
 brew 'rsync'
 brew 'imagemagick', args: ['with-webp']
