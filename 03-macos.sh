@@ -29,6 +29,12 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # # Disable the sound effects on boot
 # sudo nvram SystemAudioVolume=" "
 
+# Enable the Mac startup chime
+# https://mrmacintosh.com/how-to-enable-the-mac-startup-chime-on-your-2016-macbook-pro/
+sudo nvram StartupMute=%00
+# # Disable the Mac startup chime
+# sudo nvram StartupMute=%01
+
 # # Disable transparency in the menu bar and elsewhere on Yosemite
 # defaults write com.apple.universalaccess reduceTransparency -bool true
 
