@@ -177,6 +177,7 @@ mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
 mas 'Tot', id: 1491071483
+mas 'DuckDuckGo Privacy Essentials', id: 1482920575
 # mas '1Password', id: 1333542190  # 1Password 7
 # mas 'GarageBand', id: 682658836
 # mas 'iMovie', id: 408981434
