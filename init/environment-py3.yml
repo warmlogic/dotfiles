@@ -3,39 +3,41 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  # - altair
+  - altair
   # - vega_datasets
   # - bokeh
-  - bleach
-  - bz2file
-  - cycler
-  - cython
-  - decorator
+  # - bleach  # clean html
+  # - bz2file
+  # - cycler
+  # - cython
+  # - decorator
   - feather-format
-  - freetype
-  - html5lib
-  - icu
-  - ipykernel
+  - h5py
+  - pyyaml
+  # - freetype
+  # - html5lib
+  # - icu
+  # - ipykernel
   - ipython
-  - ipywidgets
-  - jsonschema
+  # - ipywidgets
+  # - jsonschema
   - jupyterlab
-  - jupyter  # jupyter
-  - jupyter_client  # jupyter
-  - jupyter_console  # jupyter
-  - jupyter_core  # jupyter
-  - jupyter_contrib_nbextensions  # jupyter
-  - notebook  # jupyter
-  - widgetsnbextension  # jupyter
-  - nb_conda_kernels  # jupyter
-  - libiconv
-  - libpng
+  # - jupyter  # jupyter
+  # - jupyter_client  # jupyter
+  # - jupyter_console  # jupyter
+  # - jupyter_core  # jupyter
+  # - jupyter_contrib_nbextensions  # jupyter
+  # - notebook  # jupyter
+  # - widgetsnbextension  # jupyter
+  # - nb_conda_kernels  # jupyter
+  # - libiconv
+  # - libpng
   - matplotlib
   - mkl
-  - nbconvert  # jupyter
+  # - nbconvert  # jupyter
   - nbdime  # nbdiff
-  - nbformat  # jupyter
-  - networkx
+  # - nbformat  # jupyter
+  # - networkx
   # - nose  # test
   - numpy
   - pandas
@@ -43,38 +45,39 @@ dependencies:
   - pillow
   - pip
   - pytest  # test
-  - python-dateutil
+  # - python-dateutil
   - pytz
   - scikit-learn
   - scipy
   - seaborn
-  - setuptools
-  - awscli  # AWS
-  - s3fs  # AWS
-  - sqlite
+  # - setuptools
+  # - awscli  # AWS
+  - boto3  # AWS
+  # - s3fs  # AWS
+  # - sqlite
   - statsmodels
-  - swig
+  # - swig
   - olefile  # MS Office files
   - xlrd  # MS Office (Excel) files
   - xlsxwriter  # MS Office (Excel) files
-  - openpyxl  # MS Office (Excel) files
+  # - openpyxl  # MS Office (Excel) files
   - tqdm  # utility
   - missingno  # data profiling
   - pandas-profiling  # data profiling
-  - pandas-summary  # data profiling
-  - pandas-datareader  # data access
+  # - pandas-summary  # data profiling
+  # - pandas-datareader  # data access
   - imbalanced-learn  # ML utility
   - scikit-image  # for lime
-  - lightgbm  # ML https://github.com/Microsoft/LightGBM
+  # - lightgbm  # ML https://github.com/Microsoft/LightGBM
   - nltk  # NLP
-  - textacy  # NLP https://github.com/chartbeat-labs/textacy
-  - textblob  # NLP https://github.com/sloria/TextBlob
+  # - textacy  # NLP https://github.com/chartbeat-labs/textacy
+  # - textblob  # NLP https://github.com/sloria/TextBlob
   # - thinc # NLP https://github.com/explosion/thinc
   # - pattern # NLP https://github.com/clips/pattern
   - ftfy  # NLP https://github.com/LuminosoInsight/python-ftfy
-  - fuzzywuzzy  # NLP https://github.com/seatgeek/fuzzywuzzy
-  - python-levenshtein  # NLP for fuzzywuzzy
-  - pyldavis  # NLP https://github.com/bmabey/pyLDAvis
+  # - fuzzywuzzy  # NLP https://github.com/seatgeek/fuzzywuzzy
+  # - python-levenshtein  # NLP for fuzzywuzzy
+  # - pyldavis  # NLP https://github.com/bmabey/pyLDAvis
   - pip:
     - python-dotenv  # https://pypi.org/project/python-dotenv/
     # - jedi  # autocomplete
@@ -82,10 +85,10 @@ dependencies:
     - flake8  # linter
     # - pylint  # linter
     # - mypy  # linter
-    - lda  # NLP
+    # - lda  # NLP
     - kaggle  # data access
-    - gensim  # NLP https://radimrehurek.com/gensim/
-    - smart_open  # for gensim
+    # - gensim  # NLP https://radimrehurek.com/gensim/
+    # - smart_open  # for gensim
     - eli5  # explaining models https://github.com/TeamHG-Memex/eli5
     - lime  # explaining models https://github.com/marcotcr/lime
     - pdpbox  # explaining models https://github.com/SauceCat/PDPbox
@@ -98,13 +101,13 @@ dependencies:
     # - tpot  # http://epistasislab.github.io/tpot/installing/
     - isoweek  # https://github.com/gisle/isoweek
     - graphviz  # tree visualization
-    - sklearn-pandas  # https://github.com/scikit-learn-contrib/sklearn-pandas
+    # - sklearn-pandas  # https://github.com/scikit-learn-contrib/sklearn-pandas
     - spacy  # NLP https://spacy.io/
     # - pyenchant  # spelling https://github.com/rfk/pyenchant
     # - language-check  # grammar https://github.com/myint/language-check
     # - spotr  # AWS https://github.com/samuelreh/spotr
     # - tensorflow  # NN
     # - keras  # NN
-    - plotly  # Plotly and Dash https://plot.ly/python/
-    - dash  # The core dash backend
-    - dash-daq  # DAQ components
+    # - plotly  # Plotly and Dash https://plot.ly/python/
+    # - dash  # The core dash backend
+    # - dash-daq  # DAQ components

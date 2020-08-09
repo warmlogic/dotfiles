@@ -48,38 +48,6 @@ conda info -a
 # This adds the conda-forge channel below the defaults library
 conda config --append channels conda-forge
 
-# # packages for base environment
-# packages='awscli
-# bz2file
-# cython
-# feather-format
-# flake8
-# ipykernel
-# ipython
-# ipywidgets
-# jupyter
-# jupyter_contrib_nbextensions
-# matplotlib
-# mkl
-# nb_conda_kernels
-# nbconvert
-# nbdime
-# nbformat
-# notebook
-# numpy
-# pandas
-# pip
-# pytest
-# s3fs
-# scipy
-# seaborn
-# tqdm
-# widgetsnbextension
-# xlrd'
-
-# # Install packages to run Jupyter Notebook server with automatic kernels per environment via nb_conda_kernels
-# conda install -n base $packages -y
-
 # enable usage of conda command
 . $HOME/$MC_DIR/etc/profile.d/conda.sh
 
@@ -91,14 +59,14 @@ pip install -U pip
 # update the base environment with lots of good packages
 conda env update -f init/environment-py3.yml -q
 
-# enable nb_conda_kernels
-python -m nb_conda_kernels.install --enable --prefix="${CONDA_PREFIX}"
+# # enable nb_conda_kernels
+# python -m nb_conda_kernels.install --enable --prefix="${CONDA_PREFIX}"
 
-# copy nbextension files into jupyter server's search dir and edit some config files
-jupyter contrib nbextension install --user
+# # copy nbextension files into jupyter server's search dir and edit some config files
+# jupyter contrib nbextension install --user
 
-# copy jupyter settings, including enabled extensions
-cp -r .jupyter/ $HOME/.jupyter/
+# # copy jupyter settings, including enabled extensions
+# cp -r .jupyter/ $HOME/.jupyter/
 
 # configure git to use nbdiff
 nbdime config-git --enable --global
@@ -119,7 +87,8 @@ echo 'conda activate' >> ~/.bash_profile
 
 # download and link spacy language model
 # python -m spacy download en
-python -m spacy download en_core_web_lg
+python -m spacy download en_core_web_sm
+# python -m spacy download en_core_web_lg
 
 # # PyTorch
 # conda install pytorch torchvision -c pytorch  # http://pytorch.org/
