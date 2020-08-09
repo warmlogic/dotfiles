@@ -27,6 +27,9 @@
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
 
+    // Terminal
+    "terminal.integrated.inheritEnv": false,
+
     // -------- Python --------
     "python.analysis.logLevel": "Warning",
     "python.condaPath": "~/miniconda/bin/conda",
@@ -87,4 +90,34 @@
 
     // -------- Ruby --------
     "solargraph.checkGemVersion": false,
+
+    // -------- Terraform --------
+    "terraform.indexing": {
+        "enabled": false,
+        "liveIndexing": false,
+        "delay": 500,
+        "exclude": [
+            ".terraform/**/*",
+            "**/.terraform/**/*"
+        ]
+    },
+    "terraform.languageServer": {
+        "enabled": true,
+        "args": []
+    },
+
+    // -------- Spelling --------
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+    ],
+    "spellright.ignoreFiles": [
+        "**/*.csv",
+        "**/*.json*",
+        "**/.gitignore",
+        "**/.spellignore"
+    ],
+
+    // -------- Other --------
+    "todo-tree.highlights.enabled": true,
 }
