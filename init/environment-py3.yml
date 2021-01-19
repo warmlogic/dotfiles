@@ -51,15 +51,15 @@ dependencies:
   - scipy
   - seaborn
   # - setuptools
-  # - awscli  # AWS
+  - awscli  # AWS
   - boto3  # AWS
   # - s3fs  # AWS
   # - sqlite
   - statsmodels
   # - swig
-  - olefile  # MS Office files
-  - xlrd  # MS Office (Excel) files
-  - xlsxwriter  # MS Office (Excel) files
+  # - olefile  # MS Office files
+  # - xlrd  # MS Office (Excel) files
+  # - xlsxwriter  # MS Office (Excel) files
   # - openpyxl  # MS Office (Excel) files
   - tqdm  # utility
   - missingno  # data profiling
@@ -67,7 +67,7 @@ dependencies:
   # - pandas-summary  # data profiling
   # - pandas-datareader  # data access
   - imbalanced-learn  # ML utility
-  - scikit-image  # for lime
+  # - scikit-image  # for lime
   # - lightgbm  # ML https://github.com/Microsoft/LightGBM
   - nltk  # NLP
   # - textacy  # NLP https://github.com/chartbeat-labs/textacy
@@ -78,6 +78,8 @@ dependencies:
   # - fuzzywuzzy  # NLP https://github.com/seatgeek/fuzzywuzzy
   # - python-levenshtein  # NLP for fuzzywuzzy
   # - pyldavis  # NLP https://github.com/bmabey/pyLDAvis
+  - psycopg2
+  - sqlalchemy
   - pip:
     - python-dotenv  # https://pypi.org/project/python-dotenv/
     # - jedi  # autocomplete
@@ -86,20 +88,20 @@ dependencies:
     # - pylint  # linter
     # - mypy  # linter
     # - lda  # NLP
-    - kaggle  # data access
+    # - kaggle  # data access
     # - gensim  # NLP https://radimrehurek.com/gensim/
     # - smart_open  # for gensim
-    - eli5  # explaining models https://github.com/TeamHG-Memex/eli5
-    - lime  # explaining models https://github.com/marcotcr/lime
-    - pdpbox  # explaining models https://github.com/SauceCat/PDPbox
-    - shap  # explaining models https://github.com/slundberg/shap
-    - rfpimp  # RF feature importance https://github.com/parrt/random-forest-importances
-    - deon  # ethics checklist https://github.com/drivendataorg/deon/
+    # - eli5  # explaining models https://github.com/TeamHG-Memex/eli5
+    # - lime  # explaining models https://github.com/marcotcr/lime
+    # - pdpbox  # explaining models https://github.com/SauceCat/PDPbox
+    # - shap  # explaining models https://github.com/slundberg/shap
+    # - rfpimp  # RF feature importance https://github.com/parrt/random-forest-importances
+    # - deon  # ethics checklist https://github.com/drivendataorg/deon/
     # - deap  # for tpot
     # - update_checker  # for tpot
     # - stopit  # for tpot
     # - tpot  # http://epistasislab.github.io/tpot/installing/
-    - isoweek  # https://github.com/gisle/isoweek
+    # - isoweek  # https://github.com/gisle/isoweek
     - graphviz  # tree visualization
     # - sklearn-pandas  # https://github.com/scikit-learn-contrib/sklearn-pandas
     - spacy  # NLP https://spacy.io/
