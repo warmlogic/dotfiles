@@ -70,6 +70,8 @@ brew 'unzip'
 brew 'vim', args: ['override-system-vi']
 brew 'emacs', args: ['--with-cocoa']
 
+brew 'rbenv'
+
 # Easy cd https://github.com/rupa/z
 brew 'z'
 
