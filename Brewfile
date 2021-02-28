@@ -7,7 +7,9 @@ cask_args appdir: '/Applications'
 
 # List of brew repositories
 tap 'homebrew/bundle'
-tap 'caskroom/versions'
+tap 'homebrew/cask'
+tap 'homebrew/cask-fonts'
+tap 'homebrew/cask-versions'
 
 # Use GNU instead of BSD commands
 # the with-default-names uses normal name, rather than g-prefixed
@@ -87,57 +89,58 @@ brew 'heroku/brew/heroku'
 # Install additional applications
 
 cask '1password'  # 1Password 7
-cask 'slack'
-cask 'visual-studio-code'
-cask 'spotify'
-cask 'jupyter-notebook-viewer'
-cask 'spectacle'  # window manager
-cask 'itsycal'
-cask 'google-chrome'
+cask 'docker'
 cask 'firefox'
-cask 'vlc'
+cask 'google-chrome'
+cask 'itsycal'
+cask 'jupyter-notebook-viewer'
+cask 'kindle'
 cask 'omnidisksweeper'
 cask 'protonvpn'  # VPN
-cask 'wordservice'
+cask 'slack'
+cask 'spectacle'  # window manager
+cask 'spotify'
+cask 'steam'
 cask 'transmission'
-cask 'kindle'
-cask 'docker'
+cask 'visual-studio-code'
+cask 'vlc'
+cask 'wordservice'
+cask 'zoom'
 
 # # Not installing these applications via brew cask
 
-# cask 'sublime-text'
-# cask 'keybase'
-# cask 'oversight'  # alert on camera or mic usage
-# cask 'mactex-no-gui'  # latex
-# cask 'postico'  # databases
-# cask 'postgres'  # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-# cask 'arq'  # backup
-# cask 'zoomus'
-# cask 'hammerspoon'  # https://github.com/Hammerspoon/hammerspoon
-# cask 'yujitach-menumeters'
-# cask 'noisy'
-# cask 'tunnelblick'  # VPN
-# cask 'aquamacs'
-# cask 'shiftit'  # window manager
-# cask 'google-chrome-canary'
-# cask 'google-drive-file-stream'  # gsuite
-# cask 'google-backup-and-sync'  # personal
-# cask 'google-cloud-sdk'
-# cask 'keepingyouawake'  # replacement for Caffeine
-# cask 'dropbox'
-# cask 'postman'
-# cask 'insomnia'
-# cask 'macdown'
-# cask 'ngrok'
-# cask 'lastfm'
-# cask 'quicksilver'
-# cask 'github-desktop'
-# cask 'sourcetree'
-# cask 'selfcontrol'
-# cask 'sublime-text-dev'
-# cask 'iterm2'
-# cask 'harvest'
 # cask 'adobe-reader'
+# cask 'aquamacs'
+# cask 'arq'  # backup
+# cask 'dropbox'
+# cask 'github-desktop'
+# cask 'google-backup-and-sync'  # personal
+# cask 'google-chrome-canary'
+# cask 'google-cloud-sdk'
+# cask 'google-drive-file-stream'  # gsuite
+# cask 'hammerspoon'  # https://github.com/Hammerspoon/hammerspoon
+# cask 'harvest'
+# cask 'insomnia'
+# cask 'iterm2'
+# cask 'keepingyouawake'  # replacement for Caffeine
+# cask 'keybase'
+# cask 'lastfm'
+# cask 'macdown'
+# cask 'mactex-no-gui'  # latex
+# cask 'ngrok'
+# cask 'noisy'
+# cask 'oversight'  # alert on camera or mic usage
+# cask 'postgres'  # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+# cask 'postico'  # databases
+# cask 'postman'
+# cask 'quicksilver'
+# cask 'selfcontrol'
+# cask 'shiftit'  # window manager
+# cask 'sourcetree'
+# cask 'sublime-text-dev'
+# cask 'sublime-text'
+# cask 'tunnelblick'  # VPN
+# cask 'yujitach-menumeters'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 cask 'qlstephen'  # view plain text files without a file extension
@@ -146,32 +149,38 @@ cask 'betterzip'  # preview archives
 cask 'qlcolorcode'  # syntax highlighting
 cask 'quicklook-json'
 # cask 'qlvideo'
-# cask 'qlprettypatch'  # view .patch files
-# cask 'qlimagesize'  # display image size and resolution
 # cask 'quicklook-csv'
-# cask 'suspicious-package'
+
+# Install Fonts
+cask 'font-lato'
+cask 'font-open-sans'
+cask 'font-roboto'
+cask 'font-source-code-pro-for-powerline'
+cask 'font-source-code-pro'
+cask 'font-source-sans-pro'
+cask 'font-source-serif-pro'
 
 # Install apps via Mac App Store
-mas 'The Unarchiver', id: 425424353
-mas 'Deliveries', id: 924726344
 mas 'Amphetamine', id: 937984704
-mas 'JustFocus', id: 1142151959
 mas 'Binaural', id: 946812450
-mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
-mas 'Tot', id: 1491071483
+mas 'Deliveries', id: 924726344
+mas 'GarageBand', id: 682658836
+mas 'iMovie', id: 408981434
+mas 'JustFocus', id: 1142151959
+mas 'Keynote', id: 409183694
+mas 'Numbers', id: 409203825
+mas 'Pages', id: 409201541
 mas 'Poolside FM', id: 1514817810
+mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
+mas 'The Unarchiver', id: 425424353
+mas 'Tot', id: 1491071483
 # mas '1Password', id: 1333542190  # 1Password 7
-# mas 'Slack', id: 803453959
 # mas 'Mail Notifr', id: 808154494
-# mas 'Keynote', id: 409183694
-# mas 'Numbers', id: 409203825
-# mas 'Pages', id: 409201541
-# mas 'GarageBand', id: 682658836
-# mas 'iMovie', id: 408981434
+# mas 'Slack', id: 803453959
 
 # Install Safari extensions via Mac App Store
-mas 'Wipr', id: 1320666476
 mas 'CleanLinksForGoogle', id: 1467225874  # Safari extension to remove Google redirect URLs
 mas 'DuckDuckGo Privacy Essentials', id: 1482920575
 mas 'Hush', id: 1544743900
+mas 'Wipr', id: 1320666476
 # mas 'Polyglot', id: 1471801525  # Safari extension for translation

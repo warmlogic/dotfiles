@@ -4,112 +4,112 @@ channels:
   - conda-forge
 dependencies:
   - altair
-  # - vega_datasets
-  # - bokeh
-  # - bleach  # clean html
-  # - bz2file
-  # - cycler
-  # - cython
-  # - decorator
+  - awscli  # AWS
+  - boto3  # AWS
   - feather-format
+  - ftfy  # NLP https://github.com/LuminosoInsight/python-ftfy
   - h5py
-  - pyyaml
-  # - freetype
-  # - html5lib
-  # - icu
-  # - ipykernel
   - ipython
-  # - ipywidgets
-  # - jsonschema
   - jupyterlab
-  # - jupyter  # jupyter
-  # - jupyter_client  # jupyter
-  # - jupyter_console  # jupyter
-  # - jupyter_core  # jupyter
-  # - jupyter_contrib_nbextensions  # jupyter
-  # - notebook  # jupyter
-  # - widgetsnbextension  # jupyter
-  # - nb_conda_kernels  # jupyter
-  # - libiconv
-  # - libpng
   - matplotlib
-  # - mkl
-  # - nbconvert  # jupyter
   - nbdime  # nbdiff
-  # - nbformat  # jupyter
-  # - networkx
-  # - nose  # test
+  - nltk  # NLP
   - numpy
   - pandas
   - patsy  # for statsmodels
   - pillow
   - pip
+  - psycopg2
   - pytest  # test
-  # - python-dateutil
   - pytz
+  - pyyaml
   - scikit-learn
   - scipy
   - seaborn
-  # - setuptools
-  - awscli  # AWS
-  - boto3  # AWS
-  # - s3fs  # AWS
-  # - sqlite
+  - sqlalchemy
   - statsmodels
-  # - swig
-  # - olefile  # MS Office files
-  # - xlrd  # MS Office (Excel) files
-  # - xlsxwriter  # MS Office (Excel) files
-  # - openpyxl  # MS Office (Excel) files
   - tqdm  # utility
+  # - bleach  # clean html
+  # - bokeh
+  # - bz2file
+  # - cycler
+  # - cython
+  # - decorator
+  # - freetype
+  # - fuzzywuzzy  # NLP https://github.com/seatgeek/fuzzywuzzy
+  # - html5lib
+  # - icu
+  # - imbalanced-learn  # ML utility
+  # - ipykernel
+  # - ipywidgets
+  # - jsonschema
+  # - jupyter  # jupyter
+  # - jupyter_client  # jupyter
+  # - jupyter_console  # jupyter
+  # - jupyter_contrib_nbextensions  # jupyter
+  # - jupyter_core  # jupyter
+  # - libiconv
+  # - libpng
+  # - lightgbm  # ML https://github.com/Microsoft/LightGBM
   # - missingno  # data profiling
+  # - mkl
+  # - nb_conda_kernels  # jupyter
+  # - nbconvert  # jupyter
+  # - nbformat  # jupyter
+  # - networkx
+  # - nose  # test
+  # - notebook  # jupyter
+  # - olefile  # MS Office files
+  # - openpyxl  # MS Office (Excel) files
+  # - pandas-datareader  # data access
   # - pandas-profiling  # data profiling
   # - pandas-summary  # data profiling
-  # - pandas-datareader  # data access
-  # - imbalanced-learn  # ML utility
+  # - pattern # NLP https://github.com/clips/pattern
+  # - pyldavis  # NLP https://github.com/bmabey/pyLDAvis
+  # - python-dateutil
+  # - python-levenshtein  # NLP for fuzzywuzzy
+  # - s3fs  # AWS
   # - scikit-image  # for lime
-  # - lightgbm  # ML https://github.com/Microsoft/LightGBM
-  - nltk  # NLP
+  # - setuptools
+  # - sqlite
+  # - swig
   # - textacy  # NLP https://github.com/chartbeat-labs/textacy
   # - textblob  # NLP https://github.com/sloria/TextBlob
   # - thinc # NLP https://github.com/explosion/thinc
-  # - pattern # NLP https://github.com/clips/pattern
-  - ftfy  # NLP https://github.com/LuminosoInsight/python-ftfy
-  # - fuzzywuzzy  # NLP https://github.com/seatgeek/fuzzywuzzy
-  # - python-levenshtein  # NLP for fuzzywuzzy
-  # - pyldavis  # NLP https://github.com/bmabey/pyLDAvis
-  - psycopg2
-  - sqlalchemy
+  # - vega_datasets
+  # - widgetsnbextension  # jupyter
+  # - xlrd  # MS Office (Excel) files
+  # - xlsxwriter  # MS Office (Excel) files
   - pip:
-    - python-dotenv  # https://pypi.org/project/python-dotenv/
-    # - jedi  # autocomplete
     - black  # formatter
     - flake8  # linter
-    # - pylint  # linter
-    # - mypy  # linter
-    # - lda  # NLP
-    # - kaggle  # data access
-    # - gensim  # NLP https://radimrehurek.com/gensim/
-    # - smart_open  # for gensim
-    # - eli5  # explaining models https://github.com/TeamHG-Memex/eli5
-    # - lime  # explaining models https://github.com/marcotcr/lime
-    # - pdpbox  # explaining models https://github.com/SauceCat/PDPbox
-    # - shap  # explaining models https://github.com/slundberg/shap
-    # - rfpimp  # RF feature importance https://github.com/parrt/random-forest-importances
-    # - deon  # ethics checklist https://github.com/drivendataorg/deon/
-    # - deap  # for tpot
-    # - update_checker  # for tpot
-    # - stopit  # for tpot
-    # - tpot  # http://epistasislab.github.io/tpot/installing/
-    # - isoweek  # https://github.com/gisle/isoweek
     - graphviz  # tree visualization
-    # - sklearn-pandas  # https://github.com/scikit-learn-contrib/sklearn-pandas
     - spacy  # NLP https://spacy.io/
-    # - pyenchant  # spelling https://github.com/rfk/pyenchant
-    # - language-check  # grammar https://github.com/myint/language-check
-    # - spotr  # AWS https://github.com/samuelreh/spotr
-    # - tensorflow  # NN
-    # - keras  # NN
-    # - plotly  # Plotly and Dash https://plot.ly/python/
     # - dash  # The core dash backend
     # - dash-daq  # DAQ components
+    # - deap  # for tpot
+    # - deon  # ethics checklist https://github.com/drivendataorg/deon/
+    # - eli5  # explaining models https://github.com/TeamHG-Memex/eli5
+    # - gensim  # NLP https://radimrehurek.com/gensim/
+    # - isoweek  # https://github.com/gisle/isoweek
+    # - jedi  # autocomplete
+    # - kaggle  # data access
+    # - keras  # NN
+    # - language-check  # grammar https://github.com/myint/language-check
+    # - lda  # NLP
+    # - lime  # explaining models https://github.com/marcotcr/lime
+    # - mypy  # linter
+    # - pdpbox  # explaining models https://github.com/SauceCat/PDPbox
+    # - plotly  # Plotly and Dash https://plot.ly/python/
+    # - pyenchant  # spelling https://github.com/rfk/pyenchant
+    # - pylint  # linter
+    # - python-dotenv  # https://pypi.org/project/python-dotenv/
+    # - rfpimp  # RF feature importance https://github.com/parrt/random-forest-importances
+    # - shap  # explaining models https://github.com/slundberg/shap
+    # - sklearn-pandas  # https://github.com/scikit-learn-contrib/sklearn-pandas
+    # - smart_open  # for gensim
+    # - spotr  # AWS https://github.com/samuelreh/spotr
+    # - stopit  # for tpot
+    # - tensorflow  # NN
+    # - tpot  # http://epistasislab.github.io/tpot/installing/
+    # - update_checker  # for tpot
