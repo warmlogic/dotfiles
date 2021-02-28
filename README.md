@@ -27,7 +27,7 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
 1. `cp .extra ~/.extra` and edit, if desired (explained below)
 1. If installing Mac App Store apps with Brew, sign in to the Mac App Store
 1. Ensure `Brewfile` includes only the programs you want to install
-    1. Run `02-brew.sh` to install apps (this script ensures the Xcode command line tools are installed before installing brew)
+    1. Run `02-brew.sh` to install apps
 1. Run `03-macos.sh` to set up macOS preferences
 1. Restart your computer
 1. Run `04-python.sh` to set up the `base` Python 3 conda environment named
