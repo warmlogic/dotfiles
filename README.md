@@ -30,7 +30,7 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
     1. Run `02-brew.sh` to install apps (this script ensures the Xcode command line tools are installed before installing brew)
 1. Run `03-macos.sh` to set up macOS preferences
 1. Restart your computer
-1. Run `04-python.sh` to set up a Python 3 conda environment named `py3`
+1. Run `04-python.sh` to set up the `base` Python 3 conda environment named
 1. Set up installed applications (look at `Brewfile` as a reminder of what was installed)
 1. If needed, copy public and private ssh keys from previous computer to `~/.ssh/` and `chmod` to `600`
    - Set up `~/.ssh/config` to add ssh keys to Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
@@ -88,7 +88,7 @@ When setting up a new Mac, you may want to set some sensible macOS defaults:
 
 ### Python/Anaconda setup
 
-You may also want Python 3 and a number of useful packages related to data analysis (via [miniconda](https://conda.io/miniconda.html)). This installs everything listed in `init/environment-py3.yml`.
+You may also want Python 3 and a number of useful packages related to data analysis (via [miniconda](https://conda.io/miniconda.html)). This installs everything listed in `init/environment.yml`.
 
 ```bash
 ./04-python.sh
@@ -100,74 +100,14 @@ You may also want Python 3 and a number of useful packages related to data analy
 
 - Add accounts with your calendars to Internet Accounts (System Preferences)
 - Itsycal format: `h:mm a`, show day
-- Turn off system clock
 
 #### Safari Extensions
 
-- 1Password
-- [Wipr](https://apps.apple.com/us/app/wipr/id1320666476) (installed via `Brewfile`)
-- [Clean Links for Google](https://apps.apple.com/us/app/clean-links-for-google/id1467225874) (installed via `Brewfile`)
-- [Polyglot](https://apps.apple.com/us/app/polyglot/id1471801525) (installed via `Brewfile`)
-  - Turn off Instant Translation
+- Installed via `Brewfile`
 
-#### Visual Studio Code Extensions
+#### Visual Studio Code
 
-- autoDocstring
-- Beautify
-- Brewfile
-- Docker
-- Dracula Official
-- Excel Viewer
-- GitLens
-- LaTeX Workshop
-- macros (for keybindings)
-- Markdown All in One
-- markdownlint
-- parquet-viewer
-- PostgreSQL
-- Python
-- python-string-sql
-- Rainbow CSV
-- Remote VSCode
-- Spell Right
-- SQLTools
-- Terraform
-- Todo Tree
-- Visual Studio IntelliCode
-- VS Code Jupyter Notebook Previewer
-
-#### SublimeText Packages
-
-- [Package Control](https://packagecontrol.io/installation)
-- [Anaconda](http://damnwidget.github.io/anaconda/)
-- [WordCount](https://github.com/titoBouzout/WordCount)
-- [Pretty JSON](https://github.com/dzhibas/SublimePrettyJson)
-- [MarkdownEditing](https://github.com/SublimeText-Markdown/MarkdownEditing)
-  - Change color scheme to ArcDark
-- [INI](https://github.com/clintberry/sublime-text-2-ini)
-- [rsub](https://github.com/henrikpersson/rsub) ([see instructions](http://caitriggs.com/blog/using-sublime-text-editor-ec2-instance/))
-
-Could use these for additional Python linting setup:
-
-- [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter)
-- [SublimeLinter-contrib-mypy](https://github.com/fredcallaway/SublimeLinter-contrib-mypy)
-
-#### Jupyter Notebook Extensions
-
-(Note: Not updated for Jupyter Lab)
-
-These should be automatically turned on, via `.jupyter/nbconfig/notebook.js`
-
-- ExecuteTime
-- spellchecker
-- Table of Contents (2)
-- Collapsible headings
-- Highlight selected word
-- Scroll down
-
-## TODO
-
-- Consider including an [IPython startup script](http://ipython.readthedocs.io/en/stable/interactive/tutorial.html?highlight=startup#startup-files).
+- Turn on syncing (beta)
 
 ## Feedback
 
