@@ -110,7 +110,7 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # # Disable automatic capitalization as it's annoying when typing code
-# defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
 # # Disable smart dashes as they're annoying when typing code
 # defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
@@ -121,8 +121,8 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # # Disable smart quotes as they're annoying when typing code
 # defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-# # Disable auto-correct
-# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # # all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
@@ -218,8 +218,8 @@ sudo pmset -a displaysleep 10
 # Disable machine sleep while charging
 sudo pmset -c sleep 0
 
-# Set machine sleep to 5 minutes on battery
-sudo pmset -b sleep 5
+# Set machine sleep to 15 minutes on battery
+sudo pmset -b sleep 15
 
 # # Set standby delay to 24 hours or 86400 (default is 1 hour or 3600)
 # sudo pmset -a standbydelay 86400
@@ -791,8 +791,8 @@ EOD
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
-# Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
+# # Disable local Time Machine backups
+# hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -885,8 +885,8 @@ defaults write com.apple.commerce AutoUpdate -bool true
 # # Disable smart quotes as it's annoying for messages that contain code
 # defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
 
-# # Disable continuous spell checking
-# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
+# Disable continuous spell checking
+defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
 ###############################################################################
 # Google Chrome & Google Chrome Canary                                        #
@@ -913,6 +913,9 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 # ###############################################################################
 
 # # Install Visual Studio Code settings
+
+# mkdir -p ~/Library/Application\ Support/Code/User/
+
 # cp -r init/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json 2> /dev/null
 # cp -r init/Code/User/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json 2> /dev/null
 
@@ -920,16 +923,22 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 # Sublime Text                                                                #
 ###############################################################################
 
-# Install Sublime Text settings
-cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings 2> /dev/null
+# # Install Sublime Text settings
 
-cp -r init/Anaconda.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Anaconda.sublime-settings
+# mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/
+
+# cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings 2> /dev/null
+
+# cp -r init/Anaconda.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Anaconda.sublime-settings
 
 ###############################################################################
 # Spectacle.app                                                               #
 ###############################################################################
 
 # Set up my preferred keyboard shortcuts
+
+mkdir -p ~/Library/Application\ Support/Spectacle
+
 cp -r init/spectacle.json ~/Library/Application\ Support/Spectacle/Shortcuts.json 2> /dev/null
 
 ###############################################################################
@@ -974,8 +983,8 @@ defaults write org.m0k.transmission RandomPort -bool true
 # Et cetera
 ###############################################################################
 
-# Allow QLStephen QuickLook generator to show yaml files
-/usr/libexec/PlistBuddy -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes: string public.yaml" ~/Library/QuickLook/QLStephen.qlgenerator/Contents/Info.plist
+# # Allow QLStephen QuickLook generator to show yaml files
+# /usr/libexec/PlistBuddy -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes: string public.yaml" ~/Library/QuickLook/QLStephen.qlgenerator/Contents/Info.plist
 
 ###############################################################################
 # Kill affected applications                                                  #
