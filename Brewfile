@@ -43,6 +43,7 @@ brew 'make'
 brew 'rbenv'
 brew 'rename'
 brew 'rsync'
+brew 'ruby'
 brew 'screen'
 brew 'tmux'
 brew 'tree' # Visualize directory structure
