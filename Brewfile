@@ -10,6 +10,7 @@ tap 'homebrew/bundle'
 tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
+tap 'heroku/brew'
 
 # Use GNU instead of BSD commands
 # the with-default-names uses normal name, rather than g-prefixed
@@ -17,62 +18,42 @@ brew 'coreutils'
 brew 'findutils'
 brew 'readline'
 brew 'gawk'
-brew 'gnu-indent', args: ['with-default-names']
-brew 'gnu-sed', args: ['with-default-names']
-brew 'gnu-tar', args: ['with-default-names']
-brew 'gnu-which', args: ['with-default-names']
-brew 'gnutls', args: ['with-default-names']
-brew 'grep', args: ['with-default-names']
+brew 'gnu-indent'
+brew 'gnu-sed'
+brew 'gnu-tar'
+brew 'gnu-which'
+brew 'gnutls'
+brew 'gpatch'
+brew 'grep'
 brew 'gzip'
-brew 'screen'
 brew 'watch'
-brew 'wdiff', args: ['with-gettext']
-brew 'wget', args: ['with-iri']
+brew 'wdiff'
+brew 'wget'
 
-# Update tools that already exist on Mac
-
-# Newest version of Bash
-brew 'bash'
-# Bash tab completion for Bash
-brew 'bash-completion@2'
-# Better top command
-brew 'htop'
+brew 'bash' # Newest version of Bash
+brew 'bash-completion@2' # Bash tab completion for Bash
+brew 'cheat' # Simple cheat-sheets; install and run `$ cheat tar`
+brew 'emacs'
+brew 'file-formula' # guess file type
+brew 'graphviz' # for python tree model plotting
+brew 'htop' # Better top command
+brew 'imagemagick'
+brew 'less'
+brew 'make'
+brew 'rbenv'
+brew 'rename'
+brew 'rsync'
+brew 'screen'
+brew 'tmux'
+brew 'tree' # Visualize directory structure
+brew 'unzip'
+brew 'vim'
 
 # Git and some surrounds
 brew 'git'
 brew 'git-lfs'
 brew 'git-flow'
 brew 'git-extras'
-
-# Simple cheat-sheets; install and run `$ cheat tar`
-brew 'cheat'
-
-brew 'file-formula' # guess file type
-brew 'gpatch'
-brew 'less'
-# https://xgboost.readthedocs.io/en/latest/build.html#building-on-osx
-brew 'libomp'  # for xgboost
-brew 'make'
-brew 'rsync'
-brew 'imagemagick', args: ['with-webp']
-
-brew 'graphviz' # for python tree model plotting
-
-brew 'pandoc'
-brew 'rename'
-brew 'tmux'
-# Helps tmux work on macOS https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
-brew 'reattach-to-user-namespace'
-
-# Visualize directory structure
-brew 'tree'
-
-brew 'unrar'
-brew 'unzip'
-brew 'vim', args: ['override-system-vi']
-brew 'emacs', args: ['--with-cocoa']
-
-brew 'rbenv'
 
 # Easy cd https://github.com/rupa/z
 brew 'z'
@@ -84,17 +65,19 @@ brew 'm-cli'
 brew 'mas'
 
 # Heroku; run this after to use autocomplete with the CLI tools: heroku autocomplete --refresh-cache
-brew 'heroku/brew/heroku'
+brew 'heroku'
 
 # Install additional applications
 
 cask '1password'  # 1Password 7
+cask 'ableton-live-lite'
 cask 'docker'
 cask 'firefox'
 cask 'google-chrome'
 cask 'itsycal'
 cask 'jupyter-notebook-viewer'
 cask 'kindle'
+cask 'loopback'
 cask 'omnidisksweeper'
 cask 'protonvpn'  # VPN
 cask 'slack'
@@ -143,22 +126,18 @@ cask 'zoom'
 # cask 'yujitach-menumeters'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
-cask 'qlstephen'  # view plain text files without a file extension
-cask 'qlmarkdown'
 cask 'betterzip'  # preview archives
-cask 'qlcolorcode'  # syntax highlighting
-cask 'quicklook-json'
+cask 'syntax-highlight'
+# cask 'qlcolorcode'  # syntax highlighting
+# cask 'qlmarkdown'
+# cask 'qlstephen'  # view plain text files without a file extension
 # cask 'qlvideo'
 # cask 'quicklook-csv'
+# cask 'quicklook-json'
 
 # Install Fonts
-cask 'font-lato'
-cask 'font-open-sans'
-cask 'font-roboto'
-cask 'font-source-code-pro-for-powerline'
 cask 'font-source-code-pro'
 cask 'font-source-sans-pro'
-cask 'font-source-serif-pro'
 
 # Install apps via Mac App Store
 mas 'Amphetamine', id: 937984704
@@ -179,8 +158,8 @@ mas 'Tot', id: 1491071483
 # mas 'Slack', id: 803453959
 
 # Install Safari extensions via Mac App Store
-mas 'CleanLinksForGoogle', id: 1467225874  # Safari extension to remove Google redirect URLs
 mas 'DuckDuckGo Privacy Essentials', id: 1482920575
 mas 'Hush', id: 1544743900
 mas 'Wipr', id: 1320666476
+# mas 'CleanLinksForGoogle', id: 1467225874  # Safari extension to remove Google redirect URLs
 # mas 'Polyglot', id: 1471801525  # Safari extension for translation
