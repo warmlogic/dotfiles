@@ -29,11 +29,11 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # # Disable the sound effects on boot
 # sudo nvram SystemAudioVolume=" "
 
-# Enable the Mac startup chime
-# https://mrmacintosh.com/how-to-enable-the-mac-startup-chime-on-your-2016-macbook-pro/
-sudo nvram StartupMute=%00
-# # Disable the Mac startup chime
-# sudo nvram StartupMute=%01
+# # Enable the Mac startup chime
+# # https://mrmacintosh.com/how-to-enable-the-mac-startup-chime-on-your-2016-macbook-pro/
+# sudo nvram StartupMute=%00
+# # # Disable the Mac startup chime
+# # sudo nvram StartupMute=%01
 
 # # Disable transparency in the menu bar and elsewhere on Yosemite
 # defaults write com.apple.universalaccess reduceTransparency -bool true
@@ -51,6 +51,9 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
 # # Disable the over-the-top focus ring animation
 # defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
 
+# Adjust toolbar title rollover delay
+defaults write NSGlobalDomain NSToolbarTitleViewRolloverDelay -float 0
+
 # Disable smooth scrolling
 # (Uncomment if you're on an older Mac that messes up the animation)
 #defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
@@ -58,25 +61,25 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
 # # Increase window resize speed for Cocoa applications
 # defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
-# # Expand save panel by default
-# defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-# defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+# Expand save panel by default
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
-# # Expand print panel by default
-# defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
-# defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+# Expand print panel by default
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 # # Save to disk (not to iCloud) by default
 # defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
-# # Automatically quit printer app once the print jobs complete
-# defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+# Automatically quit printer app once the print jobs complete
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
 # # Disable the "Are you sure you want to open this application?" dialog
 # defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# # Remove duplicates in the "Open With" menu (also see `fixopenwith` alias)
-# /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+# Remove duplicates in the "Open With" menu (also see `fixopenwith` alias)
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
 # # Display ASCII control characters using caret notation in standard text views
 # # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
@@ -103,60 +106,29 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
 # in the login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
-# Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze on
-
-# # Never go into computer sleep mode
-# sudo systemsetup -setcomputersleep Off > /dev/null
-
 # # Disable Notification Center and remove the menu bar icon
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
-# Disable automatic capitalization as it's annoying when typing code
-defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+# # Disable automatic capitalization as it's annoying when typing code
+# defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
-# Disable smart dashes as they're annoying when typing code
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+# # Disable smart dashes as they're annoying when typing code
+# defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
-# Disable automatic period substitution as it's annoying when typing code
-defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+# # Disable automatic period substitution as it's annoying when typing code
+# defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
-# Disable smart quotes as they're annoying when typing code
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+# # Disable smart quotes as they're annoying when typing code
+# defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-# Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# # Disable auto-correct
+# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # # all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
 # rm -rf ~/Library/Application Support/Dock/desktoppicture.db
 # sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
 # sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
-
-###############################################################################
-# SSD-specific tweaks                                                         #
-###############################################################################
-
-# # Disable hibernation (speeds up entering sleep mode)
-# sudo pmset -a hibernatemode 0
-
-# # Remove the sleep image file to save disk space
-# sudo rm /private/var/vm/sleepimage
-# # Create a zero-byte file instead...
-# sudo touch /private/var/vm/sleepimage
-# # ...and make sure it can't be rewritten
-# sudo chflags uchg /private/var/vm/sleepimage
-
-###############################################################################
-# Sound                                                                       #
-###############################################################################
-
-# Alert volume
-# Slider level:
-#  "75%": 0.7788008
-#  "50%": 0.6065307
-#  "25%": 0.4723665
-defaults write NSGlobalDomain com.apple.sound.beep.volume -float 0.6065307
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -190,7 +162,6 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # # Use scroll gesture with the Ctrl (^) modifier key to zoom
 # defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 # defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-
 # # Follow the keyboard focus while zoomed in
 # defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
@@ -213,10 +184,11 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 25
 # defaults write NSGlobalDomain AppleMeasurementUnits -string "Inches"
 # defaults write NSGlobalDomain AppleMetricUnits -bool false
 
-# # This should supposedly set up the clock to display YYYY-MM-DD h:m a
-# # But it sticks with default "MMM d  h:mm a"
-# # Let's use itsycal instead (installed with brew)
-# defaults write com.apple.menuextra.clock "DateFormat" -string "y-MM-dd h:mm a"
+# Make the clock analog
+# Let's use itsycal instead (installed with brew)
+defaults write com.apple.menuextra.clock "IsAnalog" -int 1
+defaults write com.apple.menuextra.clock "ShowDayOfMonth" -int 0
+defaults write com.apple.menuextra.clock "ShowDayOfWeek" -int 0
 
 # Show language menu in the top right corner of the boot screen
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
@@ -226,6 +198,47 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bo
 
 # # Stop iTunes from responding to the keyboard media keys
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
+
+###############################################################################
+# Energy saving                                                               #
+###############################################################################
+
+# Enable lid wakeup
+sudo pmset -a lidwake 1
+
+# Restart automatically on power loss
+sudo pmset -a autorestart 1
+
+# Restart automatically if the computer freezes
+sudo systemsetup -setrestartfreeze on
+
+# Sleep the display after 10 minutes
+sudo pmset -a displaysleep 10
+
+# Disable machine sleep while charging
+sudo pmset -c sleep 0
+
+# Set machine sleep to 5 minutes on battery
+sudo pmset -b sleep 5
+
+# # Set standby delay to 24 hours or 86400 (default is 1 hour or 3600)
+# sudo pmset -a standbydelay 86400
+
+# # Never go into computer sleep mode
+# sudo systemsetup -setcomputersleep Off > /dev/null
+
+# Hibernation mode
+# 0: Disable hibernation (speeds up entering sleep mode)
+# 3: Copy RAM to disk so the system state can still be restored in case of a
+#    power failure.
+sudo pmset -a hibernatemode 0
+
+# # Remove the sleep image file to save disk space
+# sudo rm /private/var/vm/sleepimage
+# # Create a zero-byte file instead...
+# sudo touch /private/var/vm/sleepimage
+# # ...and make sure it can’t be rewritten
+# sudo chflags uchg /private/var/vm/sleepimage
 
 ###############################################################################
 # Screen                                                                      #
@@ -366,14 +379,10 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 # defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Show the ~/Library folder
-chflags nohidden ~/Library
+chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
 
 # # Show the /Volumes folder
 # sudo chflags nohidden /Volumes
-
-# # Remove Dropbox's green checkmark icons in Finder
-# file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
-# [ -e "${file}" ] && mv -f "${file}" "${file}.bak"
 
 # Expand the following File Info panes:
 # "General", "Open with", and "Sharing & Permissions"
@@ -439,11 +448,11 @@ defaults write com.apple.dock mru-spaces -bool false
 # # Automatically hide and show the Dock
 # defaults write com.apple.dock autohide -bool true
 
-# Don’t show recent applications in Dock
-defaults write com.apple.dock show-recents -bool false
-
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
+
+# Don’t show recent applications in Dock
+defaults write com.apple.dock show-recents -bool false
 
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
 defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
@@ -779,11 +788,11 @@ EOD
 # Time Machine                                                                #
 ###############################################################################
 
-# # Prevent Time Machine from prompting to use new hard drives as backup volume
-# defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+# Prevent Time Machine from prompting to use new hard drives as backup volume
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
-# # Disable local Time Machine backups
-# hash tmutil &> /dev/null && sudo tmutil disablelocal
+# Disable local Time Machine backups
+hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -838,23 +847,23 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # # Enable Debug Menu in the Mac App Store
 # defaults write com.apple.appstore ShowDebugMenu -bool true
 
-# # Enable the automatic update check
-# defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+# Enable the automatic update check
+defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
-# # Check for software updates daily, not just once per week
-# defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+# Check for software updates daily, not just once per week
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
-# # Download newly available updates in background
-# defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+# Download newly available updates in background
+defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
 
-# # Install System data files & security updates
-# defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+# Install System data files & security updates
+defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 
-# # Automatically download apps purchased on other Macs
-# defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
+# Automatically download apps purchased on other Macs
+defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
 
-# # Turn on app auto-update
-# defaults write com.apple.commerce AutoUpdate -bool true
+# Turn on app auto-update
+defaults write com.apple.commerce AutoUpdate -bool true
 
 # # Allow the App Store to reboot machine on macOS updates
 # defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
@@ -885,26 +894,27 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 # Disable the all too sensitive backswipe on trackpads
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
-defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
+# defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
 
 # Disable the all too sensitive backswipe on Magic Mouse
 defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
-defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
+# defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
 
-# # Use the system-native print preview dialog
-# defaults write com.google.Chrome DisablePrintPreview -bool true
+# Use the system-native print preview dialog
+defaults write com.google.Chrome DisablePrintPreview -bool true
 # defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 
-# # Expand the print dialog by default
-# defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
+# Expand the print dialog by default
+defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 # defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 
-###############################################################################
-# Visual Studio Code                                                          #
-###############################################################################
+# ###############################################################################
+# # Visual Studio Code                                                          #
+# ###############################################################################
 
-# Install Visual Studio Code settings
-cp -r init/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json 2> /dev/null
+# # Install Visual Studio Code settings
+# cp -r init/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json 2> /dev/null
+# cp -r init/Code/User/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json 2> /dev/null
 
 ###############################################################################
 # Sublime Text                                                                #
@@ -922,43 +932,50 @@ cp -r init/Anaconda.sublime-settings ~/Library/Application\ Support/Sublime\ Tex
 # Set up my preferred keyboard shortcuts
 cp -r init/spectacle.json ~/Library/Application\ Support/Spectacle/Shortcuts.json 2> /dev/null
 
-# ###############################################################################
-# # Transmission.app                                                            #
-# ###############################################################################
+###############################################################################
+# Transmission.app                                                            #
+###############################################################################
 
-# # # Use `~/Downloads/torrents` to store incomplete downloads
-# # defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
-# # defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Downloads/torrents"
+# # Use `~/Downloads/torrents` to store incomplete downloads
+# defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
+# defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Downloads/torrents"
 
-# # # Use `~/Downloads` to store completed downloads
-# # defaults write org.m0k.transmission DownloadLocationConstant -bool true
+# # Use `~/Downloads` to store completed downloads
+# defaults write org.m0k.transmission DownloadLocationConstant -bool true
 
-# # Auto import from `~/Downloads/torrents`
-# defaults write org.m0k.transmission AutoImportDirectory -string "${HOME}/Downloads/torrents"
+# Auto import from `~/Downloads/torrents`
+defaults write org.m0k.transmission AutoImportDirectory -string "${HOME}/Downloads/torrents"
 
-# # Don't prompt for confirmation before downloading
-# defaults write org.m0k.transmission DownloadAsk -bool false
-# defaults write org.m0k.transmission MagnetOpenAsk -bool false
+# Don't prompt for confirmation before downloading
+defaults write org.m0k.transmission DownloadAsk -bool false
+defaults write org.m0k.transmission MagnetOpenAsk -bool false
 
-# # Don't prompt for confirmation before removing non-downloading active transfers
-# defaults write org.m0k.transmission CheckRemoveDownloading -bool true
+# Don't prompt for confirmation before removing non-downloading active transfers
+defaults write org.m0k.transmission CheckRemoveDownloading -bool true
 
-# # Trash original torrent files
-# defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+# Trash original torrent files
+defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
 
-# # Hide the donate message
-# defaults write org.m0k.transmission WarningDonate -bool false
-# # Hide the legal disclaimer
-# defaults write org.m0k.transmission WarningLegal -bool false
+# Hide the donate message
+defaults write org.m0k.transmission WarningDonate -bool false
+# Hide the legal disclaimer
+defaults write org.m0k.transmission WarningLegal -bool false
 
-# # IP block list.
-# # Source: https://giuliomac.wordpress.com/2014/02/19/best-blocklist-for-transmission/
-# defaults write org.m0k.transmission BlocklistNew -bool true
-# defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
-# defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
+# IP block list.
+# Source: https://giuliomac.wordpress.com/2014/02/19/best-blocklist-for-transmission/
+defaults write org.m0k.transmission BlocklistNew -bool true
+defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
+defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
 
-# # Randomize port on launch
-# defaults write org.m0k.transmission RandomPort -bool true
+# Randomize port on launch
+defaults write org.m0k.transmission RandomPort -bool true
+
+###############################################################################
+# Et cetera
+###############################################################################
+
+# Allow QLStephen QuickLook generator to show yaml files
+/usr/libexec/PlistBuddy -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes: string public.yaml" ~/Library/QuickLook/QLStephen.qlgenerator/Contents/Info.plist
 
 ###############################################################################
 # Kill affected applications                                                  #
@@ -969,7 +986,6 @@ for app in "Activity Monitor" \
     "Calendar" \
     "cfprefsd" \
     "Google Chrome" \
-    "Google Chrome Canary" \
     "Contacts" \
     "Dock" \
     "Finder" \

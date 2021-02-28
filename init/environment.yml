@@ -33,7 +33,7 @@ dependencies:
   # - libiconv
   # - libpng
   - matplotlib
-  - mkl
+  # - mkl
   # - nbconvert  # jupyter
   - nbdime  # nbdiff
   # - nbformat  # jupyter
@@ -62,11 +62,11 @@ dependencies:
   # - xlsxwriter  # MS Office (Excel) files
   # - openpyxl  # MS Office (Excel) files
   - tqdm  # utility
-  - missingno  # data profiling
-  - pandas-profiling  # data profiling
+  # - missingno  # data profiling
+  # - pandas-profiling  # data profiling
   # - pandas-summary  # data profiling
   # - pandas-datareader  # data access
-  - imbalanced-learn  # ML utility
+  # - imbalanced-learn  # ML utility
   # - scikit-image  # for lime
   # - lightgbm  # ML https://github.com/Microsoft/LightGBM
   - nltk  # NLP

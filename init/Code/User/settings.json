@@ -1,7 +1,5 @@
 {
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-
-    // Editor
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
@@ -11,9 +9,9 @@
     "editor.wordWrapColumn": 120,
     "editor.quickSuggestionsDelay": 250,
     "editor.suggestSelection": "first",
-
-    // View/Behavior
     "window.zoomLevel": 0,
+    "editor.codeActionsOnSave": null,
+    "editor.accessibilitySupport": "off",
     "breadcrumbs.enabled": true,
     "workbench.colorTheme": "Dracula",
     "workbench.statusBar.visible": true,
@@ -31,13 +29,27 @@
     "terminal.integrated.inheritEnv": false,
 
     // -------- Python --------
+    "python.showStartPage": false,
+    "python.languageServer": "Pylance",
+    "python.condaPath": "/Users/matt/miniconda/bin/conda",
+    "python.venvPath": "/Users/matt/miniconda/envs",
     "python.analysis.logLevel": "Warning",
-    "python.condaPath": "~/miniconda/bin/conda",
-    "python.venvPath": "~/miniconda/envs",
-    // "python.autoComplete.extraPaths": [
-    //     "${env:REPO_ROOT}/reponame",
-    // ],
-    "python.jediEnabled": false,
+    "python.autoComplete.extraPaths": [
+        "/Users/matt/github/branch/Branch_Python_ML",
+        "/Users/matt/github/branch/Branch_Python_ML/lib/datascience",
+        "/Users/matt/github/branch/Branch_Python_ML/feature_service",
+        "/Users/matt/github/branch/Branch_Python_ML/credit_service",
+        "/Users/matt/github/branch/branch_python_libraries",
+        "/Users/matt/github/branch/branch_python_libraries/branch_ml",
+    ],
+    "python.analysis.extraPaths": [
+        "/Users/matt/github/branch/Branch_Python_ML",
+        "/Users/matt/github/branch/Branch_Python_ML/lib/datascience",
+        "/Users/matt/github/branch/Branch_Python_ML/feature_service",
+        "/Users/matt/github/branch/Branch_Python_ML/credit_service",
+        "/Users/matt/github/branch/branch_python_libraries",
+        "/Users/matt/github/branch/branch_python_libraries/branch_ml"
+    ],
     // Linting
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
@@ -46,6 +58,7 @@
     "python.formatting.provider": "black",
     "autoDocstring.docstringFormat": "numpy",
     "autoDocstring.includeName": true,
+    "jupyter.askForKernelRestart": false,
 
     // -------- Remote VSCode configuration --------
     // Port number to use for connection.
@@ -71,7 +84,7 @@
 
     // -------- Copy/paste behavior --------
     // Make VS Code behave like a respectable macOS app (almost... it's not a separate kill ring).
-    // Must also set up keybindings.json
+    // Must also install the macros extension and properly set up ~/Library/Application\ Support/Code/Users/keybindings.json
     "macros": {
         "cutToTheEnd": [
             "cursorEndSelect",
@@ -92,18 +105,11 @@
     "solargraph.checkGemVersion": false,
 
     // -------- Terraform --------
-    "terraform.indexing": {
-        "enabled": false,
-        "liveIndexing": false,
-        "delay": 500,
-        "exclude": [
-            ".terraform/**/*",
-            "**/.terraform/**/*"
-        ]
-    },
     "terraform.languageServer": {
-        "enabled": true,
-        "args": []
+        "external": true,
+        "args": [
+            "serve"
+        ]
     },
 
     // -------- Spelling --------
@@ -120,4 +126,9 @@
 
     // -------- Other --------
     "todo-tree.highlights.enabled": true,
+    "todo-tree.tree.showScanModeButton": false,
+    "launch": {
+        "configurations": [],
+        "compounds": []
+    },
 }

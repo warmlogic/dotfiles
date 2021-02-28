@@ -57,7 +57,7 @@ conda activate base
 pip install -U pip
 
 # update the base environment with lots of good packages
-conda env update -f init/environment-py3.yml -q
+conda env update -f init/environment.yml -q
 
 # # enable nb_conda_kernels
 # python -m nb_conda_kernels.install --enable --prefix="${CONDA_PREFIX}"
