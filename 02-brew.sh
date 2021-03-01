@@ -45,9 +45,9 @@ fi;
 # Ruby
 echo '' >> ~/.bash_profile
 echo 'export PATH="$(brew --prefix)/ruby/bin:$PATH"' >> ~/.bash_profile
-echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-source ~/.bashrc
-gem install solargraph
+# echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+# source ~/.bashrc
+# gem install solargraph
 
 # Remove outdated versions from the cellar
 brew cleanup
