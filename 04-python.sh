@@ -5,11 +5,11 @@ set -e
 # rm -rf ~/miniconda ~/.condarc ~/.conda ~/.continuum ~/.jupyter ~/.ipython ~/.local/share/jupyter/ ~/Library/Jupyter
 
 MC_DIR="miniconda"
-MC_DL_FILE="Miniconda3-latest-MacOSX-x86_64.sh"
+MC_DL_FILE="Miniconda3.sh"
 MC_DL_PATH="$HOME/Downloads/$MC_DL_FILE"
 MC_DIR_PATH="$HOME/$MC_DIR"
 
-# Exit if miniconda file already exists
+# Exit if installer file already exists
 {
 if [ -f "$MC_DL_PATH" ]; then
     echo "$MC_DL_PATH already exists! Delete before running this script to ensure installation is up-to-date."
@@ -17,10 +17,19 @@ if [ -f "$MC_DL_PATH" ]; then
 fi
 }
 
-# Download miniconda file only if it does not already exist
+# Download installer file only if it does not already exist
+# Use Miniforge on an Apple Silicon Mac
+{
+if [[ $(uname -m) == 'arm64' ]]; then
+    MC_URL=https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-$(uname -m).sh
+else
+    MC_URL=https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
+fi
+}
+
 {
 if [ ! -f "$MC_DL_PATH" ]; then
-    wget --show-progress -O $MC_DL_PATH https://repo.continuum.io/miniconda/$MC_DL_FILE
+    wget --show-progress -O $MC_DL_PATH $MC_URL
 fi
 }
 
