@@ -49,5 +49,9 @@ echo 'export PATH="$(brew --prefix)/ruby/bin:$PATH"' >> ~/.bash_profile
 # source ~/.bashrc
 # gem install solargraph
 
+# Remove the quarantine attribute for QuickLook plugins
+# https://github.com/sindresorhus/quick-look-plugins#catalina-notes
+xattr -d -r com.apple.quarantine ~/Library/QuickLook
+
 # Remove outdated versions from the cellar
 brew cleanup

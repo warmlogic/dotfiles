@@ -131,12 +131,12 @@ cask 'zoom'
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 cask 'betterzip'  # preview archives
 cask 'syntax-highlight'  # open "Syntax Highlight.app" after installing
-# cask 'qlcolorcode'  # syntax highlighting
-# cask 'qlmarkdown'
-# cask 'qlstephen'  # view plain text files without a file extension
+cask 'qlcolorcode'  # syntax highlighting
+cask 'qlmarkdown'
+cask 'qlstephen'  # view plain text files without a file extension
+cask 'quicklook-json'
 # cask 'qlvideo'
 # cask 'quicklook-csv'
-# cask 'quicklook-json'
 
 # Install Fonts
 cask 'font-source-code-pro'
