@@ -41,6 +41,7 @@ brew 'htop' # Better top command
 brew 'imagemagick'
 brew 'less'
 brew 'make'
+brew 'node'
 brew 'rbenv'
 brew 'ruby'
 brew 'rename'
