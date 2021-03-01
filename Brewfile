@@ -10,7 +10,7 @@ tap 'homebrew/bundle'
 tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
-tap 'heroku/brew'
+# tap 'heroku/brew'
 
 # Use GNU instead of BSD commands
 # the with-default-names uses normal name, rather than g-prefixed
