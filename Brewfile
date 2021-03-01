@@ -72,7 +72,7 @@ brew 'mas'
 # Install additional applications
 
 cask '1password'  # 1Password 7
-cask 'ableton-live-lite'
+cask 'ableton-live-lite10'
 # cask 'docker'
 cask 'firefox'
 cask 'google-chrome'
