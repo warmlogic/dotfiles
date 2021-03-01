@@ -42,9 +42,9 @@ brew 'imagemagick'
 brew 'less'
 brew 'make'
 brew 'rbenv'
+brew 'ruby'
 brew 'rename'
 brew 'rsync'
-brew 'ruby'
 brew 'screen'
 brew 'tmux'
 brew 'tree' # Visualize directory structure
@@ -66,8 +66,8 @@ brew 'm-cli'
 # Support for Mac App Store apps https://github.com/mas-cli/mas
 brew 'mas'
 
-# Heroku; run this after to use autocomplete with the CLI tools: heroku autocomplete --refresh-cache
-brew 'heroku'
+# # Heroku; run this after to use autocomplete with the CLI tools: heroku autocomplete --refresh-cache
+# brew 'heroku'
 
 # Install additional applications
 
