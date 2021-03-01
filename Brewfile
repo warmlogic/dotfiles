@@ -30,6 +30,7 @@ brew 'watch'
 brew 'wdiff'
 brew 'wget'
 
+brew 'awscli'
 brew 'bash' # Newest version of Bash
 brew 'bash-completion@2' # Bash tab completion for Bash
 brew 'cheat' # Simple cheat-sheets; install and run `$ cheat tar`
@@ -72,7 +73,7 @@ brew 'heroku'
 
 cask '1password'  # 1Password 7
 cask 'ableton-live-lite'
-cask 'docker'
+# cask 'docker'
 cask 'firefox'
 cask 'google-chrome'
 cask 'itsycal'
@@ -128,7 +129,7 @@ cask 'zoom'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 cask 'betterzip'  # preview archives
-cask 'syntax-highlight'
+cask 'syntax-highlight'  # open "Syntax Highlight.app" after installing
 # cask 'qlcolorcode'  # syntax highlighting
 # cask 'qlmarkdown'
 # cask 'qlstephen'  # view plain text files without a file extension
