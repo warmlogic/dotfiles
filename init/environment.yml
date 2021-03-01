@@ -3,8 +3,6 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  - altair
-  - awscli  # AWS
   - boto3  # AWS
   - feather-format
   - ftfy  # NLP https://github.com/LuminosoInsight/python-ftfy
@@ -16,7 +14,6 @@ dependencies:
   - nltk  # NLP
   - numpy
   - pandas
-  - patsy  # for statsmodels
   - pillow
   - pip
   - psycopg2
@@ -29,6 +26,7 @@ dependencies:
   - sqlalchemy
   - statsmodels
   - tqdm  # utility
+  # - altair
   # - bleach  # clean html
   # - bokeh
   # - bz2file
