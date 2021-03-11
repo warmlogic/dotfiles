@@ -10,7 +10,7 @@ tap 'homebrew/bundle'
 tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
-# tap 'heroku/brew'
+tap 'heroku/brew'
 
 # Use GNU instead of BSD commands
 # the with-default-names uses normal name, rather than g-prefixed
@@ -67,8 +67,8 @@ brew 'm-cli'
 # Support for Mac App Store apps https://github.com/mas-cli/mas
 brew 'mas'
 
-# # Heroku; run this after to use autocomplete with the CLI tools: heroku autocomplete --refresh-cache
-# brew 'heroku'
+# Heroku; run this after to use autocomplete with the CLI tools: heroku autocomplete --refresh-cache
+brew 'heroku'
 
 # Install additional applications
 
@@ -82,6 +82,9 @@ cask 'jupyter-notebook-viewer'
 cask 'kindle'
 cask 'loopback'
 cask 'omnidisksweeper'
+# https://postgresapp.com/documentation/cli-tools.html
+# add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+cask 'postgres'
 cask 'protonvpn'  # VPN
 cask 'slack'
 cask 'spectacle'  # window manager
@@ -116,7 +119,6 @@ cask 'zoom'
 # cask 'ngrok'
 # cask 'noisy'
 # cask 'oversight'  # alert on camera or mic usage
-# cask 'postgres'  # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 # cask 'postico'  # databases
 # cask 'postman'
 # cask 'quicksilver'
