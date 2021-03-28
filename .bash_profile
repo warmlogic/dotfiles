@@ -1,6 +1,9 @@
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
+# Set up Homebrew
+eval $(/opt/homebrew/bin/brew shellenv)
+
 # Add Postgres to the `$PATH` for psql
 PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
@@ -29,6 +32,7 @@ for option in autocd globstar; do
 done;
 
 # Add tab completion for many Bash commands
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
     export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
     source "$(brew --prefix)/share/bash-completion/bash_completion";
