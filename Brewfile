@@ -52,6 +52,8 @@ brew 'tree' # Visualize directory structure
 brew 'unzip'
 brew 'vim'
 
+brew 'svn'
+
 # Git and some surrounds
 brew 'git'
 brew 'git-lfs'
@@ -82,6 +84,7 @@ cask 'jupyter-notebook-viewer'
 cask 'kindle'
 cask 'loopback'
 cask 'omnidisksweeper'
+# cask 'postico'
 # https://postgresapp.com/documentation/cli-tools.html
 # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 cask 'postgres'
