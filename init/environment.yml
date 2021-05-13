@@ -81,6 +81,7 @@ dependencies:
   - pip:
     - black  # formatter
     - flake8  # linter
+    - isort
     - graphviz  # tree visualization
     - spacy  # NLP https://spacy.io/
     # - dash  # The core dash backend
