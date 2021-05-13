@@ -148,6 +148,10 @@
     # Use `hexdump` to diff binary files
     textconv = hexdump -v -C
 
+[diff "lfs"]
+
+    textconv = cat
+
 [help]
 
     # Automatically correct and execute mistyped commands
@@ -194,7 +198,3 @@
 [init]
 
     defaultBranch = main
-
-[diff "lfs"]
-
-    textconv = cat
