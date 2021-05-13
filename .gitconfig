@@ -194,3 +194,7 @@
 [init]
 
     defaultBranch = main
+
+[diff "lfs"]
+
+    textconv = cat
