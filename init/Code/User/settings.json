@@ -1,5 +1,9 @@
 {
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "launch": {
+        "configurations": [],
+        "compounds": []
+    },
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
@@ -7,16 +11,19 @@
         ".env": "shellscript",
         "*.env": "shellscript"
     },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.ipynb_checkpoints": true
+    },
     "editor.scrollBeyondLastLine": false,
     "editor.renderWhitespace": "boundary",
     "editor.wordWrap": "on",
     "editor.wordWrapColumn": 120,
     "editor.quickSuggestionsDelay": 250,
     "editor.suggestSelection": "first",
-    "editor.codeActionsOnSave": null,
     "editor.accessibilitySupport": "off",
     "editor.rulers": [
-        110
+        100
     ],
     "window.zoomLevel": 0,
     "breadcrumbs.enabled": true,
@@ -30,6 +37,7 @@
             "filenamePattern": "*.ipynb"
         }
     ],
+    "workbench.editor.untitled.hint": "hidden",
     "search.showLineNumbers": true,
     "search.useIgnoreFiles": false,
     "extensions.ignoreRecommendations": false,
@@ -42,8 +50,46 @@
     "terminal.integrated.inheritEnv": false,
 
     // -------- Python --------
+    "python.envFile": "${workspaceFolder}",
     "python.showStartPage": false,
     "python.languageServer": "Pylance",
+    "python.testing.pytestEnabled": false,
+    // Linting
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--extend-ignore=E203,W503",
+        "--max-line-length=100",
+        "--max-complexity=10"
+    ],
+    // Formatting
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=100",
+    ],
+    "python.sortImports.args": [
+        "--profile=black"
+    ],
+    "[python]": {
+        "editor.formatOnPaste": false,
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        },
+    },
+    // Jupyter
+    "jupyter.notebookFileRoot": "${workspaceFolder}",
+    "jupyter.sendSelectionToInteractiveWindow": true,
+    "jupyter.runStartupCommands": [
+        "%config IPCompleter.use_jedi = False",
+        "%load_ext autoreload",
+        "%autoreload 2"
+    ],
+    "jupyter.changeDirOnImportExport": true,
+    "jupyter.alwaysTrustNotebooks": true,
+    "jupyter.askForKernelRestart": false,
+    "jupyter.disableJupyterAutoStart": true,
     "python.defaultInterpreterPath": "/Users/matt/miniconda/bin/python",
     "python.condaPath": "/Users/matt/miniconda/bin/conda",
     "python.venvPath": "/Users/matt/miniconda/envs",
@@ -54,7 +100,9 @@
         "/Users/matt/github/branch/Branch_Python_ML/feature_service",
         "/Users/matt/github/branch/Branch_Python_ML/credit_service",
         "/Users/matt/github/branch/branch_python_libraries",
+        "/Users/matt/github/branch/branch_python_libraries/branch_data",
         "/Users/matt/github/branch/branch_python_libraries/branch_ml",
+        "/Users/matt/github/branch/branch_python_libraries/branch_services",
     ],
     "python.analysis.extraPaths": [
         "/Users/matt/github/branch/Branch_Python_ML",
@@ -62,18 +110,12 @@
         "/Users/matt/github/branch/Branch_Python_ML/feature_service",
         "/Users/matt/github/branch/Branch_Python_ML/credit_service",
         "/Users/matt/github/branch/branch_python_libraries",
-        "/Users/matt/github/branch/branch_python_libraries/branch_ml"
+        "/Users/matt/github/branch/branch_python_libraries/branch_data",
+        "/Users/matt/github/branch/branch_python_libraries/branch_ml",
+        "/Users/matt/github/branch/branch_python_libraries/branch_services",
     ],
-    // Linting
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Path": "flake8",
-    // Formatting
-    "python.formatting.provider": "black",
     "autoDocstring.docstringFormat": "numpy",
     "autoDocstring.includeName": true,
-    "jupyter.alwaysTrustNotebooks": true,
-    "jupyter.askForKernelRestart": false,
 
     // -------- Remote VSCode configuration --------
     // Port number to use for connection.
@@ -138,9 +180,8 @@
         "**/.spellignore"
     ],
 
-    // -------- Other --------
+    // -------- TODO Tree --------
     "todo-tree.highlights.enabled": true,
-    "todo-tree.tree.showScanModeButton": false,
     "todo-tree.general.tags": [
         "BUG",
         "HACK",
@@ -151,9 +192,7 @@
         "[x]"
     ],
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
-    "launch": {
-        "configurations": [],
-        "compounds": []
-    },
+
+    // -------- Other --------
     "docker.showStartPage": false,
 }
