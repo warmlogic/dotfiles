@@ -76,62 +76,35 @@ brew 'heroku'
 
 cask '1password'  # 1Password 7
 cask 'ableton-live-lite10'
+# cask 'aquamacs'
 # cask 'docker'
-cask 'firefox'
+# cask 'firefox'
 cask 'google-chrome'
+# cask 'iterm2'
 cask 'itsycal'
 cask 'jupyter-notebook-viewer'
+# cask 'keybase'
 cask 'kindle'
 cask 'loopback'
 cask 'omnidisksweeper'
+# cask 'oversight'  # alert on camera or mic usage
 # cask 'postico'
 # https://postgresapp.com/documentation/cli-tools.html
 # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 cask 'postgres'
+# cask 'postman'
 cask 'protonvpn'  # VPN
 cask 'slack'
 cask 'spectacle'  # window manager
 cask 'spotify'
 cask 'steam'
+# cask 'sublime-text'
+# cask 'sublime-text-dev'
 cask 'transmission'
 cask 'visual-studio-code'
 cask 'vlc'
 cask 'wordservice'
 cask 'zoom'
-
-# # Not installing these applications via brew cask
-
-# cask 'adobe-reader'
-# cask 'aquamacs'
-# cask 'arq'  # backup
-# cask 'dropbox'
-# cask 'github-desktop'
-# cask 'google-backup-and-sync'  # personal
-# cask 'google-chrome-canary'
-# cask 'google-cloud-sdk'
-# cask 'google-drive-file-stream'  # gsuite
-# cask 'hammerspoon'  # https://github.com/Hammerspoon/hammerspoon
-# cask 'harvest'
-# cask 'insomnia'
-# cask 'iterm2'
-# cask 'keepingyouawake'  # replacement for Caffeine
-# cask 'keybase'
-# cask 'lastfm'
-# cask 'macdown'
-# cask 'mactex-no-gui'  # latex
-# cask 'ngrok'
-# cask 'noisy'
-# cask 'oversight'  # alert on camera or mic usage
-# cask 'postico'  # databases
-# cask 'postman'
-# cask 'quicksilver'
-# cask 'selfcontrol'
-# cask 'shiftit'  # window manager
-# cask 'sourcetree'
-# cask 'sublime-text-dev'
-# cask 'sublime-text'
-# cask 'tunnelblick'  # VPN
-# cask 'yujitach-menumeters'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 cask 'betterzip'  # preview archives
