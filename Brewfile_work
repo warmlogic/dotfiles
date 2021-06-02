@@ -86,6 +86,7 @@ cask 'jupyter-notebook-viewer'
 # cask 'keybase'
 # cask 'kindle'
 # cask 'loopback'
+cask 'noisy'
 cask 'omnidisksweeper'
 # cask 'oversight'  # alert on camera or mic usage
 cask 'postico'
@@ -122,7 +123,6 @@ cask 'font-source-sans-pro'
 
 # Install apps via Mac App Store
 mas 'Amphetamine', id: 937984704
-mas 'Binaural', id: 946812450
 mas 'Deliveries', id: 924726344
 # mas 'GarageBand', id: 682658836
 # mas 'iMovie', id: 408981434
@@ -135,6 +135,7 @@ mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
 mas 'The Unarchiver', id: 425424353
 mas 'Tot', id: 1491071483
 # mas '1Password', id: 1333542190  # 1Password 7
+# mas 'Binaural', id: 946812450
 # mas 'Mail Notifr', id: 808154494
 # mas 'Slack', id: 803453959
 
