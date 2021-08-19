@@ -92,7 +92,7 @@ cask 'omnidisksweeper'
 # cask 'postico'
 # https://postgresapp.com/documentation/cli-tools.html
 # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-cask 'postgres'
+cask 'postgres-unofficial'
 # cask 'postman'
 cask 'protonvpn'  # VPN
 cask 'slack'
@@ -130,7 +130,7 @@ mas 'JustFocus', id: 1142151959
 mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
-mas 'Poolside FM', id: 1514817810
+mas 'Poolsuite FM', id: 1514817810
 mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
 mas 'The Unarchiver', id: 425424353
 mas 'Tot', id: 1491071483

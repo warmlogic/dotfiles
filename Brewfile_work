@@ -69,41 +69,28 @@ brew 'm-cli'
 # Support for Mac App Store apps https://github.com/mas-cli/mas
 brew 'mas'
 
-# Heroku; run this after to use autocomplete with the CLI tools: heroku autocomplete --refresh-cache
-# brew 'heroku'
-
 # Install additional applications
 
 cask '1password'  # 1Password 7
-# cask 'ableton-live-lite10'
-# cask 'aquamacs'
+# https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+# cask 'temurin8'  # Open JDK 8 for Android Studio
+cask 'android-studio'
 cask 'docker'
-# cask 'firefox'
 cask 'google-chrome'
-# cask 'iterm2'
 cask 'itsycal'
 cask 'jupyter-notebook-viewer'
-# cask 'keybase'
-# cask 'kindle'
-# cask 'loopback'
+cask 'lens'
 cask 'noisy'
 cask 'omnidisksweeper'
-# cask 'oversight'  # alert on camera or mic usage
-cask 'postico'
+cask 'postgres-unofficial'
 # https://postgresapp.com/documentation/cli-tools.html
-# add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-cask 'postgres'
+# for psql, add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+cask 'postico'
 cask 'postman'
-# cask 'protonvpn'  # VPN
 cask 'slack'
 cask 'spectacle'  # window manager
 cask 'spotify'
-# cask 'steam'
-# cask 'sublime-text'
-# cask 'sublime-text-dev'
-# cask 'transmission'
 cask 'visual-studio-code'
-# cask 'vlc'
 cask 'wordservice'
 cask 'zoom'
 
@@ -130,7 +117,7 @@ mas 'JustFocus', id: 1142151959
 mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
-mas 'Poolside FM', id: 1514817810
+mas 'Poolsuite FM', id: 1514817810
 mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
 mas 'The Unarchiver', id: 425424353
 mas 'Tot', id: 1491071483
