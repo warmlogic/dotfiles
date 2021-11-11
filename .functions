@@ -9,7 +9,7 @@ gl() {
 }
 
 # https://gist.github.com/igrigorik/6666860#gistcomment-3169768
-gh() {
+ghub() {
     file=${1:-""}
     git_branch=${2:-$(git symbolic-ref --quiet --short HEAD)}
     git_project_root=$(git config remote.origin.url | sed "s~git@\(.*\):\(.*\)~https://\1/\2~" | sed "s~\(.*\).git\$~\1~")
