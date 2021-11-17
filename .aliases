@@ -27,6 +27,11 @@ alias gpo="git push origin"
 alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -d'
 alias git-remove-untracked-force='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
+# view pr on github
+alias ghp="gh pr view --web"
+# view branch on github
+alias ghb="gh browse --branch $(git symbolic-ref --quiet --short HEAD)"
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
     colorflag="--color"

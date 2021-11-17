@@ -36,6 +36,7 @@ brew 'bash-completion@2' # Bash tab completion for Bash
 brew 'cheat' # Simple cheat-sheets; install and run `$ cheat tar`
 brew 'emacs'
 brew 'file-formula' # guess file type
+brew 'gh' # https://cli.github.com
 brew 'graphviz' # for python tree model plotting
 brew 'htop' # Better top command
 brew 'imagemagick'
@@ -52,13 +53,13 @@ brew 'tree' # Visualize directory structure
 brew 'unzip'
 brew 'vim'
 
-brew 'svn'
-
 # Git and some surrounds
 brew 'git'
 brew 'git-lfs'
 brew 'git-flow'
 brew 'git-extras'
+
+# brew 'svn'
 
 # Easy cd https://github.com/rupa/z
 brew 'z'
