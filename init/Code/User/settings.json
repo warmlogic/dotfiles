@@ -13,7 +13,8 @@
     },
     "files.exclude": {
         "**/__pycache__": true,
-        "**/.ipynb_checkpoints": true
+        "**/.ipynb_checkpoints": true,
+        "**/.mypy_cache": true
     },
     "editor.scrollBeyondLastLine": false,
     "editor.renderWhitespace": "boundary",
@@ -25,50 +26,52 @@
     "editor.rulers": [
         100
     ],
-    "window.zoomLevel": 0,
     "breadcrumbs.enabled": true,
     "workbench.colorTheme": "Dracula",
     "workbench.statusBar.visible": true,
     "workbench.activityBar.visible": true,
     "workbench.startupEditor": "none",
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
     "workbench.editor.untitled.hint": "hidden",
     "search.showLineNumbers": true,
-    "search.useIgnoreFiles": false,
     "extensions.ignoreRecommendations": false,
 
     // Don't report to MS
-    "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false,
+    "telemetry.telemetryLevel": "off",
 
     // Terminal
     "terminal.integrated.inheritEnv": false,
 
     // -------- Python --------
+    "autoDocstring.docstringFormat": "numpy",
+    "autoDocstring.includeName": true,
     "python.envFile": "${workspaceFolder}",
-    "python.showStartPage": false,
     "python.languageServer": "Pylance",
     "python.testing.pytestEnabled": false,
+    "python.pythonPath": "/Users/matt/miniconda/bin/python",
+    "python.condaPath": "/Users/matt/miniconda/bin/conda",
+    "python.venvPath": "/Users/matt/miniconda/envs",
+    "python.autoComplete.extraPaths": [],
+    "python.analysis.extraPaths": [],
+    "python.analysis.logLevel": "Warning",
     // Linting
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
         "--extend-ignore=E203,W503",
         "--max-line-length=100",
-        "--max-complexity=10"
+        "--max-complexity=15"
     ],
     // Formatting
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
-        "--line-length=100",
+        "--line-length=100"
     ],
     "python.sortImports.args": [
-        "--profile=black"
+        "--profile=black",
+        "--line-length=88"
     ],
     "[python]": {
         "editor.formatOnPaste": false,
@@ -87,36 +90,12 @@
         "%autoreload 2"
     ],
     "jupyter.changeDirOnImportExport": true,
-    "jupyter.alwaysTrustNotebooks": true,
-    "jupyter.askForKernelRestart": false,
+    "jupyter.askForKernelRestart": true,
     "jupyter.disableJupyterAutoStart": true,
-    "python.defaultInterpreterPath": "/Users/matt/miniconda/bin/python",
-    "python.condaPath": "/Users/matt/miniconda/bin/conda",
-    "python.venvPath": "/Users/matt/miniconda/envs",
-    "python.analysis.logLevel": "Warning",
-    "python.autoComplete.extraPaths": [
-        "/Users/matt/github/branch/Branch_Python_ML",
-        "/Users/matt/github/branch/Branch_Python_ML/lib/datascience",
-        "/Users/matt/github/branch/Branch_Python_ML/feature_service",
-        "/Users/matt/github/branch/Branch_Python_ML/credit_service",
-        "/Users/matt/github/branch/branch_python_libraries",
-        "/Users/matt/github/branch/branch_python_libraries/branch_data",
-        "/Users/matt/github/branch/branch_python_libraries/branch_ml",
-        "/Users/matt/github/branch/branch_python_libraries/branch_services",
-    ],
-    "python.analysis.extraPaths": [
-        "/Users/matt/github/branch/Branch_Python_ML",
-        "/Users/matt/github/branch/Branch_Python_ML/lib/datascience",
-        "/Users/matt/github/branch/Branch_Python_ML/feature_service",
-        "/Users/matt/github/branch/Branch_Python_ML/credit_service",
-        "/Users/matt/github/branch/branch_python_libraries",
-        "/Users/matt/github/branch/branch_python_libraries/branch_data",
-        "/Users/matt/github/branch/branch_python_libraries/branch_ml",
-        "/Users/matt/github/branch/branch_python_libraries/branch_services",
-    ],
-    "autoDocstring.docstringFormat": "numpy",
-    "autoDocstring.includeName": true,
-
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
     // -------- Remote VSCode configuration --------
     // Port number to use for connection.
     "remote.port": 52698,
@@ -136,19 +115,6 @@
     },
     // Formatting
     "markdown.extension.orderedList.marker": "one",
-
-    // -------- Copy/paste behavior --------
-    // Make VS Code behave like a respectable macOS app (almost... it's not a separate kill ring).
-    // Must also install the macros extension and properly set up ~/Library/Application\ Support/Code/Users/keybindings.json
-    "macros": {
-        "cutToTheEnd": [
-            "cursorEndSelect",
-            "editor.action.clipboardCutAction"
-        ],
-        "yank": [
-            "editor.action.clipboardPasteAction"
-        ]
-    },
 
     // -------- Source Control --------
     "gitlens.showWhatsNewAfterUpgrades": false,
@@ -195,4 +161,10 @@
 
     // -------- Other --------
     "docker.showStartPage": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "pgFormatter.commaBreak": true,
+    "pgFormatter.noGrouping": true,
+    "pgFormatter.commaEnd": false,
+    "pgFormatter.commaStart": true,
+    "pgFormatter.spaces": 4,
 }
