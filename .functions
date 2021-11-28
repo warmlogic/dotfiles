@@ -4,7 +4,7 @@
 export myinitials='mvm'
 
 # git log with add/delete stats for a given number of previous commits
-gl() {
+function gl() {
     git log -"${1:-3}" --stat
 }
 
