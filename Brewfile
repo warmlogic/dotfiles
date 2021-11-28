@@ -124,7 +124,7 @@ cask 'font-source-sans-pro'
 
 # Install apps via Mac App Store
 mas 'Amphetamine', id: 937984704
-mas 'Deliveries', id: 924726344
+mas 'Deliveries', id: 290986013
 mas 'GarageBand', id: 682658836
 mas 'iMovie', id: 408981434
 mas 'JustFocus', id: 1142151959
