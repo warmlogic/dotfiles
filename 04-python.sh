@@ -2,7 +2,7 @@
 set -e
 
 # to manually nuke the current miniconda install
-# rm -rf ~/miniconda ~/.condarc ~/.conda ~/.continuum ~/.jupyter ~/.ipython ~/.local/share/jupyter/ ~/Library/Jupyter
+# rm -rf ~/miniconda ~/.condarc ~/.conda ~/.continuum ~/.jupyter ~/.ipython ~/.local/share/jupyter/ ~/Library/Jupyter ~/Library/Caches/pip
 
 MC_DIR="miniconda"
 MC_DL_FILE="Miniconda3.sh"
