@@ -110,7 +110,7 @@ cask 'zoom'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 cask 'betterzip'  # preview archives
-cask 'syntax-highlight'  # open "Syntax Highlight.app" after installing
+cask 'syntax-highlight', args: { no_quarantine: true }  # open "Syntax Highlight.app" after installing
 cask 'qlcolorcode'  # syntax highlighting
 cask 'qlmarkdown'
 cask 'qlstephen'  # view plain text files without a file extension
