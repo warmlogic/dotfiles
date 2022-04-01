@@ -938,11 +938,11 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 # Spectacle.app                                                               #
 ###############################################################################
 
-# Set up my preferred keyboard shortcuts
+# # Set up my preferred keyboard shortcuts
 
-mkdir -p ~/Library/Application\ Support/Spectacle
+# mkdir -p ~/Library/Application\ Support/Spectacle
 
-cp -r init/spectacle.json ~/Library/Application\ Support/Spectacle/Shortcuts.json 2> /dev/null
+# cp -r init/spectacle.json ~/Library/Application\ Support/Spectacle/Shortcuts.json 2> /dev/null
 
 ###############################################################################
 # Transmission.app                                                            #
@@ -1005,7 +1005,6 @@ for app in "Activity Monitor" \
     "Messages" \
     "Photos" \
     "Safari" \
-    "Spectacle" \
     "SystemUIServer" \
     "Terminal" \
     "Transmission"; do
