@@ -96,6 +96,17 @@ You may also want Python 3 and a number of useful packages related to data analy
 
 ### Additional setup
 
+#### Set applications to start at login
+
+- Rectangle
+- Amphetamine
+- Tot
+
+#### Lock Screen
+
+- Set recovery info message: System Preferences -> Security and Privacy -> General -> Show a message when the screen is locked
+  - Hi! I belong to `$NAME`. If I'm lost and you find me, please contact `$NAME` at `$CONTACT_INFO`
+
 #### Calendar
 
 - Add accounts with your calendars to Internet Accounts (System Preferences)
@@ -107,7 +118,7 @@ You may also want Python 3 and a number of useful packages related to data analy
 
 #### Visual Studio Code
 
-- Turn on syncing (beta)
+- Turn on syncing
 
 ## Feedback
 
