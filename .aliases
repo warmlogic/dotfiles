@@ -174,3 +174,7 @@ alias reload="exec ${SHELL} -l"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
+
+# For using a Chrome extension to download AWS credentials file upon login
+# https://chrome.google.com/webstore/detail/saml-to-aws-sts-keys-conv/ekniobabpcnfjgfbphhcolcinmnbehde
+alias aws_auth_mv_credentials="mv ${HOME}/Downloads/credentials ${HOME}/.aws/credentials"
