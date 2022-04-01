@@ -380,7 +380,7 @@ function try_till_success {
     local attempt=0
     local exitCode=0
 
-    while [[ $attempt < $max_attempts ]]
+    until [[ $attempt -ge $max_attempts ]]
     do
         "$@"
         exitCode=$?
@@ -390,7 +390,7 @@ function try_till_success {
             break
         fi
 
-        echo "Failure! Retrying in $timeout..." 1>&2
+        echo "Failure $(( attempt + 1 )) / $max_attempts! Retrying in $timeout..." 1>&2
         sleep $timeout
         attempt=$(( attempt + 1 ))
         timeout=$(( timeout * 40 / 30 ))
