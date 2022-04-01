@@ -78,7 +78,7 @@ brew 'heroku'
 cask '1password'  # 1Password 7
 cask 'ableton-live-lite10'
 # cask 'aquamacs'
-# cask 'docker'
+cask 'docker'
 # cask 'firefox'
 cask 'google-chrome'
 # cask 'iterm2'
@@ -96,8 +96,9 @@ cask 'omnidisksweeper'
 cask 'postgres-unofficial'
 # cask 'postman'
 cask 'protonvpn'  # VPN
+cask 'rectangle'  # window manager
 cask 'slack'
-cask 'spectacle'  # window manager
+# cask 'spectacle'  # window manager
 cask 'spotify'
 cask 'steam'
 # cask 'sublime-text'
