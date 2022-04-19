@@ -1,8 +1,13 @@
-# Git credentials
 # Edit and uncomment as necessary
-#GIT_AUTHOR_NAME="My Name"
-#GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-#git config --global user.name "$GIT_AUTHOR_NAME"
-#GIT_AUTHOR_EMAIL="my@email"
-#GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-#git config --global user.email "$GIT_AUTHOR_EMAIL"
+
+# For Jupyter Notebook templates
+export MY_INITIALS='MY_INITIALS';
+export GITHUB_USERNAME='MY_GITHUB_USERNAME';
+
+# # Git credentials
+# export GIT_AUTHOR_NAME='My Name';
+# export GIT_AUTHOR_EMAIL='my@email';
+# export GIT_COMMITTER_NAME="${GIT_AUTHOR_NAME}"
+# export GIT_COMMITTER_EMAIL="${GIT_AUTHOR_EMAIL}"
+# git config --global user.name "${GIT_AUTHOR_NAME}"
+# git config --global user.email "${GIT_AUTHOR_EMAIL}"

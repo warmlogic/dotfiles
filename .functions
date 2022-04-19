@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# For Jupyter Notebook templates
-export myinitials='mvm'
-
 # git log for a given number of previous commits
 function gl() {
     git l -n "${1:-20}"
@@ -194,16 +191,6 @@ function sn() {
     fi;
 }
 
-# # `a` with no arguments opens the current directory in Atom Editor, otherwise
-# # opens the given location
-# function a() {
-#   if [ $# -eq 0 ]; then
-#       atom .;
-#   else
-#       atom "$@";
-#   fi;
-# }
-
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
 function v() {
@@ -277,12 +264,12 @@ function nb-presentationnb () {
     # 2016-08-12_mvm_project_findings.ipynb
     # wget version - won't overwrite
     wget -nc --show-progress --header "Accept: application/vnd.github.v3.raw" \
-    -O `date +%Y-%m-%d`_${myinitials}_$1.ipynb \
-    https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/template-presentation-python.ipynb
+    -O `date +%Y-%m-%d`_${MY_INITIALS}_$1.ipynb \
+    https://api.github.com/repos/${GITHUB_USERNAME}/jupyter_setup/contents/notebooks/template-presentation-python.ipynb
     # # curl version - will overwrite
     # curl -H 'Accept: application/vnd.github.v3.raw' -L \
-    # https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/template-presentation-python.ipynb \
-    # -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
+    # https://api.github.com/repos/${GITHUB_USERNAME}/jupyter_setup/contents/notebooks/template-presentation-python.ipynb \
+    # -o `date +%Y-%m-%d`_${MY_INITIALS}_$1.ipynb
 }
 
 function nb-dailynb () {
@@ -293,12 +280,12 @@ function nb-dailynb () {
     # 2016-08-12_mvm_exploratory_data_analysis.ipynb
     # wget version - won't overwrite
     wget -nc --show-progress --header "Accept: application/vnd.github.v3.raw" \
-    -O `date +%Y-%m-%d`_${myinitials}_$1.ipynb \
-    https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/template-daily-python.ipynb
+    -O `date +%Y-%m-%d`_${MY_INITIALS}_$1.ipynb \
+    https://api.github.com/repos/${GITHUB_USERNAME}/jupyter_setup/contents/notebooks/template-daily-python.ipynb
     # # curl version - will overwrite
     # curl -H 'Accept: application/vnd.github.v3.raw' -L \
-    # https://api.github.com/repos/warmlogic/jupyter_setup/contents/notebooks/template-daily-python.ipynb \
-    # -o `date +%Y-%m-%d`_${myinitials}_$1.ipynb
+    # https://api.github.com/repos/${GITHUB_USERNAME}/jupyter_setup/contents/notebooks/template-daily-python.ipynb \
+    # -o `date +%Y-%m-%d`_${MY_INITIALS}_$1.ipynb
 }
 
 # Create directory structure in current working directory
