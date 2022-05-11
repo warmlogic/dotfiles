@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # if running as a script, edit to reflect the shell you use (bash, zsh, etc.)
 
-# to manually nuke the current installation:
+# to manually nuke the current installation, run:
 # rm -rf ~/miniconda ~/mambaforge ~/miniforge3 ~/.condarc ~/.conda ~/.continuum ~/.jupyter ~/.ipython ~/.local/share/jupyter/ ~/Library/Jupyter ~/Library/Caches/pip
-# # and make sure to edit ~/.zshrc or ~/.bash_profile
+# and delete the conda initialize section from ~/.zshrc or ~/.bash_profile
 
 # Exit script immediately if a command exits with a non-zero status
 set -e
@@ -19,7 +19,7 @@ MY_SHELL=$(ps -p $$ -ocomm=)
 
 # Make sure we are running a supported shell
 {
-if [[ ! "$MY_SHELL" =~ 'zsh' && ! "$MY_SHELL" =~ .*'bash'.* ]]; then
+if [[ ! "$MY_SHELL" =~ 'zsh' && ! "$MY_SHELL" =~ 'bash' ]]; then
     echo "Shell not supported for this install script: $MY_SHELL"
     exit 1
 fi
@@ -32,17 +32,17 @@ then
     exit 1
 fi
 
-# # https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
+# # Miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
 # INSTALL_DL_FILE="Miniconda3-latest-MacOSX-$(uname -m).sh"
 # INSTALL_URL="https://repo.continuum.io/miniconda/$INSTALL_DL_FILE"
 # INSTALL_DIR="miniconda"
 
-# # https://github.com/conda-forge/miniforge/
+# # Miniforge and conda: https://github.com/conda-forge/miniforge/
 # INSTALL_DL_FILE="Miniforge3-MacOSX-$(uname -m).sh"
 # INSTALL_DL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_DL_FILE"
 # INSTALL_DIR="miniforge3"
 
-# # https://github.com/conda-forge/miniforge/
+# Miniforge and mamba https://github.com/mamba-org/mamba
 INSTALL_DL_FILE="Mambaforge-MacOSX-$(uname -m).sh"
 INSTALL_DL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_DL_FILE"
 INSTALL_DIR="mambaforge"
@@ -50,13 +50,13 @@ INSTALL_DIR="mambaforge"
 INSTALL_DIR_PATH="$HOME/$INSTALL_DIR"
 INSTALL_DL_PATH="$HOME/Downloads/$INSTALL_DL_FILE"
 
-# Exit if installer file already exists
-{
-if [ -f "$INSTALL_DL_PATH" ]; then
-    echo "$INSTALL_DL_PATH already exists! Delete before running this script to ensure installation is up-to-date."
-    exit 0
-fi
-}
+# # Exit if installer file already exists
+# {
+# if [ -f "$INSTALL_DL_PATH" ]; then
+#     echo "$INSTALL_DL_PATH already exists! Delete before running this script to ensure installation is up-to-date."
+#     exit 0
+# fi
+# }
 
 {
 if [ ! -f "$INSTALL_DL_PATH" ]; then
@@ -86,9 +86,9 @@ fi
 
 conda update -q conda -y
 conda upgrade --all -y
-pip install -U pip
+python -m pip install -U pip
 
-# List info in case things don't work
+# List info
 conda info -a
 
 # # This adds the conda-forge channel below the defaults library
@@ -101,6 +101,11 @@ conda info -a
 
 # update the base environment with lots of good packages
 conda env update -f init/environment.yml -q
+
+# download and link spacy language model
+# python -m spacy download en
+python -m spacy download en_core_web_sm
+# python -m spacy download en_core_web_lg
 
 # configure git to use nbdiff
 nbdime config-git --enable --global
@@ -127,11 +132,6 @@ nbdime config-git --enable --global
 # # auto-sklearn http://automl.github.io/auto-sklearn/stable/installation.html
 # curl https://raw.githubusercontent.com/automl/auto-sklearn/master/requirements.txt | xargs -n 1 -L 1 pip install
 # pip install -U auto-sklearn
-
-# download and link spacy language model
-# python -m spacy download en
-python -m spacy download en_core_web_sm
-# python -m spacy download en_core_web_lg
 
 # # PyTorch
 # conda install pytorch torchvision -c pytorch  # http://pytorch.org/
