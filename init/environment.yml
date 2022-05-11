@@ -16,7 +16,7 @@ dependencies:
   - pandas
   - pillow
   - pip
-  - psycopg2
+  - psycopg2-binary
   - pytest  # test
   - pytz
   - pyyaml
