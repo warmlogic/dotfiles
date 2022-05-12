@@ -1,10 +1,9 @@
 name: base
 channels:
-  - defaults
   - conda-forge
+  - defaults
 dependencies:
   - boto3  # AWS
-  - feather-format
   - ftfy  # NLP https://github.com/LuminosoInsight/python-ftfy
   - h5py
   - ipython
@@ -17,6 +16,7 @@ dependencies:
   - pillow
   - pip
   - psycopg2-binary
+  - pyarrow
   - pytest  # test
   - pytz
   - pyyaml
