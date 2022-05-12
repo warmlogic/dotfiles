@@ -2,7 +2,7 @@
 # if running as a script, edit to reflect the shell you use (bash, zsh, etc.)
 
 # to manually nuke the current installation, run:
-# rm -rf ~/miniconda ~/mambaforge ~/miniforge3 ~/.condarc ~/.conda ~/.continuum ~/.jupyter ~/.ipython ~/.local/share/jupyter/ ~/Library/Jupyter ~/Library/Caches/pip
+# rm -rf ~/miniconda ~/mambaforge ~/miniforge3 ~/.condarc ~/.conda ~/.continuum ~/.jupyter ~/.ipython ~/.local/share/jupyter/ ~/Library/Jupyter ~/Library/Caches/pip ~/Library/Caches/pypoetry
 # and delete the conda initialize section from ~/.zshrc or ~/.bash_profile
 
 # Exit script immediately if a command exits with a non-zero status
@@ -33,39 +33,39 @@ then
 fi
 
 # # Miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
-# INSTALL_DL_FILE="Miniconda3-latest-MacOSX-$(uname -m).sh"
-# INSTALL_URL="https://repo.continuum.io/miniconda/$INSTALL_DL_FILE"
+# INSTALL_FILE="Miniconda3-latest-MacOSX-$(uname -m).sh"
+# INSTALL_URL="https://repo.continuum.io/miniconda/$INSTALL_FILE"
 # INSTALL_DIR="miniconda"
 
 # # Miniforge and conda: https://github.com/conda-forge/miniforge/
-# INSTALL_DL_FILE="Miniforge3-MacOSX-$(uname -m).sh"
-# INSTALL_DL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_DL_FILE"
+# INSTALL_FILE="Miniforge3-MacOSX-$(uname -m).sh"
+# INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
 # INSTALL_DIR="miniforge3"
 
 # Miniforge and mamba https://github.com/mamba-org/mamba
-INSTALL_DL_FILE="Mambaforge-MacOSX-$(uname -m).sh"
-INSTALL_DL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_DL_FILE"
+INSTALL_FILE="Mambaforge-MacOSX-$(uname -m).sh"
+INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
 INSTALL_DIR="mambaforge"
 
 INSTALL_DIR_PATH="$HOME/$INSTALL_DIR"
-INSTALL_DL_PATH="$HOME/Downloads/$INSTALL_DL_FILE"
+INSTALL_PATH="$HOME/Downloads/$INSTALL_FILE"
 
 # # Exit if installer file already exists
 # {
-# if [ -f "$INSTALL_DL_PATH" ]; then
-#     echo "$INSTALL_DL_PATH already exists! Delete before running this script to ensure installation is up-to-date."
+# if [ -f "$INSTALL_PATH" ]; then
+#     echo "$INSTALL_PATH already exists! Delete before running this script to ensure installation is up-to-date."
 #     exit 0
 # fi
 # }
 
 {
-if [ ! -f "$INSTALL_DL_PATH" ]; then
-    wget --show-progress -O $INSTALL_DL_PATH $INSTALL_URL
+if [ ! -f "$INSTALL_PATH" ]; then
+    wget --show-progress -O $INSTALL_PATH $INSTALL_URL
 fi
 }
 
 # install
-bash $INSTALL_DL_PATH -b -p $INSTALL_DIR_PATH
+bash $INSTALL_PATH -b -p $INSTALL_DIR_PATH
 
 # initialize conda (add to ~/.zshrc or ~/.bash_profile)
 source $INSTALL_DIR_PATH/bin/activate
