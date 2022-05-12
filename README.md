@@ -88,10 +88,11 @@ When setting up a new Mac, you may want to set some sensible macOS defaults:
 
 ### Python/Anaconda setup
 
-You may also want Python 3 and a number of useful packages related to data analysis (via [miniconda](https://conda.io/miniconda.html)). This installs everything listed in `init/environment.yml`.
+You may also want Python and a number of useful packages related to data analysis (via [miniconda](https://docs.conda.io/en/latest/miniconda.html) or [miniforge](https://github.com/conda-forge/miniforge/)). This sets up a `base` conda environment installs everything listed in `init/environment.yml`.
 
 ```bash
 ./04-python.sh
+./05-python-updates.sh
 ```
 
 ### Additional setup

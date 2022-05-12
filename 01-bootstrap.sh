@@ -12,6 +12,7 @@ function doIt() {
         --exclude "02-brew.sh" \
         --exclude "03-macos.sh" \
         --exclude "04-python.sh" \
+        --exclude "05-python-updates.sh" \
         --exclude "Brewfile" \
         --exclude "README.md" \
         --exclude "LICENSE-MIT.txt" \
