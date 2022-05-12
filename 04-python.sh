@@ -1,19 +1,24 @@
 #!/usr/bin/env bash
 # if running as a script, edit to reflect the shell you use (bash, zsh, etc.)
 
-# to manually nuke the current installation, run:
-# rm -rf ~/miniconda ~/mambaforge ~/miniforge3 ~/.condarc ~/.conda ~/.continuum ~/.jupyter ~/.ipython ~/.local/share/jupyter/ ~/Library/Jupyter ~/Library/Caches/pip ~/Library/Caches/pypoetry
-# and delete the conda initialize section from ~/.zshrc or ~/.bash_profile
+# # to manually nuke the current installation:
+# # 1. uninstall poetry
+# curl -sSL https://install.python-poetry.org | python3 - --uninstall
+# # 2. remove other directories
+# rm -rf ~/miniconda/ ~/mambaforge/ ~/miniforge3/ ~/.condarc ~/.conda/ ~/.continuum/ ~/.jupyter/ ~/.ipython/ ~/.local/share/jupyter/ ~/Library/Jupyter/ ~/Library/Caches/pip ~/.poetry/ ~/.local/bin/poetry ~/Library/Caches/pypoetry/ ~/Library/Application\ Support/pypoetry/
+# # 3. delete the conda initialize section from ~/.zshrc or ~/.bash_profile
 
 # Exit script immediately if a command exits with a non-zero status
 set -e
 
 # wget is a prerequisite
+{
 if ! command -v wget &> /dev/null
 then
     echo "wget could not be found, please install first"
     exit 1
 fi
+}
 
 MY_SHELL=$(ps -p $$ -ocomm=)
 
@@ -25,12 +30,14 @@ if [[ ! "$MY_SHELL" =~ 'zsh' && ! "$MY_SHELL" =~ 'bash' ]]; then
 fi
 }
 
+{
 read -p "Assuming your normal shell is $MY_SHELL. Continue (y/n)? " -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
     exit 1
 fi
+}
 
 # # Miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
 # INSTALL_FILE="Miniconda3-latest-MacOSX-$(uname -m).sh"
@@ -48,24 +55,24 @@ INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$
 INSTALL_DIR="mambaforge"
 
 INSTALL_DIR_PATH="$HOME/$INSTALL_DIR"
-INSTALL_PATH="$HOME/Downloads/$INSTALL_FILE"
+INSTALL_FILE_PATH="$HOME/Downloads/$INSTALL_FILE"
 
 # # Exit if installer file already exists
 # {
-# if [ -f "$INSTALL_PATH" ]; then
-#     echo "$INSTALL_PATH already exists! Delete before running this script to ensure installation is up-to-date."
+# if [ -f "$INSTALL_FILE_PATH" ]; then
+#     echo "$INSTALL_FILE_PATH already exists! Delete before running this script to ensure installation is up-to-date."
 #     exit 0
 # fi
 # }
 
 {
-if [ ! -f "$INSTALL_PATH" ]; then
-    wget --show-progress -O $INSTALL_PATH $INSTALL_URL
+if [ ! -f "$INSTALL_FILE_PATH" ]; then
+    wget --show-progress -O $INSTALL_FILE_PATH $INSTALL_URL
 fi
 }
 
 # install
-bash $INSTALL_PATH -b -p $INSTALL_DIR_PATH
+bash $INSTALL_FILE_PATH -b -p $INSTALL_DIR_PATH
 
 # initialize conda (add to ~/.zshrc or ~/.bash_profile)
 source $INSTALL_DIR_PATH/bin/activate
@@ -84,6 +91,7 @@ else
 fi
 }
 
+echo "Updating conda"
 conda update -q conda -y
 conda upgrade --all -y
 python -m pip install -U pip
@@ -100,15 +108,53 @@ conda info -a
 # conda activate base
 
 # update the base environment with lots of good packages
+echo "Updating conda base environment"
 conda env update -f init/environment.yml -q
 
 # download and link spacy language model
+echo "Downloading spacy language model"
 # python -m spacy download en
 python -m spacy download en_core_web_sm
 # python -m spacy download en_core_web_lg
 
 # configure git to use nbdiff
+echo "Configuring git to use nbdiff"
 nbdime config-git --enable --global
+
+# install python-poetry https://python-poetry.org
+echo "Installing python-poetry"
+curl -sSL https://install.python-poetry.org | python3 -
+
+# add poetry path to ~/.zshrc or ~/.bash_profile
+echo "Adding python-poetry path to ~/.zshrc or ~/.bash_profile"
+{
+if [[ "$MY_SHELL" =~ 'zsh' ]]; then
+    echo '' >> $HOME/.zshrc
+    echo '# Python-poetry https://python-poetry.org' >> $HOME/.zshrc
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.zshrc
+    source $HOME/.zshrc
+elif [[ "$MY_SHELL" =~ 'bash' ]]; then
+    echo '' >> $HOME/.bash_profile
+    echo '# Python-poetry https://python-poetry.org' >> $HOME/.bash_profile
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bash_profile
+    source $HOME/.bashrc
+fi
+}
+
+# add shell completions for poetry
+echo "Adding python-poetry shell completions"
+{
+if [[ "$MY_SHELL" =~ 'zsh' ]]; then
+    mkdir $HOME/.zfunc
+    poetry completions zsh > $HOME/.zfunc/_poetry
+elif [[ "$MY_SHELL" =~ 'bash' ]]; then
+    # put in the brew bash completion directory
+    if type brew &>/dev/null
+    then
+    poetry completions bash > $(brew --prefix)/etc/bash_completion.d/poetry
+    fi
+fi
+}
 
 # # enable nb_conda_kernels
 # python -m nb_conda_kernels.install --enable --prefix="${CONDA_PREFIX}"
