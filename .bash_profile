@@ -32,15 +32,20 @@ for option in autocd globstar; do
 done;
 
 # Add tab completion for many Bash commands
-[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-    export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-    source "$(brew --prefix)/share/bash-completion/bash_completion";
-elif [ -f "/usr/local/etc/profile.d/bash_completion.sh" ]; then
-    source "/usr/local/etc/profile.d/bash_completion.sh"
-elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion;
-fi;
+# https://docs.brew.sh/Shell-Completion
+if type brew &>/dev/null
+then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+  then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+  fi
+fi
 
 # z https://github.com/rupa/z
 if [ -f "/usr/local/etc/profile.d/z.sh" ]; then
@@ -65,6 +70,3 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari Music System
 # # Ruby
 # eval "$(rbenv init - bash)"
 # export PATH="$(brew --prefix)/ruby/bin:$PATH"
-
-# # Python-poetry https://python-poetry.org
-# export PATH="$HOME/.local/bin:$PATH"
