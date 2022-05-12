@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 # if running as a script, edit to reflect the shell you use (bash, zsh, etc.)
 
+MY_SHELL=$(ps -p $$ -ocomm=)
+
+# Make sure we are running a supported shell
+{
+if [[ ! "$MY_SHELL" =~ 'zsh' && ! "$MY_SHELL" =~ 'bash' ]]; then
+    echo "Shell not supported for this install script: $MY_SHELL"
+    exit 1
+fi
+}
+
 echo "Updating conda"
 conda update -q conda -y
 conda upgrade --all -y
