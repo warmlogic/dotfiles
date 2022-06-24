@@ -12,9 +12,14 @@ fi
 }
 
 echo "Updating conda"
-conda update -q conda -y
+conda update -n base -q conda -y
 conda upgrade --all -y
 python -m pip install -U pip
+
+# Upgrade Python
+PYTHON_VERSION=3.10
+echo "Updating to Python $PYTHON_VERSION"
+conda install python=$PYTHON_VERSION ipython -c conda-forge -y
 
 # List info
 conda info -a

@@ -20,6 +20,8 @@ then
 fi
 }
 
+PLATFORM=MacOSX  # MacOSX or Linux
+
 MY_SHELL=$(ps -p $$ -ocomm=)
 
 # Make sure we are running a supported shell
@@ -40,17 +42,17 @@ fi
 }
 
 # # Miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
-# INSTALL_FILE="Miniconda3-latest-MacOSX-$(uname -m).sh"
+# INSTALL_FILE="Miniconda3-latest-$PLATFORM-$(uname -m).sh"
 # INSTALL_URL="https://repo.continuum.io/miniconda/$INSTALL_FILE"
 # INSTALL_DIR="miniconda"
 
 # # Miniforge and conda: https://github.com/conda-forge/miniforge/
-# INSTALL_FILE="Miniforge3-MacOSX-$(uname -m).sh"
+# INSTALL_FILE="Miniforge3-$PLATFORM-$(uname -m).sh"
 # INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
 # INSTALL_DIR="miniforge3"
 
 # Miniforge and mamba https://github.com/mamba-org/mamba
-INSTALL_FILE="Mambaforge-MacOSX-$(uname -m).sh"
+INSTALL_FILE="Mambaforge-$PLATFORM-$(uname -m).sh"
 INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
 INSTALL_DIR="mambaforge"
 
@@ -71,10 +73,10 @@ if [ ! -f "$INSTALL_FILE_PATH" ]; then
 fi
 }
 
-# install
+# Install conda
 bash $INSTALL_FILE_PATH -b -p $INSTALL_DIR_PATH
 
-# initialize conda (add to ~/.zshrc or ~/.bash_profile)
+# Initialize conda (add to ~/.zshrc or ~/.bash_profile)
 source $INSTALL_DIR_PATH/bin/activate
 {
 if [[ "$MY_SHELL" =~ 'zsh' ]]; then
@@ -90,3 +92,5 @@ else
     exit 1
 fi
 }
+
+echo "Close this shell and open a new one, then run 05-python-updates.sh"
