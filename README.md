@@ -30,7 +30,8 @@ Some of the functionality of these dotfiles depends on formulae installed by `02
     1. Run `02-brew.sh` to install apps
 1. Run `03-macos.sh` to set up macOS preferences
 1. Restart your computer
-1. Run `04-python.sh` to set up the `base` Python 3 conda environment named
+1. Run `04-python.sh` to set up the `base` Python 3 conda environment
+1. Run `05-python-updates.sh` to update the `base` environment, installing Python 3.10 and making additional convenient updates
 1. Set up installed applications (look at `Brewfile` as a reminder of what was installed)
 1. If needed, copy public and private ssh keys from previous computer to `~/.ssh/` and `chmod` to `600`
    - Set up `~/.ssh/config` to add ssh keys to Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
