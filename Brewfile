@@ -75,8 +75,9 @@ brew 'heroku'
 
 # Install additional applications
 
-cask '1password'  # 1Password 7
-cask 'ableton-live-lite10'
+cask '1password'  # 1Password latest
+# cask '1password7'  # 1Password 7
+cask 'ableton-live-lite'
 # cask 'aquamacs'
 cask 'docker'
 # cask 'firefox'
