@@ -43,11 +43,15 @@ fi;
 # heroku autocomplete --refresh-cache
 
 # Ruby
+# https://stackoverflow.com/a/66379795/2592858
+rbenv install $(rbenv install -l | grep -v - | tail -1)
+rbenv global $(rbenv install -l | grep -v - | tail -1)
 echo '' >> ~/.bash_profile
+echo '# Ruby' >> ~/.bash_profile
+echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
 echo 'export PATH="$(brew --prefix)/ruby/bin:$PATH"' >> ~/.bash_profile
-# echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-# source ~/.bashrc
-# gem install solargraph
+source ~/.bashrc
+gem install solargraph
 
 # Remove the quarantine attribute for QuickLook plugins
 # https://github.com/sindresorhus/quick-look-plugins#catalina-notes
