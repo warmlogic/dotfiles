@@ -43,8 +43,8 @@ brew 'imagemagick'
 brew 'less'
 brew 'make'
 brew 'node'
-# brew 'rbenv'
-brew 'ruby'
+brew 'rbenv'
+brew 'ruby-install'
 brew 'rename'
 brew 'rsync'
 brew 'screen'
@@ -72,25 +72,23 @@ brew 'mas'
 
 # Install additional applications
 
-cask '1password'  # 1Password 7
-# https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
-# cask 'temurin8'  # Open JDK 8 for Android Studio
+cask '1password'  # 1Password latest
+# cask '1password7'
 cask 'android-studio'
 cask 'docker'
+# cask 'firefox'
 cask 'google-chrome'
 cask 'itsycal'
 cask 'jupyter-notebook-viewer'
 cask 'lens'
 cask 'noisy'
 cask 'omnidisksweeper'
-cask 'postgres-unofficial'
-# https://postgresapp.com/documentation/cli-tools.html
+cask 'postgres-unofficial'  # https://postgresapp.com/documentation/cli-tools.html
 # for psql, add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 cask 'postico'
 cask 'postman'
 cask 'rectangle'  # window manager
 cask 'slack'
-# cask 'spectacle'  # window manager
 cask 'spotify'
 cask 'visual-studio-code'
 cask 'wordservice'
@@ -115,22 +113,25 @@ mas 'Amphetamine', id: 937984704
 mas 'Deliveries', id: 290986013
 # mas 'GarageBand', id: 682658836
 # mas 'iMovie', id: 408981434
-mas 'JustFocus', id: 1142151959
 mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
-mas 'Poolsuite FM', id: 1514817810
 mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
 mas 'The Unarchiver', id: 425424353
 mas 'Tot', id: 1491071483
-# mas '1Password', id: 1333542190  # 1Password 7
+# mas '1Password 7 - Password Manager', id: 1333542190
 # mas 'Binaural', id: 946812450
+# mas 'JustFocus', id: 1142151959
 # mas 'Mail Notifr', id: 808154494
+# mas 'Poolsuite FM', id: 1514817810
 # mas 'Slack', id: 803453959
 
 # Install Safari extensions via Mac App Store
-mas 'DuckDuckGo Privacy Essentials', id: 1482920575
-mas 'Hush', id: 1544743900
-mas 'Wipr', id: 1320666476
-# mas 'CleanLinksForGoogle', id: 1467225874  # Safari extension to remove Google redirect URLs
+mas '1Password for Safari', id: 1569813296
+# mas 'DuckDuckGo Privacy Essentials', id: 1482920575
+# mas 'Hush', id: 1544743900
 # mas 'Polyglot', id: 1471801525  # Safari extension for translation
+mas 'StopTheMadness', id: 1376402589
+# mas 'Vinegar - Tube Cleaner', id: 1591303229
+mas 'Wipr', id: 1320666476
+# https://github.com/Sh1d0w/clean-links
