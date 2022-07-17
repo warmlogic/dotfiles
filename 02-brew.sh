@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Install command-line tools using Homebrew.
 
@@ -31,13 +31,28 @@ fi
 brew bundle
 
 # Save Homebrew’s installed location.
-BREW_PREFIX=$(brew --prefix)
+HOMEBREW_PREFIX=$(brew --prefix)
 
-# Switch to using brew-installed bash as default shell
-if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
-  echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells;
-  chsh -s "${BREW_PREFIX}/bin/bash";
+# # Switch to using brew-installed bash as default shell
+# if ! fgrep -q "${HOMEBREW_PREFIX}/bin/bash" /etc/shells; then
+#   echo "${HOMEBREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells;
+#   chsh -s "${HOMEBREW_PREFIX}/bin/bash";
+# fi;
+
+# Switch to using brew-installed zsh as default shell
+if ! fgrep -q "${HOMEBREW_PREFIX}/bin/zsh" /etc/shells; then
+  echo "${HOMEBREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells;
+  chsh -s "${HOMEBREW_PREFIX}/bin/zsh";
 fi;
+
+# Install Oh-My-Zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+source ~/.zshrc
+
+# Zsh - Spaceship theme
+git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+source ~/.zshrc
 
 # # use autocomplete with the Heroku CLI tools
 # heroku autocomplete --refresh-cache
@@ -46,6 +61,13 @@ fi;
 # https://stackoverflow.com/a/66379795/2592858
 rbenv install $(rbenv install -l | grep -v - | tail -1)
 rbenv global $(rbenv install -l | grep -v - | tail -1)
+# zsh
+echo '' >> ~/.zshrc
+echo '# Ruby' >> ~/.zshrc
+echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+echo 'export PATH="$(brew --prefix)/ruby/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+# bash
 echo '' >> ~/.bash_profile
 echo '# Ruby' >> ~/.bash_profile
 echo 'eval "$(rbenv init -)"' >> ~/.bash_profile

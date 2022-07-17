@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # if running as a script, edit to reflect the shell you use (bash, zsh, etc.)
 
 # # to manually nuke the current installation:
@@ -92,5 +92,9 @@ else
     exit 1
 fi
 }
+
+# Don't use Conda's method of showing the current virtual environment
+# http://conda.pydata.org/docs/config.html#change-command-prompt-changeps1
+conda config --set changeps1 False
 
 echo "Close this shell and open a new one, then run 05-python-updates.sh"

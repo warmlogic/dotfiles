@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # if running as a script, edit to reflect the shell you use (bash, zsh, etc.)
 
 MY_SHELL=$(ps -p $$ -ocomm=)
