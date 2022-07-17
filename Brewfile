@@ -52,6 +52,7 @@ brew 'tmux'
 brew 'tree' # Visualize directory structure
 brew 'unzip'
 brew 'vim'
+brew 'zsh'
 
 # Git and some surrounds
 brew 'git'
@@ -119,6 +120,7 @@ cask 'quicklook-json'
 # cask 'quicklook-csv'
 
 # Install Fonts
+cask 'font-fira-code'
 cask 'font-source-code-pro'
 cask 'font-source-sans-pro'
 
