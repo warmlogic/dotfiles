@@ -935,16 +935,6 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 # cp -r init/Anaconda.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Anaconda.sublime-settings
 
 ###############################################################################
-# Spectacle.app                                                               #
-###############################################################################
-
-# # Set up my preferred keyboard shortcuts
-
-# mkdir -p ~/Library/Application\ Support/Spectacle
-
-# cp -r init/spectacle.json ~/Library/Application\ Support/Spectacle/Shortcuts.json 2> /dev/null
-
-###############################################################################
 # Transmission.app                                                            #
 ###############################################################################
 
