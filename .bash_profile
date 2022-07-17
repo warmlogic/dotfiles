@@ -3,6 +3,7 @@ export PATH="$HOME/bin:$PATH";
 
 # Set up Homebrew
 eval $(/opt/homebrew/bin/brew shellenv)
+HOMEBREW_PREFIX="$(brew --prefix)"
 
 # Add Postgres to the `$PATH` for psql
 PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
@@ -35,7 +36,6 @@ done;
 # https://docs.brew.sh/Shell-Completion
 if type brew &>/dev/null
 then
-  HOMEBREW_PREFIX="$(brew --prefix)"
   if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
   then
     source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
@@ -48,8 +48,8 @@ then
 fi
 
 # z https://github.com/rupa/z
-if [ -f "/usr/local/etc/profile.d/z.sh" ]; then
-    source "/usr/local/etc/profile.d/z.sh"
+if [ -f "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]; then
+  source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
 fi;
 
 # Enable tab completion for `g` by marking it as an alias for `git`
