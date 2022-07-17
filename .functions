@@ -1,14 +1,14 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-# git log for a given number of previous commits
-function gl() {
-    git l -n "${1:-20}"
-}
+# # git log for a given number of previous commits
+# function gl() {
+#     git l -n "${1:-20}"
+# }
 
-# git log with add/delete stats for a given number of previous commits
-function glstat() {
-    git l -n "${1:-3}" --stat
-}
+# # git log with add/delete stats for a given number of previous commits
+# function glstat() {
+#     git l -n "${1:-3}" --stat
+# }
 
 # Create a new directory and enter it
 function mkd() {

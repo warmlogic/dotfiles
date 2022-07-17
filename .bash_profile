@@ -5,9 +5,6 @@ export PATH="$HOME/bin:$PATH";
 eval $(/opt/homebrew/bin/brew shellenv)
 HOMEBREW_PREFIX="$(brew --prefix)"
 
-# Add Postgres to the `$PATH` for psql
-PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
@@ -66,3 +63,6 @@ complete -W "NSGlobalDomain" defaults;
 
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari Music SystemUIServer Terminal" killall;
+
+# Add Postgres to the `$PATH` for psql
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"

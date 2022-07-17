@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Make nano the default editor.
 export EDITOR='nano';
@@ -26,8 +26,8 @@ export MANPAGER='less -X';
 # https://stackoverflow.com/a/42265848/96656
 export GPG_TTY=$(tty);
 
-# Hide the “default interactive shell is now zsh” warning on macOS.
-export BASH_SILENCE_DEPRECATION_WARNING=1;
+# # Hide the “default interactive shell is now zsh” warning on macOS.
+# export BASH_SILENCE_DEPRECATION_WARNING=1;
 
 # # Set AWS defaults
 # # https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html

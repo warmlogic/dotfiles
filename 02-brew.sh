@@ -30,7 +30,10 @@ fi
 # Install everything in Brewfile
 brew bundle
 
-# Save Homebrew’s installed location.
+# Remove outdated versions from the cellar
+brew cleanup
+
+# Set Homebrew’s installed location
 HOMEBREW_PREFIX=$(brew --prefix)
 
 # # Switch to using brew-installed bash as default shell
@@ -46,15 +49,15 @@ if ! fgrep -q "${HOMEBREW_PREFIX}/bin/zsh" /etc/shells; then
 fi;
 
 # Install Oh-My-Zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 source ~/.zshrc
 
-# Zsh - Spaceship theme
+# Install Spaceship theme for Oh-My-Zsh
 git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 source ~/.zshrc
 
-# # use autocomplete with the Heroku CLI tools
+# # Use autocomplete with the Heroku CLI tools
 # heroku autocomplete --refresh-cache
 
 # Ruby
@@ -65,19 +68,16 @@ rbenv global $(rbenv install -l | grep -v - | tail -1)
 echo '' >> ~/.zshrc
 echo '# Ruby' >> ~/.zshrc
 echo 'eval "$(rbenv init -)"' >> ~/.zshrc
-echo 'export PATH="$(brew --prefix)/ruby/bin:$PATH"' >> ~/.zshrc
+echo 'export PATH="${HOMEBREW_PREFIX}/ruby/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 # bash
 echo '' >> ~/.bash_profile
 echo '# Ruby' >> ~/.bash_profile
 echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-echo 'export PATH="$(brew --prefix)/ruby/bin:$PATH"' >> ~/.bash_profile
+echo 'export PATH="${HOMEBREW_PREFIX}/ruby/bin:$PATH"' >> ~/.bash_profile
 source ~/.bashrc
 gem install solargraph
 
 # Remove the quarantine attribute for QuickLook plugins
 # https://github.com/sindresorhus/quick-look-plugins#catalina-notes
 xattr -d -r com.apple.quarantine ~/Library/QuickLook
-
-# Remove outdated versions from the cellar
-brew cleanup
