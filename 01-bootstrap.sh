@@ -14,10 +14,11 @@ function doIt() {
         --exclude "04-python.sh" \
         --exclude "05-python-updates.sh" \
         --exclude "Brewfile" \
+        --exclude "Brewfile_work" \
         --exclude "README.md" \
         --exclude "LICENSE-MIT.txt" \
         -avh --no-perms . ~;
-    source ~/.bash_profile;
+    source ~/.zshrc;
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
