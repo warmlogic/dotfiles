@@ -11,6 +11,12 @@
 # Exit script immediately if a command exits with a non-zero status
 set -e
 
+# Platform options are: MacOSX or Linux. Have not tested with Windows (uses different file extension)
+# See these pages for exact package names:
+# Miniconda: https://repo.anaconda.com/miniconda/
+# Miniforge: https://github.com/conda-forge/miniforge/releases/
+PLATFORM="MacOSX"
+
 # wget is a prerequisite
 {
 if ! command -v wget &> /dev/null
@@ -19,8 +25,6 @@ then
     exit 1
 fi;
 }
-
-PLATFORM=MacOSX  # MacOSX or Linux
 
 MY_SHELL=$(ps -p $$ -ocomm=)
 
@@ -63,13 +67,13 @@ INSTALL_DIR="mambaforge"
 INSTALL_DIR_PATH="$HOME/$INSTALL_DIR"
 INSTALL_FILE_PATH="$HOME/Downloads/$INSTALL_FILE"
 
-# # Exit if installer file already exists
-# {
-# if [ -f "$INSTALL_FILE_PATH" ]; then
-#     echo "$INSTALL_FILE_PATH already exists! Delete before running this script to ensure installation is up-to-date."
-#     exit 0
-# fi
-# }
+# Exit if installer file already exists
+{
+if [ -f "$INSTALL_FILE_PATH" ]; then
+    echo "$INSTALL_FILE_PATH already exists! Delete before running this script to ensure installation is up-to-date."
+    exit 0
+fi;
+}
 
 {
 if [ ! -f "$INSTALL_FILE_PATH" ]; then

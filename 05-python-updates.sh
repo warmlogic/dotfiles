@@ -17,6 +17,7 @@ fi
 
 echo "Updating conda"
 conda update -n base -q conda -y
+conda install ipython -y
 conda upgrade --all -y
 python -m pip install -U pip
 
