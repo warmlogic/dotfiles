@@ -57,7 +57,7 @@ brew 'zsh'
 # Git and some surrounds
 brew 'git'
 brew 'git-lfs'
-brew 'git-flow'
+# brew 'git-flow'
 brew 'git-extras'
 
 # brew 'svn'
