@@ -41,7 +41,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -89,10 +89,19 @@ for file in ~/.{path,exports,aliases,functions,extra}; do
 done;
 unset file;
 
+# Add tab completion for `defaults read|write NSGlobalDomain`
+# You could just use `-g` instead, but I like being explicit
+complete -W "NSGlobalDomain" defaults;
+
+# Add `killall` tab completion for common apps
+complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari Music SystemUIServer Terminal" killall;
+
 # z https://github.com/rupa/z
 if [ -f "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]; then
   source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
 fi;
 
 # Add Postgres to the `$PATH` for psql
-export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+if [ -d "/Applications/Postgres.app/" ]; then
+    export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+fi;
