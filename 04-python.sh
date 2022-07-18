@@ -86,19 +86,10 @@ source $INSTALL_DIR_PATH/bin/activate
 if [[ "$MY_SHELL" =~ 'zsh' ]]; then
     echo "Initializing conda for zsh"
     conda init zsh
-    source $HOME/.zshrc
 elif [[ "$MY_SHELL" =~ 'bash' ]]; then
     echo "Initializing conda for bash"
     conda init
-    source $HOME/.bashrc
-else
-    echo "Shell not supported: $MY_SHELL"
-    exit 1
 fi;
 }
-
-# Don't use Conda's method of showing the current virtual environment
-# http://conda.pydata.org/docs/config.html#change-command-prompt-changeps1
-conda config --set changeps1 False
 
 echo "Close this shell and open a new one, then run 05-python-updates.sh"
