@@ -62,6 +62,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 # Install zsh autosuggestions for Oh-My-Zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
+# Install zsh completion for conda
+git clone https://github.com/esc/conda-zsh-completion ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/conda-zsh-completion
+
 # Overwrite the default Oh-My-Zsh .zshrc
 mv ~/.zshrc_to_use ~/.zshrc
 mv ~/.zprofile_to_use ~/.zprofile
