@@ -112,17 +112,17 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # # # Disable automatic capitalization as it's annoying when typing code
 # defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
-# # Disable smart dashes as they're annoying when typing code
-# defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+# Disable smart dashes as they're annoying when typing code
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
-# # Disable automatic period substitution as it's annoying when typing code
-# defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+# Disable automatic period substitution as it's annoying when typing code
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
 # # Disable smart quotes as they're annoying when typing code
 # defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-# # Disable auto-correct
-# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # # all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
