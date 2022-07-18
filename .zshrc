@@ -71,13 +71,11 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    gh
+    brew
     colored-man-pages
     colorize
-    pip
-    python
-    brew
+    gh
+    git
     macos
     zsh-autosuggestions
     zsh-syntax-highlighting
