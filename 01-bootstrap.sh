@@ -22,9 +22,13 @@ function doIt() {
         --exclude "LICENSE-MIT.txt" \
         -avh --no-perms . ~;
     if [[ "$MY_SHELL" =~ 'zsh' ]]; then
-        source ~/.zshrc;
+        if [ -f ~/.zshrc ]; do
+            source ~/.zshrc;
+        fi;
     elif [[ "$MY_SHELL" =~ 'bash' ]]; then
-        source ~/.bash_profile;
+        if [ -f ~/.bash_profile ]; do
+            source ~/.bash_profile;
+        fi;
     fi;
 }
 
