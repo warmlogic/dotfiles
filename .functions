@@ -171,25 +171,25 @@ function cn() {
     fi;
 }
 
-# `s` with no arguments opens the current directory in Sublime Text, otherwise
-# opens the given location
-function s() {
-    if [ $# -eq 0 ]; then
-        subl .;
-    else
-        subl "$@";
-    fi;
-}
+# # `s` with no arguments opens the current directory in Sublime Text, otherwise
+# # opens the given location
+# function s() {
+#     if [ $# -eq 0 ]; then
+#         subl .;
+#     else
+#         subl "$@";
+#     fi;
+# }
 
-# `sn` with no arguments opens the current directory in Sublime Text in a
-# new window, otherwise opens the given location in a new window
-function sn() {
-    if [ $# -eq 0 ]; then
-        subl -n .;
-    else
-        subl -n "$@";
-    fi;
-}
+# # `sn` with no arguments opens the current directory in Sublime Text in a
+# # new window, otherwise opens the given location in a new window
+# function sn() {
+#     if [ $# -eq 0 ]; then
+#         subl -n .;
+#     else
+#         subl -n "$@";
+#     fi;
+# }
 
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
