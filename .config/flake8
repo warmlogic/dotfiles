@@ -1,7 +1,11 @@
-# [flake8]
-# exclude =
-#     # No need to traverse our git directory
-#     .git,
-#     # There's no value in checking cache directories
-#     __pycache__
-# max-complexity = 10
+[flake8]
+exclude =
+    # No need to traverse our git directory
+    .git,
+    # There's no value in checking cache directories
+    __pycache__
+# E203 warns about whitespace before colon, but is used here due to isort
+# W503 warns about line break before binary operator
+extend-ignore = E203,W503
+max-line-length = 88
+max-complexity = 18
