@@ -1,5 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # if running as a script, edit to reflect the shell you use (bash, zsh, etc.)
+
+# Don't use Conda's method of showing the current virtual environment
+# http://conda.pydata.org/docs/config.html#change-command-prompt-changeps1
+conda config --set changeps1 False
 
 MY_SHELL=$(ps -p $$ -ocomm=)
 

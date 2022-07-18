@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # ~/.macos
 
@@ -109,8 +109,8 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # # Disable Notification Center and remove the menu bar icon
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
-# # Disable automatic capitalization as it's annoying when typing code
-defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+# # # Disable automatic capitalization as it's annoying when typing code
+# defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
 # # Disable smart dashes as they're annoying when typing code
 # defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
@@ -121,8 +121,8 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 # # Disable smart quotes as they're annoying when typing code
 # defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-# Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# # Disable auto-correct
+# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # # all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
@@ -212,8 +212,8 @@ sudo pmset -a lidwake 1
 # Restart automatically on power loss
 sudo pmset -a autorestart 1
 
-# Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze on
+# # Restart automatically if the computer freezes
+# sudo systemsetup -setrestartfreeze on
 
 # Sleep the display after 10 minutes
 sudo pmset -a displaysleep 10
@@ -230,17 +230,17 @@ sudo pmset -b sleep 15
 # # Never go into computer sleep mode
 # sudo systemsetup -setcomputersleep Off > /dev/null
 
-# Hibernation mode
-# 0: Disable hibernation (speeds up entering sleep mode)
-# 3: Copy RAM to disk so the system state can still be restored in case of a
-#    power failure.
-sudo pmset -a hibernatemode 0
+# # Hibernation mode
+# # 0: Disable hibernation (speeds up entering sleep mode)
+# # 3: Copy RAM to disk so the system state can still be restored in case of a
+# #    power failure.
+# sudo pmset -a hibernatemode 0
 
 # # Remove the sleep image file to save disk space
 # sudo rm /private/var/vm/sleepimage
 # # Create a zero-byte file instead...
 # sudo touch /private/var/vm/sleepimage
-# # ...and make sure it can’t be rewritten
+# # ...and make sure it can't be rewritten
 # sudo chflags uchg /private/var/vm/sleepimage
 
 ###############################################################################
@@ -454,7 +454,7 @@ defaults write com.apple.dock mru-spaces -bool false
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
-# Don’t show recent applications in Dock
+# Don't show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
@@ -537,7 +537,7 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 # Show status bar
 defaults write com.apple.Safari ShowStatusBar -bool true
 
-# Hide Safari’s bookmarks bar by default
+# Hide Safari's bookmarks bar by default
 defaults write com.apple.Safari ShowFavoritesBar -bool false
 
 # Always show tab bar
@@ -815,17 +815,11 @@ defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 ###############################################################################
-# Address Book, Dashboard, iCal, TextEdit, and Disk Utility                   #
+# Dashboard, TextEdit, and Disk Utility                   #
 ###############################################################################
-
-# # Enable the debug menu in Address Book
-# defaults write com.apple.addressbook ABShowDebugMenu -bool true
 
 # # Enable Dashboard dev mode (allows keeping widgets on the desktop)
 # defaults write com.apple.dashboard devmode -bool true
-
-# # Enable the debug menu in iCal (pre-10.8)
-# defaults write com.apple.iCal IncludeDebugMenu -bool true
 
 # # Use plain text mode for new TextEdit documents
 # defaults write com.apple.TextEdit RichText -int 0
@@ -888,8 +882,8 @@ defaults write com.apple.commerce AutoUpdate -bool true
 # # Disable smart quotes as it's annoying for messages that contain code
 # defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
 
-# Disable continuous spell checking
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
+# # Disable continuous spell checking
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
 ###############################################################################
 # Google Chrome & Google Chrome Canary                                        #
@@ -933,16 +927,6 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 # cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings 2> /dev/null
 
 # cp -r init/Anaconda.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Anaconda.sublime-settings
-
-###############################################################################
-# Spectacle.app                                                               #
-###############################################################################
-
-# # Set up my preferred keyboard shortcuts
-
-# mkdir -p ~/Library/Application\ Support/Spectacle
-
-# cp -r init/spectacle.json ~/Library/Application\ Support/Spectacle/Shortcuts.json 2> /dev/null
 
 ###############################################################################
 # Transmission.app                                                            #
@@ -989,12 +973,15 @@ defaults write org.m0k.transmission RandomPort -bool true
 # # Allow QLStephen QuickLook generator to show yaml files
 # /usr/libexec/PlistBuddy -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes: string public.yaml" ~/Library/QuickLook/QLStephen.qlgenerator/Contents/Info.plist
 
+# Remove the quarantine attribute for QuickLook plugins
+# https://github.com/sindresorhus/quick-look-plugins#catalina-notes
+xattr -d -r com.apple.quarantine ~/Library/QuickLook
+
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
 for app in "Activity Monitor" \
-    "Address Book" \
     "Calendar" \
     "cfprefsd" \
     "Google Chrome" \
@@ -1010,7 +997,4 @@ for app in "Activity Monitor" \
     "Transmission"; do
     killall "${app}" &> /dev/null
 done
-# "Opera" \
-# "SizeUp" \
-# "Tweetbot" \
 echo "Done. Note that some of these changes require a logout/restart to take effect."

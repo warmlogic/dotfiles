@@ -8,7 +8,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 
 **Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don't want or need. Don't blindly use my settings unless you know what that entails. Use at your own risk!
 
-Some of the functionality of these dotfiles depends on formulae installed by `02-brew.sh`. If you don't plan to run `02-brew.sh`, you should look carefully through the script and manually install any particularly important ones. A good example is Bash/Git completion: the dotfiles use a special version from Homebrew.
+Some of the functionality of these dotfiles depends on formulae installed by `02-brew.sh` / `Brewfile`. If you don't plan to run `02-brew.sh`, you should look carefully through the script and manually install any particularly important ones.
 
 ### Quick instructions overview
 
@@ -45,7 +45,7 @@ Clone the repository wherever you want (I keep it in `~/github/warmlogic/dotfile
 
 `cd` into your local `dotfiles` repository, and start the installation:
 
-```bash
+```sh
 source 01-bootstrap.sh
 ```
 
@@ -55,7 +55,7 @@ If `~/.path` exists, it will be sourced along with the other files before any fe
 
 Here's an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
 
-```bash
+```sh
 export PATH="/usr/local/bin:$PATH"
 ```
 
@@ -65,7 +65,7 @@ If `~/.extra` exists, it will be sourced along with the other files. You can use
 
 NB: `~/.extra` is included in the repo, but it is not automatically copied over by `01-bootstrap.sh`. Therefore, you'll want to run the following command and edit the new file's contents:
 
-```bash
+```sh
 cp .extra ~/.extra
 ```
 
@@ -75,7 +75,7 @@ You can also use `~/.extra` to override settings, functions, and aliases. It's p
 
 When setting up a new Mac, you may want to install some common [Homebrew](http://brew.sh/) formulae. This installs the Xcode command line developer tools, Homebrew, and everything listed in `Brewfile`.
 
-```bash
+```sh
 ./02-brew.sh
 ```
 
@@ -83,7 +83,7 @@ When setting up a new Mac, you may want to install some common [Homebrew](http:/
 
 When setting up a new Mac, you may want to set some sensible macOS defaults:
 
-```bash
+```sh
 ./03-macos.sh
 ```
 
@@ -91,7 +91,7 @@ When setting up a new Mac, you may want to set some sensible macOS defaults:
 
 You may also want Python and a number of useful packages related to data analysis (via [miniconda](https://docs.conda.io/en/latest/miniconda.html) or [miniforge](https://github.com/conda-forge/miniforge/)). This sets up a `base` conda environment installs everything listed in `init/environment.yml`.
 
-```bash
+```sh
 ./04-python.sh
 ./05-python-updates.sh
 ```

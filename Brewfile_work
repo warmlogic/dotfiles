@@ -57,7 +57,7 @@ brew 'zsh'
 # Git and some surrounds
 brew 'git'
 brew 'git-lfs'
-brew 'git-flow'
+# brew 'git-flow'
 brew 'git-extras'
 
 # brew 'svn'
@@ -85,6 +85,7 @@ cask 'google-chrome'
 cask 'itsycal'
 cask 'jupyter-notebook-viewer'
 cask 'lens'
+cask 'loom'
 cask 'noisy'
 cask 'omnidisksweeper'
 cask 'postgres-unofficial'  # https://postgresapp.com/documentation/cli-tools.html
@@ -95,7 +96,7 @@ cask 'rectangle'  # window manager
 cask 'slack'
 cask 'spotify'
 cask 'visual-studio-code'
-cask 'wordservice'
+# cask 'wordservice'
 cask 'zoom'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
@@ -121,7 +122,7 @@ mas 'Deliveries', id: 290986013
 mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
-mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
+# mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
 mas 'The Unarchiver', id: 425424353
 mas 'Tot', id: 1491071483
 # mas '1Password 7 - Password Manager', id: 1333542190

@@ -1,14 +1,14 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-# git log for a given number of previous commits
-function gl() {
-    git l -n "${1:-20}"
-}
+# # git log for a given number of previous commits
+# function gl() {
+#     git l -n "${1:-20}"
+# }
 
-# git log with add/delete stats for a given number of previous commits
-function glstat() {
-    git l -n "${1:-3}" --stat
-}
+# # git log with add/delete stats for a given number of previous commits
+# function glstat() {
+#     git l -n "${1:-3}" --stat
+# }
 
 # Create a new directory and enter it
 function mkd() {
@@ -68,7 +68,7 @@ function fs() {
     fi;
 }
 
-# Use Git’s colored diff when available
+# Use Git's colored diff when available
 hash git &>/dev/null;
 if [ $? -eq 0 ]; then
     function diff() {
@@ -90,7 +90,7 @@ function server() {
     local port="${1:-8000}";
     sleep 1 && open "http://localhost:${port}/" &
     # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
-    # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
+    # And serve everything as UTF-8 (although not technically correct, this doesn't break anything for binary files)
     python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
 }
 
@@ -171,25 +171,25 @@ function cn() {
     fi;
 }
 
-# `s` with no arguments opens the current directory in Sublime Text, otherwise
-# opens the given location
-function s() {
-    if [ $# -eq 0 ]; then
-        subl .;
-    else
-        subl "$@";
-    fi;
-}
+# # `s` with no arguments opens the current directory in Sublime Text, otherwise
+# # opens the given location
+# function s() {
+#     if [ $# -eq 0 ]; then
+#         subl .;
+#     else
+#         subl "$@";
+#     fi;
+# }
 
-# `sn` with no arguments opens the current directory in Sublime Text in a
-# new window, otherwise opens the given location in a new window
-function sn() {
-    if [ $# -eq 0 ]; then
-        subl -n .;
-    else
-        subl -n "$@";
-    fi;
-}
+# # `sn` with no arguments opens the current directory in Sublime Text in a
+# # new window, otherwise opens the given location in a new window
+# function sn() {
+#     if [ $# -eq 0 ]; then
+#         subl -n .;
+#     else
+#         subl -n "$@";
+#     fi;
+# }
 
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
