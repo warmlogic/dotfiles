@@ -17,7 +17,7 @@ if ! command -v wget &> /dev/null
 then
     echo "wget could not be found, please install first"
     exit 1
-fi
+fi;
 }
 
 PLATFORM=MacOSX  # MacOSX or Linux
@@ -29,16 +29,20 @@ MY_SHELL=$(ps -p $$ -ocomm=)
 if [[ ! "$MY_SHELL" =~ 'zsh' && ! "$MY_SHELL" =~ 'bash' ]]; then
     echo "Shell not supported for this install script: $MY_SHELL"
     exit 1
-fi
+fi;
 }
 
 {
-read -p "Assuming your normal shell is $MY_SHELL. Continue (y/n)? " -n 1 -r
+if [[ "$MY_SHELL" =~ 'zsh' ]]; then
+    read -q "REPLY?Assuming your normal shell is $MY_SHELL. Continue (y/n)? "
+elif [[ "$MY_SHELL" =~ 'bash' ]]; then
+    read -p "Assuming your normal shell is $MY_SHELL. Continue (y/n)? " -n 1 -r
+fi;
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
     exit 1
-fi
+fi;
 }
 
 # # Miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
@@ -70,7 +74,7 @@ INSTALL_FILE_PATH="$HOME/Downloads/$INSTALL_FILE"
 {
 if [ ! -f "$INSTALL_FILE_PATH" ]; then
     wget --show-progress -O $INSTALL_FILE_PATH $INSTALL_URL
-fi
+fi;
 }
 
 # Install conda
@@ -90,7 +94,7 @@ elif [[ "$MY_SHELL" =~ 'bash' ]]; then
 else
     echo "Shell not supported: $MY_SHELL"
     exit 1
-fi
+fi;
 }
 
 # Don't use Conda's method of showing the current virtual environment
