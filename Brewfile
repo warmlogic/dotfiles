@@ -106,12 +106,12 @@ cask 'steam'
 cask 'transmission'
 cask 'visual-studio-code'
 cask 'vlc'
-cask 'wordservice'
+# cask 'wordservice'
 cask 'zoom'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
 cask 'betterzip'  # preview archives
-cask 'syntax-highlight', args: { no_quarantine: true }  # open "Syntax Highlight.app" after installing
+# cask 'syntax-highlight', args: { no_quarantine: true }  # open "Syntax Highlight.app" after installing
 # cask 'qlcolorcode'  # syntax highlighting
 cask 'qlmarkdown'
 cask 'qlstephen'  # view plain text files without a file extension
@@ -132,7 +132,7 @@ mas 'iMovie', id: 408981434
 mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
-mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
+# mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
 mas 'The Unarchiver', id: 425424353
 mas 'Tot', id: 1491071483
 # mas '1Password 7 - Password Manager', id: 1333542190
