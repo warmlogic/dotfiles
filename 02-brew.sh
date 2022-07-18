@@ -62,9 +62,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 # Install zsh autosuggestions for Oh-My-Zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-mv ~/.zprofile_to_use ~/.zprofile
-
+# Overwrite the default Oh-My-Zsh .zshrc
 mv ~/.zshrc_to_use ~/.zshrc
+mv ~/.zprofile_to_use ~/.zprofile
 
 source ~/.zshrc
 
@@ -87,8 +87,5 @@ echo '# Ruby' >> ~/.bash_profile
 echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
 echo 'export PATH="${HOMEBREW_PREFIX}/ruby/bin:$PATH"' >> ~/.bash_profile
 source ~/.bashrc
+# Install gems
 gem install solargraph
-
-# Remove the quarantine attribute for QuickLook plugins
-# https://github.com/sindresorhus/quick-look-plugins#catalina-notes
-xattr -d -r com.apple.quarantine ~/Library/QuickLook

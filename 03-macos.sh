@@ -973,6 +973,10 @@ defaults write org.m0k.transmission RandomPort -bool true
 # # Allow QLStephen QuickLook generator to show yaml files
 # /usr/libexec/PlistBuddy -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes: string public.yaml" ~/Library/QuickLook/QLStephen.qlgenerator/Contents/Info.plist
 
+# Remove the quarantine attribute for QuickLook plugins
+# https://github.com/sindresorhus/quick-look-plugins#catalina-notes
+xattr -d -r com.apple.quarantine ~/Library/QuickLook
+
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
