@@ -2,7 +2,10 @@
 
 cd "$(dirname "${BASH_SOURCE}")";
 
-git pull origin main;
+# pull the current branch
+git pull origin $(git rev-parse --abbrev-ref HEAD);
+
+MY_SHELL=$(ps -p $$ -ocomm=)
 
 function doIt() {
     rsync --exclude ".git/" \
@@ -18,12 +21,23 @@ function doIt() {
         --exclude "README.md" \
         --exclude "LICENSE-MIT.txt" \
         -avh --no-perms . ~;
-    source ~/.zshrc;
+    if [[ "$MY_SHELL" =~ 'zsh' ]]; then
+        source ~/.zshrc;
+    elif [[ "$MY_SHELL" =~ 'bash' ]]; then
+        source ~/.bash_profile;
+    fi;
 }
 
-read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
+if [[ "$MY_SHELL" =~ 'zsh' ]]; then
+    read -q "REPLY?This may overwrite existing files in your home directory. Are you sure? (y/n) ";
+elif [[ "$MY_SHELL" =~ 'bash' ]]; then
+    read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
+fi;
+
 echo "";
+
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     doIt;
 fi;
+
 unset doIt;
