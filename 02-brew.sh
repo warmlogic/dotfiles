@@ -49,7 +49,7 @@ if ! fgrep -q "${HOMEBREW_PREFIX}/bin/zsh" /etc/shells; then
 fi;
 
 # Install Oh-My-Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
 source ~/.zshrc
 
 # Install Spaceship theme for Oh-My-Zsh
