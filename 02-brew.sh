@@ -49,7 +49,8 @@ if ! fgrep -q "${HOMEBREW_PREFIX}/bin/zsh" /etc/shells; then
 fi;
 
 # Install Oh-My-Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+source ~/.zshrc
 
 # Install Spaceship theme for Oh-My-Zsh
 git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
@@ -60,6 +61,10 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 # Install zsh autosuggestions for Oh-My-Zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+mv ~/.zprofile_to_use ~/.zprofile
+
+mv ~/.zshrc_to_use ~/.zshrc
 
 source ~/.zshrc
 
