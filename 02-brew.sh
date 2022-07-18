@@ -33,7 +33,7 @@ brew bundle
 # Remove outdated versions from the cellar
 brew cleanup
 
-# Set Homebrew’s installed location
+# Set Homebrew's installed location
 HOMEBREW_PREFIX=$(brew --prefix)
 
 # # Switch to using brew-installed bash as default shell

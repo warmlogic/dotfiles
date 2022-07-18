@@ -66,7 +66,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Enable aliases to be sudo’ed
+# Enable aliases to be sudo'ed
 alias sudo='sudo '
 
 # Get week number
@@ -122,7 +122,7 @@ alias copy='tr -d "\n" | pbcopy'
 alias cleanup_ds_store='find . -type f -name "*.DS_Store" -ls -delete'
 
 # Empty the Trash on all mounted volumes and the main HDD.
-# Also, clear Apple’s System Logs to improve shell startup speed.
+# Also, clear Apple's System Logs to improve shell startup speed.
 # Finally, clear download history from quarantine. https://mths.be/bum
 alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* "delete from LSQuarantineEvent"'
 
@@ -146,7 +146,7 @@ alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.p
 # # Enable Spotlight
 # alias spoton='sudo mdutil -a -i on'
 
-# # PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
+# # PlistBuddy alias, because sometimes `defaults` just doesn't cut it
 # alias plistbuddy='/usr/libexec/PlistBuddy'
 
 # # Airport CLI alias
@@ -157,7 +157,7 @@ alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.p
 # find . -name .gitattributes | map dirname
 alias map='xargs -n1'
 
-# # One of @janmoesen’s ProTip™s
+# # One of @janmoesen's ProTip™s
 # for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 # 	alias "${method}"="lwp-request -m '${method}'"
 # done

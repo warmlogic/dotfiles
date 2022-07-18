@@ -240,7 +240,7 @@ sudo pmset -a hibernatemode 0
 # sudo rm /private/var/vm/sleepimage
 # # Create a zero-byte file instead...
 # sudo touch /private/var/vm/sleepimage
-# # ...and make sure it can’t be rewritten
+# # ...and make sure it can't be rewritten
 # sudo chflags uchg /private/var/vm/sleepimage
 
 ###############################################################################
@@ -454,7 +454,7 @@ defaults write com.apple.dock mru-spaces -bool false
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
-# Don’t show recent applications in Dock
+# Don't show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
@@ -537,7 +537,7 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 # Show status bar
 defaults write com.apple.Safari ShowStatusBar -bool true
 
-# Hide Safari’s bookmarks bar by default
+# Hide Safari's bookmarks bar by default
 defaults write com.apple.Safari ShowFavoritesBar -bool false
 
 # Always show tab bar
