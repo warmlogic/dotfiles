@@ -18,6 +18,8 @@ export LC_ALL='en_US.UTF-8';
 
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${yellow}";
+# When using pager, auto-exit if text can be displayed on first screen
+export LESS=-FRX;
 
 # Don't clear the screen after quitting a manual page.
 export MANPAGER='less -X';
