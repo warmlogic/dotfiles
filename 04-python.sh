@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# if running as a script, edit to reflect the shell you use (bash, zsh, etc.)
+# if running as a script, edit above to reflect your shell (bash, zsh, etc.)
 
 # # to manually nuke the current installation:
 # # 1. uninstall poetry
@@ -8,20 +8,59 @@
 # rm -rf ~/miniconda/ ~/mambaforge/ ~/miniforge3/ ~/.condarc ~/.conda/ ~/.continuum/ ~/.jupyter/ ~/.ipython/ ~/.local/share/jupyter/ ~/Library/Jupyter/ ~/Library/Caches/pip ~/.poetry/ ~/.local/bin/poetry ~/Library/Caches/pypoetry/ ~/Library/Application\ Support/pypoetry/
 # # 3. delete the conda initialize section from ~/.zshrc or ~/.bash_profile
 
+# Platform options are: MacOSX, Linux
+# Have not set up for Windows (uses different file extension)
+# See these pages for exact package names:
+# Miniforge: https://github.com/conda-forge/miniforge/releases/
+# Miniconda: https://repo.anaconda.com/miniconda/
+PLATFORM='MacOSX'
+
+# Package manager options are: mamba, conda
+# mamba only supports the miniforge installer
+# Mamba: https://github.com/mamba-org/mamba
+# Conda: https://conda.io
+MANAGER='mamba'
+
+# Installer options are: miniforge, miniconda
+# Miniforge is managed by the community: https://github.com/conda-forge/miniforge
+# Miniconda is managed by Anaconda: https://conda.io/miniconda.html
+INSTALLER='miniforge'
+
 # Exit script immediately if a command exits with a non-zero status
 set -e
 
-# Platform options are: MacOSX or Linux. Have not tested with Windows (uses different file extension)
-# See these pages for exact package names:
-# Miniconda: https://repo.anaconda.com/miniconda/
-# Miniforge: https://github.com/conda-forge/miniforge/releases/
-PLATFORM="MacOSX"
+# Check on configuration options
+VALID_PLATFORMS=('MacOSX' 'Linux')
+{
+if [[ ! "${VALID_PLATFORMS[(r)$PLATFORM]}" == "$PLATFORM" ]]; then
+    echo "Platform $PLATFORM not supported, use one of ${VALID_PLATFORMS[*]}"
+    exit 1
+fi
+}
+
+VALID_MANAGERS=('mamba' 'conda')
+{
+if [[ ! "${VALID_MANAGERS[(r)$MANAGER]}" == "$MANAGER" ]]; then
+    echo "Package manager $MANAGER not supported, use one of ${VALID_MANAGERS[*]}"
+    exit 1
+fi
+}
+
+VALID_INSTALLERS=('miniforge' 'miniconda')
+{
+if [[ "$MANAGER" == 'mamba' ]]; then
+    INSTALLER='miniforge'
+fi
+if [[ ! "${VALID_INSTALLERS[(r)$INSTALLER]}" == "$INSTALLER" ]]; then
+    echo "Installer $INSTALLER not supported, use one of ${VALID_INSTALLERS[*]}"
+    exit 1
+fi
+}
 
 # wget is a prerequisite
 {
-if ! command -v wget &> /dev/null
-then
-    echo "wget could not be found, please install first"
+if ! command -v wget &> /dev/null; then
+    echo 'wget could not be found, please install first'
     exit 1
 fi;
 }
@@ -43,26 +82,39 @@ elif [[ "$MY_SHELL" =~ 'bash' ]]; then
     read -p "Assuming your normal shell is $MY_SHELL. Continue (y/n)? " -n 1 -r
 fi;
 echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi;
 }
 
-# # Miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
-# INSTALL_FILE="Miniconda3-latest-$PLATFORM-$(uname -m).sh"
-# INSTALL_URL="https://repo.continuum.io/miniconda/$INSTALL_FILE"
-# INSTALL_DIR="miniconda"
+{
+if [[ "$MANAGER" == 'mamba' && "$INSTALLER" == 'miniforge' ]]; then
+    # Miniforge and mamba: https://github.com/mamba-org/mamba
+    INSTALL_FILE="Mambaforge-$PLATFORM-$(uname -m).sh"
+    INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
+    INSTALL_DIR='mambaforge'
+elif [[ "$MANAGER" == 'conda' && "$INSTALLER" == 'miniforge' ]]; then
+    # Miniforge and conda: https://github.com/conda-forge/miniforge/
+    INSTALL_FILE="Miniforge3-$PLATFORM-$(uname -m).sh"
+    INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
+    INSTALL_DIR='miniforge3'
+elif [[ "$MANAGER" == 'conda' && "$INSTALLER" == 'miniconda' ]]; then
+    # Miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
+    INSTALL_FILE="Miniconda3-latest-$PLATFORM-$(uname -m).sh"
+    INSTALL_URL="https://repo.continuum.io/miniconda/$INSTALL_FILE"
+    INSTALL_DIR='miniconda'
+else
+    echo "Unsupported configuration: package manager: $MANAGER, installer: $INSTALLER"
+    exit 1
+fi
+}
 
-# # Miniforge and conda: https://github.com/conda-forge/miniforge/
-# INSTALL_FILE="Miniforge3-$PLATFORM-$(uname -m).sh"
-# INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
-# INSTALL_DIR="miniforge3"
-
-# Miniforge and mamba https://github.com/mamba-org/mamba
-INSTALL_FILE="Mambaforge-$PLATFORM-$(uname -m).sh"
-INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
-INSTALL_DIR="mambaforge"
+{
+read -q "REPLY?Installing with package manager: $MANAGER, installer: $INSTALLER. Continue (y/n)? "
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    exit 1
+fi;
+}
 
 INSTALL_DIR_PATH="$HOME/$INSTALL_DIR"
 INSTALL_FILE_PATH="$HOME/Downloads/$INSTALL_FILE"
@@ -71,7 +123,7 @@ INSTALL_FILE_PATH="$HOME/Downloads/$INSTALL_FILE"
 {
 if [ -f "$INSTALL_FILE_PATH" ]; then
     echo "$INSTALL_FILE_PATH already exists! Delete before running this script to ensure installation is up-to-date."
-    exit 0
+    exit 1
 fi;
 }
 
