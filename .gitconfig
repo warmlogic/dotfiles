@@ -1,6 +1,6 @@
 [alias]
 
-    # View abbreviated SHA, description, and history graph; use function gl for setting n
+    # View abbreviated SHA, description, and history graph
     l = log --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
 
