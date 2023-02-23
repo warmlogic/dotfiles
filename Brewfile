@@ -10,13 +10,11 @@ tap 'homebrew/bundle'
 tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
-tap 'heroku/brew'
 
 # Use GNU instead of BSD commands
 # the with-default-names uses normal name, rather than g-prefixed
 brew 'coreutils'
 brew 'findutils'
-brew 'readline'
 brew 'gawk'
 brew 'gnu-indent'
 brew 'gnu-sed'
@@ -26,6 +24,7 @@ brew 'gnutls'
 brew 'gpatch'
 brew 'grep'
 brew 'gzip'
+brew 'readline'
 brew 'watch'
 brew 'wdiff'
 brew 'wget'
@@ -43,10 +42,10 @@ brew 'imagemagick'
 brew 'less'
 brew 'make'
 brew 'node'
-brew 'rbenv'
-brew 'ruby-install'
+# brew 'rbenv'
 brew 'rename'
 brew 'rsync'
+# brew 'ruby-install'
 brew 'screen'
 brew 'tmux'
 brew 'tree' # Visualize directory structure
@@ -60,8 +59,6 @@ brew 'git-lfs'
 # brew 'git-flow'
 brew 'git-extras'
 
-# brew 'svn'
-
 # Easy cd https://github.com/rupa/z
 brew 'z'
 
@@ -71,12 +68,9 @@ brew 'm-cli'
 # Support for Mac App Store apps https://github.com/mas-cli/mas
 brew 'mas'
 
-# Heroku; run this after to use autocomplete with the CLI tools: heroku autocomplete --refresh-cache
-brew 'heroku'
-
 # Install additional applications
 
-cask '1password'  # 1Password latest
+cask '1password' # latest
 # cask '1password7'
 cask 'ableton-live-lite'
 # cask 'aquamacs'
@@ -91,13 +85,13 @@ cask 'kindle'
 cask 'loopback'
 cask 'noisy'
 cask 'omnidisksweeper'
-# cask 'oversight'  # alert on camera or mic usage
-cask 'postgres-unofficial'  # https://postgresapp.com/documentation/cli-tools.html
+# cask 'oversight' # alert on camera or mic usage
+# cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html
 # add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 # cask 'postico'
 # cask 'postman'
-cask 'protonvpn'  # VPN
-cask 'rectangle'  # window manager
+cask 'protonvpn' # VPN
+cask 'rectangle' # window manager
 cask 'slack'
 cask 'spotify'
 cask 'steam'
@@ -110,11 +104,11 @@ cask 'vlc'
 cask 'zoom'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
-cask 'betterzip'  # preview archives
-cask 'syntax-highlight', args: { no_quarantine: true }  # open "Syntax Highlight.app" after installing
-# cask 'qlcolorcode'  # syntax highlighting
+cask 'betterzip' # preview archives
+cask 'syntax-highlight', args: { no_quarantine: true } # open "Syntax Highlight.app" after installing
+# cask 'qlcolorcode' # syntax highlighting
 cask 'qlmarkdown'
-cask 'qlstephen'  # view plain text files without a file extension
+cask 'qlstephen' # view plain text files without a file extension
 cask 'quicklook-json'
 # cask 'qlvideo'
 # cask 'quicklook-csv'
@@ -132,7 +126,7 @@ mas 'iMovie', id: 408981434
 mas 'Keynote', id: 409183694
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
-# mas 'Table Tool', id: 1122008420  # CSV viewer/editor and quicklook
+# mas 'Table Tool', id: 1122008420 # CSV viewer/editor and quicklook
 mas 'The Unarchiver', id: 425424353
 mas 'Tot', id: 1491071483
 # mas '1Password 7 - Password Manager', id: 1333542190
@@ -146,7 +140,7 @@ mas 'Tot', id: 1491071483
 mas '1Password for Safari', id: 1569813296
 # mas 'DuckDuckGo Privacy Essentials', id: 1482920575
 # mas 'Hush', id: 1544743900
-# mas 'Polyglot', id: 1471801525  # Safari extension for translation
+# mas 'Polyglot', id: 1471801525 # Safari extension for translation
 mas 'StopTheMadness', id: 1376402589
 # mas 'Vinegar - Tube Cleaner', id: 1591303229
 mas 'Wipr', id: 1320666476
