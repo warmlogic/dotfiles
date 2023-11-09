@@ -29,6 +29,7 @@ brew 'watch'
 brew 'wdiff'
 brew 'wget'
 
+brew 'autojump'
 brew 'awscli'
 brew 'bash' # Newest version of Bash
 brew 'bash-completion@2' # Bash tab completion for Bash
