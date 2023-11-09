@@ -74,13 +74,24 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    autojump
     brew
     colored-man-pages
     colorize
+    common-aliases
     conda-zsh-completion
+    docker
     gh
     git
+    kubectl
     macos
+    python
+    rails
+    # rake
+    # rbenv
+    # ruby
+    # virtualenv
+    vscode
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
