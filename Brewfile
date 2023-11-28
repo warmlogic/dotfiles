@@ -125,6 +125,7 @@ mas 'Deliveries', id: 290986013
 mas 'GarageBand', id: 682658836
 mas 'iMovie', id: 408981434
 mas 'Keynote', id: 409183694
+mas 'Little Snitch Mini', id: 1629008763
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 # mas 'Table Tool', id: 1122008420 # CSV viewer/editor and quicklook
