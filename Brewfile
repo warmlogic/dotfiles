@@ -85,6 +85,7 @@ cask 'jupyter-notebook-viewer'
 cask 'kindle'
 cask 'loopback'
 cask 'noisy'
+cask 'notunes'
 cask 'omnidisksweeper'
 # cask 'oversight' # alert on camera or mic usage
 # cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html

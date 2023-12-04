@@ -82,6 +82,7 @@ cask 'jupyter-notebook-viewer'
 cask 'lens'
 cask 'loom'
 cask 'noisy'
+cask 'notunes'
 cask 'omnidisksweeper'
 cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html
 # for psql, add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
