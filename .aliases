@@ -31,7 +31,7 @@ alias git-remove-untracked-force='git fetch --prune && git branch -r | awk "{pri
 # view repo in web browser
 alias ghr='gh browse'
 # view branch in web browser
-alias ghb='gh browse --branch $(git symbolic-ref --quiet --short HEAD)'
+alias ghb='gh browse --branch $(git rev-parse --abbrev-ref HEAD)'
 # view pr in web browser
 alias ghp='gh pr view --web'
 # view GitHub Actions runs in web browser (select specific run)
