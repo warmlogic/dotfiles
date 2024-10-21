@@ -28,12 +28,18 @@ alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1
 alias git-remove-untracked-force='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
 # GitHub CLI commands https://cli.github.com
-# view repo on github
+# view repo in web browser
 alias ghr='gh browse'
-# view branch on github
+# view branch in web browser
 alias ghb='gh browse --branch $(git symbolic-ref --quiet --short HEAD)'
-# view pr on github
+# view pr in web browser
 alias ghp='gh pr view --web'
+# view GitHub Actions runs in web browser (select specific run)
+alias gha='gh run view --web'
+# view the most recent in_progress, success, or failure run for the current branch (excludes cancelled and skipped)
+alias gha1='gh run view $(gh run list --branch $(git rev-parse --abbrev-ref HEAD) --json databaseId,status,conclusion --jq "map(select(.status == \"in_progress\" or .conclusion == \"success\" or .conclusion == \"failure\")) | .[0].databaseId") --web'
+# print a list of all runs for the current branch
+alias ghal='gh run list --branch $(git rev-parse --abbrev-ref HEAD)'
 
 # # Detect which `ls` flavor is in use
 # if ls --color > /dev/null 2>&1; then # GNU `ls`
