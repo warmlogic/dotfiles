@@ -34,6 +34,7 @@ brew 'awscli'
 brew 'bash-completion@2' # Bash tab completion for Bash
 brew 'bash' # Newest version of Bash
 brew 'cheat' # Simple cheat-sheets; install and run `$ cheat tar`
+brew 'derailed/k9s/k9s' # Kubernetes CLI https://k9scli.io
 brew 'emacs'
 brew 'file-formula' # guess file type
 brew 'gh' # https://cli.github.com
@@ -81,7 +82,8 @@ cask 'itsycal'
 cask 'jupyter-notebook-viewer'
 cask 'lens'
 cask 'loom'
-cask 'noisy'
+cask 'monitorcontrol'
+# cask 'noisy'
 cask 'notunes'
 cask 'omnidisksweeper'
 cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html
