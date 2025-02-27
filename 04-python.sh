@@ -15,11 +15,9 @@
 # Miniconda: https://repo.anaconda.com/miniconda/
 PLATFORM='MacOSX'
 
-# Package manager options are: mamba, conda
-# mamba only supports the miniforge installer
-# Mamba: https://github.com/mamba-org/mamba
+# Package manager options are: conda
 # Conda: https://conda.io
-MANAGER='mamba'
+MANAGER='conda'
 
 # Installer options are: miniforge, miniconda
 # Miniforge is managed by the community: https://github.com/conda-forge/miniforge
@@ -38,7 +36,7 @@ if [[ ! "${VALID_PLATFORMS[(r)$PLATFORM]}" == "$PLATFORM" ]]; then
 fi
 }
 
-VALID_MANAGERS=('mamba' 'conda')
+VALID_MANAGERS=('conda')
 {
 if [[ ! "${VALID_MANAGERS[(r)$MANAGER]}" == "$MANAGER" ]]; then
     echo "Package manager $MANAGER not supported, use one of ${VALID_MANAGERS[*]}"
@@ -48,9 +46,6 @@ fi
 
 VALID_INSTALLERS=('miniforge' 'miniconda')
 {
-if [[ "$MANAGER" == 'mamba' ]]; then
-    INSTALLER='miniforge'
-fi
 if [[ ! "${VALID_INSTALLERS[(r)$INSTALLER]}" == "$INSTALLER" ]]; then
     echo "Installer $INSTALLER not supported, use one of ${VALID_INSTALLERS[*]}"
     exit 1
@@ -88,12 +83,7 @@ fi;
 }
 
 {
-if [[ "$MANAGER" == 'mamba' && "$INSTALLER" == 'miniforge' ]]; then
-    # Miniforge and mamba: https://github.com/mamba-org/mamba
-    INSTALL_FILE="Mambaforge-$PLATFORM-$(uname -m).sh"
-    INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
-    INSTALL_DIR='mambaforge'
-elif [[ "$MANAGER" == 'conda' && "$INSTALLER" == 'miniforge' ]]; then
+if [[ "$MANAGER" == 'conda' && "$INSTALLER" == 'miniforge' ]]; then
     # Miniforge and conda: https://github.com/conda-forge/miniforge/
     INSTALL_FILE="Miniforge3-$PLATFORM-$(uname -m).sh"
     INSTALL_URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALL_FILE"
