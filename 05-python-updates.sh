@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# if running as a script, edit to reflect the shell you use (bash, zsh, etc.)
+# if running as a script, edit above to reflect your shell (bash, zsh, etc.)
 
 # Don't use Conda's method of showing the current virtual environment
 # http://conda.pydata.org/docs/config.html#change-command-prompt-changeps1
@@ -9,10 +9,10 @@ MY_SHELL=$(ps -p $$ -ocomm=)
 
 # Make sure we are running a supported shell
 {
-if [[ ! "$MY_SHELL" =~ 'zsh' && ! "$MY_SHELL" =~ 'bash' ]]; then
-    echo "Shell not supported for this install script: $MY_SHELL"
-    exit 1
-fi
+    if [[ ! "$MY_SHELL" =~ 'zsh' && ! "$MY_SHELL" =~ 'bash' ]]; then
+        echo "Shell not supported for this install script: $MY_SHELL"
+        exit 1
+    fi
 }
 
 echo "Updating conda"
@@ -22,7 +22,7 @@ conda upgrade --all -y
 python -m pip install -U pip
 
 # Upgrade Python
-PYTHON_VERSION=3.10
+PYTHON_VERSION=3.11
 echo "Updating to Python $PYTHON_VERSION"
 conda install python=$PYTHON_VERSION ipython -c conda-forge -y
 
@@ -58,32 +58,31 @@ curl -sSL https://install.python-poetry.org | python3 -
 # add poetry path to ~/.zshrc or ~/.bash_profile
 echo "Adding python-poetry path to ~/.zshrc or ~/.bash_profile"
 {
-if [[ "$MY_SHELL" =~ 'zsh' ]]; then
-    echo '' >> $HOME/.zshrc
-    echo '# Python-poetry https://python-poetry.org' >> $HOME/.zshrc
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.zshrc
-    source $HOME/.zshrc
-elif [[ "$MY_SHELL" =~ 'bash' ]]; then
-    echo '' >> $HOME/.bash_profile
-    echo '# Python-poetry https://python-poetry.org' >> $HOME/.bash_profile
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bash_profile
-    source $HOME/.bashrc
-fi
+    if [[ "$MY_SHELL" =~ 'zsh' ]]; then
+        echo '' >>$HOME/.zshrc
+        echo '# Python-poetry https://python-poetry.org' >>$HOME/.zshrc
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >>$HOME/.zshrc
+        source $HOME/.zshrc
+    elif [[ "$MY_SHELL" =~ 'bash' ]]; then
+        echo '' >>$HOME/.bash_profile
+        echo '# Python-poetry https://python-poetry.org' >>$HOME/.bash_profile
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >>$HOME/.bash_profile
+        source $HOME/.bashrc
+    fi
 }
 
 # add shell completions for poetry
 echo "Adding python-poetry shell completions"
 {
-if [[ "$MY_SHELL" =~ 'zsh' ]]; then
-    mkdir $HOME/.zfunc
-    poetry completions zsh > $HOME/.zfunc/_poetry
-elif [[ "$MY_SHELL" =~ 'bash' ]]; then
-    # put in the brew bash completion directory
-    if type brew &>/dev/null
-    then
-    poetry completions bash > $(brew --prefix)/etc/bash_completion.d/poetry
+    if [[ "$MY_SHELL" =~ 'zsh' ]]; then
+        mkdir $HOME/.zfunc
+        poetry completions zsh >$HOME/.zfunc/_poetry
+    elif [[ "$MY_SHELL" =~ 'bash' ]]; then
+        # put in the brew bash completion directory
+        if type brew &>/dev/null; then
+            poetry completions bash >$(brew --prefix)/etc/bash_completion.d/poetry
+        fi
     fi
-fi
 }
 
 # # enable nb_conda_kernels
