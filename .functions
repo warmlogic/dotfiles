@@ -151,6 +151,16 @@ function getcertnames() {
     fi;
 }
 
+# `c` with no arguments opens the current directory in Cursor, otherwise opens the
+# given location
+function c() {
+  if [ $# -eq 0 ]; then
+      cursor .;
+  else
+      cursor "$@";
+  fi;
+}
+
 # # `c` with no arguments opens the current directory in VS Code, otherwise
 # # opens the given location
 # function c() {
