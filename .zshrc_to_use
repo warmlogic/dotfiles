@@ -79,10 +79,11 @@ plugins=(
     colored-man-pages
     colorize
     common-aliases
-    conda-zsh-completion
+    # conda-zsh-completion
     docker
     gh
     git
+    history-substring-search
     kubectl
     macos
     python
@@ -90,8 +91,9 @@ plugins=(
     # rake
     # rbenv
     # ruby
-    # virtualenv
+    virtualenv
     vscode
+    web-search
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
