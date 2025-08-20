@@ -22,7 +22,7 @@ conda upgrade --all -y
 python -m pip install -U pip
 
 # Upgrade Python
-PYTHON_VERSION=3.11
+PYTHON_VERSION=3.13
 echo "Updating to Python $PYTHON_VERSION"
 conda install python=$PYTHON_VERSION ipython -c conda-forge -y
 
@@ -37,15 +37,15 @@ conda info -a
 
 # conda activate base
 
-# update the base environment with lots of good packages
-echo "Updating conda base environment"
-conda env update -f init/environment.yml -q
+# # update the base environment with lots of good packages
+# echo "Updating conda base environment"
+# conda env update -f init/environment.yml -q
 
-# download and link spacy language model
-echo "Downloading spacy language model"
-# python -m spacy download en
-python -m spacy download en_core_web_sm
-# python -m spacy download en_core_web_lg
+# # download and link spacy language model
+# echo "Downloading spacy language model"
+# # python -m spacy download en
+# python -m spacy download en_core_web_sm
+# # python -m spacy download en_core_web_lg
 
 # configure git to use nbdiff
 echo "Configuring git to use nbdiff"
