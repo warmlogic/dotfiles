@@ -78,7 +78,7 @@ plugins=(
     brew
     colored-man-pages
     colorize
-    common-aliases
+    # common-aliases
     conda-zsh-completion
     docker
     gh
