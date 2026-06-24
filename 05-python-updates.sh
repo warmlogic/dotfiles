@@ -47,9 +47,9 @@ conda info -a
 # python -m spacy download en_core_web_sm
 # # python -m spacy download en_core_web_lg
 
-# configure git to use nbdiff
-echo "Configuring git to use nbdiff"
-nbdime config-git --enable --global
+# # configure git to use nbdiff
+# echo "Configuring git to use nbdiff"
+# nbdime config-git --enable --global
 
 # install python-poetry https://python-poetry.org
 echo "Installing python-poetry"
