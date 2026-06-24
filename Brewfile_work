@@ -36,6 +36,8 @@ brew 'bash' # Newest version of Bash
 brew 'cheat' # Simple cheat-sheets; install and run `$ cheat tar`
 brew 'derailed/k9s/k9s' # Kubernetes CLI https://k9scli.io
 brew 'emacs'
+brew 'markdownlint-cli2' # markdown linter with auto-fix
+brew 'prettier' # code/markdown formatter
 brew 'file-formula' # guess file type
 brew 'gh' # https://cli.github.com
 brew 'graphviz' # for python tree model plotting
