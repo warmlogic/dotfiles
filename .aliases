@@ -27,6 +27,12 @@ alias dt='cd ~/Desktop'
 alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -d'
 alias git-remove-untracked-force='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
+# Squash all commits on current branch into one (relative to given base branch)
+# gsquash: opens editor to combine all commit messages into one
+# gfixup: silently discards intermediate commit messages, keeps the first
+alias gsquash='GIT_SEQUENCE_EDITOR='\''sed -i "" "2,\$s/^pick/squash/"'\'' git rebase -i'
+alias gfixup='GIT_SEQUENCE_EDITOR='\''sed -i "" "2,\$s/^pick/fixup/"'\'' git rebase -i'
+
 # GitHub CLI commands https://cli.github.com
 # view repo in web browser
 alias ghr='gh browse'
