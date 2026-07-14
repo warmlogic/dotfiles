@@ -186,3 +186,17 @@ alias reload="exec ${SHELL} -l"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
+
+# Use SAML-to-AWS-STS-Keys Chrome extension to download AWS credentials file upon login
+# https://chrome.google.com/webstore/detail/saml-to-aws-sts-keys-conv/ekniobabpcnfjgfbphhcolcinmnbehde
+# Then move the credentials file to the correct location
+alias aws-auth-mv-credentials="mv -f ${AWS_GOOGLE_SAML_DOWNLOAD_FILE} ${AWS_SHARED_CREDENTIALS_FILE}"
+
+# Log in to AWS ECR to access Docker images
+# alias aws-auth-ecr-login="aws ecr get-login-password --profile default | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+alias aws-auth-ecr-login="aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+
+# Manual SAML login via Chrome (SAML-to-AWS-STS-Keys) + ECR login
+alias aws-auth-mv-ecr="aws-auth-mv-credentials && aws-auth-ecr-login"
+# Automated SAML login via Chrome (SAML-to-AWS-STS-Keys; see ~/.functions) + ECR login
+alias aws-auth="aws-auth-get-saml2sts-credentials && aws-auth-ecr-login"

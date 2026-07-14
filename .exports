@@ -28,12 +28,17 @@ export MANPAGER='less -X';
 # https://stackoverflow.com/a/42265848/96656
 export GPG_TTY=$(tty);
 
-# # Hide the “default interactive shell is now zsh” warning on macOS.
-# export BASH_SILENCE_DEPRECATION_WARNING=1;
-
-# # Set AWS defaults
 # # https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 # # https://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html
-# export AWS_DEFAULT_PROFILE=default;
-# export AWS_DEFAULT_REGION=us-west-2;
-# export AWS_DEFAULT_OUTPUT=text;
+# export AWS_DEFAULT_PROFILE="default";
+# export AWS_DEFAULT_REGION="ap-south-1";
+# export AWS_DEFAULT_OUTPUT="text";
+export AWS_REGION="ap-south-1";
+export AWS_SHARED_CREDENTIALS_FILE="${HOME}/.aws/credentials";
+# export AWS_ACCOUNT_ID="";
+
+# # For aws-auth-get-saml2sts-credentials function (see ~/.functions)
+# export AWS_GOOGLE_SAML_DOWNLOAD_FILE="${HOME}/Downloads/credentials";
+# export AWS_GOOGLE_SAML_SSO_URL="";
+# export AWS_GOOGLE_SAML_ACCOUNT_EMAIL="";
+# export AWS_GOOGLE_CHROME_PROFILE_DIR="";
