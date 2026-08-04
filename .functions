@@ -440,7 +440,7 @@ function aws-auth-get-saml2sts-credentials() {
     local awsCredentialsFile="${AWS_SHARED_CREDENTIALS_FILE}";
     local maxAttempts=5;
     local pollInterval=2;
-    local pollTimeout=15;
+    local pollTimeout=10;
 
     # Always call this (not just when Chrome isn't running): it activates
     # an already-running Chrome, opens a window if Chrome is running with
