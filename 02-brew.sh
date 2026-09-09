@@ -27,11 +27,18 @@ fi
 
 # Install everything shared, then the personal or work overlay
 brew bundle --file=Brewfile.common
-if [[ "$1" == "--work" ]]; then
-  brew bundle --file=Brewfile.work
-else
-  brew bundle --file=Brewfile.personal
-fi
+case "${1:-}" in
+  "")
+    brew bundle --file=Brewfile.personal
+    ;;
+  --work)
+    brew bundle --file=Brewfile.work
+    ;;
+  *)
+    echo "Usage: $0 [--work]" >&2
+    exit 2
+    ;;
+esac
 
 # Remove outdated versions from the cellar
 brew cleanup

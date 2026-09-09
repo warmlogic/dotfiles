@@ -2,6 +2,10 @@
 
 # ~/.macos
 
+# Absolute path to this repo, so the terminal-theme block below can find
+# init/ regardless of cwd (init/ is not mirrored to $HOME by 01-bootstrap.sh)
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we're about to change
 osascript -e 'tell application "System Preferences" to quit'
@@ -594,7 +598,7 @@ tell application "Terminal"
     (* Open the custom theme so that it gets added to the list
        of available terminal themes (note: this will open two
        additional terminal windows). *)
-    do shell script "open '$HOME/init/" & themeName & ".terminal'"
+    do shell script "open '$DOTFILES_DIR/init/" & themeName & ".terminal'"
 
     (* Wait a little bit to ensure that the custom theme is added. *)
     delay 1
@@ -607,7 +611,7 @@ tell application "Terminal"
     (* Open the custom theme so that it gets added to the list
        of available terminal themes (note: this will open two
        additional terminal windows). *)
-    do shell script "open '$HOME/init/" & themeName & ".terminal'"
+    do shell script "open '$DOTFILES_DIR/init/" & themeName & ".terminal'"
 
     (* Wait a little bit to ensure that the custom theme is added. *)
     delay 1
@@ -620,7 +624,7 @@ tell application "Terminal"
     (* Open the custom theme so that it gets added to the list
        of available terminal themes (note: this will open two
        additional terminal windows). *)
-    do shell script "open '$HOME/init/" & themeName & ".terminal'"
+    do shell script "open '$DOTFILES_DIR/init/" & themeName & ".terminal'"
 
     (* Wait a little bit to ensure that the custom theme is added. *)
     delay 1
@@ -664,7 +668,7 @@ EOD
 # defaults write com.apple.Terminal ShowLineMarks -int 0
 
 # # Install the Solarized Dark theme for iTerm
-# open "${HOME}/init/Solarized Dark.itermcolors"
+# open "${DOTFILES_DIR}/init/Solarized Dark.itermcolors"
 
 # # Don't display the annoying prompt when quitting iTerm
 # defaults write com.googlecode.iterm2 PromptOnQuit -bool false

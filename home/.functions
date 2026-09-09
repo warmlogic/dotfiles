@@ -247,7 +247,10 @@ function e() {
 # }
 
 # activate an ad-hoc venv from ~/.venvs: workon scratch
-function workon() { source "$HOME/.venvs/$1/bin/activate"; }
+function workon() {
+    (( $# )) || { echo "usage: workon <name>" >&2; return 2; }
+    source "$HOME/.venvs/$1/bin/activate";
+}
 
 # Normalize `open` across Linux, macOS, and Windows.
 # This is needed to make the `o` function (see below) cross-platform.

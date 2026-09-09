@@ -9,7 +9,8 @@ set -euo pipefail
 # Install a default interpreter uv can hand out to tools and venvs
 uv python install 3.13
 
-# Global CLI tools, each in its own isolated environment
+# Global CLI tools, each in its own isolated environment. Shims land in
+# ~/.local/bin, which home/.exports puts on PATH.
 for tool in ruff pre-commit ipython jupyterlab; do
   uv tool install "$tool"
 done

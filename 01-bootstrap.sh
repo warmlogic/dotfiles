@@ -8,7 +8,7 @@ git pull origin $(git rev-parse --abbrev-ref HEAD);
 MY_SHELL=$(ps -p $$ -ocomm=)
 
 function doIt() {
-    rsync -avh --no-perms --exclude .DS_Store home/ ~;
+    rsync -avh --no-perms --exclude .DS_Store --exclude .extra home/ ~;
     if [[ "$MY_SHELL" =~ 'zsh' ]]; then
         if [ -f ~/.zshrc ]; then
             source ~/.zshrc;
