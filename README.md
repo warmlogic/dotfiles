@@ -102,6 +102,8 @@ Python is managed with [`uv`](https://docs.astral.sh/uv/) (installed by `04-pyth
 - `~/.venvs/<name>` for ad-hoc, throwaway environments — activate with the `workon` shell function (e.g. `workon scratch`), defined in `home/.functions`
 - `uv run` inside a project directory for project-scoped dependencies
 
+The oh-my-zsh `uv` plugin (enabled in `home/.zshrc_to_use`) provides completions and short aliases (e.g. `uvr` = `uv run`); `workon <name>` activates ad-hoc venvs.
+
 ```sh
 ./04-python.sh
 ```

@@ -90,6 +90,7 @@ plugins=(
     # rake
     # rbenv
     # ruby
+    uv
     virtualenv
     vscode
     web-search
