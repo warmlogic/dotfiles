@@ -79,7 +79,6 @@ plugins=(
     colored-man-pages
     colorize
     # common-aliases
-    conda-zsh-completion
     docker
     gh
     git
