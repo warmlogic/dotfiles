@@ -78,9 +78,6 @@ mv ~/.zprofile_to_use ~/.zprofile
 
 source ~/.zshrc
 
-# # Use autocomplete with the Heroku CLI tools
-# heroku autocomplete --refresh-cache
-
 # Ruby (only installed via Brewfile.work)
 # https://stackoverflow.com/a/66379795/2592858
 if command -v rbenv &>/dev/null; then

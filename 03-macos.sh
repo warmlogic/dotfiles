@@ -110,9 +110,6 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # in the login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
-# # Disable Notification Center and remove the menu bar icon
-# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
-
 # # # Disable automatic capitalization as it's annoying when typing code
 # defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
@@ -536,38 +533,6 @@ defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -stri
 # # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
 # sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 
-# # Change indexing order and disable some search results
-# # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
-# #     MENU_DEFINITION
-# #     MENU_CONVERSION
-# #     MENU_EXPRESSION
-# #     MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-# #     MENU_WEBSEARCH             (send search queries to Apple)
-# #     MENU_OTHER
-# defaults write com.apple.spotlight orderedItems -array \
-#   '{"enabled" = 1;"name" = "APPLICATIONS";}' \
-#   '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-#   '{"enabled" = 1;"name" = "DIRECTORIES";}' \
-#   '{"enabled" = 1;"name" = "PDF";}' \
-#   '{"enabled" = 1;"name" = "FONTS";}' \
-#   '{"enabled" = 1;"name" = "DOCUMENTS";}' \
-#   '{"enabled" = 1;"name" = "MESSAGES";}' \
-#   '{"enabled" = 1;"name" = "CONTACT";}' \
-#   '{"enabled" = 1;"name" = "EVENT_TODO";}' \
-#   '{"enabled" = 1;"name" = "IMAGES";}' \
-#   '{"enabled" = 1;"name" = "BOOKMARKS";}' \
-#   '{"enabled" = 1;"name" = "MUSIC";}' \
-#   '{"enabled" = 1;"name" = "MOVIES";}' \
-#   '{"enabled" = 1;"name" = "PRESENTATIONS";}' \
-#   '{"enabled" = 1;"name" = "SPREADSHEETS";}' \
-#   '{"enabled" = 1;"name" = "SOURCE";}' \
-#   '{"enabled" = 1;"name" = "MENU_DEFINITION";}' \
-#   '{"enabled" = 1;"name" = "MENU_OTHER";}' \
-#   '{"enabled" = 1;"name" = "MENU_CONVERSION";}' \
-#   '{"enabled" = 1;"name" = "MENU_EXPRESSION";}' \
-#   '{"enabled" = 1;"name" = "MENU_WEBSEARCH";}' \
-#   '{"enabled" = 1;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-
 # # Load new settings before rebuilding the index
 # killall mds > /dev/null 2>&1
 # # Make sure indexing is enabled for the main volume
@@ -777,41 +742,15 @@ defaults write com.apple.commerce AutoUpdate -bool true
 
 # Disable the all too sensitive backswipe on trackpads
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
-# defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
 
 # Disable the all too sensitive backswipe on Magic Mouse
 defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
-# defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
 
 # Use the system-native print preview dialog
 defaults write com.google.Chrome DisablePrintPreview -bool true
-# defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 
 # Expand the print dialog by default
 defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
-# defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
-
-# ###############################################################################
-# # Visual Studio Code                                                          #
-# ###############################################################################
-
-# # Install Visual Studio Code settings
-
-# mkdir -p ~/Library/Application\ Support/Code/User/
-
-# cp -r init/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json 2> /dev/null
-# cp -r init/Code/User/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json 2> /dev/null
-
-###############################################################################
-# Sublime Text                                                                #
-###############################################################################
-
-# # Install Sublime Text settings
-
-# mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/
-
-# cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings 2> /dev/null
-
 
 ###############################################################################
 # Transmission.app                                                            #
