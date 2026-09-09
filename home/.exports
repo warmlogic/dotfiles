@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# Shims for `uv tool install`-ed CLIs (ruff, pre-commit, ipython, jupyterlab, ...)
+export PATH="$HOME/.local/bin:$PATH";
+
 # Make nano the default editor.
 export EDITOR='nano';
 

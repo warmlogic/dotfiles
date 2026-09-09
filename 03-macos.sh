@@ -2,6 +2,10 @@
 
 # ~/.macos
 
+# Absolute path to this repo, so the terminal-theme block below can find
+# init/ regardless of cwd (init/ is not mirrored to $HOME by 01-bootstrap.sh)
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we're about to change
 osascript -e 'tell application "System Preferences" to quit'
@@ -105,9 +109,6 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # Reveal IP address, hostname, OS version, etc. when clicking the clock
 # in the login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
-# # Disable Notification Center and remove the menu bar icon
-# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # # # Disable automatic capitalization as it's annoying when typing code
 # defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
@@ -434,12 +435,6 @@ defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 # # (i.e. use the old Exposé behavior instead)
 # defaults write com.apple.dock expose-group-by-app -bool false
 
-# Disable Dashboard
-defaults write com.apple.dashboard mcx-disabled -bool true
-
-# Don't show Dashboard as a Space
-defaults write com.apple.dock dashboard-in-overlay -bool true
-
 # Don't automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
 
@@ -502,118 +497,6 @@ defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 262144
 
 ###############################################################################
-# Safari & WebKit                                                             #
-###############################################################################
-
-# # Have to manually install extensions:
-# # In Safari Extensions Gallery:
-# 1Password
-# Wipr (ad block)
-# Clean Links for Google
-# Open Mail.app and set default mail app to MailNotifr
-# Not doing: uBlock Origin
-# Not doing: Safari + mailto -> Gmail https://github.com/Famlam/mailto-chromeextension
-
-# # Privacy: don't send search queries to Apple
-# defaults write com.apple.Safari UniversalSearchEnabled -bool false
-# defaults write com.apple.Safari SuppressSearchSuggestions -bool true
-
-# # Press Tab to highlight each item on a web page
-# defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
-# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
-
-# Show the full URL in the address bar (note: this still hides the scheme)
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
-
-# Set Safari's home page to `about:blank` for faster loading
-defaults write com.apple.Safari HomePage -string "about:blank"
-
-# Prevent Safari from opening "safe" files automatically after downloading
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
-
-# # Allow hitting the Backspace key to go to the previous page in history
-# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
-
-# Show status bar
-defaults write com.apple.Safari ShowStatusBar -bool true
-
-# Hide Safari's bookmarks bar by default
-defaults write com.apple.Safari ShowFavoritesBar -bool false
-
-# Always show tab bar
-defaults write com.apple.Safari AlwaysShowTabBar -bool true
-
-# # Safari opens with: A new window
-# defaults write com.apple.Safari AlwaysRestoreSessionAtLaunch -bool false
-
-# New windows open with: Empty Page (1), Favorites (4)
-defaults write com.apple.Safari NewWindowBehavior -int 4
-
-# New tabs open with: Empty Page (1), Favorites (4)
-defaults write com.apple.Safari NewTabBehavior -int 4
-
-# # Show Safari's sidebar in Top Sites
-# defaults write com.apple.Safari ShowSidebarInTopSites -bool true
-
-# # Disable Safari's thumbnail cache for History and Top Sites
-# defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
-
-# # Enable Safari's debug menu
-# defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-
-# Make Safari's search banners default to Contains instead of Starts With
-defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
-
-# # Remove useless icons from Safari's bookmarks bar
-# defaults write com.apple.Safari ProxiesInBookmarksBar "()"
-
-# Enable the Develop menu and the Web Inspector in Safari
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
-
-# Add a context menu item for showing the Web Inspector in web views
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-
-# Enable continuous spellchecking
-defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true
-# Disable auto-correct
-defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false
-
-# AutoFill
-defaults write com.apple.Safari AutoFillFromAddressBook -bool true
-defaults write com.apple.Safari AutoFillPasswords -bool false
-defaults write com.apple.Safari AutoFillCreditCardData -bool false
-defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
-
-# Warn about fraudulent websites
-defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
-
-# # Disable plug-ins
-# defaults write com.apple.Safari WebKitPluginsEnabled -bool false
-# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled -bool false
-
-# # Disable Java
-# defaults write com.apple.Safari WebKitJavaEnabled -bool false
-# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
-
-# Block pop-up windows
-defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
-
-# # Disable auto-playing video
-# defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
-# defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
-# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-# defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-
-# Enable "Do Not Track"
-defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
-
-# Update extensions automatically
-defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
-
-###############################################################################
 # Mail                                                                        #
 ###############################################################################
 
@@ -650,38 +533,6 @@ defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -stri
 # # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
 # sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 
-# # Change indexing order and disable some search results
-# # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
-# #     MENU_DEFINITION
-# #     MENU_CONVERSION
-# #     MENU_EXPRESSION
-# #     MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-# #     MENU_WEBSEARCH             (send search queries to Apple)
-# #     MENU_OTHER
-# defaults write com.apple.spotlight orderedItems -array \
-#   '{"enabled" = 1;"name" = "APPLICATIONS";}' \
-#   '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-#   '{"enabled" = 1;"name" = "DIRECTORIES";}' \
-#   '{"enabled" = 1;"name" = "PDF";}' \
-#   '{"enabled" = 1;"name" = "FONTS";}' \
-#   '{"enabled" = 1;"name" = "DOCUMENTS";}' \
-#   '{"enabled" = 1;"name" = "MESSAGES";}' \
-#   '{"enabled" = 1;"name" = "CONTACT";}' \
-#   '{"enabled" = 1;"name" = "EVENT_TODO";}' \
-#   '{"enabled" = 1;"name" = "IMAGES";}' \
-#   '{"enabled" = 1;"name" = "BOOKMARKS";}' \
-#   '{"enabled" = 1;"name" = "MUSIC";}' \
-#   '{"enabled" = 1;"name" = "MOVIES";}' \
-#   '{"enabled" = 1;"name" = "PRESENTATIONS";}' \
-#   '{"enabled" = 1;"name" = "SPREADSHEETS";}' \
-#   '{"enabled" = 1;"name" = "SOURCE";}' \
-#   '{"enabled" = 1;"name" = "MENU_DEFINITION";}' \
-#   '{"enabled" = 1;"name" = "MENU_OTHER";}' \
-#   '{"enabled" = 1;"name" = "MENU_CONVERSION";}' \
-#   '{"enabled" = 1;"name" = "MENU_EXPRESSION";}' \
-#   '{"enabled" = 1;"name" = "MENU_WEBSEARCH";}' \
-#   '{"enabled" = 1;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-
 # # Load new settings before rebuilding the index
 # killall mds > /dev/null 2>&1
 # # Make sure indexing is enabled for the main volume
@@ -712,7 +563,7 @@ tell application "Terminal"
     (* Open the custom theme so that it gets added to the list
        of available terminal themes (note: this will open two
        additional terminal windows). *)
-    do shell script "open '$HOME/init/" & themeName & ".terminal'"
+    do shell script "open '$DOTFILES_DIR/init/" & themeName & ".terminal'"
 
     (* Wait a little bit to ensure that the custom theme is added. *)
     delay 1
@@ -725,7 +576,7 @@ tell application "Terminal"
     (* Open the custom theme so that it gets added to the list
        of available terminal themes (note: this will open two
        additional terminal windows). *)
-    do shell script "open '$HOME/init/" & themeName & ".terminal'"
+    do shell script "open '$DOTFILES_DIR/init/" & themeName & ".terminal'"
 
     (* Wait a little bit to ensure that the custom theme is added. *)
     delay 1
@@ -738,7 +589,7 @@ tell application "Terminal"
     (* Open the custom theme so that it gets added to the list
        of available terminal themes (note: this will open two
        additional terminal windows). *)
-    do shell script "open '$HOME/init/" & themeName & ".terminal'"
+    do shell script "open '$DOTFILES_DIR/init/" & themeName & ".terminal'"
 
     (* Wait a little bit to ensure that the custom theme is added. *)
     delay 1
@@ -782,7 +633,7 @@ EOD
 # defaults write com.apple.Terminal ShowLineMarks -int 0
 
 # # Install the Solarized Dark theme for iTerm
-# open "${HOME}/init/Solarized Dark.itermcolors"
+# open "${DOTFILES_DIR}/init/Solarized Dark.itermcolors"
 
 # # Don't display the annoying prompt when quitting iTerm
 # defaults write com.googlecode.iterm2 PromptOnQuit -bool false
@@ -891,42 +742,15 @@ defaults write com.apple.commerce AutoUpdate -bool true
 
 # Disable the all too sensitive backswipe on trackpads
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
-# defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
 
 # Disable the all too sensitive backswipe on Magic Mouse
 defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
-# defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
 
 # Use the system-native print preview dialog
 defaults write com.google.Chrome DisablePrintPreview -bool true
-# defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 
 # Expand the print dialog by default
 defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
-# defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
-
-# ###############################################################################
-# # Visual Studio Code                                                          #
-# ###############################################################################
-
-# # Install Visual Studio Code settings
-
-# mkdir -p ~/Library/Application\ Support/Code/User/
-
-# cp -r init/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json 2> /dev/null
-# cp -r init/Code/User/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json 2> /dev/null
-
-###############################################################################
-# Sublime Text                                                                #
-###############################################################################
-
-# # Install Sublime Text settings
-
-# mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/
-
-# cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings 2> /dev/null
-
-# cp -r init/Anaconda.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Anaconda.sublime-settings
 
 ###############################################################################
 # Transmission.app                                                            #

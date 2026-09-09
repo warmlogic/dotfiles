@@ -68,3 +68,6 @@ fi;
 if [ -d "/Applications/Postgres.app/" ]; then
     export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 fi;
+
+# Ruby via rbenv (installed by Brewfile.work)
+if command -v rbenv >/dev/null; then eval "$(rbenv init - bash)"; fi
