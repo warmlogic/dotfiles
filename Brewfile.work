@@ -1,0 +1,19 @@
+# Work-machine-only entries. Combine with Brewfile.common.
+# Install via:
+# $ brew bundle --file=Brewfile.work
+
+cask_args appdir: '/Applications'
+
+brew 'derailed/k9s/k9s' # Kubernetes CLI https://k9scli.io
+brew 'markdownlint-cli2' # markdown linter with auto-fix
+brew 'prettier' # code/markdown formatter
+brew 'rbenv'
+brew 'ruby-install'
+
+cask 'android-studio'
+cask 'lens'
+cask 'loom'
+cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html
+# for psql, add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+cask 'postico'
+cask 'postman'

@@ -1,0 +1,25 @@
+# Personal-machine-only entries. Combine with Brewfile.common.
+# Install via:
+# $ brew bundle --file=Brewfile.personal
+
+cask_args appdir: '/Applications'
+
+cask 'ableton-live-lite'
+cask 'kindle'
+cask 'loopback'
+# cask 'oversight' # alert on camera or mic usage
+# cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html
+# for psql, add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+cask 'protonvpn' # VPN
+# cask 'rectangle' # window manager
+cask 'steam'
+cask 'transmission'
+cask 'vlc'
+
+# Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
+# cask 'qlstephen' # view plain text files without a file extension
+
+# Install apps via Mac App Store
+mas 'GarageBand', id: 682658836
+mas 'iMovie', id: 408981434
+# mas 'Table Tool', id: 1122008420 # CSV viewer/editor and quicklook

@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 # Install command-line tools using Homebrew.
+# Usage: ./02-brew.sh [--work]
 
 # Ask for the administrator password upfront.
 sudo -v
@@ -15,9 +16,6 @@ if test ! "$(command -v brew)"; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile
   source ~/.zprofile
-  echo '' >> ~/.bash_profile
-  echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.bash_profile
-  source ~/. bash_profile
 else
   if [[ -z "${CI}" ]]; then
     echo "Updating Homebrew..."
@@ -27,8 +25,13 @@ else
   fi
 fi
 
-# Install everything in Brewfile
-brew bundle
+# Install everything shared, then the personal or work overlay
+brew bundle --file=Brewfile.common
+if [[ "$1" == "--work" ]]; then
+  brew bundle --file=Brewfile.work
+else
+  brew bundle --file=Brewfile.personal
+fi
 
 # Remove outdated versions from the cellar
 brew cleanup
@@ -74,21 +77,16 @@ source ~/.zshrc
 # # Use autocomplete with the Heroku CLI tools
 # heroku autocomplete --refresh-cache
 
-# Ruby
+# Ruby (only installed via Brewfile.work)
 # https://stackoverflow.com/a/66379795/2592858
-rbenv install $(rbenv install -l | grep -v - | tail -1)
-rbenv global $(rbenv install -l | grep -v - | tail -1)
-# zsh
-echo '' >> ~/.zshrc
-echo '# Ruby' >> ~/.zshrc
-echo 'eval "$(rbenv init -)"' >> ~/.zshrc
-echo 'export PATH="${HOMEBREW_PREFIX}/ruby/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-# bash
-echo '' >> ~/.bash_profile
-echo '# Ruby' >> ~/.bash_profile
-echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-echo 'export PATH="${HOMEBREW_PREFIX}/ruby/bin:$PATH"' >> ~/.bash_profile
-source ~/.bashrc
-# Install gems
-gem install solargraph
+if command -v rbenv &>/dev/null; then
+  rbenv install $(rbenv install -l | grep -v - | tail -1)
+  rbenv global $(rbenv install -l | grep -v - | tail -1)
+  echo '' >> ~/.zshrc
+  echo '# Ruby' >> ~/.zshrc
+  echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+  echo 'export PATH="${HOMEBREW_PREFIX}/ruby/bin:$PATH"' >> ~/.zshrc
+  source ~/.zshrc
+  # Install gems
+  gem install solargraph
+fi
