@@ -36,7 +36,9 @@ brew 'htop' # Better top command
 brew 'imagemagick'
 brew 'less'
 brew 'make'
+brew 'markdownlint-cli2' # markdown linter with auto-fix
 brew 'node'
+brew 'prettier' # code/markdown formatter
 brew 'rename'
 brew 'rsync'
 brew 'screen'

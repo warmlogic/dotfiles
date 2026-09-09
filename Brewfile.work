@@ -5,8 +5,6 @@
 cask_args appdir: '/Applications'
 
 brew 'derailed/k9s/k9s' # Kubernetes CLI https://k9scli.io
-brew 'markdownlint-cli2' # markdown linter with auto-fix
-brew 'prettier' # code/markdown formatter
 brew 'rbenv'
 brew 'ruby-install'
 
