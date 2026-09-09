@@ -45,7 +45,6 @@ brew 'screen'
 brew 'tmux'
 brew 'tree' # Visualize directory structure
 brew 'unzip'
-brew 'uv' # Python version/tool manager, see 04-python.sh
 brew 'vim'
 brew 'zsh'
 

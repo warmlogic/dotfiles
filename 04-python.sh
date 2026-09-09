@@ -1,10 +1,15 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-# Python setup via uv (installed by Homebrew, see Brewfile.common).
+# Python setup via uv.
 # Model: `uv tool install` for global CLIs, `~/.venvs/<name>` for ad-hoc
 # exploration (activate with the `workon` function, see .functions), and
 # `uv run` inside individual projects for project-scoped dependencies.
+
+# uv installs and upgrades itself (`uv self update`); it's deliberately NOT
+# in a Brewfile so `brew upgrade` never fights the self-updater.
+command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
+export PATH="$HOME/.local/bin:$PATH"
 
 # Install a default interpreter uv can hand out to tools and venvs
 uv python install 3.13

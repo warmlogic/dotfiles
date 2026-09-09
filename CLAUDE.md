@@ -12,4 +12,8 @@ Homebrew is split into `Brewfile.common` (always) plus `Brewfile.personal` or
 `Brewfile.work` depending on the machine. Python is `uv`-only (no conda, no
 Poetry) — see `04-python.sh`.
 
+One owner per tool: a tool lives in a Brewfile OR is installed by its own
+installer in a numbered script, never both (`uv` is installer-only, so
+`brew upgrade` never fights `uv self update`).
+
 Edit files in `home/`, not in `~`, then re-run `01-bootstrap.sh` to apply.
