@@ -70,7 +70,6 @@ brew 'mole'
 
 cask '1password' # latest
 cask 'cursor'
-cask 'docker'
 cask 'ghostty'
 cask 'google-chrome'
 cask 'itsycal'
@@ -89,8 +88,6 @@ cask 'syntax-highlight', args: { no_quarantine: true } # open "Syntax Highlight.
 
 # Install Fonts
 cask 'font-fira-code'
-cask 'font-source-code-pro'
-cask 'font-source-sans-pro'
 
 # Install apps via Mac App Store
 mas 'Amphetamine', id: 937984704
