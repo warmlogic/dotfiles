@@ -9,8 +9,8 @@ software, moves files into `$HOME`, sets `defaults write`): `01-bootstrap.sh`
 them in a session without being explicitly asked to.
 
 Homebrew is split into `Brewfile.common` (always) plus `Brewfile.personal` or
-`Brewfile.work` depending on the machine. Python is `uv`-only (no conda, no
-Poetry) — see `04-python.sh`.
+`Brewfile.work` depending on the machine. Python is managed by `uv`, see
+`04-python.sh`.
 
 One owner per tool: a tool lives in a Brewfile OR is installed by its own
 installer in a numbered script, never both (`uv` is installer-only, so

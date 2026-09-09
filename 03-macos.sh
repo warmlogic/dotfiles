@@ -812,7 +812,6 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 
 # cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings 2> /dev/null
 
-# cp -r init/Anaconda.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Anaconda.sublime-settings
 
 ###############################################################################
 # Transmission.app                                                            #

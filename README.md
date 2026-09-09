@@ -96,7 +96,7 @@ When setting up a new Mac, you may want to set some sensible macOS defaults:
 
 ### Python setup
 
-Python is managed with [`uv`](https://docs.astral.sh/uv/) (installed by `04-python.sh` via its own installer, see the "One owner per tool" note above), not conda or Poetry:
+Python is managed with [`uv`](https://docs.astral.sh/uv/) (installed by `04-python.sh` via its own installer, see the "One owner per tool" note above):
 
 - `uv tool install <name>` for global CLIs (ruff, pre-commit, ipython, jupyterlab)
 - `~/.venvs/<name>` for ad-hoc, throwaway environments — activate with the `workon` shell function (e.g. `workon scratch`), defined in `home/.functions`

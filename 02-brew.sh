@@ -86,11 +86,7 @@ source ~/.zshrc
 if command -v rbenv &>/dev/null; then
   rbenv install $(rbenv install -l | grep -v - | tail -1)
   rbenv global $(rbenv install -l | grep -v - | tail -1)
-  echo '' >> ~/.zshrc
-  echo '# Ruby' >> ~/.zshrc
-  echo 'eval "$(rbenv init -)"' >> ~/.zshrc
-  echo 'export PATH="${HOMEBREW_PREFIX}/ruby/bin:$PATH"' >> ~/.zshrc
-  source ~/.zshrc
+  eval "$(rbenv init - zsh)"
   # Install gems
   gem install solargraph
 fi
