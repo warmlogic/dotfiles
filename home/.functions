@@ -156,8 +156,10 @@ function getcertnames() {
 function cx() {
   if [ $# -eq 0 ]; then
       cursor .;
+    #   cursor --classic .;
   else
       cursor "$@";
+    #   cursor --classic "$@";
   fi;
 }
 
