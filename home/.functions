@@ -68,9 +68,10 @@ function fs() {
     fi;
 }
 
-# Use Git's colored diff when available
+# Use Git's colored diff when available, except in agent shells (Claude Code
+# sets CLAUDECODE), where tools parse diff's POSIX output
 hash git &>/dev/null;
-if [ $? -eq 0 ]; then
+if [ $? -eq 0 ] && [ -z "$CLAUDECODE" ]; then
     function diff() {
         git diff --no-index --color-words "$@";
     }
