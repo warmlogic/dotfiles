@@ -5,7 +5,6 @@
 cask_args appdir: '/Applications'
 
 cask 'ableton-live-lite'
-cask 'kindle'
 cask 'loopback'
 # cask 'oversight' # alert on camera or mic usage
 # cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html
@@ -20,6 +19,7 @@ cask 'vlc'
 # cask 'qlstephen' # view plain text files without a file extension
 
 # Install apps via Mac App Store
+mas 'Amazon Kindle', id: 302584613
 mas 'GarageBand', id: 682658836
 mas 'iMovie', id: 408981434
 # mas 'Table Tool', id: 1122008420 # CSV viewer/editor and quicklook
