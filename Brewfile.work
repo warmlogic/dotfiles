@@ -8,8 +8,6 @@ brew 'k9s' # Kubernetes CLI https://k9scli.io
 brew 'rbenv'
 brew 'ruby-install'
 
-cask 'android-studio'
-cask 'lens'
 cask 'loom'
 cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html
 # for psql, add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"

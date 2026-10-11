@@ -44,21 +44,18 @@ Apps from the Brewfiles that need an account, license, or one-time enabling. App
 All machines:
 
 - [ ] 1Password (do this first; most other sign-ins come from it)
-- [ ] Safari → Settings → Extensions: enable 1Password for Safari and Wipr 2
+- [ ] Safari → Settings → Extensions: enable Wipr 2
 - [ ] Google Chrome
 - [ ] Slack
 - [ ] Zoom
 - [ ] Spotify
 - [ ] Cursor and VS Code (GitHub sign-in / Settings Sync)
-- [ ] BetterZip (license)
 - [ ] Little Snitch Mini (approve its network extension)
 - [ ] MonitorControl (grant Accessibility)
 - [ ] `aws configure sso` (or `aws configure`)
 
 Work (`Brewfile.work`):
 
-- [ ] Android Studio
-- [ ] Lens
 - [ ] Loom
 - [ ] Postman
 - [ ] Postico (license)

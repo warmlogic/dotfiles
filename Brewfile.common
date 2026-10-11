@@ -82,7 +82,6 @@ cask 'whatcable'
 cask 'zoom'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
-cask 'betterzip' # preview archives
 cask 'syntax-highlight' # open "Syntax Highlight.app" after installing
 
 # Install Fonts
@@ -98,5 +97,4 @@ mas 'Pages', id: 361309726
 mas 'The Unarchiver', id: 425424353
 
 # Install Safari extensions via Mac App Store
-mas '1Password for Safari', id: 1569813296
 mas 'Wipr 2', id: 1662217862
