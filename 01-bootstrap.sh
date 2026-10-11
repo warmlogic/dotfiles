@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
-cd "$(dirname "${BASH_SOURCE}")";
+# ${0:A:h} is zsh for "this script's directory" (works whether run or sourced)
+cd "${0:A:h}";
 
 # pull the current branch
 git pull origin $(git rev-parse --abbrev-ref HEAD);
@@ -8,9 +9,10 @@ git pull origin $(git rev-parse --abbrev-ref HEAD);
 MY_SHELL=$(ps -p $$ -ocomm=)
 
 function doIt() {
-    rsync -avh --no-perms --exclude .DS_Store --exclude .extra home/ ~;
+    rsync -avh --no-perms --exclude .DS_Store home/ ~;
     if [[ "$MY_SHELL" =~ 'zsh' ]]; then
-        if [ -f ~/.zshrc ]; then
+        # .zshrc needs Oh My Zsh, which 02-brew.sh installs
+        if [ -f ~/.zshrc ] && [ -d ~/.oh-my-zsh ]; then
             source ~/.zshrc;
         fi;
     elif [[ "$MY_SHELL" =~ 'bash' ]]; then
