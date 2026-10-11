@@ -3,6 +3,12 @@
 # Install command-line tools using Homebrew.
 # Usage: ./02-brew.sh [--work]
 
+case "${1:-}" in
+  "") PROFILE=personal ;;
+  --work) PROFILE=work ;;
+  *) echo "Usage: $0 [--work]" >&2; exit 2 ;;
+esac
+
 # Ask for the administrator password upfront.
 sudo -v
 
@@ -27,18 +33,20 @@ fi
 
 # Install everything shared, then the personal or work overlay
 brew bundle --file=Brewfile.common
-case "${1:-}" in
-  "")
-    brew bundle --file=Brewfile.personal
-    ;;
-  --work)
-    brew bundle --file=Brewfile.work
-    ;;
-  *)
-    echo "Usage: $0 [--work]" >&2
-    exit 2
-    ;;
-esac
+brew bundle --file="Brewfile.$PROFILE"
+
+# Sign in to GitHub. With the ssh protocol, gh offers to generate an SSH key
+# (if you have none) and upload it to your account.
+if ! gh auth status &>/dev/null; then
+  gh auth login --hostname github.com --git-protocol ssh --web
+fi
+
+# The first clone can be over https (public repo, no key needed yet); switch
+# it to ssh now that GitHub knows your key
+origin="$(git -C "${0:A:h}" remote get-url origin)"
+if [[ "$origin" == https://github.com/* ]]; then
+  git -C "${0:A:h}" remote set-url origin "git@github.com:${${origin#https://github.com/}%.git}.git"
+fi
 
 # Remove outdated versions from the cellar
 brew cleanup

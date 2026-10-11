@@ -8,6 +8,9 @@ software, moves files into `$HOME`, sets `defaults write`): `01-bootstrap.sh`
 → `02-brew.sh [--work]` → `03-macos.sh` → `04-python.sh`. Never run any of
 them in a session without being explicitly asked to.
 
+`check.sh [--work]` is the read-only exception: it reports whether each step
+is done and is always safe to run.
+
 Homebrew is split into `Brewfile.common` (always) plus `Brewfile.personal` or
 `Brewfile.work` depending on the machine. Python is managed by `uv`, see
 `04-python.sh`.

@@ -19,25 +19,20 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 
 1. Update macOS to the latest version
 1. Install the Xcode command line developer tools (required for `git`): `xcode-select --install`
-1. While you're waiting, create credentials for this computer and add to GitHub.
-   1. [Generate a new ssh key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/): `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`
-   1. [Log in to GitHub](https://github.com/login)
-   1. [Add your new public key to your GitHub account settings](https://github.com/settings/keys) ([instructions](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/)): `pbcopy < ~/.ssh/id_rsa.pub`
-1. Clone this repo
+1. Clone this repo over https (no SSH key needed yet; `02-brew.sh` switches it to ssh later)
    1. `mkdir -p ~/github/warmlogic`
    1. `cd ~/github/warmlogic/`
-   1. `git clone git@github.com:warmlogic/dotfiles.git`
+   1. `git clone https://github.com/warmlogic/dotfiles.git`
    1. `cd ~/github/warmlogic/dotfiles/`
 1. Run `01-bootstrap.sh` to copy `home/` into `$HOME` (first run asks for your git name and email)
 1. If installing Mac App Store apps with Brew, sign in to the Mac App Store
 1. Ensure the Brewfiles include only the programs you want to install
-   1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`)
-1. Run `03-macos.sh` to set up macOS preferences (add `--work` on a work machine, same as `02-brew.sh`)
+   1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`). At the end it signs you in to GitHub with `gh`, which can create an SSH key and add it to your account.
+1. Run `03-macos.sh` to set up macOS preferences (add `--work` on a work machine)
 1. Restart your computer
 1. Run `04-python.sh` to set up Python via `uv`
+1. Run `./check.sh` (add `--work` on a work machine) to confirm every step finished; it's read-only and safe to run any time
 1. Set up installed applications (look at the Brewfiles as a reminder of what was installed)
-1. If needed, copy public and private ssh keys from previous computer to `~/.ssh/` and `chmod` to `600`
-   - Set up `~/.ssh/config` to add ssh keys to Keychain ([instructions](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain))
 1. [Set up "Open in Safari or Chrome URL in Other Browser AppleScript + Automator Workflow](https://gist.github.com/warmlogic/e6b2f30640b4c5de2077373fb53f6df3)
 
 More details below.
