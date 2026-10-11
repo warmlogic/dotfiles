@@ -28,8 +28,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
    1. `cd ~/github/warmlogic/`
    1. `git clone git@github.com:warmlogic/dotfiles.git`
    1. `cd ~/github/warmlogic/dotfiles/`
-1. Run `01-bootstrap.sh` to copy `home/` into `$HOME`
-1. `cp home/.extra ~/.extra` and edit, if desired (explained below)
+1. Run `01-bootstrap.sh` to copy `home/` into `$HOME` (first run asks for your git name and email)
 1. If installing Mac App Store apps with Brew, sign in to the Mac App Store
 1. Ensure the Brewfiles include only the programs you want to install
    1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`)
@@ -63,17 +62,9 @@ Here's an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
 export PATH="/usr/local/bin:$PATH"
 ```
 
-### Add custom commands without creating a new fork
+### Git identity
 
-If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands without the need to fork this entire repository, or to add commands you don't want to commit to a public repository.
-
-NB: `home/.extra` is included in the repo, but it is not automatically copied over by `01-bootstrap.sh`. Therefore, you'll want to run the following command and edit the new file's contents:
-
-```sh
-cp home/.extra ~/.extra
-```
-
-You can also use `~/.extra` to override settings, functions, and aliases. It's probably better to [fork this repository](https://github.com/warmlogic/dotfiles/fork) instead, though.
+Git `user.name` and `user.email` aren't in this repo. `home/.gitconfig` includes `~/.gitconfig.local`, which `01-bootstrap.sh` creates on first run by asking for both (pressing Enter keeps any identity the machine already has). After that it's left alone; edit it with `git config --file ~/.gitconfig.local user.email you@example.com`.
 
 ### Install Homebrew formulae
 
@@ -102,7 +93,7 @@ Python is managed with [`uv`](https://docs.astral.sh/uv/) (installed by `04-pyth
 - `~/.venvs/<name>` for ad-hoc, throwaway environments — activate with the `workon` shell function (e.g. `workon scratch`), defined in `home/.functions`
 - `uv run` inside a project directory for project-scoped dependencies
 
-The oh-my-zsh `uv` plugin (enabled in `home/.zshrc_to_use`) provides completions and short aliases (e.g. `uvr` = `uv run`); `workon <name>` activates ad-hoc venvs.
+The oh-my-zsh `uv` plugin (enabled in `home/.zshrc`) provides completions and short aliases (e.g. `uvr` = `uv run`); `workon <name>` activates ad-hoc venvs.
 
 ```sh
 ./04-python.sh

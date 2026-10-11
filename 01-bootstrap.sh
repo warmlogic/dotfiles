@@ -9,7 +9,19 @@ git pull origin $(git rev-parse --abbrev-ref HEAD);
 MY_SHELL=$(ps -p $$ -ocomm=)
 
 function doIt() {
+    # Note any existing git identity before rsync replaces ~/.gitconfig
+    local git_name="$(git config --global user.name)";
+    local git_email="$(git config --global user.email)";
     rsync -avh --no-perms --exclude .DS_Store home/ ~;
+    # Git identity lives in ~/.gitconfig.local (included by ~/.gitconfig) so
+    # it never lands in this repo. Ask once; Enter keeps the shown default.
+    if [ ! -f ~/.gitconfig.local ]; then
+        local answer;
+        printf "Git user.name [%s]: " "$git_name"; read -r answer; git_name="${answer:-$git_name}";
+        printf "Git user.email [%s]: " "$git_email"; read -r answer; git_email="${answer:-$git_email}";
+        git config --file ~/.gitconfig.local user.name "$git_name";
+        git config --file ~/.gitconfig.local user.email "$git_email";
+    fi;
     if [[ "$MY_SHELL" =~ 'zsh' ]]; then
         # .zshrc needs Oh My Zsh, which 02-brew.sh installs
         if [ -f ~/.zshrc ] && [ -d ~/.oh-my-zsh ]; then

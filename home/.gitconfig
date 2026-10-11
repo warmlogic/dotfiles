@@ -198,3 +198,9 @@
 [init]
 
     defaultBranch = main
+
+# Identity (user.name/user.email) is per-person, so it lives outside this
+# public repo. 01-bootstrap.sh creates ~/.gitconfig.local on first run.
+[include]
+
+    path = ~/.gitconfig.local
