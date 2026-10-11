@@ -32,10 +32,45 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 1. Restart your computer
 1. Run `04-python.sh` to set up Python via `uv`
 1. Run `./check.sh` (add `--work` on a work machine) to confirm every step finished; it's read-only and safe to run any time
-1. Set up installed applications (look at the Brewfiles as a reminder of what was installed)
+1. Sign in to and set up apps: see [App sign-in checklist](#app-sign-in-checklist)
 1. [Set up "Open in Safari or Chrome URL in Other Browser AppleScript + Automator Workflow](https://gist.github.com/warmlogic/e6b2f30640b4c5de2077373fb53f6df3)
 
 More details below.
+
+### App sign-in checklist
+
+Apps from the Brewfiles that need an account, license, or one-time enabling. Apps not listed work without setup.
+
+All machines:
+
+- [ ] 1Password (do this first; most other sign-ins come from it)
+- [ ] Safari → Settings → Extensions: enable 1Password for Safari and Wipr 2
+- [ ] Google Chrome
+- [ ] Slack
+- [ ] Zoom
+- [ ] Spotify
+- [ ] Cursor and VS Code (GitHub sign-in / Settings Sync)
+- [ ] BetterZip (license)
+- [ ] Little Snitch Mini (approve its network extension)
+- [ ] MonitorControl (grant Accessibility)
+- [ ] `aws configure sso` (or `aws configure`)
+
+Work (`Brewfile.work`):
+
+- [ ] Android Studio
+- [ ] Lens
+- [ ] Loom
+- [ ] Postman
+- [ ] Postico (license)
+- [ ] k9s: copy or create `~/.kube/config`
+
+Personal (`Brewfile.personal`):
+
+- [ ] Ableton Live Lite
+- [ ] Loopback (license)
+- [ ] Proton VPN
+- [ ] Steam
+- [ ] Amazon Kindle
 
 ### Using Git and the bootstrap script
 
