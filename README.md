@@ -32,7 +32,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 1. If installing Mac App Store apps with Brew, sign in to the Mac App Store
 1. Ensure the Brewfiles include only the programs you want to install
    1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`)
-1. Run `03-macos.sh` to set up macOS preferences
+1. Run `03-macos.sh` to set up macOS preferences (add `--work` on a work machine, same as `02-brew.sh`)
 1. Restart your computer
 1. Run `04-python.sh` to set up Python via `uv`
 1. Set up installed applications (look at the Brewfiles as a reminder of what was installed)
