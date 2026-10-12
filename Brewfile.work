@@ -4,12 +4,12 @@
 
 cask_args appdir: '/Applications'
 
-brew 'k9s' # Kubernetes CLI https://k9scli.io
+brew 'k9s' # Kubernetes TUI https://k9scli.io
+brew 'kubectl'
 brew 'rbenv'
 brew 'ruby-install'
 
 cask 'loom'
 cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html
 # for psql, add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-cask 'postico'
 cask 'postman'

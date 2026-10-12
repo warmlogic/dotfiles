@@ -38,7 +38,18 @@ brew bundle --file="Brewfile.$PROFILE"
 # Sign in to GitHub. With the ssh protocol, gh offers to generate an SSH key
 # (if you have none) and upload it to your account.
 if ! gh auth status &>/dev/null; then
-  gh auth login --hostname github.com --git-protocol ssh --web
+  gh auth login --hostname github.com --git-protocol ssh --web --scopes admin:ssh_signing_key
+fi
+
+# Sign commits with the same SSH key, and register it with GitHub as a signing
+# key so commits show as Verified. Identity-specific, so it goes in ~/.gitconfig.local.
+if [[ -f ~/.ssh/id_ed25519.pub ]] && ! git config --file ~/.gitconfig.local gpg.format &>/dev/null; then
+  gh auth status 2>&1 | grep -q admin:ssh_signing_key || gh auth refresh --hostname github.com --scopes admin:ssh_signing_key
+  gh ssh-key add ~/.ssh/id_ed25519.pub --type signing --title "$(scutil --get ComputerName)" &&
+    git config --file ~/.gitconfig.local gpg.format ssh &&
+    git config --file ~/.gitconfig.local user.signingkey ~/.ssh/id_ed25519.pub &&
+    git config --file ~/.gitconfig.local commit.gpgsign true &&
+    git config --file ~/.gitconfig.local tag.gpgsign true
 fi
 
 # The first clone can be over https (public repo, no key needed yet); switch

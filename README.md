@@ -58,7 +58,6 @@ Work (`Brewfile.work`):
 
 - [ ] Loom
 - [ ] Postman
-- [ ] Postico (license)
 - [ ] k9s: copy or create `~/.kube/config`
 
 Personal (`Brewfile.personal`):
@@ -93,6 +92,8 @@ export PATH="/usr/local/bin:$PATH"
 
 Git `user.name` and `user.email` aren't in this repo. `home/.gitconfig` includes `~/.gitconfig.local`, which `01-bootstrap.sh` creates on first run by asking for both (pressing Enter keeps any identity the machine already has). After that it's left alone; edit it with `git config --file ~/.gitconfig.local user.email you@example.com`.
 
+`02-brew.sh` also sets up commit signing once you're signed in to GitHub: it points `~/.gitconfig.local` at `~/.ssh/id_ed25519.pub` with `gpg.format ssh`, and uploads that key to GitHub as a signing key, so your commits show as Verified. It's skipped if you have no `~/.ssh/id_ed25519.pub` or signing is already configured.
+
 ### Install Homebrew formulae
 
 When setting up a new Mac, you may want to install some common [Homebrew](http://brew.sh/) formulae. This installs the Xcode command line developer tools, Homebrew, `Brewfile.common`, and then either `Brewfile.personal` or `Brewfile.work`.
@@ -102,7 +103,7 @@ When setting up a new Mac, you may want to install some common [Homebrew](http:/
 ./02-brew.sh --work    # work machine
 ```
 
-**One owner per tool:** each tool is installed either by a Brewfile or by its own installer in a numbered script, never both. A self-updating tool installed through brew gets re-downloaded every `brew upgrade`, fighting its own updater. `uv` is the current example: it's installed by `04-python.sh` via its official installer, not by any Brewfile, so `uv self update` stays in charge of its own version.
+**One owner per tool:** each tool is installed either by a Brewfile or by its own installer in a numbered script, never both. A self-updating tool installed through brew gets re-downloaded every `brew upgrade`, fighting its own updater. `uv` is the current example: it's installed by `04-python.sh` via its official installer, not by any Brewfile, so `uv self update` stays in charge of its own version. Casks for self-updating apps (Docker Desktop, Claude, ChatGPT) are fine in a Brewfile: Homebrew marks them `auto_updates`, and `brew upgrade` leaves them alone unless you pass `--greedy`.
 
 ### Set macOS Preferences
 
