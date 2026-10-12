@@ -7,7 +7,6 @@ cask_args appdir: '/Applications'
 cask 'ableton-live-lite'
 cask 'loopback'
 # cask 'oversight' # alert on camera or mic usage
-cask 'protonvpn' # VPN
 cask 'steam'
 cask 'transmission'
 cask 'vlc'

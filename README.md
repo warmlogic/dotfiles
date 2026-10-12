@@ -64,7 +64,6 @@ Personal (`Brewfile.personal`):
 
 - [ ] Ableton Live Lite
 - [ ] Loopback (license)
-- [ ] Proton VPN
 - [ ] Steam
 - [ ] Amazon Kindle
 
