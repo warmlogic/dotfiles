@@ -141,10 +141,6 @@ The oh-my-zsh `uv` plugin (enabled in `home/.zshrc`) provides completions and sh
 
 ### Additional setup
 
-#### Set applications to start at login
-
-- Amphetamine
-
 #### Lock Screen
 
 - Set recovery info message: System Preferences -> Security and Privacy -> General -> Show a message when the screen is locked

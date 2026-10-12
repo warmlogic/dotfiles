@@ -788,14 +788,19 @@ if [ -d "/Applications/Syntax Highlight.app" ]; then
     xattr -d -r com.apple.quarantine "/Applications/Syntax Highlight.app"
 fi
 
-# noTunes (stops Music.app from launching): hide its menu bar icon, open at
-# login, and restart it so the hidden icon takes effect. Adding the login item
-# may ask to let your terminal control System Events.
+# Open these at login (each is added once, so re-runs are safe). The first
+# time, macOS may ask to let your terminal control System Events.
+login_items="$(osascript -e 'tell application "System Events" to get the name of every login item')"
+for app in Amphetamine Itsycal noTunes; do
+    if [[ -d "/Applications/$app.app" && "$login_items" != *"$app"* ]]; then
+        osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"/Applications/$app.app\", hidden:true}" >/dev/null
+    fi
+done
+
+# noTunes (stops Music.app from launching): hide its menu bar icon, and
+# restart it so that takes effect
 if [ -d "/Applications/noTunes.app" ]; then
     defaults write digital.twisted.noTunes hideIcon -bool true
-    if ! osascript -e 'tell application "System Events" to get the name of every login item' | grep -q noTunes; then
-        osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/noTunes.app", hidden:true}' >/dev/null
-    fi
     killall noTunes &>/dev/null; open -a noTunes
 fi
 
