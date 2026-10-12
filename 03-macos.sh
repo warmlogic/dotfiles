@@ -1,6 +1,13 @@
 #!/usr/bin/env zsh
 
 # ~/.macos
+# Usage: ./03-macos.sh [--work]
+
+case "${1:-}" in
+  "") IS_WORK=false ;;
+  --work) IS_WORK=true ;;
+  *) echo "Usage: $0 [--work]" >&2; exit 2 ;;
+esac
 
 # Absolute path to this repo, so the terminal-theme block below can find
 # init/ regardless of cwd (init/ is not mirrored to $HOME by 01-bootstrap.sh)
@@ -8,7 +15,7 @@ DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we're about to change
-osascript -e 'tell application "System Preferences" to quit'
+osascript -e 'tell application "System Settings" to quit'
 
 # Ask for the administrator password upfront
 sudo -v
@@ -82,8 +89,9 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # # Disable the "Are you sure you want to open this application?" dialog
 # defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# Remove duplicates in the "Open With" menu (also see `fixopenwith` alias)
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+# # Remove duplicates in the "Open With" menu (also see `fixopenwith` alias)
+# # Not needed on a fresh machine, and slow
+# /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
 # # Display ASCII control characters using caret notation in standard text views
 # # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
@@ -249,8 +257,9 @@ sudo pmset -b sleep 15
 ###############################################################################
 
 # Require password 5 seconds after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 5
+# (com.apple.screensaver askForPassword stopped working in High Sierra;
+# `-password -` prompts for your login password)
+sysadminctl -screenLock 5 -password -
 
 # # Save screenshots to the desktop
 # defaults write com.apple.screencapture location -string "${HOME}/Desktop"
@@ -383,7 +392,7 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 # defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Show the ~/Library folder
-chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
+chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library 2>/dev/null
 
 # # Show the /Volumes folder
 # sudo chflags nohidden /Volumes
@@ -495,31 +504,6 @@ defaults write com.apple.dock wvous-bl-modifier -int 262144
 # Bottom right screen corner → Desktop
 defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 262144
-
-###############################################################################
-# Mail                                                                        #
-###############################################################################
-
-# # Disable send and reply animations in Mail.app
-# defaults write com.apple.mail DisableReplyAnimations -bool true
-# defaults write com.apple.mail DisableSendAnimations -bool true
-
-# Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
-
-# # Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app
-# defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\U21a9"
-
-# Display emails in threaded mode, sorted by date (oldest at the top)
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
-
-# # Disable inline attachments (just show the icons)
-# defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
-
-# # Disable automatic spell checking
-# defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
 
 ###############################################################################
 # Spotlight                                                                   #
@@ -695,23 +679,21 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # # Enable Debug Menu in the Mac App Store
 # defaults write com.apple.appstore ShowDebugMenu -bool true
 
-# Enable the automatic update check
-defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+# These are system-wide, so they live in /Library/Preferences and need sudo
+# (writing the per-user domain does nothing)
 
-# Check for software updates daily, not just once per week
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+# Enable the automatic update check
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
 # Download newly available updates in background
-defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool true
 
-# Install System data files & security updates
-defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+# Install security responses and system data files (XProtect, etc.)
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool true
 
-# Automatically download apps purchased on other Macs
-defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
-
-# Turn on app auto-update
-defaults write com.apple.commerce AutoUpdate -bool true
+# Turn on App Store app auto-update
+sudo defaults write /Library/Preferences/com.apple.commerce AutoUpdate -bool true
 
 # # Allow the App Store to reboot machine on macOS updates
 # defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
@@ -756,39 +738,42 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 # Transmission.app                                                            #
 ###############################################################################
 
-# # Use `~/Downloads/torrents` to store incomplete downloads
-# defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
-# defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Downloads/torrents"
+# Transmission is only in Brewfile.personal
+if ! $IS_WORK; then
+    # # Use `~/Downloads/torrents` to store incomplete downloads
+    # defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
+    # defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Downloads/torrents"
 
-# # Use `~/Downloads` to store completed downloads
-# defaults write org.m0k.transmission DownloadLocationConstant -bool true
+    # # Use `~/Downloads` to store completed downloads
+    # defaults write org.m0k.transmission DownloadLocationConstant -bool true
 
-# Auto import from `~/Downloads/torrents`
-defaults write org.m0k.transmission AutoImportDirectory -string "${HOME}/Downloads/torrents"
+    # Auto import from `~/Downloads/torrents`
+    defaults write org.m0k.transmission AutoImportDirectory -string "${HOME}/Downloads/torrents"
 
-# Don't prompt for confirmation before downloading
-defaults write org.m0k.transmission DownloadAsk -bool false
-defaults write org.m0k.transmission MagnetOpenAsk -bool false
+    # Don't prompt for confirmation before downloading
+    defaults write org.m0k.transmission DownloadAsk -bool false
+    defaults write org.m0k.transmission MagnetOpenAsk -bool false
 
-# Don't prompt for confirmation before removing non-downloading active transfers
-defaults write org.m0k.transmission CheckRemoveDownloading -bool true
+    # Don't prompt for confirmation before removing non-downloading active transfers
+    defaults write org.m0k.transmission CheckRemoveDownloading -bool true
 
-# Trash original torrent files
-defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+    # Trash original torrent files
+    defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
 
-# Hide the donate message
-defaults write org.m0k.transmission WarningDonate -bool false
-# Hide the legal disclaimer
-defaults write org.m0k.transmission WarningLegal -bool false
+    # Hide the donate message
+    defaults write org.m0k.transmission WarningDonate -bool false
+    # Hide the legal disclaimer
+    defaults write org.m0k.transmission WarningLegal -bool false
 
-# IP block list.
-# Source: https://giuliomac.wordpress.com/2014/02/19/best-blocklist-for-transmission/
-defaults write org.m0k.transmission BlocklistNew -bool true
-defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
-defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
+    # IP block list.
+    # Source: https://giuliomac.wordpress.com/2014/02/19/best-blocklist-for-transmission/
+    defaults write org.m0k.transmission BlocklistNew -bool true
+    defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
+    defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
 
-# Randomize port on launch
-defaults write org.m0k.transmission RandomPort -bool true
+    # Randomize port on launch
+    defaults write org.m0k.transmission RandomPort -bool true
+fi
 
 ###############################################################################
 # Et cetera
@@ -797,28 +782,66 @@ defaults write org.m0k.transmission RandomPort -bool true
 # # Allow QLStephen QuickLook generator to show yaml files
 # /usr/libexec/PlistBuddy -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes: string public.yaml" ~/Library/QuickLook/QLStephen.qlgenerator/Contents/Info.plist
 
-# Remove the quarantine attribute for QuickLook plugins
-# https://github.com/sindresorhus/quick-look-plugins#catalina-notes
-xattr -d -r com.apple.quarantine ~/Library/QuickLook
+# Remove the quarantine attribute from Syntax Highlight (Homebrew dropped
+# --no-quarantine), so its Quick Look extension loads
+if [ -d "/Applications/Syntax Highlight.app" ]; then
+    xattr -d -r com.apple.quarantine "/Applications/Syntax Highlight.app"
+fi
+
+# Open these at login (each is added once, so re-runs are safe). The first
+# time, macOS may ask to let your terminal control System Events.
+login_items="$(osascript -e 'tell application "System Events" to get the name of every login item')"
+for app in Amphetamine Itsycal noTunes; do
+    if [[ -d "/Applications/$app.app" && "$login_items" != *"$app"* ]]; then
+        osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"/Applications/$app.app\", hidden:true}" >/dev/null
+    fi
+done
+
+# Amphetamine: import its saved settings (sandboxed, so they're kept as a
+# whole plist). After changing settings in the app, save them back with:
+#   defaults export com.if.Amphetamine - | plutil -convert xml1 -o init/com.if.Amphetamine.plist -
+if [ -d "/Applications/Amphetamine.app" ]; then
+    killall Amphetamine &>/dev/null
+    defaults import com.if.Amphetamine "$DOTFILES_DIR/init/com.if.Amphetamine.plist"
+    open -a Amphetamine
+fi
+
+# MonitorControl: sync brightness with the built-in display, allow dimming to
+# zero, and control all displays from the keyboard
+defaults write app.monitorcontrol.MonitorControl enableBrightnessSync -bool true
+defaults write app.monitorcontrol.MonitorControl allowZeroSwBrightness -bool true
+defaults write app.monitorcontrol.MonitorControl multiKeyboardBrightness -bool true
+defaults write app.monitorcontrol.MonitorControl menuIcon -int 1
+
+# Itsycal: menu bar clock format (Unicode date pattern), day of week shown,
+# and a week of events
+defaults write com.mowglii.ItsycalApp ClockFormat -string "h:mm a"
+defaults write com.mowglii.ItsycalApp ShowDayOfWeekInIcon -bool true
+defaults write com.mowglii.ItsycalApp ShowEventDays -int 7
+# Restart it if running (killing it alone would leave it closed until next login)
+killall Itsycal &>/dev/null && open -a Itsycal
+
+# noTunes (stops Music.app from launching): hide its menu bar icon, and
+# restart it so that takes effect
+if [ -d "/Applications/noTunes.app" ]; then
+    defaults write digital.twisted.noTunes hideIcon -bool true
+    killall noTunes &>/dev/null; open -a noTunes
+fi
 
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
-for app in "Activity Monitor" \
-    "Calendar" \
-    "cfprefsd" \
-    "Google Chrome" \
-    "Contacts" \
-    "Dock" \
-    "Finder" \
-    "Mail" \
-    "Messages" \
-    "Photos" \
-    "Safari" \
-    "SystemUIServer" \
-    "Terminal" \
-    "Transmission"; do
+# Only apps this script configures. Chrome is left running; restart it to apply.
+apps=("Activity Monitor" "cfprefsd" "Dock" "Finder" "SystemUIServer" "Transmission")
+# Don't kill Terminal out from under this script; you'd lose its output
+if [[ "${TERM_PROGRAM}" != "Apple_Terminal" ]]; then
+    apps+=("Terminal")
+fi
+for app in "${apps[@]}"; do
     killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
+if [[ "${TERM_PROGRAM}" == "Apple_Terminal" ]]; then
+    echo "Quit and reopen Terminal to pick up its new settings."
+fi

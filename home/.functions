@@ -284,39 +284,6 @@ function tre() {
     tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
 
-# functions for setting up template Jupyter Notebooks
-function nb-presentationnb () {
-    # Usage: nb-presentationnb [filename_suffix]
-    # Will download the most up-to-date Template notebook named with:
-    # today's date, your initials, and [an optional suffix].
-    # `nb-presentationnb project_findings` would yield a file named:
-    # 2016-08-12_mvm_project_findings.ipynb
-    # wget version - won't overwrite
-    wget -nc --show-progress --header "Accept: application/vnd.github.v3.raw" \
-    -O `date +%Y-%m-%d`_${MY_INITIALS}_$1.ipynb \
-    https://api.github.com/repos/${GITHUB_USERNAME}/jupyter_setup/contents/notebooks/template-presentation-python.ipynb
-    # # curl version - will overwrite
-    # curl -H 'Accept: application/vnd.github.v3.raw' -L \
-    # https://api.github.com/repos/${GITHUB_USERNAME}/jupyter_setup/contents/notebooks/template-presentation-python.ipynb \
-    # -o `date +%Y-%m-%d`_${MY_INITIALS}_$1.ipynb
-}
-
-function nb-dailynb () {
-    # Usage: nb-dailynb [filename_suffix]
-    # Will download the most up-to-date Template notebook named with:
-    # today's date, your initials, and [an optional suffix].
-    # `nb-dailynb exploratory_data_analysis` would yield a file named:
-    # 2016-08-12_mvm_exploratory_data_analysis.ipynb
-    # wget version - won't overwrite
-    wget -nc --show-progress --header "Accept: application/vnd.github.v3.raw" \
-    -O `date +%Y-%m-%d`_${MY_INITIALS}_$1.ipynb \
-    https://api.github.com/repos/${GITHUB_USERNAME}/jupyter_setup/contents/notebooks/template-daily-python.ipynb
-    # # curl version - will overwrite
-    # curl -H 'Accept: application/vnd.github.v3.raw' -L \
-    # https://api.github.com/repos/${GITHUB_USERNAME}/jupyter_setup/contents/notebooks/template-daily-python.ipynb \
-    # -o `date +%Y-%m-%d`_${MY_INITIALS}_$1.ipynb
-}
-
 # Create directory structure in current working directory
 # Inspired by https://drivendata.github.io/cookiecutter-data-science/
 # TODO: initialize Makefile, requirements.txt, split notebook (develop/deliver?)
@@ -564,4 +531,10 @@ EOF
 
     mv -f "$downloadFile" "$awsCredentialsFile";
     echo "Moved credentials to $awsCredentialsFile";
+}
+
+# Run git with GitHub's ssh on port 443, for networks that block port 22
+# (airplane wifi, some hotels/offices). Usage: git443 pull
+git443() {
+  GIT_SSH_COMMAND="ssh -o Hostname=ssh.github.com -o Port=443 -o HostKeyAlias=github.com" git "$@"
 }

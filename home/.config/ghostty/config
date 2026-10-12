@@ -17,7 +17,9 @@ background-opacity = 0.95
 background-blur = 20
 
 # Quick terminal (drop-down, like iTerm hotkey window)
-keybind = global:cmd+grave_accent=toggle_quick_terminal
+# ctrl+` from any app (cmd+` is macOS's switch-window shortcut). Global keybinds
+# need Ghostty allowed in System Settings → Privacy & Security → Accessibility.
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
 
 # https://github.com/ghostty-org/ghostty/discussions/11530
 keybind = super+v=paste_from_clipboard
@@ -27,7 +29,7 @@ keybind = super+v=paste_from_clipboard
 # This template file has been automatically created at the following
 # path since Ghostty couldn't find any existing config files on your system:
 #
-#   /Users/matt/Library/Application Support/com.mitchellh.ghostty/config
+#   ~/Library/Application Support/com.mitchellh.ghostty/config
 #
 # The template does not set any default options, since Ghostty ships
 # with sensible defaults for all options. Users should only need to set

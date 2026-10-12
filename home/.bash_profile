@@ -1,14 +1,18 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:$HOME/.docker/bin"
+# End of Docker Desktop section.
+
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
 # Set up Homebrew
-eval $(/opt/homebrew/bin/brew shellenv)
-HOMEBREW_PREFIX="$(brew --prefix)"
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # Load the shell dotfiles, and then some:
-# * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don't want to commit.
-for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+# * ~/.exports.local (machine-local, not in the repo) overrides ~/.exports.
+for file in ~/.{bash_prompt,exports,exports.local,aliases,functions}; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
@@ -51,10 +55,8 @@ then
   fi
 fi
 
-# z https://github.com/rupa/z
-if [ -f "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]; then
-  source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
-fi;
+# zoxide: `z <part of name>` jumps to a frequently used folder
+if command -v zoxide >/dev/null; then eval "$(zoxide init bash)"; fi
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type _git &> /dev/null; then
@@ -64,10 +66,5 @@ fi;
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
-# Add Postgres to the `$PATH` for psql
-if [ -d "/Applications/Postgres.app/" ]; then
-    export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-fi;
-
-# Ruby via rbenv (installed by Brewfile.work)
+# Ruby via rbenv (if installed)
 if command -v rbenv >/dev/null; then eval "$(rbenv init - bash)"; fi

@@ -3,6 +3,14 @@
 # Install command-line tools using Homebrew.
 # Usage: ./02-brew.sh [--work]
 
+case "${1:-}" in
+  "") PROFILE=personal ;;
+  --work) PROFILE=work ;;
+  *) echo "Usage: $0 [--work]" >&2; exit 2 ;;
+esac
+
+cd "${0:A:h}"
+
 # Ask for the administrator password upfront.
 sudo -v
 
@@ -14,8 +22,8 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 if test ! "$(command -v brew)"; then
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile
-  source ~/.zprofile
+  # ~/.zprofile (from 01-bootstrap.sh) sets this up for future shells
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 else
   if [[ -z "${CI}" ]]; then
     echo "Updating Homebrew..."
@@ -27,18 +35,31 @@ fi
 
 # Install everything shared, then the personal or work overlay
 brew bundle --file=Brewfile.common
-case "${1:-}" in
-  "")
-    brew bundle --file=Brewfile.personal
-    ;;
-  --work)
-    brew bundle --file=Brewfile.work
-    ;;
-  *)
-    echo "Usage: $0 [--work]" >&2
-    exit 2
-    ;;
-esac
+brew bundle --file="Brewfile.$PROFILE"
+
+# Sign in to GitHub. With the ssh protocol, gh offers to generate an SSH key
+# (if you have none) and upload it to your account.
+if ! gh auth status &>/dev/null; then
+  gh auth login --hostname github.com --git-protocol ssh --web --scopes admin:ssh_signing_key
+fi
+
+# Sign commits with the same SSH key, and register it with GitHub as a signing
+# key so commits show as Verified. Identity-specific, so it goes in ~/.gitconfig.local.
+if [[ -f ~/.ssh/id_ed25519.pub ]] && ! git config --file ~/.gitconfig.local gpg.format &>/dev/null; then
+  gh auth status 2>&1 | grep -q admin:ssh_signing_key || gh auth refresh --hostname github.com --scopes admin:ssh_signing_key
+  gh ssh-key add ~/.ssh/id_ed25519.pub --type signing --title "$(scutil --get ComputerName)" &&
+    git config --file ~/.gitconfig.local gpg.format ssh &&
+    git config --file ~/.gitconfig.local user.signingkey ~/.ssh/id_ed25519.pub &&
+    git config --file ~/.gitconfig.local commit.gpgsign true &&
+    git config --file ~/.gitconfig.local tag.gpgsign true
+fi
+
+# The first clone can be over https (public repo, no key needed yet); switch
+# it to ssh now that GitHub knows your key
+origin="$(git -C "${0:A:h}" remote get-url origin)"
+if [[ "$origin" == https://github.com/* ]]; then
+  git -C "${0:A:h}" remote set-url origin "git@github.com:${${origin#https://github.com/}%.git}.git"
+fi
 
 # Remove outdated versions from the cellar
 brew cleanup
@@ -58,32 +79,20 @@ if ! fgrep -q "${HOMEBREW_PREFIX}/bin/zsh" /etc/shells; then
   chsh -s "${HOMEBREW_PREFIX}/bin/zsh";
 fi;
 
-# Install Oh-My-Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-source ~/.zshrc
+# Install Oh-My-Zsh (skipped on re-runs); --keep-zshrc preserves the ~/.zshrc from 01-bootstrap.sh
+if [[ ! -d ~/.oh-my-zsh ]]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+fi
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 # Install Spaceship theme for Oh-My-Zsh
-git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+[[ -d "$ZSH_CUSTOM/themes/spaceship-prompt" ]] || git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -sf "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 
 # Install zsh syntax highlighting for Oh-My-Zsh
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+[[ -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]] || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 
 # Install zsh autosuggestions for Oh-My-Zsh
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-# Overwrite the default Oh-My-Zsh .zshrc
-mv ~/.zshrc_to_use ~/.zshrc
-mv ~/.zprofile_to_use ~/.zprofile
+[[ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]] || git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 
 source ~/.zshrc
-
-# Ruby (only installed via Brewfile.work)
-# https://stackoverflow.com/a/66379795/2592858
-if command -v rbenv &>/dev/null; then
-  rbenv install $(rbenv install -l | grep -v - | tail -1)
-  rbenv global $(rbenv install -l | grep -v - | tail -1)
-  eval "$(rbenv init - zsh)"
-  # Install gems
-  gem install solargraph
-fi

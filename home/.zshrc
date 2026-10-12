@@ -33,7 +33,6 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    autojump
     brew
     colored-man-pages
     colorize
@@ -53,6 +52,7 @@ plugins=(
     virtualenv
     vscode
     web-search
+    zoxide
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -67,9 +67,8 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 # Load the shell dotfiles, and then some:
-# * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don't want to commit.
-for file in ~/.{path,exports,aliases,functions,extra}; do
+# * ~/.exports.local (machine-local, not in the repo) overrides ~/.exports.
+for file in ~/.{exports,exports.local,aliases,functions}; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
@@ -81,12 +80,4 @@ complete -W "NSGlobalDomain" defaults;
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari Music SystemUIServer Terminal" killall;
 
-# z https://github.com/rupa/z
-if [ -f "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]; then
-  source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
-fi;
 
-# Add Postgres to the `$PATH` for psql
-if [ -d "/Applications/Postgres.app/" ]; then
-    export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-fi;

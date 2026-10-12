@@ -8,7 +8,7 @@ set -euo pipefail
 
 # uv installs and upgrades itself (`uv self update`); it's deliberately NOT
 # in a Brewfile so `brew upgrade` never fights the self-updater.
-command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
+command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 sh
 export PATH="$HOME/.local/bin:$PATH"
 
 # Install a default interpreter uv can hand out to tools and venvs
