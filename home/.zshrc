@@ -1,5 +1,5 @@
 # Keep PATH entries unique, so re-sourcing or nested shells don't pile up duplicates
-typeset -U path
+typeset -U PATH path  # both: -U on `path` alone misses `export PATH="x:$PATH"`
 
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";

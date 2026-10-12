@@ -12,7 +12,8 @@ command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | env UV_
 export PATH="$HOME/.local/bin:$PATH"
 
 # Install a default interpreter uv can hand out to tools and venvs; --default
-# also puts `python` and `python3` in ~/.local/bin, ahead of Homebrew's python3
+# also puts `python` and `python3` in ~/.local/bin, ahead of Homebrew's python3.
+# --default is a uv preview feature; check.sh flags it if the behavior changes.
 uv python install 3.13 --default
 
 # Global CLI tools, each in its own isolated environment. Shims land in
