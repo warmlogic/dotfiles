@@ -27,7 +27,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 1. Run `01-bootstrap.sh` to copy `home/` into `$HOME` (first run asks for your git name and email)
 1. If installing Mac App Store apps with Brew, sign in to the Mac App Store
 1. Ensure the Brewfiles include only the programs you want to install
-   1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`). At the end it signs you in to GitHub with `gh`, which can create an SSH key and add it to your account. Give the key a passphrase when asked; see [SSH key passphrase](#ssh-key-passphrase).
+   1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`). At the end it signs you in to GitHub with `gh`, which can create an SSH key and add it to your account. Give the key a passphrase when asked; see [SSH key passphrase](#ssh-key-passphrase). If it doesn't, see [SSH key](#ssh-key).
 1. Run `03-macos.sh` to set up macOS preferences (add `--work` on a work machine)
 1. Restart your computer
 1. Run `04-python.sh` to set up Python via `uv`
@@ -91,6 +91,16 @@ Don't edit `~/.exports` (or any other file `home/` provides) directly: `01-boots
 Git `user.name` and `user.email` aren't in this repo. `home/.gitconfig` includes `~/.gitconfig.local`, which `01-bootstrap.sh` creates on first run by asking for both (pressing Enter keeps any identity the machine already has). After that it's left alone; edit it with `git config --file ~/.gitconfig.local user.email you@example.com`.
 
 `02-brew.sh` also sets up commit signing once you're signed in to GitHub: it points `~/.gitconfig.local` at `~/.ssh/id_ed25519.pub` with `gpg.format ssh`, and uploads that key to GitHub as a signing key, so your commits show as Verified. It's skipped if you have no `~/.ssh/id_ed25519.pub` or signing is already configured.
+
+### SSH key
+
+`02-brew.sh` signs you in with `gh auth login --git-protocol ssh`, which offers to generate `~/.ssh/id_ed25519` and add it to GitHub. Accept that and give the key a passphrase. If `gh` was already signed in, `02-brew.sh` skips the login, so no key gets created. The same happens if you decline. In that case, make the key yourself, then re-run `02-brew.sh` so it sets up commit signing with the key:
+
+```sh
+ssh-keygen -t ed25519 -C "$(git config user.email)"        # writes ~/.ssh/id_ed25519; prompts for a passphrase
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519              # store the passphrase in the Keychain
+gh ssh-key add ~/.ssh/id_ed25519.pub --title "$(scutil --get ComputerName)"
+```
 
 ### SSH key passphrase
 
