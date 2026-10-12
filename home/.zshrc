@@ -1,5 +1,5 @@
 # Keep PATH entries unique, so re-sourcing or nested shells don't pile up duplicates
-typeset -U PATH path  # both: -U on `path` alone misses `export PATH="x:$PATH"`
+typeset -gU PATH path  # both: -U on `path` alone misses `export PATH="x:$PATH"`; -g because 01-bootstrap.sh sources this from a function, where a bare typeset makes PATH local and empty
 
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
