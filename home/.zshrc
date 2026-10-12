@@ -1,3 +1,6 @@
+# Keep PATH entries unique, so re-sourcing or nested shells don't pile up duplicates
+typeset -U path
+
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
@@ -35,18 +38,12 @@ ENABLE_CORRECTION="true"
 plugins=(
     brew
     colored-man-pages
-    colorize
     # common-aliases
-    docker
     gh
     git
     history-substring-search
-    kubectl
-    macos
-    python
     rails
     # rake
-    rbenv
     # ruby
     uv
     virtualenv
@@ -73,11 +70,6 @@ for file in ~/.{exports,exports.local,aliases,functions}; do
 done;
 unset file;
 
-# Add tab completion for `defaults read|write NSGlobalDomain`
-# You could just use `-g` instead, but I like being explicit
-complete -W "NSGlobalDomain" defaults;
-
-# Add `killall` tab completion for common apps
-complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari Music SystemUIServer Terminal" killall;
-
-
+# Keep 100k entries of history (Oh My Zsh defaults to 50k in memory, 10k saved)
+HISTSIZE=100000
+SAVEHIST=100000

@@ -11,8 +11,9 @@ set -euo pipefail
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 sh
 export PATH="$HOME/.local/bin:$PATH"
 
-# Install a default interpreter uv can hand out to tools and venvs
-uv python install 3.13
+# Install a default interpreter uv can hand out to tools and venvs; --default
+# also puts `python` and `python3` in ~/.local/bin, ahead of Homebrew's python3
+uv python install 3.13 --default
 
 # Global CLI tools, each in its own isolated environment. Shims land in
 # ~/.local/bin, which home/.exports puts on PATH.
