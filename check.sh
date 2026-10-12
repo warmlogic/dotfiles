@@ -15,14 +15,21 @@ cd "${0:A:h}"
 fails=0
 ok()   { print -P "%F{green}✓%f $1"; }
 bad()  { print -P "%F{red}✗%f $1${2:+  →  $2}"; (( fails++ )); }
+warn() { print -P "%F{yellow}!%f $1${2:+  →  $2}"; }
 check() { local label="$1" hint="$2"; shift 2; if "$@" &>/dev/null; then ok "$label"; else bad "$label" "$hint"; fi; }
 
 print "── Prerequisites"
 check "Xcode command line tools" "xcode-select --install" xcode-select -p
 
 print "── 01-bootstrap.sh"
-check "home/ matches ~ (no un-applied edits)" "./01-bootstrap.sh" \
-  test -z "$(rsync -rcn --out-format='%n' --exclude .DS_Store home/ ~ | grep -v '/$')"
+# Differences are a warning, not a failure: they're either your un-applied
+# edits in home/, or an app (e.g. an installer) edited a file in ~.
+drift=(${(f)"$(rsync -rcn --out-format='%n' --exclude .DS_Store home/ ~ | grep -v '/$')"})
+if (( ${#drift} )); then
+  warn "~ differs from home/: ${(j:, :)drift}" "diff home/<file> ~/<file>; keep an app's change by copying it into home/, then ./01-bootstrap.sh"
+else
+  ok "home/ matches ~"
+fi
 check "git identity in ~/.gitconfig.local" "./01-bootstrap.sh" \
   eval '[[ -n "$(git config --file ~/.gitconfig.local user.name)" && -n "$(git config --file ~/.gitconfig.local user.email)" ]]'
 check "~/.exports.local exists" "./01-bootstrap.sh" test -f ~/.exports.local
