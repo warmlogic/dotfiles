@@ -57,7 +57,7 @@ All machines:
 
 Work (`Brewfile.work`):
 
-- [ ] AWS: install the samltoawsstskeys extension in Chrome, put the `AWS_GOOGLE_*` exports (see `home/.exports`) in `~/.path`, then run `aws-auth-get-saml2sts-credentials`
+- [ ] AWS: install the samltoawsstskeys extension in Chrome, set the `AWS_GOOGLE_*` variables listed in `home/.exports` in `~/.path`, then run `aws-auth-get-saml2sts-credentials`
 - [ ] Lens and k9s: copy or create `~/.kube/config` (e.g. `aws eks update-kubeconfig`)
 - [ ] Loom
 - [ ] Postman
@@ -82,7 +82,9 @@ source 01-bootstrap.sh
 
 ### Specify the `$PATH`
 
-`~/.path` is machine-local: it's not in `home/`, so `01-bootstrap.sh` never touches it. Put machine-specific shell setup there (and machine-specific git config in `~/.gitconfig.local`).
+`~/.path` is machine-local: it's not in `home/`, so `01-bootstrap.sh` never touches it. Put anything personal or machine-specific there: `PATH` additions, and env vars whose values shouldn't be in this public repo (e.g. the `AWS_GOOGLE_*` ones listed in `home/.exports`). It's sourced before `~/.exports`, so set each variable in one place or the other. Machine-specific git config goes in `~/.gitconfig.local`.
+
+Don't edit `~/.exports` (or any other file `home/` provides) directly: `01-bootstrap.sh` overwrites it and `check.sh` reports the difference.
 
 If `~/.path` exists, it will be sourced along with the other files before any feature testing (such as [detecting which version of `ls` is being used](https://github.com/mathiasbynens/dotfiles/blob/aff769fd75225d8f2e481185a71d5e05b76002dc/.aliases#L21-26)) takes place.
 
