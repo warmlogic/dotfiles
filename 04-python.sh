@@ -28,4 +28,4 @@ done
 if [ ! -d "$HOME/.venvs/scratch" ]; then
   uv venv "$HOME/.venvs/scratch" --python 3.13
 fi
-uv pip install --python "$HOME/.venvs/scratch/bin/python" requests pytest
+uv pip install --python "$HOME/.venvs/scratch/bin/python" requests pytest pyyaml
