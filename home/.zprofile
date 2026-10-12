@@ -5,3 +5,7 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
   # https://docs.brew.sh/Shell-Completion
   FPATH="${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}"
 fi
+
+# Load SSH key passphrases from the macOS Keychain into the agent, so git commit
+# signing works after a restart without asking (see ~/.ssh/config)
+ssh-add --apple-load-keychain -q 2>/dev/null

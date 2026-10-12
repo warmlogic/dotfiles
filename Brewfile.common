@@ -69,7 +69,10 @@ brew 'mole'
 # Install additional applications
 
 cask '1password' # latest
+cask 'chatgpt'
+cask 'claude'
 cask 'cursor'
+cask 'docker-desktop'
 cask 'ghostty'
 cask 'google-chrome'
 cask 'itsycal'

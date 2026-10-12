@@ -63,10 +63,5 @@ fi;
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
-# Add Postgres to the `$PATH` for psql
-if [ -d "/Applications/Postgres.app/" ]; then
-    export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-fi;
-
-# Ruby via rbenv (installed by Brewfile.work)
+# Ruby via rbenv (if installed)
 if command -v rbenv >/dev/null; then eval "$(rbenv init - bash)"; fi

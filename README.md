@@ -27,7 +27,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 1. Run `01-bootstrap.sh` to copy `home/` into `$HOME` (first run asks for your git name and email)
 1. If installing Mac App Store apps with Brew, sign in to the Mac App Store
 1. Ensure the Brewfiles include only the programs you want to install
-   1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`). At the end it signs you in to GitHub with `gh`, which can create an SSH key and add it to your account.
+   1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`). At the end it signs you in to GitHub with `gh`, which can create an SSH key and add it to your account. Give the key a passphrase when asked; see [SSH key passphrase](#ssh-key-passphrase).
 1. Run `03-macos.sh` to set up macOS preferences (add `--work` on a work machine)
 1. Restart your computer
 1. Run `04-python.sh` to set up Python via `uv`
@@ -47,6 +47,8 @@ All machines:
 - [ ] Safari → Settings → Extensions: enable Wipr 2
 - [ ] Google Chrome
 - [ ] Slack
+- [ ] Claude and ChatGPT
+- [ ] Docker Desktop (accept the license, sign in if your company pays for it)
 - [ ] Zoom
 - [ ] Spotify
 - [ ] Cursor and VS Code (GitHub sign-in / Settings Sync)
@@ -56,9 +58,9 @@ All machines:
 
 Work (`Brewfile.work`):
 
+- [ ] Lens and k9s: copy or create `~/.kube/config` (e.g. `aws eks update-kubeconfig`)
 - [ ] Loom
 - [ ] Postman
-- [ ] k9s: copy or create `~/.kube/config`
 
 Personal (`Brewfile.personal`):
 
@@ -93,6 +95,19 @@ export PATH="/usr/local/bin:$PATH"
 Git `user.name` and `user.email` aren't in this repo. `home/.gitconfig` includes `~/.gitconfig.local`, which `01-bootstrap.sh` creates on first run by asking for both (pressing Enter keeps any identity the machine already has). After that it's left alone; edit it with `git config --file ~/.gitconfig.local user.email you@example.com`.
 
 `02-brew.sh` also sets up commit signing once you're signed in to GitHub: it points `~/.gitconfig.local` at `~/.ssh/id_ed25519.pub` with `gpg.format ssh`, and uploads that key to GitHub as a signing key, so your commits show as Verified. It's skipped if you have no `~/.ssh/id_ed25519.pub` or signing is already configured.
+
+### SSH key passphrase
+
+Give your SSH key a passphrase, and macOS remembers it in the Keychain so you don't have to type it. `home/.ssh/config` turns on `UseKeychain`, and `home/.zprofile` loads the key into the agent at login so commit signing works too.
+
+```sh
+ssh-keygen -p -f ~/.ssh/id_ed25519                # add or change the passphrase
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519    # store it in the Keychain (once per machine)
+```
+
+### Work projects with their own setup
+
+Ruby, Postgres, Redis, etc. for BranchServer come from its `setup.sh`, not from these Brewfiles. Before running it, start Postgres with `brew services start postgresql@18` (it installs Postgres but doesn't start it). It also adds lines to `~/.zshrc` and `~/.gitconfig`; this repo already has them (in `home/.zshrc` and, via `02-brew.sh --work`, in `~/.gitconfig.local`), so if `check.sh` then reports drift, re-run `01-bootstrap.sh`.
 
 ### Install Homebrew formulae
 

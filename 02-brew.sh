@@ -52,6 +52,11 @@ if [[ -f ~/.ssh/id_ed25519.pub ]] && ! git config --file ~/.gitconfig.local gpg.
     git config --file ~/.gitconfig.local tag.gpgsign true
 fi
 
+# Work: fetch GitHub over ssh even when a URL says https (BranchServer's private gems)
+if [[ "$PROFILE" == work ]]; then
+  git config --file ~/.gitconfig.local url."git@github.com:".insteadOf https://github.com/
+fi
+
 # The first clone can be over https (public repo, no key needed yet); switch
 # it to ssh now that GitHub knows your key
 origin="$(git -C "${0:A:h}" remote get-url origin)"
@@ -94,13 +99,3 @@ ln -sf "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/th
 [[ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]] || git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 
 source ~/.zshrc
-
-# Ruby (only installed via Brewfile.work)
-# https://stackoverflow.com/a/66379795/2592858
-if command -v rbenv &>/dev/null; then
-  rbenv install --skip-existing $(rbenv install -l | grep -v - | tail -1)
-  rbenv global $(rbenv install -l | grep -v - | tail -1)
-  eval "$(rbenv init - zsh)"
-  # Install gems
-  gem install solargraph
-fi

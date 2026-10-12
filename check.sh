@@ -39,9 +39,10 @@ check "SSH to GitHub works" "gh auth login --git-protocol ssh --web" \
   eval 'ssh -T -o BatchMode=yes -o ConnectTimeout=5 git@github.com 2>&1 | grep -q "successfully authenticated"'
 check "commits signed with SSH key" "./02-brew.sh" \
   eval '[[ "$(git config commit.gpgsign)" == true && "$(git config gpg.format)" == ssh ]]'
+check "SSH key has a passphrase" "ssh-keygen -p -f ~/.ssh/id_ed25519" \
+  eval '! ssh-keygen -y -P "" -f ~/.ssh/id_ed25519'
 check "dotfiles remote uses ssh" "git remote set-url origin git@github.com:warmlogic/dotfiles.git" \
   eval '[[ "$(git remote get-url origin)" == git@github.com:* ]]'
-[[ "$profile" == work ]] && check "Ruby installed via rbenv" "./02-brew.sh --work" eval 'rbenv version-name | grep -qv system'
 
 print "── 03-macos.sh (spot checks)"
 check "key repeat set" "./03-macos.sh" eval '[[ "$(defaults read NSGlobalDomain KeyRepeat)" == 2 ]]'
