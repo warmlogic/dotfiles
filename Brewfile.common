@@ -5,11 +5,17 @@
 # This puts the applications in the correct folder
 cask_args appdir: '/Applications'
 
-# Search and download tools
+# Use GNU instead of BSD commands
+brew 'coreutils'
+brew 'findutils'
 brew 'gawk'
-brew 'grep' # GNU grep, installed as `ggrep`
+brew 'gnu-sed'
+brew 'gnu-tar'
+brew 'gnu-which'
+brew 'grep'
 brew 'gzip'
 brew 'ripgrep'
+brew 'watch'
 brew 'wget'
 
 brew 'actionlint' # GitHub Actions workflow linter https://rhysd.github.io/actionlint/
@@ -18,15 +24,20 @@ brew 'bash' # Newest version of Bash
 brew 'bash-completion@2' # Bash tab completion for Bash
 brew 'beads' # `bd` issue tracker for coding agents https://github.com/gastownhall/beads
 brew 'emacs'
+brew 'file-formula' # guess file type
 brew 'gh' # https://cli.github.com
 brew 'graphviz' # for python tree model plotting
+brew 'htop' # Better top command
+brew 'imagemagick'
 brew 'less'
+brew 'make'
 brew 'markdownlint-cli2' # markdown linter with auto-fix
 brew 'node'
 brew 'prettier' # code/markdown formatter
 brew 'rsync'
 brew 'tmux'
 brew 'tree' # Visualize directory structure
+brew 'unzip'
 brew 'vim'
 brew 'zsh'
 

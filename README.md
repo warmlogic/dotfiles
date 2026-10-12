@@ -9,7 +9,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 - `home/` mirrors `$HOME` — every file and directory in here gets rsync'd on top of your home directory by `01-bootstrap.sh`. Edit files here, not in `~`, then re-run `01-bootstrap.sh` to apply the change.
 - The numbered scripts at the repo root set up a machine, in order (see below). They mutate the machine (installs, macOS `defaults write`, moving files into `$HOME`) — only run them deliberately.
 - `Brewfile.common` / `Brewfile.personal` / `Brewfile.work` are Homebrew bundles: common is always installed, and either personal or work is layered on top depending on the machine.
-- `init/` holds saved app settings (`com.if.Amphetamine.plist`) that `03-macos.sh` applies; `init/` is not mirrored to `$HOME`.
+- `init/` holds terminal color themes (`.terminal` files, an `.itermcolors` file) and saved app settings (`com.if.Amphetamine.plist`) that `03-macos.sh` applies; `init/` is not mirrored to `$HOME`.
 
 ## Installation
 
@@ -149,6 +149,10 @@ The oh-my-zsh `uv` plugin (enabled in `home/.zshrc`) provides completions and sh
 
 - Add accounts with your calendars to Internet Accounts (System Preferences)
 - Itsycal format: `h:mm a`, show day
+
+#### Terminal themes
+
+- `init/` holds `.terminal` and `.itermcolors` files. `03-macos.sh` installs the `.terminal` themes into Terminal.app; iTerm2/Ghostty themes need to be imported manually.
 
 #### Safari Extensions
 

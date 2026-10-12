@@ -12,7 +12,7 @@ fi
 
 # Load the shell dotfiles, and then some:
 # * ~/.exports.local (machine-local, not in the repo) overrides ~/.exports.
-for file in ~/.{exports,exports.local,aliases,functions}; do
+for file in ~/.{bash_prompt,exports,exports.local,aliases,functions}; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
