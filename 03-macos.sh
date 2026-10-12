@@ -797,6 +797,22 @@ for app in Amphetamine Itsycal noTunes; do
     fi
 done
 
+# Amphetamine: import its saved settings (sandboxed, so they're kept as a
+# whole plist). After changing settings in the app, save them back with:
+#   defaults export com.if.Amphetamine - | plutil -convert xml1 -o init/com.if.Amphetamine.plist -
+if [ -d "/Applications/Amphetamine.app" ]; then
+    killall Amphetamine &>/dev/null
+    defaults import com.if.Amphetamine "$DOTFILES_DIR/init/com.if.Amphetamine.plist"
+    open -a Amphetamine
+fi
+
+# MonitorControl: sync brightness with the built-in display, allow dimming to
+# zero, and control all displays from the keyboard
+defaults write app.monitorcontrol.MonitorControl enableBrightnessSync -bool true
+defaults write app.monitorcontrol.MonitorControl allowZeroSwBrightness -bool true
+defaults write app.monitorcontrol.MonitorControl multiKeyboardBrightness -bool true
+defaults write app.monitorcontrol.MonitorControl menuIcon -int 1
+
 # Itsycal: menu bar clock format (Unicode date pattern), day of week shown,
 # and a week of events
 defaults write com.mowglii.ItsycalApp ClockFormat -string "h:mm a"
