@@ -10,7 +10,6 @@ cask 'loopback'
 # cask 'postgres-unofficial' # https://postgresapp.com/documentation/cli-tools.html
 # for psql, add to ~/.bash_profile: PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 cask 'protonvpn' # VPN
-# cask 'rectangle' # window manager
 cask 'steam'
 cask 'transmission'
 cask 'vlc'

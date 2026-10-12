@@ -143,9 +143,7 @@ The oh-my-zsh `uv` plugin (enabled in `home/.zshrc`) provides completions and sh
 
 #### Set applications to start at login
 
-- Rectangle
 - Amphetamine
-- Tot
 
 #### Lock Screen
 
