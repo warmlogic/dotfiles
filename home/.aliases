@@ -184,3 +184,6 @@ alias aws-auth-ecr-login="aws ecr get-login-password --region ${AWS_REGION} | do
 alias aws-auth-mv-ecr="aws-auth-mv-credentials && aws-auth-ecr-login"
 # Automated SAML login via Chrome (SAML-to-AWS-STS-Keys; see ~/.functions) + ECR login
 alias aws-auth="aws-auth-get-saml2sts-credentials && aws-auth-ecr-login"
+
+# Private Claude Code / Codex config: a bare repo whose work tree is $HOME (see README)
+alias dfp='git --git-dir=$HOME/.dotfiles-private --work-tree=$HOME'

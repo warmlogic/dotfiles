@@ -31,6 +31,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 1. Run `03-macos.sh` to set up macOS preferences (add `--work` on a work machine)
 1. Restart your computer
 1. Run `04-python.sh` to set up Python via `uv`
+1. Before first launching Claude Code or Codex, restore their config: see [Claude Code and Codex config](#claude-code-and-codex-config)
 1. Run `./check.sh` (add `--work` on a work machine) to confirm every step finished; it's read-only and safe to run any time
 1. Sign in to and set up apps: see [App sign-in checklist](#app-sign-in-checklist)
 1. [Set up "Open in Safari or Chrome URL in Other Browser AppleScript + Automator Workflow](https://gist.github.com/warmlogic/e6b2f30640b4c5de2077373fb53f6df3)
@@ -137,6 +138,24 @@ The oh-my-zsh `uv` plugin (enabled in `home/.zshrc`) provides completions and sh
 ```sh
 ./04-python.sh
 ```
+
+### Claude Code and Codex config
+
+`~/.claude` and `~/.codex` config (CLAUDE.md, rules, settings, hooks, Codex `config.toml`) lives in the private repo [warmlogic/dotfiles-private](https://github.com/warmlogic/dotfiles-private). It's a bare repo whose work tree is `$HOME`, so the live files are the tracked files: an edit to `~/.claude/CLAUDE.md` shows up in `git status` with no copying and no symlinks. The `dfp` alias in `home/.aliases` is plain git pointed at that repo; `~/.config/dotfiles-private/allowlist` lists what's tracked, and everything else in `$HOME` is ignored.
+
+Restore it before first launching Claude Code or Codex. If either already ran, quit it; the backup keeps the files it created, and `-f` replaces them:
+
+```sh
+git clone --bare git@github.com:warmlogic/dotfiles-private.git ~/.dotfiles-private
+alias dfp='git --git-dir=$HOME/.dotfiles-private --work-tree=$HOME'   # already defined once bootstrap has run
+cp -R ~/.claude ~/.claude.bak 2>/dev/null; cp -R ~/.codex ~/.codex.bak 2>/dev/null
+dfp checkout -f
+dfp config core.excludesFile ~/.config/dotfiles-private/allowlist
+dfp config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+dfp fetch && dfp branch -u origin/main main
+```
+
+Day to day: `dfp status`, then `dfp add <path> && dfp commit -m "..." && dfp push`. A new file to track needs a `!` line in the allowlist. Credentials, transcripts, plugin caches, and Claude's auto-memory are deliberately untracked; the private repo's README has the rest.
 
 ### Additional setup
 
