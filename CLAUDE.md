@@ -20,3 +20,6 @@ installer in a numbered script, never both (`uv` is installer-only, so
 `brew upgrade` never fights `uv self update`).
 
 Edit files in `home/`, not in `~`, then re-run `01-bootstrap.sh` to apply.
+Personal values never go in `home/` (the repo is public): env vars go in
+`~/.exports.local` (seeded from `exports.local.template`), git identity in
+`~/.gitconfig.local`. Bootstrap creates both once and never overwrites them.

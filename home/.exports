@@ -39,10 +39,3 @@ export GPG_TTY=$(tty);
 export AWS_REGION="ap-south-1";
 export AWS_SHARED_CREDENTIALS_FILE="${HOME}/.aws/credentials";
 # export AWS_ACCOUNT_ID="";
-
-# # For aws-auth-get-saml2sts-credentials function (see ~/.functions).
-# # These values are per-person, so set them in ~/.path (machine-local, not in this repo):
-# export AWS_GOOGLE_SAML_DOWNLOAD_FILE="${HOME}/Downloads/credentials";
-# export AWS_GOOGLE_SAML_SSO_URL="";
-# export AWS_GOOGLE_SAML_ACCOUNT_EMAIL="";
-# export AWS_GOOGLE_CHROME_PROFILE_DIR="";

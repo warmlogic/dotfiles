@@ -1,0 +1,12 @@
+# ~/.exports.local: personal and machine-specific env vars. Not in the dotfiles
+# repo, never overwritten by 01-bootstrap.sh. Sourced right after ~/.exports, so
+# anything here overrides it. Uncomment and fill in what this machine needs.
+
+# Extra PATH entries
+# export PATH="$HOME/bin:$PATH"
+
+# For aws-auth-get-saml2sts-credentials (see ~/.functions)
+# export AWS_GOOGLE_SAML_DOWNLOAD_FILE="$HOME/Downloads/credentials"
+# export AWS_GOOGLE_SAML_SSO_URL=""
+# export AWS_GOOGLE_SAML_ACCOUNT_EMAIL=""
+# export AWS_GOOGLE_CHROME_PROFILE_DIR=""   # e.g. "Profile 1"

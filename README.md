@@ -57,7 +57,7 @@ All machines:
 
 Work (`Brewfile.work`):
 
-- [ ] AWS: install the samltoawsstskeys extension in Chrome, set the `AWS_GOOGLE_*` variables listed in `home/.exports` in `~/.path`, then run `aws-auth-get-saml2sts-credentials`
+- [ ] AWS: install the samltoawsstskeys extension in Chrome, fill in the `AWS_GOOGLE_*` variables in `~/.exports.local`, then run `aws-auth-get-saml2sts-credentials`
 - [ ] Lens and k9s: copy or create `~/.kube/config` (e.g. `aws eks update-kubeconfig`)
 - [ ] Loom
 - [ ] Postman
@@ -80,19 +80,11 @@ Clone the repository wherever you want (I keep it in `~/github/warmlogic/dotfile
 source 01-bootstrap.sh
 ```
 
-### Specify the `$PATH`
+### Personal settings (`~/.exports.local`)
 
-`~/.path` is machine-local: it's not in `home/`, so `01-bootstrap.sh` never touches it. Put anything personal or machine-specific there: `PATH` additions, and env vars whose values shouldn't be in this public repo (e.g. the `AWS_GOOGLE_*` ones listed in `home/.exports`). It's sourced before `~/.exports`, so set each variable in one place or the other. Machine-specific git config goes in `~/.gitconfig.local`.
+This repo is public, so personal values (PATH additions, account emails, SSO URLs) don't go in `home/`. They go in `~/.exports.local`, which `01-bootstrap.sh` creates once from `exports.local.template` and then never touches. Uncomment and fill in what you need. It's sourced right after `~/.exports`, so it can also override anything there. The git equivalent is `~/.gitconfig.local` (next section).
 
-Don't edit `~/.exports` (or any other file `home/` provides) directly: `01-bootstrap.sh` overwrites it and `check.sh` reports the difference.
-
-If `~/.path` exists, it will be sourced along with the other files before any feature testing (such as [detecting which version of `ls` is being used](https://github.com/mathiasbynens/dotfiles/blob/aff769fd75225d8f2e481185a71d5e05b76002dc/.aliases#L21-26)) takes place.
-
-Here's an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
-
-```sh
-export PATH="/usr/local/bin:$PATH"
-```
+Don't edit `~/.exports` (or any other file `home/` provides) directly: `01-bootstrap.sh` overwrites it, and `check.sh` reports the difference.
 
 ### Git identity
 

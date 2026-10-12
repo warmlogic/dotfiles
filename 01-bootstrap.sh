@@ -22,6 +22,8 @@ function doIt() {
         git config --file ~/.gitconfig.local user.name "$git_name";
         git config --file ~/.gitconfig.local user.email "$git_email";
     fi;
+    # Personal env vars live in ~/.exports.local; start it from the template once
+    [ -f ~/.exports.local ] || cp exports.local.template ~/.exports.local;
     if [[ "$MY_SHELL" =~ 'zsh' ]]; then
         # .zshrc needs Oh My Zsh, which 02-brew.sh installs
         if [ -f ~/.zshrc ] && [ -d ~/.oh-my-zsh ]; then

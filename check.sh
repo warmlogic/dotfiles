@@ -25,6 +25,7 @@ check "home/ matches ~ (no un-applied edits)" "./01-bootstrap.sh" \
   test -z "$(rsync -rcn --out-format='%n' --exclude .DS_Store home/ ~ | grep -v '/$')"
 check "git identity in ~/.gitconfig.local" "./01-bootstrap.sh" \
   eval 'git config --file ~/.gitconfig.local user.name && git config --file ~/.gitconfig.local user.email'
+check "~/.exports.local exists" "./01-bootstrap.sh" test -f ~/.exports.local
 
 print "── 02-brew.sh"
 check "Homebrew installed" "./02-brew.sh" command -v brew
