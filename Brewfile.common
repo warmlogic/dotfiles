@@ -85,6 +85,7 @@ cask 'whatcable'
 cask 'zoom'
 
 # Install QuickLook plugins https://github.com/sindresorhus/quick-look-plugins
+cask 'betterzip' # for its Quick Look preview of archive contents
 cask 'syntax-highlight' # open "Syntax Highlight.app" after installing
 
 # Install Fonts

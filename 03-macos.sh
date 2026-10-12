@@ -788,6 +788,17 @@ if [ -d "/Applications/Syntax Highlight.app" ]; then
     xattr -d -r com.apple.quarantine "/Applications/Syntax Highlight.app"
 fi
 
+# noTunes (stops Music.app from launching): hide its menu bar icon, open at
+# login, and restart it so the hidden icon takes effect. Adding the login item
+# may ask to let your terminal control System Events.
+if [ -d "/Applications/noTunes.app" ]; then
+    defaults write digital.twisted.noTunes hideIcon -bool true
+    if ! osascript -e 'tell application "System Events" to get the name of every login item' | grep -q noTunes; then
+        osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/noTunes.app", hidden:true}' >/dev/null
+    fi
+    killall noTunes &>/dev/null; open -a noTunes
+fi
+
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
