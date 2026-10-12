@@ -31,10 +31,15 @@ function doIt() {
     # Include first so its settings apply to every host.
     local ssh_include='Include ~/.ssh/config.d/dotfiles';
     touch ~/.ssh/config;
+    # Writes in place (not via mv) so a symlinked ~/.ssh/config stays a symlink.
+    # Only checks that the line exists, not that it's first: a hand edit that
+    # moves it below a Host block makes it conditional.
     if ! grep -qxF "$ssh_include" ~/.ssh/config; then
-        { printf '%s\n\n' "$ssh_include"; cat ~/.ssh/config; } > ~/.ssh/config.tmp && mv -f ~/.ssh/config.tmp ~/.ssh/config;
+        local ssh_config="$(<~/.ssh/config)";
+        printf '%s\n\n%s\n' "$ssh_include" "$ssh_config" > ~/.ssh/config;
     fi;
-    chmod 600 ~/.ssh/config;
+    # ssh refuses a config or Include'd file that's group- or world-writable
+    chmod 600 ~/.ssh/config ~/.ssh/config.d/dotfiles;
     # Personal env vars live in ~/.exports.local; start it from the template once
     [ -f ~/.exports.local ] || cp exports.local.template ~/.exports.local;
     if [[ "$MY_SHELL" =~ 'zsh' ]]; then
