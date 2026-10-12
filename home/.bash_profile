@@ -55,10 +55,8 @@ then
   fi
 fi
 
-# z https://github.com/rupa/z
-if [ -f "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]; then
-  source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
-fi;
+# zoxide: `z <part of name>` jumps to a frequently used folder
+if command -v zoxide >/dev/null; then eval "$(zoxide init bash)"; fi
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type _git &> /dev/null; then

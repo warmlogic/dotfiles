@@ -10,25 +10,18 @@ cask_args appdir: '/Applications'
 brew 'coreutils'
 brew 'findutils'
 brew 'gawk'
-brew 'gnu-indent'
 brew 'gnu-sed'
 brew 'gnu-tar'
 brew 'gnu-which'
-brew 'gnutls'
-brew 'gpatch'
 brew 'grep'
 brew 'gzip'
-brew 'readline'
 brew 'ripgrep'
 brew 'watch'
-brew 'wdiff'
 brew 'wget'
 
-brew 'autojump'
 brew 'awscli'
 brew 'bash' # Newest version of Bash
 brew 'bash-completion@2' # Bash tab completion for Bash
-brew 'cheat' # Simple cheat-sheets; install and run `$ cheat tar`
 brew 'emacs'
 brew 'file-formula' # guess file type
 brew 'gh' # https://cli.github.com
@@ -40,9 +33,7 @@ brew 'make'
 brew 'markdownlint-cli2' # markdown linter with auto-fix
 brew 'node'
 brew 'prettier' # code/markdown formatter
-brew 'rename'
 brew 'rsync'
-brew 'screen'
 brew 'tmux'
 brew 'tree' # Visualize directory structure
 brew 'unzip'
@@ -54,11 +45,8 @@ brew 'git'
 brew 'git-lfs'
 brew 'git-extras'
 
-# Easy cd https://github.com/rupa/z
-brew 'z'
-
-# Mac Swiss Army Knife https://github.com/rgcr/m-cli
-brew 'm-cli'
+# Jump to frequently used folders: `z <part of name>` https://github.com/ajeetdsouza/zoxide
+brew 'zoxide'
 
 # Support for Mac App Store apps https://github.com/mas-cli/mas
 brew 'mas'

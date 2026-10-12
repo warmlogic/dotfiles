@@ -33,7 +33,6 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    autojump
     brew
     colored-man-pages
     colorize
@@ -53,6 +52,7 @@ plugins=(
     virtualenv
     vscode
     web-search
+    zoxide
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -80,8 +80,4 @@ complete -W "NSGlobalDomain" defaults;
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari Music SystemUIServer Terminal" killall;
 
-# z https://github.com/rupa/z
-if [ -f "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]; then
-  source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
-fi;
 
