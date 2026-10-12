@@ -67,6 +67,7 @@ check "FileVault on" "System Settings → Privacy & Security → FileVault" eval
 print "── 04-python.sh"
 check "uv installed" "./04-python.sh" command -v uv
 check "Python 3.13 available to uv" "./04-python.sh" uv python find 3.13
+check "python is uv's" "./04-python.sh" eval '[[ "$(command -v python)" == "$HOME/.local/bin/python" ]]'
 for tool in ruff pre-commit ipython jupyterlab; do
   check "uv tool: $tool" "./04-python.sh" eval "uv tool list | grep -q '^$tool '"
 done

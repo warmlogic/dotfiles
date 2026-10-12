@@ -27,6 +27,13 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari Music System
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
 
+# Increase Bash history size. Allow 32³ entries; the default is 500.
+# Bash-only: zsh sets its own history size in ~/.zshrc.
+export HISTSIZE='32768';
+export HISTFILESIZE="${HISTSIZE}";
+# Omit duplicates and commands that begin with a space from history.
+export HISTCONTROL='ignoreboth';
+
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend;
 
@@ -57,11 +64,6 @@ fi
 
 # zoxide: `z <part of name>` jumps to a frequently used folder
 if command -v zoxide >/dev/null; then eval "$(zoxide init bash)"; fi
-
-# Enable tab completion for `g` by marking it as an alias for `git`
-if type _git &> /dev/null; then
-    complete -o default -o nospace -F _git g;
-fi;
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;

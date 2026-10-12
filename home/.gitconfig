@@ -21,9 +21,6 @@
     # `git di $number` shows the diff between the state `$number` revisions ago and the current state
     di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
 
-    # Pull in remote changes for the current repository and all its submodules
-    p = git pull --recurse-submodules
-
     # Clone a repository including all submodules
     c = clone --recursive
 
@@ -86,10 +83,6 @@
     sort = -committerdate
 
 [core]
-
-    # Use custom `.gitignore` and `.gitattributes`
-    excludesfile = ~/.gitignore
-    attributesfile = ~/.gitattributes
 
     # Treat spaces before tabs and all kinds of trailing whitespace as an error
     # [default] trailing-space: looks for spaces at the end of a line
@@ -178,21 +171,11 @@
 [url "git@github.com:"]
 
     insteadOf = "gh:"
-    pushInsteadOf = "github:"
-    pushInsteadOf = "git://github.com/"
-
-[url "git://github.com/"]
-
     insteadOf = "github:"
 
 [url "git@gist.github.com:"]
 
     insteadOf = "gst:"
-    pushInsteadOf = "gist:"
-    pushInsteadOf = "git://gist.github.com/"
-
-[url "git://gist.github.com/"]
-
     insteadOf = "gist:"
 
 [init]

@@ -1,3 +1,6 @@
+# Keep PATH entries unique, so re-sourcing or nested shells don't pile up duplicates
+typeset -U PATH path  # both: -U on `path` alone misses `export PATH="x:$PATH"`
+
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
@@ -72,6 +75,10 @@ for file in ~/.{exports,exports.local,aliases,functions}; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
+
+# Keep 100k entries of history (Oh My Zsh defaults to 50k in memory, 10k saved)
+HISTSIZE=100000
+SAVEHIST=100000
 
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit

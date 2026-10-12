@@ -1,0 +1,22 @@
+# Global gitignore: git reads ~/.config/git/ignore by default, so .gitconfig
+# doesn't need core.excludesfile
+
+# macOS folder metadata and Finder junk
+.DS_Store
+._*
+__MACOSX
+.Spotlight-V100
+.Trashes
+
+# Windows folder metadata
+Desktop.ini
+Thumbs.db
+
+# Python
+*.pyc
+__pycache__
+.ipynb_checkpoints
+
+# Claude Code: per-user settings and agent worktrees
+**/.claude/settings.local.json
+.claude/worktrees/
