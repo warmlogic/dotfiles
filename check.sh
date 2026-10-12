@@ -24,7 +24,13 @@ check "Xcode command line tools" "xcode-select --install" xcode-select -p
 print "── 01-bootstrap.sh"
 # Differences are a warning, not a failure: they're either your un-applied
 # edits in home/, or an app (e.g. an installer) edited a file in ~.
-drift=(${(f)"$(rsync -rcn --out-format='%n' --exclude .DS_Store home/ ~ | grep -v '/$')"})
+# Lines matching $ignore are ones apps rewrite on their own (Docker Desktop
+# swaps $HOME for the literal path); those don't count.
+ignore='\.docker/bin'
+drift=()
+for f in ${(f)"$(rsync -rcn --out-format='%n' --exclude .DS_Store home/ ~ | grep -v '/$')"}; do
+  command diff -q -I "$ignore" "home/$f" ~/"$f" &>/dev/null || drift+=("$f")
+done
 if (( ${#drift} )); then
   warn "~ differs from home/: ${(j:, :)drift}" "diff home/<file> ~/<file>; keep an app's change by copying it into home/, then ./01-bootstrap.sh"
 else
