@@ -54,10 +54,10 @@ All machines:
 - [ ] Cursor and VS Code (GitHub sign-in / Settings Sync)
 - [ ] Little Snitch Mini (approve its network extension)
 - [ ] MonitorControl (grant Accessibility)
-- [ ] `aws configure sso` (or `aws configure`)
 
 Work (`Brewfile.work`):
 
+- [ ] AWS: install the samltoawsstskeys extension in Chrome, put the `AWS_GOOGLE_*` exports (see `home/.exports`) in `~/.path`, then run `aws-auth-get-saml2sts-credentials`
 - [ ] Lens and k9s: copy or create `~/.kube/config` (e.g. `aws eks update-kubeconfig`)
 - [ ] Loom
 - [ ] Postman
