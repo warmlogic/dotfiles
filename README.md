@@ -82,6 +82,8 @@ source 01-bootstrap.sh
 
 ### Specify the `$PATH`
 
+`~/.path` is machine-local: it's not in `home/`, so `01-bootstrap.sh` never touches it. Put machine-specific shell setup there, including lines another project's setup script appends to `~/.zshrc` (move them into `~/.path`, since re-running `01-bootstrap.sh` replaces `~/.zshrc`). Lines appended to `~/.gitconfig` likewise belong in `~/.gitconfig.local`.
+
 If `~/.path` exists, it will be sourced along with the other files before any feature testing (such as [detecting which version of `ls` is being used](https://github.com/mathiasbynens/dotfiles/blob/aff769fd75225d8f2e481185a71d5e05b76002dc/.aliases#L21-26)) takes place.
 
 Here's an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
@@ -104,10 +106,6 @@ Give your SSH key a passphrase, and macOS remembers it in the Keychain so you do
 ssh-keygen -p -f ~/.ssh/id_ed25519                # add or change the passphrase
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519    # store it in the Keychain (once per machine)
 ```
-
-### Work projects with their own setup
-
-Ruby, Postgres, Redis, etc. for BranchServer come from its `setup.sh`, not from these Brewfiles. Before running it, start Postgres with `brew services start postgresql@18` (it installs Postgres but doesn't start it). It also adds lines to `~/.zshrc` and `~/.gitconfig`; this repo already has them (in `home/.zshrc` and, via `02-brew.sh --work`, in `~/.gitconfig.local`), so if `check.sh` then reports drift, re-run `01-bootstrap.sh`.
 
 ### Install Homebrew formulae
 

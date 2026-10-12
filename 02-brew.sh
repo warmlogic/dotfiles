@@ -52,11 +52,6 @@ if [[ -f ~/.ssh/id_ed25519.pub ]] && ! git config --file ~/.gitconfig.local gpg.
     git config --file ~/.gitconfig.local tag.gpgsign true
 fi
 
-# Work: fetch GitHub over ssh even when a URL says https (BranchServer's private gems)
-if [[ "$PROFILE" == work ]]; then
-  git config --file ~/.gitconfig.local url."git@github.com:".insteadOf https://github.com/
-fi
-
 # The first clone can be over https (public repo, no key needed yet); switch
 # it to ssh now that GitHub knows your key
 origin="$(git -C "${0:A:h}" remote get-url origin)"

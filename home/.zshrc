@@ -47,6 +47,7 @@ plugins=(
     python
     rails
     # rake
+    rbenv
     # ruby
     uv
     virtualenv
@@ -84,20 +85,3 @@ if [ -f "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]; then
   source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
 fi;
 
-# Ruby via rbenv (installed by a project's setup, e.g. BranchServer's setup.sh)
-command -v rbenv &>/dev/null && eval "$(rbenv init -)"
-
-# BranchServer: its setup.sh appends these exact lines to ~/.zshrc when they're
-# missing. Having them here stops it editing this file, which 01-bootstrap.sh owns.
-if [[ -d "${HOMEBREW_PREFIX}/opt/openjdk@11" ]]; then
-    export PATH="${HOMEBREW_PREFIX}/opt/openjdk@11/bin:$PATH"
-    export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-11.jdk/Contents/Home"
-    export RUBY_YJIT_ENABLE=1
-    export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/lib"
-    export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/include"
-fi
-
-# psql etc. from Homebrew's keg-only postgresql@18
-if [[ -d "${HOMEBREW_PREFIX}/opt/postgresql@18" ]]; then
-    export PATH="${HOMEBREW_PREFIX}/opt/postgresql@18/bin:$PATH"
-fi
