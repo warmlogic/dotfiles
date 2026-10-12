@@ -2,6 +2,8 @@
 
 This repo borrows heavily from Mathias Bynens's [dotfiles](https://github.com/mathiasbynens/dotfiles/) and Dries Vints's [dotfiles](https://github.com/driesvints/dotfiles).
 
+This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmux).
+
 ## Layout
 
 - `home/` mirrors `$HOME` — every file and directory in here gets rsync'd on top of your home directory by `01-bootstrap.sh`. Edit files here, not in `~`, then re-run `01-bootstrap.sh` to apply the change.
