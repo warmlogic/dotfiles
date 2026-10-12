@@ -82,7 +82,7 @@ source 01-bootstrap.sh
 
 ### Specify the `$PATH`
 
-`~/.path` is machine-local: it's not in `home/`, so `01-bootstrap.sh` never touches it. Put machine-specific shell setup there, including lines another project's setup script appends to `~/.zshrc` (move them into `~/.path`, since re-running `01-bootstrap.sh` replaces `~/.zshrc`). Lines appended to `~/.gitconfig` likewise belong in `~/.gitconfig.local`.
+`~/.path` is machine-local: it's not in `home/`, so `01-bootstrap.sh` never touches it. Put machine-specific shell setup there (and machine-specific git config in `~/.gitconfig.local`).
 
 If `~/.path` exists, it will be sourced along with the other files before any feature testing (such as [detecting which version of `ls` is being used](https://github.com/mathiasbynens/dotfiles/blob/aff769fd75225d8f2e481185a71d5e05b76002dc/.aliases#L21-26)) takes place.
 
@@ -106,6 +106,11 @@ Give your SSH key a passphrase, and macOS remembers it in the Keychain so you do
 ssh-keygen -p -f ~/.ssh/id_ed25519                # add or change the passphrase
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519    # store it in the Keychain (once per machine)
 ```
+
+### GitHub access
+
+- **ssh** (`git@github.com:` remotes) uses your SSH key; see [SSH key passphrase](#ssh-key-passphrase). On a network that blocks port 22, prefix the command with `git443` (e.g. `git443 pull`, defined in `home/.functions`) to reach GitHub's ssh on port 443 instead.
+- **https** (`https://github.com/` URLs, e.g. private git gems in a Gemfile) uses your `gh` login: `home/.gitconfig` sets `gh` as the credential helper for GitHub.
 
 ### Install Homebrew formulae
 

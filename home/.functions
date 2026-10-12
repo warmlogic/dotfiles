@@ -532,3 +532,9 @@ EOF
     mv -f "$downloadFile" "$awsCredentialsFile";
     echo "Moved credentials to $awsCredentialsFile";
 }
+
+# Run git with GitHub's ssh on port 443, for networks that block port 22
+# (airplane wifi, some hotels/offices). Usage: git443 pull
+git443() {
+  GIT_SSH_COMMAND="ssh -o Hostname=ssh.github.com -o Port=443 -o HostKeyAlias=github.com" git "$@"
+}
