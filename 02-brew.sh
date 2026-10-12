@@ -9,6 +9,8 @@ case "${1:-}" in
   *) echo "Usage: $0 [--work]" >&2; exit 2 ;;
 esac
 
+cd "${0:A:h}"
+
 # Ask for the administrator password upfront.
 sudo -v
 

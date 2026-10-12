@@ -24,7 +24,7 @@ print "── 01-bootstrap.sh"
 check "home/ matches ~ (no un-applied edits)" "./01-bootstrap.sh" \
   test -z "$(rsync -rcn --out-format='%n' --exclude .DS_Store home/ ~ | grep -v '/$')"
 check "git identity in ~/.gitconfig.local" "./01-bootstrap.sh" \
-  eval 'git config --file ~/.gitconfig.local user.name && git config --file ~/.gitconfig.local user.email'
+  eval '[[ -n "$(git config --file ~/.gitconfig.local user.name)" && -n "$(git config --file ~/.gitconfig.local user.email)" ]]'
 check "~/.exports.local exists" "./01-bootstrap.sh" test -f ~/.exports.local
 
 print "── 02-brew.sh"
@@ -37,12 +37,12 @@ check "Oh My Zsh + spaceship + plugins" "./02-brew.sh" \
   test -d ~/.oh-my-zsh/custom/themes/spaceship-prompt -a -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting -a -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 check "gh signed in" "gh auth login --git-protocol ssh --web" gh auth status
 check "SSH to GitHub works" "gh auth login --git-protocol ssh --web" \
-  eval 'ssh -T -o BatchMode=yes -o ConnectTimeout=5 git@github.com 2>&1 | grep -q "successfully authenticated"'
+  eval 'ssh -T -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=accept-new git@github.com 2>&1 | grep -q "successfully authenticated"'
 check "commits signed with SSH key" "./02-brew.sh" \
   eval '[[ "$(git config commit.gpgsign)" == true && "$(git config gpg.format)" == ssh ]]'
 check "SSH key has a passphrase" "ssh-keygen -p -f ~/.ssh/id_ed25519" \
   eval '! ssh-keygen -y -P "" -f ~/.ssh/id_ed25519'
-check "dotfiles remote uses ssh" "git remote set-url origin git@github.com:warmlogic/dotfiles.git" \
+check "dotfiles remote uses ssh" "./02-brew.sh" \
   eval '[[ "$(git remote get-url origin)" == git@github.com:* ]]'
 
 print "── 03-macos.sh (spot checks)"

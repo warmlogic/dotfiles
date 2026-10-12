@@ -2,8 +2,9 @@
 export PATH="$HOME/bin:$PATH";
 
 # Set up Homebrew
-eval $(/opt/homebrew/bin/brew shellenv)
-HOMEBREW_PREFIX="$(brew --prefix)"
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # Load the shell dotfiles, and then some:
 # * ~/.exports.local (machine-local, not in the repo) overrides ~/.exports.

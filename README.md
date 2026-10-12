@@ -48,7 +48,7 @@ All machines:
 - [ ] Google Chrome
 - [ ] Slack
 - [ ] Claude and ChatGPT
-- [ ] Docker Desktop (accept the license, sign in if your company pays for it)
+- [ ] Docker Desktop: accept the license, sign in if your company pays for it, and set Settings → Advanced → CLI tools to **System** (otherwise it appends to `~/.zprofile` and `~/.bash_profile`, which `01-bootstrap.sh` owns)
 - [ ] Zoom
 - [ ] Spotify
 - [ ] Cursor and VS Code (GitHub sign-in / Settings Sync)

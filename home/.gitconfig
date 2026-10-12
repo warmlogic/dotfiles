@@ -203,10 +203,10 @@
 # The empty helper clears any other helper (e.g. osxkeychain) for these hosts.
 [credential "https://github.com"]
     helper =
-    helper = !gh auth git-credential
+    helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
     helper =
-    helper = !gh auth git-credential
+    helper = !/opt/homebrew/bin/gh auth git-credential
 
 # Identity (user.name/user.email) is per-person, so it lives outside this
 # public repo. 01-bootstrap.sh creates ~/.gitconfig.local on first run.

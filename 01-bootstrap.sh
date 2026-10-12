@@ -19,8 +19,12 @@ function doIt() {
         local answer;
         printf "Git user.name [%s]: " "$git_name"; read -r answer; git_name="${answer:-$git_name}";
         printf "Git user.email [%s]: " "$git_email"; read -r answer; git_email="${answer:-$git_email}";
-        git config --file ~/.gitconfig.local user.name "$git_name";
-        git config --file ~/.gitconfig.local user.email "$git_email";
+        if [ -n "$git_name" ] && [ -n "$git_email" ]; then
+            git config --file ~/.gitconfig.local user.name "$git_name";
+            git config --file ~/.gitconfig.local user.email "$git_email";
+        else
+            echo "Skipped git identity (name and email are both required); re-run 01-bootstrap.sh to set it.";
+        fi;
     fi;
     # Personal env vars live in ~/.exports.local; start it from the template once
     [ -f ~/.exports.local ] || cp exports.local.template ~/.exports.local;
@@ -48,4 +52,4 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     doIt;
 fi;
 
-unset doIt;
+unset -f doIt;
