@@ -53,6 +53,8 @@ check "SSH to GitHub works" "gh auth login --git-protocol ssh --web" \
   eval 'ssh -T -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=accept-new git@github.com 2>&1 | grep -q "successfully authenticated"'
 check "commits signed with SSH key" "./02-brew.sh" \
   eval '[[ "$(git config commit.gpgsign)" == true && "$(git config gpg.format)" == ssh ]]'
+check "~/.ssh/config includes the dotfiles SSH settings" "./01-bootstrap.sh" \
+  grep -qxF 'Include ~/.ssh/config.d/dotfiles' ~/.ssh/config
 check "SSH key has a passphrase" "ssh-keygen -p -f ~/.ssh/id_ed25519" \
   eval '! ssh-keygen -y -P "" -f ~/.ssh/id_ed25519'
 check "dotfiles remote uses ssh" "./02-brew.sh" \

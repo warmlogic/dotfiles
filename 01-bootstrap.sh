@@ -26,6 +26,15 @@ function doIt() {
             echo "Skipped git identity (name and email are both required); re-run 01-bootstrap.sh to set it.";
         fi;
     fi;
+    # SSH settings live in ~/.ssh/config.d/dotfiles; ~/.ssh/config itself stays
+    # yours, since tools (AWS Toolkit, VS Code Remote) add hosts to it. Put the
+    # Include first so its settings apply to every host.
+    local ssh_include='Include ~/.ssh/config.d/dotfiles';
+    touch ~/.ssh/config;
+    if ! grep -qxF "$ssh_include" ~/.ssh/config; then
+        { printf '%s\n\n' "$ssh_include"; cat ~/.ssh/config; } > ~/.ssh/config.tmp && mv -f ~/.ssh/config.tmp ~/.ssh/config;
+    fi;
+    chmod 600 ~/.ssh/config;
     # Personal env vars live in ~/.exports.local; start it from the template once
     [ -f ~/.exports.local ] || cp exports.local.template ~/.exports.local;
     if [[ "$MY_SHELL" =~ 'zsh' ]]; then
