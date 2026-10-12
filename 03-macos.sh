@@ -797,6 +797,14 @@ for app in Amphetamine Itsycal noTunes; do
     fi
 done
 
+# Itsycal: menu bar clock format (Unicode date pattern), day of week shown,
+# and a week of events
+defaults write com.mowglii.ItsycalApp ClockFormat -string "h:mm a"
+defaults write com.mowglii.ItsycalApp ShowDayOfWeekInIcon -bool true
+defaults write com.mowglii.ItsycalApp ShowEventDays -int 7
+# Restart it if running (killing it alone would leave it closed until next login)
+killall Itsycal &>/dev/null && open -a Itsycal
+
 # noTunes (stops Music.app from launching): hide its menu bar icon, and
 # restart it so that takes effect
 if [ -d "/Applications/noTunes.app" ]; then
