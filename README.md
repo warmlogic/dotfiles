@@ -94,7 +94,7 @@ Git `user.name` and `user.email` aren't in this repo. `home/.gitconfig` includes
 
 ### SSH key passphrase
 
-Give your SSH key a passphrase, and macOS remembers it in the Keychain so you don't have to type it. `home/.ssh/config` turns on `UseKeychain`, and `home/.zprofile` loads the key into the agent at login so commit signing works too.
+Give your SSH key a passphrase, and macOS remembers it in the Keychain so you don't have to type it. `home/.ssh/config.d/dotfiles` turns on `UseKeychain` (bootstrap adds an `Include` for it to the top of `~/.ssh/config`, which otherwise stays yours, so hosts that tools like the AWS Toolkit add there survive re-runs), and `home/.zprofile` loads the key into the agent at login so commit signing works too.
 
 ```sh
 ssh-keygen -p -f ~/.ssh/id_ed25519                # add or change the passphrase
