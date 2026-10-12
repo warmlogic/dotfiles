@@ -26,6 +26,7 @@ brew 'beads' # `bd` issue tracker for coding agents https://github.com/gastownha
 brew 'emacs'
 brew 'file-formula' # guess file type
 brew 'gh' # https://cli.github.com
+brew 'ghostscript' # `gs`, used by the mergepdf alias
 brew 'graphviz' # for python tree model plotting
 brew 'htop' # Better top command
 brew 'imagemagick'

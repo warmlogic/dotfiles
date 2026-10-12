@@ -21,7 +21,11 @@ for tool in ruff pre-commit ipython jupyterlab; do
   uv tool install "$tool"
 done
 
-# One shared scratch venv for ad-hoc exploration
+# One shared scratch venv for ad-hoc exploration (`workon scratch`), seeded
+# with everyday libraries. Libraries go here or in a project, never as tools:
+# a tool's environment can't import your code. Projects add their own test
+# deps with `uv add --dev pytest`.
 if [ ! -d "$HOME/.venvs/scratch" ]; then
   uv venv "$HOME/.venvs/scratch" --python 3.13
 fi
+uv pip install --python "$HOME/.venvs/scratch/bin/python" requests pytest

@@ -169,7 +169,7 @@ alias afk='pmset displaysleepnow'
 alias reload="exec ${SHELL} -l"
 
 # Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
+alias lspath='echo -e ${PATH//:/\\n}'
 
 # Use SAML-to-AWS-STS-Keys Chrome extension to download AWS credentials file upon login
 # https://chrome.google.com/webstore/detail/saml-to-aws-sts-keys-conv/ekniobabpcnfjgfbphhcolcinmnbehde
