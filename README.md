@@ -7,6 +7,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 ## Layout
 
 - `home/` mirrors `$HOME` — every file and directory in here gets rsync'd on top of your home directory by `01-bootstrap.sh`. Edit files here, not in `~`, then re-run `01-bootstrap.sh` to apply the change.
+- `home/.local/bin/` holds small command-line tools; `~/.local/bin` is on `PATH` (`home/.exports`). `codex-usage status` shows Codex plan usage and reset credits (`--json` for raw); `codex-usage reset --yes` spends a reset credit. It needs `codex` installed and logged in.
 - The numbered scripts at the repo root set up a machine, in order (see below). They mutate the machine (installs, macOS `defaults write`, moving files into `$HOME`) — only run them deliberately.
 - `Brewfile.common` / `Brewfile.personal` / `Brewfile.work` are Homebrew bundles: common is always installed, and either personal or work is layered on top depending on the machine.
 - `init/` holds terminal color themes (`.terminal` files, an `.itermcolors` file) and saved app settings (`com.if.Amphetamine.plist`) that `03-macos.sh` applies; `init/` is not mirrored to `$HOME`.
