@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+"""codex-usage [status|reset] -- Codex plan usage and reset credits via `codex app-server` (stdio JSON-RPC)."""
+import argparse, glob, json, os, subprocess, sys, threading, time, uuid
+from datetime import datetime
+
+TIMEOUT = 20
+
+def rpc(calls):
+    """Run [(method, params)] against a fresh app-server; return results in order."""
+    p = subprocess.Popen(["codex", "app-server"], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                         stderr=subprocess.DEVNULL, text=True)
+    out = {}
+    def send(m):
+        p.stdin.write(json.dumps(m) + "\n"); p.stdin.flush()
+    def reader():
+        for line in p.stdout:
+            try: m = json.loads(line)
+            except ValueError: continue
+            if "id" in m and ("result" in m or "error" in m): out[m["id"]] = m
+    threading.Thread(target=reader, daemon=True).start()
+    try:
+        send({"id": 0, "method": "initialize", "params": {"clientInfo": {"name": "codex-usage", "title": None, "version": "1"}}})
+        wait(out, 0)
+        send({"method": "initialized"})
+        res = []
+        for i, (method, params) in enumerate(calls, 1):
+            send({"id": i, "method": method, "params": params})
+            m = wait(out, i)
+            if "error" in m: raise RuntimeError(f"{method}: {m['error'].get('message', m['error'])}")
+            res.append(m["result"])
+        return res
+    finally:
+        try: p.stdin.close()
+        except OSError: pass
+        try: p.wait(3)
+        except subprocess.TimeoutExpired: p.kill(); p.wait()
+
+def wait(out, i):
+    end = time.time() + TIMEOUT
+    while i not in out:
+        if time.time() > end: raise RuntimeError(f"timeout after {TIMEOUT}s waiting for app-server")
+        time.sleep(0.05)
+    if "error" in out[i] and i == 0: raise RuntimeError(f"initialize: {out[i]['error']}")
+    return out[i]
+
+def ts(t):
+    return datetime.fromtimestamp(t).astimezone().strftime("%a %b %d %H:%M %Z") if t else "n/a"
+
+def rel(t):
+    if not t: return ""
+    s = int(t - time.time()); h, m = divmod(max(s, 0) // 60, 60)
+    return f"in {h}h{m:02d}m"
+
+def credits(r):
+    cs = [c for c in (r.get("rateLimitResetCredits") or {}).get("credits") or [] if c.get("status") == "available"]
+    return sorted(cs, key=lambda c: c.get("expiresAt") or float("inf"))
+
+def summarize(r):
+    """Print summary; return True if usage is exhausted."""
+    snaps = r.get("rateLimitsByLimitId") or {"codex": r["rateLimits"]}
+    exhausted = r.get("ordinaryUsageAllowed") is False
+    for lid, s in snaps.items():
+        for name in ("primary", "secondary"):
+            w = (s or {}).get(name)
+            if not w: continue
+            exhausted |= w["usedPercent"] >= 100
+            mins = w.get("windowDurationMins")
+            print(f"{s.get('limitName') or lid} {name} ({mins or '?'}m window): {w['usedPercent']}% used, resets {ts(w.get('resetsAt'))} ({rel(w.get('resetsAt'))})")
+    print(f"ordinary usage allowed: {r.get('ordinaryUsageAllowed')}")
+    cs = credits(r)
+    print(f"reset credits available: {(r.get('rateLimitResetCredits') or {}).get('availableCount', 0)}")
+    for c in cs:
+        print(f"  {c['id']}  {c['resetType']}  {c.get('title') or ''}  expires {ts(c.get('expiresAt'))}")
+    return exhausted
+
+def rollout_fallback():
+    files = sorted(glob.glob(os.path.expanduser("~/.codex/sessions/*/*/*/rollout-*.jsonl")))
+    for f in reversed(files):
+        for line in reversed(open(f).read().splitlines()):
+            if '"rate_limits"' in line:
+                rl = (json.loads(line).get("payload") or {}).get("rate_limits")
+                if rl and rl.get("primary"):
+                    print(f"(fallback: rollout snapshot {os.path.basename(f)}; may be stale)")
+                    for n in ("primary", "secondary"):
+                        w = rl.get(n)
+                        if w: print(f"{n}: {w['used_percent']}% used, resets {ts(w.get('resets_at'))}")
+                    return max(w["used_percent"] for w in (rl["primary"], rl.get("secondary") or {"used_percent": 0})) >= 100
+    raise RuntimeError("no rollout snapshot found")
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("cmd", nargs="?", default="status", choices=["status", "reset"])
+    ap.add_argument("--json", action="store_true")
+    ap.add_argument("--yes", action="store_true")
+    ap.add_argument("--id")
+    a = ap.parse_args()
+    try:
+        if a.cmd == "status":
+            try:
+                (r,) = rpc([("account/rateLimits/read", None)])
+            except Exception as e:
+                if a.json: raise
+                print(f"app-server failed ({e})", file=sys.stderr)
+                return 3 if rollout_fallback() else 0
+            if a.json: print(json.dumps(r, indent=2)); return 0
+            return 3 if summarize(r) else 0
+        if not a.yes:
+            raise RuntimeError("refusing to consume a reset credit without --yes")
+        (r,) = rpc([("account/rateLimits/read", None)])
+        cs = credits(r)
+        cid = a.id or (cs[0]["id"] if cs else None)
+        if not cid: raise RuntimeError("no available reset credit")
+        (res,) = rpc([("account/rateLimitResetCredit/consume", {"creditId": cid, "idempotencyKey": str(uuid.uuid4())})])
+        print(f"consumed {cid}: outcome={res['outcome']}")
+        (r,) = rpc([("account/rateLimits/read", None)])
+        summarize(r)
+        return 0
+    except Exception as e:
+        print(f"codex-usage: {e}", file=sys.stderr)
+        return 1
+
+sys.exit(main())
