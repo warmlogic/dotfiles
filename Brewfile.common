@@ -79,7 +79,9 @@ cask 'betterzip' # for its Quick Look preview of archive contents
 cask 'syntax-highlight' # open "Syntax Highlight.app" after installing
 
 # Install Fonts
+cask 'font-aporetic'
 cask 'font-fira-code'
+cask 'font-iosevka'
 
 # Install apps via Mac App Store
 mas 'Amphetamine', id: 937984704
