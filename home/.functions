@@ -431,9 +431,12 @@ function _aws-login-chrome-open() {
 }
 
 # Fetch temporary AWS credentials via SAML SSO and write them to
-# ~/.aws/credentials. Drives Chrome to hit the SSO URL; the SAML response
-# interception and STS call happen inside the samltoawsstskeys Chrome
-# extension, which downloads a credentials file that this moves into place.
+# ~/.aws/credentials. Run each session: the credentials last 12 hours. It's the
+# fallback to aws-setup-gsts, which renews credentials on its own.
+#
+# Drives Chrome to hit the SSO URL; the SAML response interception and STS
+# call happen inside the samltoawsstskeys Chrome extension, which downloads a
+# credentials file that this moves into place.
 #
 # Tabs open in the Chrome profile signed in to Chrome as
 # AWS_GOOGLE_SAML_ACCOUNT_EMAIL, found by email in Chrome's "Local State", so
@@ -453,7 +456,7 @@ function _aws-login-chrome-open() {
 #
 # The credentials it writes take precedence over gsts (see aws-setup-gsts)
 # until they expire, and keep failing after that; run aws-setup-gsts to switch
-# back. ECR and EKS work with them once aws-setup-tools has run.
+# back. ECR and EKS work with them once aws-setup-ecr-eks has run.
 function aws-login-chrome() {
     local v;
     for v in AWS_GOOGLE_IDP_ID AWS_GOOGLE_SP_ID AWS_GOOGLE_SAML_ACCOUNT_EMAIL AWS_GOOGLE_SAML_DOWNLOAD_FILE AWS_SHARED_CREDENTIALS_FILE; do

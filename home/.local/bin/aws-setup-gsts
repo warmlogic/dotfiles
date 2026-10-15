@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # aws-setup-gsts -- get AWS credentials from your Google account on demand,
-# then run aws-setup-tools for Docker (ECR) and kubectl (EKS). Run once; safe
-# to re-run, e.g. to switch back after aws-login-chrome.
+# then run aws-setup-ecr-eks for Docker (ECR) and kubectl (EKS). One-time
+# setup; safe to re-run, e.g. to switch back after aws-login-chrome.
 #
 # Makes the AWS profile get its credentials from gsts
 # (https://github.com/ruimarinho/gsts) via `credential_process`, so nothing
@@ -15,7 +15,7 @@
 #   AWS_REGION                           region for STS
 #   AWS_GSTS_ROLE_ARN (optional)         role to assume, if you can assume several
 #   AWS_PROFILE (optional)               profile to configure (default: default)
-# plus what aws-setup-tools reads.
+# plus what aws-setup-ecr-eks reads.
 set -euo pipefail
 
 case "${1:-}" in
@@ -57,4 +57,4 @@ step "Signing in (a browser window opens if Google needs you)"
 # shellcheck disable=SC2086 # gsts_cmd is a word list built above
 $gsts_cmd --output none
 
-exec "$(dirname "$0")/aws-setup-tools"
+exec "$(dirname "$0")/aws-setup-ecr-eks"

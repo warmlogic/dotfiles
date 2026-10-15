@@ -10,6 +10,6 @@
 # export AWS_GOOGLE_IDP_ID=""
 # export AWS_GOOGLE_SP_ID=""
 # export AWS_GSTS_ROLE_ARN=""   # aws-setup-gsts: only if you can assume several roles
-# export AWS_EKS_CONTEXT_NAMES="my_cluster_prod=prod"   # aws-setup-tools: short kubectl context names
+# export AWS_EKS_CONTEXT_NAMES="my_cluster_prod=prod"   # aws-setup-ecr-eks: short kubectl context names
 # export AWS_GOOGLE_SAML_ACCOUNT_EMAIL=""   # aws-login-chrome: Chrome profile signed in as this account is used
 # export AWS_GOOGLE_SAML_DOWNLOAD_FILE="$HOME/Downloads/credentials"   # aws-login-chrome

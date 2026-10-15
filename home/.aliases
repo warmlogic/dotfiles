@@ -171,7 +171,8 @@ alias reload="exec ${SHELL} -l"
 # Print each PATH entry on a separate line
 alias lspath='echo -e ${PATH//:/\\n}'
 
-# AWS credentials from Google SAML: aws-setup-gsts (in ~/.local/bin) is the
+# AWS credentials from Google SAML. aws-setup-* run once (safe to re-run);
+# aws-login-* run each session. aws-setup-gsts (in ~/.local/bin) is the
 # default; aws-login-chrome (in ~/.functions) is the fallback. When its Chrome
 # automation fails, sign in with the samltoawsstskeys extension by hand, then
 # move the file it downloads into place with this.
