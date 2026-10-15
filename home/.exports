@@ -23,4 +23,3 @@ export MANPAGER='less -X';
 # export AWS_DEFAULT_OUTPUT="text";
 export AWS_REGION="ap-south-1";
 export AWS_SHARED_CREDENTIALS_FILE="${HOME}/.aws/credentials";
-# export AWS_ACCOUNT_ID="";
