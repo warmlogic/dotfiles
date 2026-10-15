@@ -182,7 +182,7 @@ Setup: fill in `AWS_GOOGLE_IDP_ID` and `AWS_GOOGLE_SP_ID` in `~/.exports.local` 
 
 Over time: AWS credentials last about 12 hours, and gsts renews them silently while its Google session lasts. When that expires, the next AWS call opens gsts's own Chromium window for a Google sign-in; your browsers aren't involved.
 
-The Chrome fallback needs Chrome itself (not just a Google web session) signed in to your work account, with the samltoawsstskeys extension installed in that profile, and `aws-setup-ecr-eks` run once. Whichever of `aws-setup-gsts` and `aws-login-chrome` ran last decides how AWS authenticates. Chrome's keys take precedence over gsts and keep failing once they expire, so run `aws-setup-gsts` to switch back.
+The Chrome fallback needs Chrome itself (not just a Google web session) signed in to your work account, with the samltoawsstskeys extension installed in that profile, `AWS_GOOGLE_SAML_ACCOUNT_EMAIL` and `AWS_GOOGLE_SAML_DOWNLOAD_FILE` set in `~/.exports.local`, and `aws-setup-ecr-eks` run once. Whichever of `aws-setup-gsts` and `aws-login-chrome` ran last decides how AWS authenticates. Chrome's keys take precedence over gsts and keep failing once they expire, so run `aws-setup-gsts` to switch back.
 
 ### Additional setup
 

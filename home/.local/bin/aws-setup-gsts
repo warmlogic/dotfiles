@@ -60,6 +60,8 @@ aws configure set --profile "$profile" credential_process "$gsts_cmd"
 # them) take precedence over credential_process, and keep winning after they
 # expire. Sections are found the way the AWS CLI's configparser finds them:
 # strip the line, then the name runs from "[" to the last "]", untrimmed.
+# (configparser reads an indented header right after a value as part of that
+# value; this treats it as a header. Only a hand-edited file has one.)
 creds_file="${AWS_SHARED_CREDENTIALS_FILE:-$HOME/.aws/credentials}"
 # shellcheck disable=SC2016 # awk program, not shell expansion
 sections='

@@ -77,7 +77,7 @@ if command -v kubectl > /dev/null; then
                 "name it with AWS_EKS_CONTEXT_NAMES=\"$cluster=<name>\" and re-run" >&2
             continue
         fi
-        if aws eks update-kubeconfig --region "$region" --name "$cluster" --alias "$context" "${profile_args[@]}" > /dev/null; then
+        if aws eks update-kubeconfig --region "$region" --name "$cluster" --alias "$context" ${profile_args[@]+"${profile_args[@]}"} > /dev/null; then
             echo "$context -> $cluster"
         else
             echo "warning: couldn't add $cluster" >&2
