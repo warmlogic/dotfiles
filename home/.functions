@@ -462,7 +462,7 @@ function aws-login-chrome() {
     for v in AWS_GOOGLE_IDP_ID AWS_GOOGLE_SP_ID AWS_GOOGLE_SAML_ACCOUNT_EMAIL AWS_GOOGLE_SAML_DOWNLOAD_FILE AWS_SHARED_CREDENTIALS_FILE; do
         if [ -z "${(P)v}" ]; then
             echo "${v} is not set - export it first (see ~/.exports.local)." >&2;
-            if [ -n "${AWS_GOOGLE_SAML_SSO_URL:-}" ]; then
+            if [[ "$v" == AWS_GOOGLE_*_ID && -n "${AWS_GOOGLE_SAML_SSO_URL:-}" ]]; then
                 echo "AWS_GOOGLE_SAML_SSO_URL is no longer read: set AWS_GOOGLE_IDP_ID and AWS_GOOGLE_SP_ID to its idpid= and spid= values." >&2;
             fi
             return 1;

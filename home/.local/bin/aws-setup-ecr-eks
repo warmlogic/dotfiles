@@ -9,6 +9,8 @@
 # Both ride on whatever credentials the AWS profile resolves to: gsts (see
 # aws-setup-gsts, which runs this) or aws-login-chrome's credentials file.
 #
+# --check only verifies the prerequisites (aws-setup-gsts runs it first).
+#
 # Reads (see ~/.exports.local):
 #   AWS_REGION                        region for ECR and EKS
 #   AWS_EKS_CONTEXT_NAMES (optional)  "cluster=context ..." short kubectl context
@@ -19,8 +21,8 @@ set -euo pipefail
 check_only=false
 case "${1:-}" in
     "") ;;
-    --check) check_only=true ;;  # only verify prerequisites (aws-setup-gsts uses this)
-    -h|--help) sed -n '2,16p' "$0"; exit 0 ;;
+    --check) check_only=true ;;
+    -h|--help) sed -n '2,18p' "$0"; exit 0 ;;
     *) echo "Unknown argument: $1 (try --help)" >&2; exit 2 ;;
 esac
 
@@ -69,9 +71,10 @@ if command -v kubectl > /dev/null; then
         # --alias replaces a same-named context outright; never repoint one that
         # belongs to a different cluster (another account or region).
         arn="arn:aws:eks:$region:$account:cluster/$cluster"
-        bound=$(kubectl config view -o jsonpath="{.contexts[?(@.name==\"$context\")].context.cluster}")
+        bound=$(kubectl config view -o json | jq -r --arg n "$context" '(.contexts // [])[] | select(.name == $n) | .context.cluster')
         if [ -n "$bound" ] && [ "$bound" != "$arn" ]; then
-            echo "warning: skipped $cluster: context '$context' already points at $bound" >&2
+            echo "warning: skipped $cluster: context '$context' already points at $bound;" \
+                "name it with AWS_EKS_CONTEXT_NAMES=\"$cluster=<name>\" and re-run" >&2
             continue
         fi
         if aws eks update-kubeconfig --region "$region" --name "$cluster" --alias "$context" "${profile_args[@]}" > /dev/null; then

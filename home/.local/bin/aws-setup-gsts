@@ -26,6 +26,10 @@ esac
 
 profile="${AWS_PROFILE:-default}"
 region="${AWS_REGION:?AWS_REGION is not set (see ~/.exports.local)}"
+if [ -z "${AWS_GOOGLE_IDP_ID:-}${AWS_GOOGLE_SP_ID:-}" ] && [ -n "${AWS_GOOGLE_SAML_SSO_URL:-}" ]; then
+    echo "AWS_GOOGLE_SAML_SSO_URL is no longer read: set AWS_GOOGLE_IDP_ID and AWS_GOOGLE_SP_ID to its idpid= and spid= values (see ~/.exports.local)." >&2
+    exit 1
+fi
 : "${AWS_GOOGLE_IDP_ID:?AWS_GOOGLE_IDP_ID is not set (see ~/.exports.local)}"
 : "${AWS_GOOGLE_SP_ID:?AWS_GOOGLE_SP_ID is not set (see ~/.exports.local)}"
 
@@ -54,25 +58,23 @@ aws configure set --profile "$profile" credential_process "$gsts_cmd"
 
 # Static keys for this profile in the credentials file (aws-login-chrome writes
 # them) take precedence over credential_process, and keep winning after they
-# expire. Section headers may carry surrounding whitespace, as the AWS CLI
-# allows, so match on the trimmed name inside the brackets.
+# expire. Sections are found the way the AWS CLI's configparser finds them:
+# strip the line, then the name runs from "[" to the last "]", untrimmed.
 creds_file="${AWS_SHARED_CREDENTIALS_FILE:-$HOME/.aws/credentials}"
 # shellcheck disable=SC2016 # awk program, not shell expansion
-drop_section='
-    /^[ \t]*\[[^]]*\][ \t]*$/ {
-        name = $0
-        sub(/^[ \t]*\[[ \t]*/, "", name)
-        sub(/[ \t]*\][ \t]*$/, "", name)
-        skip = (name == profile)
-        if (skip) found = 1
+sections='
+    { line = $0; sub(/\r$/, "", line); gsub(/^[ \t]+|[ \t]+$/, "", line) }
+    line ~ /^\[.+\]/ {
+        name = substr(line, 2); sub(/\][^]]*$/, "", name)
+        skip = (name == profile); if (skip) found = 1
     }
-    !skip { print }
-    END { exit !found }'
-if [ -f "$creds_file" ] && awk -v profile="$profile" "$drop_section" "$creds_file" > /dev/null; then
+    !detect && !skip { print }
+    END { if (detect) exit !found }'
+if [ -f "$creds_file" ] && awk -v profile="$profile" -v detect=1 "$sections" "$creds_file"; then
     step "Removing static [$profile] keys from $creds_file"
     backup="$creds_file.bak.$(date +%Y%m%d%H%M%S)"
     cp "$creds_file" "$backup"
-    awk -v profile="$profile" "$drop_section" "$backup" > "$creds_file" || true
+    awk -v profile="$profile" -v detect=0 "$sections" "$backup" > "$creds_file"
     echo "Backed up the original to $backup"
 fi
 
