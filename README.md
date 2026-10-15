@@ -59,8 +59,8 @@ All machines:
 
 Work (`Brewfile.work`):
 
-- [ ] AWS: sign in to Chrome itself (not just a Google web session) with your work account, install the samltoawsstskeys extension in that profile, fill in the `AWS_GOOGLE_*` variables in `~/.exports.local`, then run `aws-auth-get-saml2sts-credentials`
-- [ ] Lens and k9s: copy or create `~/.kube/config` (e.g. `aws eks update-kubeconfig`)
+- [ ] AWS, ECR and EKS: fill in the AWS variables in `~/.exports.local`, then run `aws-setup-gsts`. It points the AWS CLI at gsts, then runs `aws-setup-tools`, which points Docker at the ECR credential helper and adds every EKS cluster to `~/.kube/config` (which Lens and k9s use too).
+- [ ] AWS fallback without gsts: sign in to Chrome itself (not just a Google web session) with your work account, install the samltoawsstskeys extension in that profile, then run `aws-login-chrome` (each session) and `aws-setup-tools` (once)
 - [ ] Loom
 - [ ] Postman
 

@@ -369,7 +369,7 @@ function try_till_success {
 
 # Print one "<windowId> <tabId>" line per open Chrome tab. Prints nothing when
 # Chrome isn't running (a `tell` would launch it).
-function _aws-auth-chrome-tabs() {
+function _aws-login-chrome-tabs() {
     pgrep -xq "Google Chrome" || return 0;
     osascript -e 'tell application "Google Chrome"
         set out to ""
@@ -393,13 +393,13 @@ function _aws-auth-chrome-tabs() {
 # opened by hand meanwhile) mean ownership is unknown: fail rather than guess.
 # A Chrome that isn't running is started first and given time to restore its
 # session, so restored tabs are in the snapshot rather than looking new.
-function _aws-auth-chrome-open() {
+function _aws-login-chrome-open() {
     local before new i prev=-1 count;
     if ! pgrep -xq "Google Chrome"; then
         open -a "Google Chrome" || return 1;
         for i in {1..15}; do
             sleep 1;
-            count=$(_aws-auth-chrome-tabs | wc -l);
+            count=$(_aws-login-chrome-tabs | wc -l);
             if [ "$count" -gt 0 ] && [ "$count" -eq "$prev" ]; then
                 break;
             fi
@@ -407,7 +407,7 @@ function _aws-auth-chrome-open() {
         done
     fi
     # A failed snapshot would make every open tab look new, so stop instead.
-    if ! before=$(_aws-auth-chrome-tabs); then
+    if ! before=$(_aws-login-chrome-tabs); then
         echo "Couldn't list Chrome's open tabs." >&2;
         return 1;
     fi
@@ -417,7 +417,7 @@ function _aws-auth-chrome-open() {
         # Match on tab id alone: a tab dragged to another window keeps its id.
         # "^$" keeps the pattern list non-empty, since `grep -v -f <empty>`
         # prints nothing rather than everything.
-        new=$(_aws-auth-chrome-tabs | grep -vE -f <(printf '%s\n' "$before" | awk 'BEGIN { print "^$" } NF { print " " $2 "$" }'));
+        new=$(_aws-login-chrome-tabs | grep -vE -f <(printf '%s\n' "$before" | awk 'BEGIN { print "^$" } NF { print " " $2 "$" }'));
         if [ -n "$new" ]; then
             if [ "$(printf '%s\n' "$new" | wc -l)" -ne 1 ]; then
                 echo "Several new Chrome tabs appeared at once, so it can't tell which one it opened; re-run once Chrome settles." >&2;
@@ -444,21 +444,26 @@ function _aws-auth-chrome-open() {
 #   - Google Chrome, signed in to a profile as AWS_GOOGLE_SAML_ACCOUNT_EMAIL,
 #     with the samltoawsstskeys extension installed in that profile:
 #     https://chrome.google.com/webstore/detail/ekniobabpcnfjgfbphhcolcinmnbehde
-#   - Exported (see ~/.exports.local): AWS_GOOGLE_SAML_SSO_URL (the Google
-#     Workspace AWS SAML app's SSO URL: Admin console > Web and mobile apps >
-#     AWS app), AWS_GOOGLE_SAML_ACCOUNT_EMAIL, AWS_GOOGLE_SAML_DOWNLOAD_FILE,
+#   - Exported (see ~/.exports.local): AWS_GOOGLE_IDP_ID and AWS_GOOGLE_SP_ID
+#     (the Google SAML app's IdP and SP IDs, also used by aws-setup-gsts),
+#     AWS_GOOGLE_SAML_ACCOUNT_EMAIL, AWS_GOOGLE_SAML_DOWNLOAD_FILE,
 #     AWS_SHARED_CREDENTIALS_FILE
 #   - If the sign-in check fails with a JavaScript error: Chrome > View >
 #     Developer > Allow JavaScript from Apple Events
-function aws-auth-get-saml2sts-credentials() {
+#
+# The credentials it writes take precedence over gsts (see aws-setup-gsts)
+# until they expire, and keep failing after that; run aws-setup-gsts to switch
+# back. ECR and EKS work with them once aws-setup-tools has run.
+function aws-login-chrome() {
     local v;
-    for v in AWS_GOOGLE_SAML_SSO_URL AWS_GOOGLE_SAML_ACCOUNT_EMAIL AWS_GOOGLE_SAML_DOWNLOAD_FILE AWS_SHARED_CREDENTIALS_FILE; do
+    for v in AWS_GOOGLE_IDP_ID AWS_GOOGLE_SP_ID AWS_GOOGLE_SAML_ACCOUNT_EMAIL AWS_GOOGLE_SAML_DOWNLOAD_FILE AWS_SHARED_CREDENTIALS_FILE; do
         if [ -z "${(P)v}" ]; then
             echo "${v} is not set - export it first (see ~/.exports.local)." >&2;
             return 1;
         fi
     done
 
+    local ssoUrl="https://accounts.google.com/o/saml2/initsso?idpid=${AWS_GOOGLE_IDP_ID}&spid=${AWS_GOOGLE_SP_ID}&forceauthn=false&authuser=0";
     local email="${AWS_GOOGLE_SAML_ACCOUNT_EMAIL}";
     local downloadFile="${AWS_GOOGLE_SAML_DOWNLOAD_FILE}";
     local awsCredentialsFile="${AWS_SHARED_CREDENTIALS_FILE}";
@@ -507,7 +512,7 @@ function aws-auth-get-saml2sts-credentials() {
     # rather than the visible text. Closes the tab on success; leaves it open
     # otherwise, so there's somewhere to fix it from.
     local ids result;
-    if ! ids=$(_aws-auth-chrome-open "$profileDir" "https://myaccount.google.com/"); then
+    if ! ids=$(_aws-login-chrome-open "$profileDir" "https://myaccount.google.com/"); then
         echo "Couldn't open a tab in Chrome profile '${profileDir}'." >&2;
         return 1;
     fi
@@ -551,7 +556,7 @@ EOF
     local attempt waited;
     for attempt in $(seq 1 "$maxAttempts"); do
         echo "Attempt ${attempt}/${maxAttempts}: opening AWS SSO in Chrome...";
-        if ! ids=$(_aws-auth-chrome-open "$profileDir" "${AWS_GOOGLE_SAML_SSO_URL}&_ts=$(date +%s)"); then
+        if ! ids=$(_aws-login-chrome-open "$profileDir" "${ssoUrl}&_ts=$(date +%s)"); then
             ids="";
             echo "Couldn't identify the SSO tab, so it will be left open." >&2;
         fi

@@ -5,7 +5,11 @@
 # Extra PATH entries
 # export PATH="$HOME/bin:$PATH"
 
-# For aws-auth-get-saml2sts-credentials (see ~/.functions)
-# export AWS_GOOGLE_SAML_DOWNLOAD_FILE="$HOME/Downloads/credentials"
-# export AWS_GOOGLE_SAML_SSO_URL=""
-# export AWS_GOOGLE_SAML_ACCOUNT_EMAIL=""   # Chrome profile signed in as this account is used
+# AWS via Google SAML: aws-setup-gsts and aws-login-chrome both read the
+# SAML app's IDs, the idpid= and spid= values in its SSO URL
+# export AWS_GOOGLE_IDP_ID=""
+# export AWS_GOOGLE_SP_ID=""
+# export AWS_GSTS_ROLE_ARN=""   # aws-setup-gsts: only if you can assume several roles
+# export AWS_EKS_CONTEXT_NAMES="my_cluster_prod=prod"   # aws-setup-tools: short kubectl context names
+# export AWS_GOOGLE_SAML_ACCOUNT_EMAIL=""   # aws-login-chrome: Chrome profile signed in as this account is used
+# export AWS_GOOGLE_SAML_DOWNLOAD_FILE="$HOME/Downloads/credentials"   # aws-login-chrome

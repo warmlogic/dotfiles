@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# aws-setup-gsts -- get AWS credentials from your Google account on demand,
+# then run aws-setup-tools for Docker (ECR) and kubectl (EKS). Run once; safe
+# to re-run, e.g. to switch back after aws-login-chrome.
+#
+# Makes the AWS profile get its credentials from gsts
+# (https://github.com/ruimarinho/gsts) via `credential_process`, so nothing
+# has to run before using AWS. gsts renews the 12-hour AWS credentials
+# silently while your Google session lasts, and opens its own Chromium for
+# a Google sign-in when it doesn't.
+#
+# Reads (see ~/.exports.local):
+#   AWS_GOOGLE_IDP_ID, AWS_GOOGLE_SP_ID  the Google SAML app's IdP and SP IDs
+#                                        (idpid= and spid= in its SSO URL)
+#   AWS_REGION                           region for STS
+#   AWS_GSTS_ROLE_ARN (optional)         role to assume, if you can assume several
+#   AWS_PROFILE (optional)               profile to configure (default: default)
+# plus what aws-setup-tools reads.
+set -euo pipefail
+
+case "${1:-}" in
+    "") ;;
+    -h|--help) sed -n '2,18p' "$0"; exit 0 ;;
+    *) echo "Unknown argument: $1 (try --help)" >&2; exit 2 ;;
+esac
+
+profile="${AWS_PROFILE:-default}"
+region="${AWS_REGION:?AWS_REGION is not set (see ~/.exports.local)}"
+: "${AWS_GOOGLE_IDP_ID:?AWS_GOOGLE_IDP_ID is not set (see ~/.exports.local)}"
+: "${AWS_GOOGLE_SP_ID:?AWS_GOOGLE_SP_ID is not set (see ~/.exports.local)}"
+
+step() { printf '\n==> %s\n' "$*"; }
+
+command -v aws > /dev/null || { echo "aws is required: brew install awscli" >&2; exit 1; }
+# Resolve the binary, not a shell alias (Oh My Zsh's git plugin has one).
+gsts=$(type -P gsts) || { echo "gsts is required: brew install ruimarinho/tap/gsts" >&2; exit 1; }
+
+# Static keys for this profile in the credentials file (aws-login-chrome writes
+# them) take precedence over credential_process, and keep winning after they
+# expire.
+creds_file="${AWS_SHARED_CREDENTIALS_FILE:-$HOME/.aws/credentials}"
+if [ -f "$creds_file" ] && grep -qx "\[$profile\]" "$creds_file"; then
+    step "Removing static [$profile] keys from $creds_file"
+    backup="$creds_file.bak.$(date +%Y%m%d%H%M%S)"
+    cp "$creds_file" "$backup"
+    awk -v s="[$profile]" '/^\[/ { skip = ($0 == s) } !skip' "$backup" > "$creds_file"
+    echo "Backed up the original to $backup"
+fi
+
+step "Pointing AWS profile '$profile' at gsts"
+gsts_cmd="$gsts --aws-profile $profile --aws-region $region --idp-id $AWS_GOOGLE_IDP_ID --sp-id $AWS_GOOGLE_SP_ID"
+[ -n "${AWS_GSTS_ROLE_ARN:-}" ] && gsts_cmd="$gsts_cmd --aws-role-arn $AWS_GSTS_ROLE_ARN"
+aws configure set --profile "$profile" region "$region"
+aws configure set --profile "$profile" credential_process "$gsts_cmd"
+
+step "Signing in (a browser window opens if Google needs you)"
+# shellcheck disable=SC2086 # gsts_cmd is a word list built above
+$gsts_cmd --output none
+
+exec "$(dirname "$0")/aws-setup-tools"
