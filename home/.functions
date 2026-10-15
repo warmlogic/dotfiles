@@ -391,9 +391,21 @@ function _aws-auth-chrome-tabs() {
 # windows or tabs meanwhile can't make this report (and later close) a tab it
 # didn't open. Two or more new tabs (a cold start restoring a session, or one
 # opened by hand meanwhile) mean ownership is unknown: fail rather than guess.
-# Polls because a cold-started Chrome takes a few seconds to open a window.
+# A Chrome that isn't running is started first and given time to restore its
+# session, so restored tabs are in the snapshot rather than looking new.
 function _aws-auth-chrome-open() {
-    local before new i;
+    local before new i prev=-1 count;
+    if ! pgrep -xq "Google Chrome"; then
+        open -a "Google Chrome" || return 1;
+        for i in {1..15}; do
+            sleep 1;
+            count=$(_aws-auth-chrome-tabs | wc -l);
+            if [ "$count" -gt 0 ] && [ "$count" -eq "$prev" ]; then
+                break;
+            fi
+            prev=$count;
+        done
+    fi
     before=$(_aws-auth-chrome-tabs);
     open -na "Google Chrome" --args --profile-directory="$1" "$2" || return 1;
     for i in {1..10}; do
@@ -401,7 +413,7 @@ function _aws-auth-chrome-open() {
         new=$(_aws-auth-chrome-tabs | grep -vxF -f <(printf '%s\n' "$before"));
         if [ -n "$new" ]; then
             if [ "$(printf '%s\n' "$new" | wc -l)" -ne 1 ]; then
-                echo "Several new Chrome tabs appeared at once; can't tell which one this opened." >&2;
+                echo "Several new Chrome tabs appeared at once, so it can't tell which one it opened; re-run once Chrome settles." >&2;
                 return 1;
             fi
             echo "$new";
@@ -528,7 +540,10 @@ EOF
     local attempt waited;
     for attempt in $(seq 1 "$maxAttempts"); do
         echo "Attempt ${attempt}/${maxAttempts}: opening AWS SSO in Chrome...";
-        ids=$(_aws-auth-chrome-open "$profileDir" "${AWS_GOOGLE_SAML_SSO_URL}&_ts=$(date +%s)");
+        if ! ids=$(_aws-auth-chrome-open "$profileDir" "${AWS_GOOGLE_SAML_SSO_URL}&_ts=$(date +%s)"); then
+            ids="";
+            echo "Couldn't identify the SSO tab, so it will be left open." >&2;
+        fi
         osascript -e "$refocus" > /dev/null 2>&1;
 
         waited=0;
