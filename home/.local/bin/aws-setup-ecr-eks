@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# aws-setup-ecr-eks -- let Docker and kubectl use your AWS credentials.
+# One-time setup (aws-setup-gsts runs it for you); safe to re-run, and re-run
+# it to pick up new EKS clusters.
+#
+# Points Docker's ECR registry at the ECR credential helper, so `docker pull`
+# logs in by itself, and adds every EKS cluster you can list to
+# ~/.kube/config (which Lens and k9s read too), keeping the current context.
+# Both ride on whatever credentials the AWS profile resolves to: gsts (see
+# aws-setup-gsts, which runs this) or aws-login-chrome's credentials file.
+#
+# --check only verifies the prerequisites (aws-setup-gsts runs it first).
+#
+# Reads (see ~/.exports.local):
+#   AWS_REGION                        region for ECR and EKS
+#   AWS_EKS_CONTEXT_NAMES (optional)  "cluster=context ..." short kubectl context
+#                                     names; others are named after the cluster
+#   AWS_PROFILE (optional)            profile to use (default: default)
+set -euo pipefail
+
+check_only=false
+case "${1:-}" in
+    "") ;;
+    --check) check_only=true ;;
+    -h|--help) sed -n '2,18p' "$0"; exit 0 ;;
+    *) echo "Unknown argument: $1 (try --help)" >&2; exit 2 ;;
+esac
+
+profile="${AWS_PROFILE:-default}"
+region="${AWS_REGION:?AWS_REGION is not set (see ~/.exports.local)}"
+
+step() { printf '\n==> %s\n' "$*"; }
+need() { command -v "$1" > /dev/null || { echo "$1 is required: $2" >&2; exit 1; }; }
+
+need aws "brew install awscli"
+need jq "it ships with macOS 15+; otherwise: brew install jq"
+if command -v docker > /dev/null; then
+    need docker-credential-ecr-login "Docker Desktop ships it; otherwise: brew install docker-credential-helper-ecr"
+fi
+$check_only && exit 0
+
+account=$(aws sts get-caller-identity --profile "$profile" --query Account --output text)
+echo "AWS account $account, profile '$profile'"
+
+if command -v docker > /dev/null; then
+    step "Pointing Docker at the ECR credential helper"
+    registry="$account.dkr.ecr.$region.amazonaws.com"
+    docker_config="$HOME/.docker/config.json"
+    mkdir -p "$(dirname "$docker_config")"
+    [ -s "$docker_config" ] || echo '{}' > "$docker_config"
+    tmp=$(mktemp)
+    jq --arg r "$registry" '.credHelpers[$r] = "ecr-login"' "$docker_config" > "$tmp"
+    mv "$tmp" "$docker_config"
+    echo "$registry -> ecr-login"
+else
+    echo "Docker isn't installed; skipped ECR."
+fi
+
+if command -v kubectl > /dev/null; then
+    step "Adding EKS clusters to ~/.kube/config"
+    profile_args=()
+    [ "$profile" != "default" ] && profile_args=(--profile "$profile")
+    # update-kubeconfig switches the current context to each cluster it adds.
+    previous_context=$(kubectl config current-context 2>/dev/null || true)
+    clusters=$(aws eks list-clusters --region "$region" --profile "$profile" --query clusters --output text)
+    for cluster in $clusters; do
+        context="$cluster"
+        for pair in ${AWS_EKS_CONTEXT_NAMES:-}; do
+            [ "${pair%%=*}" = "$cluster" ] && context="${pair#*=}"
+        done
+        # --alias replaces a same-named context outright; never repoint one that
+        # belongs to a different cluster (another account or region).
+        arn="arn:aws:eks:$region:$account:cluster/$cluster"
+        bound=$(kubectl config view -o json | jq -r --arg n "$context" '(.contexts // [])[] | select(.name == $n) | .context.cluster')
+        if [ -n "$bound" ] && [ "$bound" != "$arn" ]; then
+            echo "warning: skipped $cluster: context '$context' already points at $bound;" \
+                "name it with AWS_EKS_CONTEXT_NAMES=\"$cluster=<name>\" and re-run" >&2
+            continue
+        fi
+        if aws eks update-kubeconfig --region "$region" --name "$cluster" --alias "$context" ${profile_args[@]+"${profile_args[@]}"} > /dev/null; then
+            echo "$context -> $cluster"
+        else
+            echo "warning: couldn't add $cluster" >&2
+        fi
+    done
+    if [ -n "$previous_context" ]; then
+        kubectl config use-context "$previous_context" > /dev/null
+    fi
+else
+    echo "kubectl isn't installed; skipped EKS."
+fi

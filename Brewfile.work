@@ -4,9 +4,11 @@
 
 cask_args appdir: '/Applications'
 
+tap 'ruimarinho/tap'
+
+brew 'ruimarinho/tap/gsts' # AWS credentials via Google SAML, for credential_process https://github.com/ruimarinho/gsts
 brew 'k9s' # Kubernetes TUI https://k9scli.io
 brew 'kubectl'
-brew 'saml2aws' # AWS credentials via SAML SSO https://github.com/Versent/saml2aws
 
 cask 'lens' # Kubernetes IDE
 cask 'loom'

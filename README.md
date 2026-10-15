@@ -59,8 +59,7 @@ All machines:
 
 Work (`Brewfile.work`):
 
-- [ ] AWS: sign in to Chrome itself (not just a Google web session) with your work account, install the samltoawsstskeys extension in that profile, fill in the `AWS_GOOGLE_*` variables in `~/.exports.local`, then run `aws-auth-get-saml2sts-credentials`
-- [ ] Lens and k9s: copy or create `~/.kube/config` (e.g. `aws eks update-kubeconfig`)
+- [ ] AWS, ECR and EKS: fill in the AWS variables in `~/.exports.local`, then run `aws-setup-gsts` (see [AWS, ECR and EKS credentials](#aws-ecr-and-eks-credentials-work))
 - [ ] Loom
 - [ ] Postman
 
@@ -167,6 +166,23 @@ dfp fetch && dfp branch -u origin/main main
 ```
 
 Day to day: `dfp status`, then `dfp add <path> && dfp commit -m "..." && dfp push`. A new file to track needs a `!` line in the allowlist. Credentials, transcripts, plugin caches, and Claude's auto-memory are deliberately untracked; the private repo's README has the rest.
+
+### AWS, ECR and EKS credentials (work)
+
+AWS credentials come from your Google Workspace account through its SAML app, so nothing needs to run before using AWS. The default AWS profile gets them from [gsts](https://github.com/ruimarinho/gsts) on demand. Docker's ECR credential helper and kubectl's EKS token both ride on that profile.
+
+| Command                   | When                              | What it does                                                                                                                     |
+| ------------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `aws-setup-gsts`          | once, or to repair or switch back | Signs in, points the default profile at gsts, removes static keys that would override it, then runs `aws-setup-ecr-eks`          |
+| `aws-setup-ecr-eks`       | once; again for a new EKS cluster | Points Docker at the ECR credential helper; adds every EKS cluster you can list to `~/.kube/config`, keeping the current context |
+| `aws-login-chrome`        | each session, as a fallback       | Gets credentials through Chrome and the samltoawsstskeys extension and writes them to `~/.aws/credentials`                       |
+| `aws-login-chrome-manual` | when that automation fails        | Moves a credentials file you downloaded with the extension by hand into place                                                    |
+
+Setup: fill in `AWS_GOOGLE_IDP_ID` and `AWS_GOOGLE_SP_ID` in `~/.exports.local` (the `idpid=` and `spid=` values of the SAML app's SSO URL), plus the optional variables in `exports.local.template`, then run `aws-setup-gsts`. It needs `jq`, which ships with macOS 15+, and Docker Desktop's `docker-credential-ecr-login`.
+
+Over time: AWS credentials last about 12 hours, and gsts renews them silently while its Google session lasts. When that expires, the next AWS call opens gsts's own Chromium window for a Google sign-in; your browsers aren't involved.
+
+The Chrome fallback needs Chrome itself (not just a Google web session) signed in to your work account, with the samltoawsstskeys extension installed in that profile, `AWS_GOOGLE_SAML_ACCOUNT_EMAIL` and `AWS_GOOGLE_SAML_DOWNLOAD_FILE` set in `~/.exports.local`, and `aws-setup-ecr-eks` run once. Whichever of `aws-setup-gsts` and `aws-login-chrome` ran last decides how AWS authenticates. Chrome's keys take precedence over gsts and keep failing once they expire, so run `aws-setup-gsts` to switch back.
 
 ### Additional setup
 

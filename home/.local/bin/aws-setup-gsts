@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+# aws-setup-gsts -- get AWS credentials from your Google account on demand,
+# then run aws-setup-ecr-eks for Docker (ECR) and kubectl (EKS). One-time
+# setup; safe to re-run, e.g. to switch back after aws-login-chrome.
+#
+# Makes the AWS profile get its credentials from gsts
+# (https://github.com/ruimarinho/gsts) via `credential_process`, so nothing
+# has to run before using AWS. gsts renews the 12-hour AWS credentials
+# silently while your Google session lasts, and opens its own Chromium for
+# a Google sign-in when it doesn't.
+#
+# Reads (see ~/.exports.local):
+#   AWS_GOOGLE_IDP_ID, AWS_GOOGLE_SP_ID  the Google SAML app's IdP and SP IDs
+#                                        (idpid= and spid= in its SSO URL)
+#   AWS_REGION                           region for STS
+#   AWS_GSTS_ROLE_ARN (optional)         role to assume, if you can assume several
+#   AWS_PROFILE (optional)               profile to configure (default: default)
+# plus what aws-setup-ecr-eks reads.
+set -euo pipefail
+
+case "${1:-}" in
+    "") ;;
+    -h|--help) sed -n '2,18p' "$0"; exit 0 ;;
+    *) echo "Unknown argument: $1 (try --help)" >&2; exit 2 ;;
+esac
+
+profile="${AWS_PROFILE:-default}"
+region="${AWS_REGION:?AWS_REGION is not set (see ~/.exports.local)}"
+if [ -z "${AWS_GOOGLE_IDP_ID:-}${AWS_GOOGLE_SP_ID:-}" ] && [ -n "${AWS_GOOGLE_SAML_SSO_URL:-}" ]; then
+    echo "AWS_GOOGLE_SAML_SSO_URL is no longer read: set AWS_GOOGLE_IDP_ID and AWS_GOOGLE_SP_ID to its idpid= and spid= values (see ~/.exports.local)." >&2
+    exit 1
+fi
+: "${AWS_GOOGLE_IDP_ID:?AWS_GOOGLE_IDP_ID is not set (see ~/.exports.local)}"
+: "${AWS_GOOGLE_SP_ID:?AWS_GOOGLE_SP_ID is not set (see ~/.exports.local)}"
+
+step() { printf '\n==> %s\n' "$*"; }
+
+command -v aws > /dev/null || { echo "aws is required: brew install awscli" >&2; exit 1; }
+# Resolve the binary, not a shell alias (Oh My Zsh's git plugin has one).
+gsts=$(type -P gsts) || { echo "gsts is required: brew install ruimarinho/tap/gsts" >&2; exit 1; }
+ecr_eks="$(dirname "$0")/aws-setup-ecr-eks"
+"$ecr_eks" --check
+
+# Sign in before changing anything, so a failed or cancelled sign-in leaves
+# the current credentials working.
+step "Signing in (a browser window opens if Google needs you)"
+gsts_cmd="$gsts --aws-profile $profile --aws-region $region --idp-id $AWS_GOOGLE_IDP_ID --sp-id $AWS_GOOGLE_SP_ID"
+[ -n "${AWS_GSTS_ROLE_ARN:-}" ] && gsts_cmd="$gsts_cmd --aws-role-arn $AWS_GSTS_ROLE_ARN"
+# shellcheck disable=SC2086 # gsts_cmd is a word list built above
+if ! $gsts_cmd --output none; then
+    echo "gsts sign-in failed; nothing was changed. Fix the sign-in, then re-run aws-setup-gsts." >&2
+    exit 1
+fi
+
+step "Pointing AWS profile '$profile' at gsts"
+aws configure set --profile "$profile" region "$region"
+aws configure set --profile "$profile" credential_process "$gsts_cmd"
+
+# Static keys for this profile in the credentials file (aws-login-chrome writes
+# them) take precedence over credential_process, and keep winning after they
+# expire. Sections are found the way the AWS CLI's configparser finds them:
+# strip the line, then the name runs from "[" to the last "]", untrimmed.
+# (configparser reads an indented header right after a value as part of that
+# value; this treats it as a header. Only a hand-edited file has one.)
+creds_file="${AWS_SHARED_CREDENTIALS_FILE:-$HOME/.aws/credentials}"
+# shellcheck disable=SC2016 # awk program, not shell expansion
+sections='
+    { line = $0; sub(/\r$/, "", line); gsub(/^[ \t]+|[ \t]+$/, "", line) }
+    line ~ /^\[.+\]/ {
+        name = substr(line, 2); sub(/\][^]]*$/, "", name)
+        skip = (name == profile); if (skip) found = 1
+    }
+    !detect && !skip { print }
+    END { if (detect) exit !found }'
+if [ -f "$creds_file" ] && awk -v profile="$profile" -v detect=1 "$sections" "$creds_file"; then
+    step "Removing static [$profile] keys from $creds_file"
+    backup="$creds_file.bak.$(date +%Y%m%d%H%M%S)"
+    cp "$creds_file" "$backup"
+    awk -v profile="$profile" -v detect=0 "$sections" "$backup" > "$creds_file"
+    echo "Backed up the original to $backup"
+fi
+
+exec "$ecr_eks"
