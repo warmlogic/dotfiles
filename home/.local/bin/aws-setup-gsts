@@ -34,27 +34,46 @@ step() { printf '\n==> %s\n' "$*"; }
 command -v aws > /dev/null || { echo "aws is required: brew install awscli" >&2; exit 1; }
 # Resolve the binary, not a shell alias (Oh My Zsh's git plugin has one).
 gsts=$(type -P gsts) || { echo "gsts is required: brew install ruimarinho/tap/gsts" >&2; exit 1; }
+ecr_eks="$(dirname "$0")/aws-setup-ecr-eks"
+"$ecr_eks" --check
 
-# Static keys for this profile in the credentials file (aws-login-chrome writes
-# them) take precedence over credential_process, and keep winning after they
-# expire.
-creds_file="${AWS_SHARED_CREDENTIALS_FILE:-$HOME/.aws/credentials}"
-if [ -f "$creds_file" ] && grep -qx "\[$profile\]" "$creds_file"; then
-    step "Removing static [$profile] keys from $creds_file"
-    backup="$creds_file.bak.$(date +%Y%m%d%H%M%S)"
-    cp "$creds_file" "$backup"
-    awk -v s="[$profile]" '/^\[/ { skip = ($0 == s) } !skip' "$backup" > "$creds_file"
-    echo "Backed up the original to $backup"
+# Sign in before changing anything, so a failed or cancelled sign-in leaves
+# the current credentials working.
+step "Signing in (a browser window opens if Google needs you)"
+gsts_cmd="$gsts --aws-profile $profile --aws-region $region --idp-id $AWS_GOOGLE_IDP_ID --sp-id $AWS_GOOGLE_SP_ID"
+[ -n "${AWS_GSTS_ROLE_ARN:-}" ] && gsts_cmd="$gsts_cmd --aws-role-arn $AWS_GSTS_ROLE_ARN"
+# shellcheck disable=SC2086 # gsts_cmd is a word list built above
+if ! $gsts_cmd --output none; then
+    echo "gsts sign-in failed; nothing was changed. Fix the sign-in, then re-run aws-setup-gsts." >&2
+    exit 1
 fi
 
 step "Pointing AWS profile '$profile' at gsts"
-gsts_cmd="$gsts --aws-profile $profile --aws-region $region --idp-id $AWS_GOOGLE_IDP_ID --sp-id $AWS_GOOGLE_SP_ID"
-[ -n "${AWS_GSTS_ROLE_ARN:-}" ] && gsts_cmd="$gsts_cmd --aws-role-arn $AWS_GSTS_ROLE_ARN"
 aws configure set --profile "$profile" region "$region"
 aws configure set --profile "$profile" credential_process "$gsts_cmd"
 
-step "Signing in (a browser window opens if Google needs you)"
-# shellcheck disable=SC2086 # gsts_cmd is a word list built above
-$gsts_cmd --output none
+# Static keys for this profile in the credentials file (aws-login-chrome writes
+# them) take precedence over credential_process, and keep winning after they
+# expire. Section headers may carry surrounding whitespace, as the AWS CLI
+# allows, so match on the trimmed name inside the brackets.
+creds_file="${AWS_SHARED_CREDENTIALS_FILE:-$HOME/.aws/credentials}"
+# shellcheck disable=SC2016 # awk program, not shell expansion
+drop_section='
+    /^[ \t]*\[[^]]*\][ \t]*$/ {
+        name = $0
+        sub(/^[ \t]*\[[ \t]*/, "", name)
+        sub(/[ \t]*\][ \t]*$/, "", name)
+        skip = (name == profile)
+        if (skip) found = 1
+    }
+    !skip { print }
+    END { exit !found }'
+if [ -f "$creds_file" ] && awk -v profile="$profile" "$drop_section" "$creds_file" > /dev/null; then
+    step "Removing static [$profile] keys from $creds_file"
+    backup="$creds_file.bak.$(date +%Y%m%d%H%M%S)"
+    cp "$creds_file" "$backup"
+    awk -v profile="$profile" "$drop_section" "$backup" > "$creds_file" || true
+    echo "Backed up the original to $backup"
+fi
 
-exec "$(dirname "$0")/aws-setup-ecr-eks"
+exec "$ecr_eks"

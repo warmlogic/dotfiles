@@ -16,8 +16,10 @@
 #   AWS_PROFILE (optional)            profile to use (default: default)
 set -euo pipefail
 
+check_only=false
 case "${1:-}" in
     "") ;;
+    --check) check_only=true ;;  # only verify prerequisites (aws-setup-gsts uses this)
     -h|--help) sed -n '2,16p' "$0"; exit 0 ;;
     *) echo "Unknown argument: $1 (try --help)" >&2; exit 2 ;;
 esac
@@ -29,14 +31,17 @@ step() { printf '\n==> %s\n' "$*"; }
 need() { command -v "$1" > /dev/null || { echo "$1 is required: $2" >&2; exit 1; }; }
 
 need aws "brew install awscli"
-need jq "brew install jq"
+need jq "it ships with macOS 15+; otherwise: brew install jq"
+if command -v docker > /dev/null; then
+    need docker-credential-ecr-login "Docker Desktop ships it; otherwise: brew install docker-credential-helper-ecr"
+fi
+$check_only && exit 0
 
 account=$(aws sts get-caller-identity --profile "$profile" --query Account --output text)
 echo "AWS account $account, profile '$profile'"
 
 if command -v docker > /dev/null; then
     step "Pointing Docker at the ECR credential helper"
-    need docker-credential-ecr-login "brew install docker-credential-helper-ecr"
     registry="$account.dkr.ecr.$region.amazonaws.com"
     docker_config="$HOME/.docker/config.json"
     mkdir -p "$(dirname "$docker_config")"
@@ -45,6 +50,8 @@ if command -v docker > /dev/null; then
     jq --arg r "$registry" '.credHelpers[$r] = "ecr-login"' "$docker_config" > "$tmp"
     mv "$tmp" "$docker_config"
     echo "$registry -> ecr-login"
+else
+    echo "Docker isn't installed; skipped ECR."
 fi
 
 if command -v kubectl > /dev/null; then
@@ -59,6 +66,14 @@ if command -v kubectl > /dev/null; then
         for pair in ${AWS_EKS_CONTEXT_NAMES:-}; do
             [ "${pair%%=*}" = "$cluster" ] && context="${pair#*=}"
         done
+        # --alias replaces a same-named context outright; never repoint one that
+        # belongs to a different cluster (another account or region).
+        arn="arn:aws:eks:$region:$account:cluster/$cluster"
+        bound=$(kubectl config view -o jsonpath="{.contexts[?(@.name==\"$context\")].context.cluster}")
+        if [ -n "$bound" ] && [ "$bound" != "$arn" ]; then
+            echo "warning: skipped $cluster: context '$context' already points at $bound" >&2
+            continue
+        fi
         if aws eks update-kubeconfig --region "$region" --name "$cluster" --alias "$context" "${profile_args[@]}" > /dev/null; then
             echo "$context -> $cluster"
         else
@@ -68,4 +83,6 @@ if command -v kubectl > /dev/null; then
     if [ -n "$previous_context" ]; then
         kubectl config use-context "$previous_context" > /dev/null
     fi
+else
+    echo "kubectl isn't installed; skipped EKS."
 fi

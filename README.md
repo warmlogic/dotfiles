@@ -59,7 +59,7 @@ All machines:
 
 Work (`Brewfile.work`):
 
-- [ ] AWS, ECR and EKS: fill in the AWS variables in `~/.exports.local`, then run `aws-setup-gsts`. It points the AWS CLI at gsts, then runs `aws-setup-ecr-eks`, which points Docker at the ECR credential helper and adds every EKS cluster to `~/.kube/config` (which Lens and k9s use too).
+- [ ] AWS, ECR and EKS: fill in the AWS variables in `~/.exports.local`, then run `aws-setup-gsts` (it uses `jq`, which ships with macOS 15+, and Docker Desktop's `docker-credential-ecr-login`). It points the AWS CLI at gsts, then runs `aws-setup-ecr-eks`, which points Docker at the ECR credential helper and adds every EKS cluster to `~/.kube/config` (which Lens and k9s use too).
 - [ ] AWS fallback without gsts: sign in to Chrome itself (not just a Google web session) with your work account, install the samltoawsstskeys extension in that profile, then run `aws-login-chrome` (each session) and `aws-setup-ecr-eks` (once)
 - [ ] Loom
 - [ ] Postman
