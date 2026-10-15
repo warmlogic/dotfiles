@@ -406,11 +406,18 @@ function _aws-auth-chrome-open() {
             prev=$count;
         done
     fi
-    before=$(_aws-auth-chrome-tabs);
+    # A failed snapshot would make every open tab look new, so stop instead.
+    if ! before=$(_aws-auth-chrome-tabs); then
+        echo "Couldn't list Chrome's open tabs." >&2;
+        return 1;
+    fi
     open -na "Google Chrome" --args --profile-directory="$1" "$2" || return 1;
     for i in {1..10}; do
         sleep 1;
-        new=$(_aws-auth-chrome-tabs | grep -vxF -f <(printf '%s\n' "$before"));
+        # Match on tab id alone: a tab dragged to another window keeps its id.
+        # "^$" keeps the pattern list non-empty, since `grep -v -f <empty>`
+        # prints nothing rather than everything.
+        new=$(_aws-auth-chrome-tabs | grep -vE -f <(printf '%s\n' "$before" | awk 'BEGIN { print "^$" } NF { print " " $2 "$" }'));
         if [ -n "$new" ]; then
             if [ "$(printf '%s\n' "$new" | wc -l)" -ne 1 ]; then
                 echo "Several new Chrome tabs appeared at once, so it can't tell which one it opened; re-run once Chrome settles." >&2;
@@ -471,6 +478,10 @@ function aws-auth-get-saml2sts-credentials() {
         return 1;
     fi
 
+    if [ ! -r "$chromeDir/Local State" ]; then
+        echo "Can't read Chrome's profile list (${chromeDir}/Local State). Open Chrome once, then re-run this." >&2;
+        return 1;
+    fi
     local profileDir;
     profileDir=$(jq -r --arg e "$email" \
         '.profile.info_cache | to_entries[] | select((.value.user_name // "" | ascii_downcase) == ($e | ascii_downcase)) | .key' \
