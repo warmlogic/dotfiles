@@ -367,19 +367,44 @@ function try_till_success {
     return $exitCode
 }
 
+# Print one "<windowId> <tabId>" line per open Chrome tab. Prints nothing when
+# Chrome isn't running (a `tell` would launch it).
+function _aws-auth-chrome-tabs() {
+    pgrep -xq "Google Chrome" || return 0;
+    osascript -e 'tell application "Google Chrome"
+        set out to ""
+        repeat with w in windows
+            set wid to (id of w) as text
+            set tids to id of every tab of w
+            repeat with i from 1 to count of tids
+                set out to out & wid & " " & ((item i of tids) as text) & linefeed
+            end repeat
+        end repeat
+        return out
+    end tell' 2>/dev/null;
+}
+
 # Open a URL in a Chrome profile and print "<windowId> <tabId>" of the new tab.
 # `open -na` hands the URL to the running Chrome in the given profile (plain
-# `open -a` drops --args when Chrome is already running) and Chrome brings that
-# profile's window to the front, so the new tab is the active tab of window 1.
+# `open -a` drops --args when Chrome is already running). The new tab is the
+# one tab that wasn't open before, not whichever tab has focus, so switching
+# windows or tabs meanwhile can't make this report (and later close) a tab it
+# didn't open. Two or more new tabs (a cold start restoring a session, or one
+# opened by hand meanwhile) mean ownership is unknown: fail rather than guess.
 # Polls because a cold-started Chrome takes a few seconds to open a window.
 function _aws-auth-chrome-open() {
+    local before new i;
+    before=$(_aws-auth-chrome-tabs);
     open -na "Google Chrome" --args --profile-directory="$1" "$2" || return 1;
-    local ids i;
     for i in {1..10}; do
         sleep 1;
-        ids=$(osascript -e 'tell application "Google Chrome" to return ((id of window 1) as text) & " " & ((id of active tab of window 1) as text)' 2>/dev/null);
-        if [ -n "$ids" ]; then
-            echo "$ids";
+        new=$(_aws-auth-chrome-tabs | grep -vxF -f <(printf '%s\n' "$before"));
+        if [ -n "$new" ]; then
+            if [ "$(printf '%s\n' "$new" | wc -l)" -ne 1 ]; then
+                echo "Several new Chrome tabs appeared at once; can't tell which one this opened." >&2;
+                return 1;
+            fi
+            echo "$new";
             return 0;
         fi
     done
@@ -425,6 +450,10 @@ function aws-auth-get-saml2sts-credentials() {
     local pollTimeout=10;
     local signinTimeout=15;
 
+    if ! command -v jq > /dev/null; then
+        echo "jq is required (it ships with macOS 15+; otherwise: brew install jq)." >&2;
+        return 1;
+    fi
     if ! open -Ra "Google Chrome" 2>/dev/null; then
         echo "Google Chrome doesn't appear to be installed - this only works with Chrome (see samltoawsstskeys extension)." >&2;
         return 1;
