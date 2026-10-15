@@ -462,6 +462,9 @@ function aws-login-chrome() {
     for v in AWS_GOOGLE_IDP_ID AWS_GOOGLE_SP_ID AWS_GOOGLE_SAML_ACCOUNT_EMAIL AWS_GOOGLE_SAML_DOWNLOAD_FILE AWS_SHARED_CREDENTIALS_FILE; do
         if [ -z "${(P)v}" ]; then
             echo "${v} is not set - export it first (see ~/.exports.local)." >&2;
+            if [ -n "${AWS_GOOGLE_SAML_SSO_URL:-}" ]; then
+                echo "AWS_GOOGLE_SAML_SSO_URL is no longer read: set AWS_GOOGLE_IDP_ID and AWS_GOOGLE_SP_ID to its idpid= and spid= values." >&2;
+            fi
             return 1;
         fi
     done
@@ -589,6 +592,8 @@ EOF
 
     mv -f "$downloadFile" "$awsCredentialsFile";
     echo "Moved credentials to $awsCredentialsFile";
+    echo "These keys override gsts until they expire, and AWS calls fail after that."
+    echo "Then run aws-login-chrome again, or aws-setup-gsts to switch back to gsts."
 }
 
 # Run git with GitHub's ssh on port 443, for networks that block port 22
