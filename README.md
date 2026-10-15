@@ -59,7 +59,7 @@ All machines:
 
 Work (`Brewfile.work`):
 
-- [ ] AWS: install the samltoawsstskeys extension in Chrome, fill in the `AWS_GOOGLE_*` variables in `~/.exports.local`, then run `aws-auth-get-saml2sts-credentials`
+- [ ] AWS: sign in to Chrome itself (not just a Google web session) with your work account, install the samltoawsstskeys extension in that profile, fill in the `AWS_GOOGLE_*` variables in `~/.exports.local`, then run `aws-auth-get-saml2sts-credentials`
 - [ ] Lens and k9s: copy or create `~/.kube/config` (e.g. `aws eks update-kubeconfig`)
 - [ ] Loom
 - [ ] Postman

@@ -8,5 +8,4 @@
 # For aws-auth-get-saml2sts-credentials (see ~/.functions)
 # export AWS_GOOGLE_SAML_DOWNLOAD_FILE="$HOME/Downloads/credentials"
 # export AWS_GOOGLE_SAML_SSO_URL=""
-# export AWS_GOOGLE_SAML_ACCOUNT_EMAIL=""
-# export AWS_GOOGLE_CHROME_PROFILE_DIR=""   # e.g. "Profile 1"
+# export AWS_GOOGLE_SAML_ACCOUNT_EMAIL=""   # Chrome profile signed in as this account is used
