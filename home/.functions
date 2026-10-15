@@ -367,115 +367,140 @@ function try_till_success {
     return $exitCode
 }
 
+# Open a URL in a Chrome profile and print "<windowId> <tabId>" of the new tab.
+# `open -na` hands the URL to the running Chrome in the given profile (plain
+# `open -a` drops --args when Chrome is already running) and Chrome brings that
+# profile's window to the front, so the new tab is the active tab of window 1.
+# Polls because a cold-started Chrome takes a few seconds to open a window.
+function _aws-auth-chrome-open() {
+    open -na "Google Chrome" --args --profile-directory="$1" "$2" || return 1;
+    local ids i;
+    for i in {1..10}; do
+        sleep 1;
+        ids=$(osascript -e 'tell application "Google Chrome" to return ((id of window 1) as text) & " " & ((id of active tab of window 1) as text)' 2>/dev/null);
+        if [ -n "$ids" ]; then
+            echo "$ids";
+            return 0;
+        fi
+    done
+    return 1;
+}
+
 # Fetch temporary AWS credentials via SAML SSO and write them to
-# ~/.aws/credentials. Drives Chrome via AppleScript to hit the SSO URL and
-# checks Google session validity; the actual SAML response interception and
-# STS call happens inside the samltoawsstskeys Chrome extension, not here.
+# ~/.aws/credentials. Drives Chrome to hit the SSO URL; the SAML response
+# interception and STS call happen inside the samltoawsstskeys Chrome
+# extension, which downloads a credentials file that this moves into place.
 #
-# All AppleScript here targets "window 1" of whatever Chrome considers
-# frontmost - there's no reliable way to force-target a specific profile's
-# window (Chrome's --profile-directory launch flag is ignored once Chrome is
-# already running, confirmed empirically). The pre-flight check mitigates
-# this by verifying the *expected account* is signed in, not just "some"
-# account - if the wrong Chrome profile/window happens to be frontmost, this
-# fails with a clear message instead of silently attempting SSO as the
-# wrong identity.
+# Tabs open in the Chrome profile signed in to Chrome as
+# AWS_GOOGLE_SAML_ACCOUNT_EMAIL, found by email in Chrome's "Local State", so
+# it works whichever Chrome window is frontmost. Tabs are then addressed by
+# window and tab id, which stay valid as windows reorder.
 #
 # Setup required:
-#   - Google Chrome installed
-#   - samltoawsstskeys extension installed + enabled in it:
+#   - Google Chrome, signed in to a profile as AWS_GOOGLE_SAML_ACCOUNT_EMAIL,
+#     with the samltoawsstskeys extension installed in that profile:
 #     https://chrome.google.com/webstore/detail/ekniobabpcnfjgfbphhcolcinmnbehde
-#   - AWS_GOOGLE_SAML_SSO_URL exported - the Google Workspace AWS SAML app's
-#     SSO initiation URL (Admin console > Web and mobile apps > AWS app > SSO URL)
-#   - AWS_GOOGLE_SAML_ACCOUNT_EMAIL exported - the Google account expected to be
-#     signed in to Chrome for this SSO to work
-#   - AWS_GOOGLE_CHROME_PROFILE_DIR exported - the Chrome profile directory
-#     name (e.g. "Profile 1") that account is signed into, used only to
-#     check the extension is installed there before attempting anything
+#   - Exported (see ~/.exports.local): AWS_GOOGLE_SAML_SSO_URL (the Google
+#     Workspace AWS SAML app's SSO URL: Admin console > Web and mobile apps >
+#     AWS app), AWS_GOOGLE_SAML_ACCOUNT_EMAIL, AWS_GOOGLE_SAML_DOWNLOAD_FILE,
+#     AWS_SHARED_CREDENTIALS_FILE
+#   - If the sign-in check fails with a JavaScript error: Chrome > View >
+#     Developer > Allow JavaScript from Apple Events
 function aws-auth-get-saml2sts-credentials() {
-    if [ -z "${AWS_GOOGLE_SAML_SSO_URL}" ]; then
-        echo "AWS_GOOGLE_SAML_SSO_URL is not set - export it first." >&2;
-        return 1;
-    fi
-    if [ -z "${AWS_GOOGLE_SAML_ACCOUNT_EMAIL}" ]; then
-        echo "AWS_GOOGLE_SAML_ACCOUNT_EMAIL is not set - export it first." >&2;
-        return 1;
-    fi
+    local v;
+    for v in AWS_GOOGLE_SAML_SSO_URL AWS_GOOGLE_SAML_ACCOUNT_EMAIL AWS_GOOGLE_SAML_DOWNLOAD_FILE AWS_SHARED_CREDENTIALS_FILE; do
+        if [ -z "${(P)v}" ]; then
+            echo "${v} is not set - export it first (see ~/.exports.local)." >&2;
+            return 1;
+        fi
+    done
 
+    local email="${AWS_GOOGLE_SAML_ACCOUNT_EMAIL}";
     local downloadFile="${AWS_GOOGLE_SAML_DOWNLOAD_FILE}";
     local awsCredentialsFile="${AWS_SHARED_CREDENTIALS_FILE}";
+    local chromeDir="$HOME/Library/Application Support/Google/Chrome";
+    local extensionId="ekniobabpcnfjgfbphhcolcinmnbehde";
     local maxAttempts=5;
     local pollInterval=2;
     local pollTimeout=10;
+    local signinTimeout=15;
 
-    # Always call this (not just when Chrome isn't running): it activates
-    # an already-running Chrome, opens a window if Chrome is running with
-    # zero windows (a real state - closing the last window doesn't quit the
-    # app), or launches fresh if Chrome isn't running at all. Fails clearly
-    # if Chrome isn't installed.
-    if ! open -a "Google Chrome" 2>&1; then
+    if ! open -Ra "Google Chrome" 2>/dev/null; then
         echo "Google Chrome doesn't appear to be installed - this only works with Chrome (see samltoawsstskeys extension)." >&2;
         return 1;
     fi
-    sleep 2;
 
-    if [ -n "${AWS_GOOGLE_CHROME_PROFILE_DIR}" ]; then
-        local extensionDir="$HOME/Library/Application Support/Google/Chrome/${AWS_GOOGLE_CHROME_PROFILE_DIR}/Extensions/ekniobabpcnfjgfbphhcolcinmnbehde";
-        if [ ! -d "$extensionDir" ]; then
-            echo "samltoawsstskeys extension doesn't appear to be installed in Chrome profile '${AWS_GOOGLE_CHROME_PROFILE_DIR}'." >&2;
-            echo "Install it: https://chrome.google.com/webstore/detail/ekniobabpcnfjgfbphhcolcinmnbehde" >&2;
-            return 1;
-        fi
+    local profileDir;
+    profileDir=$(jq -r --arg e "$email" \
+        '.profile.info_cache | to_entries[] | select((.value.user_name // "" | ascii_downcase) == ($e | ascii_downcase)) | .key' \
+        "$chromeDir/Local State" 2>/dev/null | head -n 1);
+    if [ -z "$profileDir" ]; then
+        echo "No Chrome profile is signed in to Chrome as ${email}." >&2;
+        echo "In Chrome, add a profile (or sign in to an existing one) with that account, then re-run this." >&2;
+        return 1;
+    fi
+    if [ ! -d "$chromeDir/$profileDir/Extensions/$extensionId" ]; then
+        echo "samltoawsstskeys extension isn't installed in the Chrome profile for ${email} ('${profileDir}')." >&2;
+        echo "Install it: https://chrome.google.com/webstore/detail/${extensionId}" >&2;
+        return 1;
     fi
 
     local frontApp;
     frontApp=$(osascript -e 'tell application "System Events" to name of first application process whose frontmost is true');
+    local refocus="tell application \"System Events\" to set frontmost of process \"${frontApp}\" to true";
 
-    # Pre-flight: is the expected Google account actually signed in? Checks
-    # page content for the expected email, not just "not a sign-in page" -
-    # catches both an expired session and the wrong Chrome profile/window
-    # being frontmost. Leaves the tab open unless it's the right account, so
-    # there's somewhere to fix it from; closes it otherwise to avoid tab
-    # clutter on every run.
-    local result;
-    result=$(osascript <<EOF
-    tell application "Google Chrome"
-        set t to make new tab at end of tabs of window 1 with properties {URL:"https://myaccount.google.com/"}
-    end tell
-    delay 3
-    tell application "Google Chrome"
-        set pageTitle to execute t javascript "document.title"
-        set bodyText to execute t javascript "document.body.innerText"
-    end tell
-    if bodyText contains "${AWS_GOOGLE_SAML_ACCOUNT_EMAIL}" then
-        tell application "Google Chrome" to close t
-        return "OK"
-    else if pageTitle starts with "Sign in" then
-        return "EXPIRED"
-    else
-        return "WRONG_ACCOUNT"
-    end if
-EOF
-    );
-    osascript -e "tell application \"System Events\" to set frontmost of process \"${frontApp}\" to true" > /dev/null 2>&1;
-
-    if [[ "$result" == "EXPIRED" ]]; then
-        echo "Google session appears expired (hit a sign-in page)." >&2;
-        echo "A tab is open at myaccount.google.com - sign back in there, then re-run this." >&2;
-        return 1;
-    elif [[ "$result" == "WRONG_ACCOUNT" ]]; then
-        echo "Signed into a different Google account than expected (${AWS_GOOGLE_SAML_ACCOUNT_EMAIL})." >&2;
-        echo "A tab is open at myaccount.google.com - the frontmost Chrome window isn't the right profile. Switch to it and re-run this." >&2;
+    # Pre-flight: is the Google web session still signed in as the expected
+    # account? Waits for the page to finish loading rather than a fixed delay,
+    # and searches the page HTML (the account chip's label carries the email)
+    # rather than the visible text. Closes the tab on success; leaves it open
+    # otherwise, so there's somewhere to fix it from.
+    local ids result;
+    if ! ids=$(_aws-auth-chrome-open "$profileDir" "https://myaccount.google.com/"); then
+        echo "Couldn't open a tab in Chrome profile '${profileDir}'." >&2;
         return 1;
     fi
+    result=$(osascript 2>&1 <<EOF
+tell application "Google Chrome"
+    set t to tab id ${ids#* } of window id ${ids% *}
+    repeat ${signinTimeout} times
+        if not (loading of t) then
+            if (URL of t) contains "accounts.google.com" then return "EXPIRED"
+            if (execute t javascript "document.documentElement.innerHTML.includes('${email}')") then
+                close t
+                return "OK"
+            end if
+        end if
+        delay 1
+    end repeat
+    return "UNCONFIRMED"
+end tell
+EOF
+    );
+    osascript -e "$refocus" > /dev/null 2>&1;
+
+    case "$result" in
+        OK) ;;
+        EXPIRED)
+            echo "Google session for ${email} has expired." >&2;
+            echo "Sign back in in the Chrome tab this opened, then re-run this." >&2;
+            return 1;;
+        UNCONFIRMED)
+            echo "Couldn't see ${email} on myaccount.google.com within ${signinTimeout}s (Chrome profile '${profileDir}')." >&2;
+            echo "Check the Chrome tab this opened: it may be signed in as a different Google account." >&2;
+            return 1;;
+        *)
+            echo "Sign-in check failed: ${result}" >&2;
+            echo "If this is about JavaScript: Chrome > View > Developer > Allow JavaScript from Apple Events." >&2;
+            return 1;;
+    esac
 
     rm -f "$downloadFile";
 
-    local attempt tabId waited;
+    local attempt waited;
     for attempt in $(seq 1 "$maxAttempts"); do
         echo "Attempt ${attempt}/${maxAttempts}: opening AWS SSO in Chrome...";
-        tabId=$(osascript -e "tell application \"Google Chrome\" to return id of (make new tab at end of tabs of window 1 with properties {URL:\"${AWS_GOOGLE_SAML_SSO_URL}&_ts=$(date +%s)\"})");
-        osascript -e "tell application \"System Events\" to set frontmost of process \"${frontApp}\" to true" > /dev/null 2>&1;
+        ids=$(_aws-auth-chrome-open "$profileDir" "${AWS_GOOGLE_SAML_SSO_URL}&_ts=$(date +%s)");
+        osascript -e "$refocus" > /dev/null 2>&1;
 
         waited=0;
         while [ ! -f "$downloadFile" ] && [ "$waited" -lt "$pollTimeout" ]; do
@@ -483,19 +508,9 @@ EOF
             waited=$((waited + pollInterval));
         done
 
-        # Try every window by index, not just window 1 - window order can
-        # shift during the wait above. Note: "repeat with tb in tabs of w"
-        # + "close tb" silently no-ops in Chrome's AppleScript dictionary
-        # (confirmed empirically - exits 0, tab stays open); direct
-        # "close tab id X of window i" addressing is what actually works.
-        osascript -e "tell application \"Google Chrome\"
-            set windowCount to count windows
-            repeat with i from 1 to windowCount
-                try
-                    close tab id ${tabId} of window i
-                end try
-            end repeat
-        end tell" > /dev/null 2>&1;
+        if [ -n "$ids" ]; then
+            osascript -e "tell application \"Google Chrome\" to close tab id ${ids#* } of window id ${ids% *}" > /dev/null 2>&1;
+        fi
 
         if [ -f "$downloadFile" ]; then
             echo "Credentials downloaded.";
