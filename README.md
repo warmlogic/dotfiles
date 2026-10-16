@@ -49,8 +49,9 @@ All machines:
 - [ ] Safari → Settings → Extensions: enable Wipr 2
 - [ ] Google Chrome
 - [ ] Slack
-- [ ] Claude and ChatGPT
-- [ ] GitHub MCP for Claude Code: run `claude-setup-github-mcp` (see [GitHub MCP for Claude Code](#github-mcp-for-claude-code))
+- [ ] Claude
+  - [ ] GitHub MCP for Claude Code: run `claude-setup-github-mcp` (see [GitHub MCP for Claude Code](#github-mcp-for-claude-code))
+- [ ] ChatGPT
 - [ ] Docker Desktop: accept the license, and sign in if your company pays for it
 - [ ] Zoom
 - [ ] Spotify
@@ -174,7 +175,7 @@ Claude Code signs in to GitHub's hosted MCP server with OAuth, so no token sits 
 
 1. Once: create an OAuth app (GitHub → Settings → Developer settings → OAuth Apps → New OAuth App) with homepage `https://github.com` and redirect URI `http://localhost:33418/callback`, and generate a client secret.
 2. Per machine: put the secret in the Keychain with `security add-generic-password -a "$USER" -s claude-github-mcp -w` (it prompts), set `GITHUB_MCP_CLIENT_ID` in `~/.exports.local`, open a new shell, and run `claude-setup-github-mcp`. It turns off the `github` plugin, whose server needs a token in the environment, and adds a `github` MCP server for your user.
-3. In Claude Code: `/mcp` → `github` → Authenticate, and approve in the browser. Then try it on an organization's repo: an organization that restricts OAuth apps hides its repos until an owner approves the app (request it under GitHub → Settings → Applications).
+3. In Claude Code: `/mcp` → `github` → Authenticate, and approve in the browser. Then try it on a private repo of an organization you belong to: an organization that restricts OAuth apps hides its private repos until an owner approves the app (request it under GitHub → Settings → Applications).
 
 Re-running `claude-setup-github-mcp` replaces the server, for a new client ID or callback port (`GITHUB_MCP_CALLBACK_PORT`, which must match the app's redirect URI).
 
