@@ -15,5 +15,5 @@
 # export AWS_GOOGLE_SAML_DOWNLOAD_FILE="$HOME/Downloads/credentials"   # aws-login-chrome
 
 # GitHub MCP for Claude Code via OAuth (claude-setup-github-mcp): your OAuth
-# app's client ID; the client secret stays in 1Password
+# app's client ID; the client secret goes in the Keychain (see the script's --help)
 # export GITHUB_MCP_CLIENT_ID=""

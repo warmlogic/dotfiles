@@ -172,11 +172,11 @@ Day to day: `dfp status`, then `dfp add <path> && dfp commit -m "..." && dfp pus
 
 Claude Code signs in to GitHub's hosted MCP server with OAuth, so no token sits in an environment variable and it works whether Claude Code starts from a shell, the desktop app, or an IDE. GitHub doesn't let apps register themselves, so it uses an OAuth app of your own:
 
-1. Once: create an OAuth app (GitHub → Settings → Developer settings → OAuth Apps → New OAuth App) with homepage `https://github.com` and callback URL `http://localhost:33418/callback`. Save its client ID and a client secret in 1Password.
-2. Per machine: set `GITHUB_MCP_CLIENT_ID` in `~/.exports.local`, open a new shell, and run `claude-setup-github-mcp` (paste the secret when asked). It turns off the `github` plugin, whose server needs a token in the environment, and adds a `github` MCP server for your user.
-3. In Claude Code: `/mcp` → `github` → Authenticate, and approve in the browser.
+1. Once: create an OAuth app (GitHub → Settings → Developer settings → OAuth Apps → New OAuth App) with homepage `https://github.com` and redirect URI `http://localhost:33418/callback`, and generate a client secret.
+2. Per machine: put the secret in the Keychain with `security add-generic-password -a "$USER" -s claude-github-mcp -w` (it prompts), set `GITHUB_MCP_CLIENT_ID` in `~/.exports.local`, open a new shell, and run `claude-setup-github-mcp`. It turns off the `github` plugin, whose server needs a token in the environment, and adds a `github` MCP server for your user.
+3. In Claude Code: `/mcp` → `github` → Authenticate, and approve in the browser. Then try it on an organization's repo: an organization that restricts OAuth apps hides its repos until an owner approves the app (request it under GitHub → Settings → Applications).
 
-Re-running `claude-setup-github-mcp` replaces the server, for a new client ID or callback port (`GITHUB_MCP_CALLBACK_PORT`, which must match the app's callback URL).
+Re-running `claude-setup-github-mcp` replaces the server, for a new client ID or callback port (`GITHUB_MCP_CALLBACK_PORT`, which must match the app's redirect URI).
 
 ### AWS, ECR and EKS credentials (work)
 
