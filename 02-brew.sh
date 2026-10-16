@@ -43,6 +43,13 @@ if ! gh auth status &>/dev/null; then
   gh auth login --hostname github.com --git-protocol ssh --web --scopes admin:ssh_signing_key
 fi
 
+# Install gh extensions from ./gh-extensions (already-installed ones are a
+# no-op), then update them alongside brew upgrade
+for ext in ${(f)"$(sed -e 's/[[:space:]]*#.*//' -e '/^$/d' gh-extensions)"}; do
+  gh extension install "$ext"
+done
+[[ -z "${CI}" ]] && gh extension upgrade --all
+
 # Sign commits with the same SSH key, and register it with GitHub as a signing
 # key so commits show as Verified. Identity-specific, so it goes in ~/.gitconfig.local.
 if [[ -f ~/.ssh/id_ed25519.pub ]] && ! git config --file ~/.gitconfig.local gpg.format &>/dev/null; then

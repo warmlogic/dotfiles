@@ -28,7 +28,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 1. Run `01-bootstrap.sh` to copy `home/` into `$HOME` (first run asks for your git name and email)
 1. If installing Mac App Store apps with Brew, sign in to the Mac App Store
 1. Ensure the Brewfiles include only the programs you want to install
-   1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`). At the end it signs you in to GitHub with `gh`, which can create an SSH key and add it to your account. Give the key a passphrase when asked; see [SSH key passphrase](#ssh-key-passphrase). If it doesn't, see [SSH key](#ssh-key).
+   1. Run `02-brew.sh` to install apps (add `--work` on a work machine to layer `Brewfile.work` instead of `Brewfile.personal`). At the end it signs you in to GitHub with `gh` and installs the `gh` extensions listed in `gh-extensions`. The sign-in can create an SSH key and add it to your account. Give the key a passphrase when asked; see [SSH key passphrase](#ssh-key-passphrase). If it doesn't, see [SSH key](#ssh-key).
 1. Run `03-macos.sh` to set up macOS preferences (add `--work` on a work machine)
 1. Restart your computer
 1. Run `04-python.sh` to set up Python via `uv`
