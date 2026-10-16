@@ -1,0 +1,4 @@
+# GitHub CLI extensions, installed by 02-brew.sh after gh signs in.
+# One OWNER/REPO per line; `#` starts a comment.
+seachicken/gh-poi   # gh poi: delete local branches whose PRs merged
+github/gh-stack     # gh stack: stacked PRs

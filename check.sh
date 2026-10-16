@@ -49,6 +49,10 @@ check "login shell is Homebrew zsh" "chsh -s /opt/homebrew/bin/zsh" \
 check "Oh My Zsh + spaceship + plugins" "./02-brew.sh" \
   test -d ~/.oh-my-zsh/custom/themes/spaceship-prompt -a -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting -a -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 check "gh signed in" "gh auth login --git-protocol ssh --web" gh auth status
+installed_exts="$(gh extension list 2>/dev/null | cut -f2)"
+for ext in ${(f)"$(sed -e 's/[[:space:]]*#.*//' -e '/^$/d' gh-extensions)"}; do
+  check "gh extension: $ext" "gh extension install $ext" grep -qxF "$ext" <<<"$installed_exts"
+done
 check "SSH to GitHub works" "gh auth login --git-protocol ssh --web" \
   eval 'ssh -T -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=accept-new git@github.com 2>&1 | grep -q "successfully authenticated"'
 check "commits signed with SSH key" "./02-brew.sh" \
