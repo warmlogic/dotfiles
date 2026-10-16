@@ -50,6 +50,7 @@ All machines:
 - [ ] Google Chrome
 - [ ] Slack
 - [ ] Claude and ChatGPT
+- [ ] GitHub MCP for Claude Code: run `claude-setup-github-mcp` (see [GitHub MCP for Claude Code](#github-mcp-for-claude-code))
 - [ ] Docker Desktop: accept the license, and sign in if your company pays for it
 - [ ] Zoom
 - [ ] Spotify
@@ -166,6 +167,16 @@ dfp fetch && dfp branch -u origin/main main
 ```
 
 Day to day: `dfp status`, then `dfp add <path> && dfp commit -m "..." && dfp push`. A new file to track needs a `!` line in the allowlist. Credentials, transcripts, plugin caches, and Claude's auto-memory are deliberately untracked; the private repo's README has the rest.
+
+### GitHub MCP for Claude Code
+
+Claude Code signs in to GitHub's hosted MCP server with OAuth, so no token sits in an environment variable and it works whether Claude Code starts from a shell, the desktop app, or an IDE. GitHub doesn't let apps register themselves, so it uses an OAuth app of your own:
+
+1. Once: create an OAuth app (GitHub → Settings → Developer settings → OAuth Apps → New OAuth App) with homepage `https://github.com` and callback URL `http://localhost:33418/callback`. Save its client ID and a client secret in 1Password.
+2. Per machine: set `GITHUB_MCP_CLIENT_ID` in `~/.exports.local`, open a new shell, and run `claude-setup-github-mcp` (paste the secret when asked). It turns off the `github` plugin, whose server needs a token in the environment, and adds a `github` MCP server for your user.
+3. In Claude Code: `/mcp` → `github` → Authenticate, and approve in the browser.
+
+Re-running `claude-setup-github-mcp` replaces the server, for a new client ID or callback port (`GITHUB_MCP_CALLBACK_PORT`, which must match the app's callback URL).
 
 ### AWS, ECR and EKS credentials (work)
 
