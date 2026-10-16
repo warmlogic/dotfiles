@@ -13,3 +13,7 @@
 # export AWS_EKS_CONTEXT_NAMES="my_cluster_prod=prod"   # aws-setup-ecr-eks: short kubectl context names
 # export AWS_GOOGLE_SAML_ACCOUNT_EMAIL=""   # aws-login-chrome: Chrome profile signed in as this account is used
 # export AWS_GOOGLE_SAML_DOWNLOAD_FILE="$HOME/Downloads/credentials"   # aws-login-chrome
+
+# GitHub MCP for Claude Code via OAuth (claude-setup-github-mcp): your OAuth
+# app's client ID; the client secret goes in the Keychain (see the script's --help)
+# export GITHUB_MCP_CLIENT_ID=""

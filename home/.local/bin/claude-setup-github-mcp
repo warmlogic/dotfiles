@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# claude-setup-github-mcp -- sign Claude Code in to GitHub's MCP server with OAuth.
+# One-time setup per machine; safe to re-run.
+#
+# GitHub's hosted MCP server takes OAuth, but GitHub doesn't let apps register
+# themselves, so Claude Code needs an OAuth app of your own. Create it once
+# (GitHub -> Settings -> Developer settings -> OAuth Apps -> New OAuth App):
+#   Homepage URL:  https://github.com
+#   Redirect URI:  http://localhost:33418/callback
+# Then generate a client secret and put it in the login Keychain:
+#   security add-generic-password -a "$USER" -s claude-github-mcp -w
+#
+# This disables the github plugin (its server needs a token in the
+# environment), and adds a user-scope `github` MCP server that signs in with
+# your app, handing Claude Code the secret from the Keychain to store. Then,
+# in Claude Code: /mcp -> github -> Authenticate, and approve in the browser.
+#
+# Reads (see ~/.exports.local):
+#   GITHUB_MCP_CLIENT_ID                the OAuth app's client ID
+#   GITHUB_MCP_CALLBACK_PORT (optional) default 33418; must match the app's redirect URI
+set -euo pipefail
+
+case "${1:-}" in
+    "") ;;
+    -h|--help) sed -n '2,20p' "$0"; exit 0 ;;
+    *) echo "Unknown argument: $1 (try --help)" >&2; exit 2 ;;
+esac
+
+client_id="${GITHUB_MCP_CLIENT_ID:?GITHUB_MCP_CLIENT_ID is not set (see ~/.exports.local)}"
+port="${GITHUB_MCP_CALLBACK_PORT:-33418}"
+url="https://api.githubcopilot.com/mcp/"
+plugin="github@claude-plugins-official"
+keychain_service="claude-github-mcp"
+
+if ! command -v claude > /dev/null; then
+    echo "claude is not on PATH: install Claude Code first." >&2
+    exit 1
+fi
+if ! secret=$(security find-generic-password -a "$USER" -s "$keychain_service" -w 2>/dev/null); then
+    echo "No client secret in the Keychain. Add it with:" >&2
+    echo "  security add-generic-password -a \"\$USER\" -s $keychain_service -w" >&2
+    exit 1
+fi
+
+# The plugin's server would sit beside this one with the same tools and fail
+# without a token, so turn it off when it's installed and on.
+if claude plugin list 2>/dev/null | grep -A3 "$plugin" | grep -q "enabled"; then
+    claude plugin disable "$plugin"
+fi
+
+# Re-running replaces the server, so a new client ID or port takes effect.
+if claude mcp get github > /dev/null 2>&1; then
+    claude mcp remove github --scope user
+fi
+
+MCP_CLIENT_SECRET="$secret" claude mcp add --transport http --scope user \
+    --client-id "$client_id" --client-secret --callback-port "$port" \
+    github "$url"
+
+echo "Done. In Claude Code, run /mcp, pick github, and choose Authenticate."
