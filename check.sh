@@ -85,7 +85,7 @@ for tool in claude codex roborev; do
 done
 check "private config restored (dfp)" "./05-agents.sh" \
   git --git-dir="$HOME/.dotfiles-private" rev-parse -q --verify 'main@{upstream}'
-check "gstack installed" "./05-agents.sh" test -x ~/.claude/skills/gstack/browse/dist/browse
+check "gstack installed" "./05-agents.sh" grep -q '^claude' ~/.gstack/installs.tsv
 check "Claude plugins match settings.json" "claude-sync-plugins" claude-sync-plugins --check
 
 print

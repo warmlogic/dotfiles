@@ -27,11 +27,12 @@ dfp=(git --git-dir="$HOME/.dotfiles-private" --work-tree="$HOME")
 [[ -d ~/.dotfiles-private ]] || git clone --bare git@github.com:warmlogic/dotfiles-private.git ~/.dotfiles-private
 if ! $dfp rev-parse -q --verify 'main@{upstream}' >/dev/null; then
   backup=~/.dotfiles-private-backup-$(date +%Y%m%d-%H%M%S)
-  for f in ${(f)"$($dfp ls-tree -r --name-only HEAD)"}; do
+  for f in ${(0)"$($dfp ls-tree -r -z --name-only HEAD)"}; do
     if [[ -e ~/$f ]]; then
       mkdir -p "$backup/${f:h}" && cp -p ~/"$f" "$backup/$f"
     fi
   done
+  [[ -d "$backup" ]] && print "Backed up the files dfp replaces to $backup"
   $dfp checkout -f
   $dfp config core.excludesFile ~/.config/dotfiles-private/allowlist
   $dfp config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
@@ -40,19 +41,20 @@ if ! $dfp rev-parse -q --verify 'main@{upstream}' >/dev/null; then
 fi
 
 # gstack (https://github.com/garrytan/gstack) updates itself with
-# /gstack-upgrade, so this only does the first install; setup re-runs until
-# its browse binary exists, so a failed setup is retried. Its plan-tune hooks
-# are off: they only enforce answers saved with /plan-tune, and the flag keeps
-# setup from asking. Re-run ./setup --plan-tune-hooks there to turn them on.
+# /gstack-upgrade, so this clones it only once. Its setup is built to re-run
+# (it's what /gstack-upgrade runs), so it runs every time and finishes a
+# failed one. Its plan-tune hooks are off: they only enforce answers saved
+# with /plan-tune, and the flag keeps setup from asking. Re-run
+# ./setup --plan-tune-hooks there to turn them on.
 [[ -d ~/.claude/skills/gstack ]] || git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
-[[ -x ~/.claude/skills/gstack/browse/dist/browse ]] || ~/.claude/skills/gstack/setup --no-plan-tune-hooks
+~/.claude/skills/gstack/setup --no-plan-tune-hooks
 
 # roborev's skills and agent hooks (both idempotent)
 roborev skills install
 roborev agent-hook install
 
 # Marketplaces and plugins from settings.json; Claude Code's SessionStart hook
-# re-runs both of these whenever settings.json changes
+# re-runs both at every session
 claude-sync-plugins
 codex-sync-rules
 
