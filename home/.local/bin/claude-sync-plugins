@@ -11,7 +11,7 @@
 #
 # Installing enables a plugin in settings.json, so false ones are disabled
 # again right after. Adding a marketplace drops its autoUpdate flag there;
-# `dfp checkout ~/.claude/settings.json` puts it back. Plugins installed but
+# `dfp diff ~/.claude/settings.json` shows it, to restore by hand. Plugins installed but
 # not declared are listed, never removed. A `directory` marketplace whose
 # path this machine lacks (a work repo on a personal machine) is skipped with
 # a note, not counted as missing. With nothing to do it takes under a
@@ -91,7 +91,7 @@ for id in $declared_plugins; do
         echo "failed to install $id" >&2
         (( ++failed ))
     elif grep -qxF "$id" <<< "$declared_off" && ! claude plugin disable --scope user "$id"; then
-        echo "failed to disable $id; settings.json now has it on: dfp checkout ~/.claude/settings.json" >&2
+        echo "failed to disable $id, which settings.json declared false; run: claude plugin disable --scope user $id" >&2
         (( ++failed ))
     fi
 done
@@ -105,7 +105,7 @@ if [[ "$mode" == --check ]]; then
     (( missing == 0 )) || { echo "$missing missing; run claude-sync-plugins"; exit 1; }
     exit 0
 fi
-(( added == 0 )) || echo "Added $added marketplace(s), which drops autoUpdate in settings.json: run dfp checkout ~/.claude/settings.json"
+(( added == 0 )) || echo "Added $added marketplace(s), which drops their autoUpdate in settings.json: dfp diff ~/.claude/settings.json shows it to restore"
 if (( failed )); then
     echo "$failed failed; re-run claude-sync-plugins to retry" >&2
     exit 1
