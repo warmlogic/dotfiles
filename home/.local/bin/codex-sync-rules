@@ -8,8 +8,9 @@ Writes ~/.codex/rules/claude-mirror.rules from ~/.claude/settings.json:
 Claude's allow rules are deliberately NOT mirrored: in Codex an "allow" rule runs the
 command outside the sandbox, so mirroring broad allows (git *, curl *, docker *) would
 loosen Codex, not match it. Everything not ruled stays sandboxed (workspace-write).
-Patterns Codex prefix rules cannot express (a wildcard mid-command, globs in a token)
-are skipped and listed on stderr.
+Patterns Codex prefix rules cannot express (a wildcard mid-command, globs in a token,
+a bare `Bash` that covers every command) are skipped, listed on stderr and as comments
+in the generated file, where they stay visible when a hook discards the output.
 
 Claude Code's SessionStart hook runs this, so edits to Claude's permissions reach
 Codex at the next Claude session; the file is rewritten only when it changes.
@@ -49,18 +50,20 @@ def main() -> int:
         for rule in perms.get(key, []):
             p = prefix(rule)
             if p is None:
-                if rule.startswith("Bash("):
+                if rule == "Bash" or rule.startswith("Bash("):
                     skipped.append(f"{key}: {rule}")
                 continue
             lines.append(f"prefix_rule(pattern={json.dumps(p)}, decision=\"{decision}\")")
+    n_rules = len(lines) - 1
     for s in skipped:
         print(f"skipped (not a prefix): {s}", file=sys.stderr)
+    lines += [f"# skipped (not a prefix): {s}" for s in skipped]
     text = "\n".join(lines) + "\n"
     if OUT.exists() and OUT.read_text() == text:
         return 0
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(text)
-    print(f"wrote {len(lines) - 1} rules to {OUT}")
+    print(f"wrote {n_rules} rules to {OUT}")
     return 0
 
 

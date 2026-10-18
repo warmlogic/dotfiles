@@ -27,9 +27,12 @@ dfp=(git --git-dir="$HOME/.dotfiles-private" --work-tree="$HOME")
 [[ -d ~/.dotfiles-private ]] || git clone --bare git@github.com:warmlogic/dotfiles-private.git ~/.dotfiles-private
 if ! $dfp rev-parse -q --verify 'main@{upstream}' >/dev/null; then
   backup=~/.dotfiles-private-backup-$(date +%Y%m%d-%H%M%S)
-  for f in ${(0)"$($dfp ls-tree -r -z --name-only HEAD)"}; do
+  # Assigned first: errexit catches a failed assignment, not a failed for list
+  tracked=$($dfp ls-tree -r -z --name-only HEAD)
+  for f in ${(0)tracked}; do
     if [[ -e ~/$f ]]; then
-      mkdir -p "$backup/${f:h}" && cp -p ~/"$f" "$backup/$f"
+      mkdir -p "$backup/${f:h}"
+      cp -p ~/"$f" "$backup/$f"
     fi
   done
   [[ -d "$backup" ]] && print "Backed up the files dfp replaces to $backup"

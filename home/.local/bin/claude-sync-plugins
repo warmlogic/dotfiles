@@ -11,8 +11,8 @@
 #
 # Installing enables a plugin in settings.json, so false ones are disabled
 # again right after. Adding a marketplace drops its autoUpdate flag there;
-# `dfp diff ~/.claude/settings.json` shows it, to restore by hand. Plugins installed but
-# not declared are listed, never removed. A `directory` marketplace whose
+# `dfp diff ~/.claude/settings.json` shows it, to restore by hand. Plugins
+# installed but not declared are listed, never removed. A `directory` marketplace whose
 # path this machine lacks (a work repo on a personal machine) is skipped with
 # a note, not counted as missing. With nothing to do it takes under a
 # second, so the SessionStart hook simply runs it every session.
@@ -61,8 +61,8 @@ while IFS=$'\x1f' read -r name type arg; do
     [[ -n "$name" ]] || continue  # the here-string's one line when none are declared
     grep -qxF "$name" <<< "$known" && continue
     if [[ -z "$arg" ]]; then
-        echo "skip marketplace $name: claude-sync-plugins can't add a '$type' source" >&2
-        unavailable+=("$name"); continue
+        echo "can't add marketplace $name: claude-sync-plugins doesn't handle a '$type' source" >&2
+        unavailable+=("$name"); (( ++missing )); (( ++failed )); continue
     fi
     if [[ "$type" == directory || "$type" == file ]] && [[ ! -e "$arg" ]]; then
         echo "skip marketplace $name: $arg doesn't exist on this machine" >&2
@@ -105,7 +105,7 @@ if [[ "$mode" == --check ]]; then
     (( missing == 0 )) || { echo "$missing missing; run claude-sync-plugins"; exit 1; }
     exit 0
 fi
-(( added == 0 )) || echo "Added $added marketplace(s), which drops their autoUpdate in settings.json: dfp diff ~/.claude/settings.json shows it to restore"
+(( added == 0 )) || echo "Added $added marketplace(s), which drops their autoUpdate in settings.json; restore with dfp checkout ~/.claude/settings.json if dfp diff shows no other edits"
 if (( failed )); then
     echo "$failed failed; re-run claude-sync-plugins to retry" >&2
     exit 1
