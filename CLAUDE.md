@@ -5,8 +5,8 @@ under `home/` gets rsync'd on top of `~` by `01-bootstrap.sh`.
 
 Numbered scripts run in order and each **mutates the machine** (installs
 software, moves files into `$HOME`, sets `defaults write`): `01-bootstrap.sh`
-→ `02-brew.sh [--work]` → `03-macos.sh` → `04-python.sh`. Never run any of
-them in a session without being explicitly asked to.
+→ `02-brew.sh [--work]` → `03-macos.sh` → `04-python.sh` → `05-agents.sh`.
+Never run any of them in a session without being explicitly asked to.
 
 `check.sh [--work]` is the read-only exception: it reports whether each step
 is done and is always safe to run.

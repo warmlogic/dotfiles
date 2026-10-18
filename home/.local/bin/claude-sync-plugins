@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+# claude-sync-plugins -- install every marketplace and plugin that Claude
+# Code's settings.json declares. Safe to re-run: a no-op when all are present.
+#
+# settings.json (restored by dfp) declares marketplaces under
+# extraKnownMarketplaces and plugins under enabledPlugins, but Claude Code
+# fetches only some of them on its own: never a plugin set to false, and never
+# an enabled one whose marketplace it already knows. This adds each missing
+# marketplace and installs each missing plugin, false ones included (Catalyst
+# reads the files of installed-but-disabled plugins).
+#
+# Installing enables a plugin in settings.json, so false ones are disabled
+# again right after. Adding a marketplace drops its autoUpdate flag there;
+# `dfp diff` shows it, and `dfp checkout ~/.claude/settings.json` puts it
+# back. Plugins installed but not declared are listed, never removed.
+#
+# Usage: claude-sync-plugins [--check | --if-changed]
+#   --check       report what's missing and change nothing; exit 1 if anything is
+#   --if-changed  skip when settings.json hasn't changed since the last
+#                 successful sync (the SessionStart hook runs this)
+set -euo pipefail
+
+mode="${1:-sync}"
+case "$mode" in
+    sync|--check|--if-changed) ;;
+    -h|--help) sed -n '2,20p' "$0"; exit 0 ;;
+    *) echo "Unknown argument: $mode (try --help)" >&2; exit 2 ;;
+esac
+
+config="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+settings="$config/settings.json"
+stamp="$config/plugins/.sync-stamp"
+# Origins Claude Code manages itself, with no marketplace to install from
+reserved_origins='@(synced|builtin|inline|skills-dir)$'
+
+for cmd in claude jq; do
+    command -v "$cmd" > /dev/null || { echo "$cmd is not on PATH" >&2; exit 1; }
+done
+[[ -f "$settings" ]] || { echo "No $settings: restore it with dfp first" >&2; exit 1; }
+
+hash=$(shasum -a 256 "$settings" | cut -d' ' -f1)
+if [[ "$mode" == --if-changed && -f "$stamp" && "$(< "$stamp")" == "$hash" ]]; then
+    exit 0
+fi
+
+known=$(claude plugin marketplace list --json | jq -r '.[].name')
+installed=$(claude plugin list --json | jq -r '.[].id')
+declared_plugins=$(jq -r --arg r "$reserved_origins" \
+    '.enabledPlugins // {} | keys[] | select(test($r) | not)' "$settings")
+declared_off=$(jq -r '.enabledPlugins // {} | to_entries[] | select(.value == false) | .key' "$settings")
+
+missing=0 failed=0
+unavailable=()  # marketplaces that couldn't be added; their plugins are skipped
+
+# Marketplaces: name, source type, and what `marketplace add` takes for it
+while IFS=$'\t' read -r name type arg; do
+    grep -qxF "$name" <<< "$known" && continue
+    if [[ -z "$arg" ]]; then
+        echo "skip marketplace $name: claude-sync-plugins can't add a '$type' source" >&2
+        unavailable+=("$name"); continue
+    fi
+    if [[ "$type" == directory || "$type" == file ]] && [[ ! -e "$arg" ]]; then
+        echo "skip marketplace $name: $arg doesn't exist on this machine" >&2
+        unavailable+=("$name"); continue
+    fi
+    (( ++missing ))
+    if [[ "$mode" == --check ]]; then
+        echo "missing marketplace: $name ($arg)"
+    elif ! claude plugin marketplace add "$arg"; then
+        echo "failed to add marketplace $name ($arg)" >&2
+        unavailable+=("$name"); (( ++failed ))
+    fi
+done < <(jq -r '.extraKnownMarketplaces // {} | to_entries[]
+    | [.key, .value.source.source, (.value.source | .repo // .url // .path // "")] | @tsv' "$settings")
+
+for id in $declared_plugins; do
+    grep -qxF "$id" <<< "$installed" && continue
+    marketplace="${id#*@}"
+    [[ " ${unavailable[*]} " == *" $marketplace "* ]] && continue
+    (( ++missing ))
+    if [[ "$mode" == --check ]]; then
+        echo "missing plugin: $id"
+    elif ! claude plugin install "$id"; then
+        echo "failed to install $id" >&2
+        (( ++failed ))
+    elif grep -qxF "$id" <<< "$declared_off"; then
+        claude plugin disable "$id"
+    fi
+done
+
+for id in $installed; do
+    [[ "$id" =~ $reserved_origins ]] && continue
+    grep -qxF "$id" <<< "$declared_plugins" || echo "installed but not in settings.json: $id (claude plugin uninstall $id)"
+done
+
+if [[ "$mode" == --check ]]; then
+    (( missing == 0 )) || { echo "$missing missing; run claude-sync-plugins"; exit 1; }
+    exit 0
+fi
+if (( failed )); then
+    echo "$failed failed; re-run claude-sync-plugins to retry" >&2
+    exit 1
+fi
+mkdir -p "$(dirname "$stamp")"
+echo "$hash" > "$stamp"
+(( missing == 0 )) || echo "Installed $missing; they load in the next session (or run /reload-plugins)."

@@ -79,5 +79,13 @@ for tool in ruff pre-commit ipython jupyterlab; do
 done
 check "scratch venv" "./04-python.sh" test -d ~/.venvs/scratch
 
+print "── 05-agents.sh"
+for tool in claude codex roborev; do
+  check "$tool installed" "./05-agents.sh" command -v "$tool"
+done
+check "private config restored (dfp)" "./05-agents.sh" test -d ~/.dotfiles-private
+check "gstack installed" "./05-agents.sh" test -x ~/.claude/skills/gstack/setup
+check "Claude plugins match settings.json" "claude-sync-plugins --check" claude-sync-plugins --check
+
 print
 if (( fails )); then print -P "%F{red}$fails check(s) failed%f"; exit 1; else print -P "%F{green}All checks passed%f"; fi
