@@ -30,7 +30,7 @@ if ! $dfp rev-parse -q --verify 'main@{upstream}' >/dev/null; then
   # Assigned first: errexit catches a failed assignment, not a failed for list
   tracked=$($dfp ls-tree -r -z --name-only HEAD)
   for f in ${(0)tracked}; do
-    if [[ -e ~/$f ]]; then
+    if [[ -e ~/$f || -L ~/$f ]]; then
       mkdir -p "$backup/${f:h}"
       cp -p ~/"$f" "$backup/$f"
     fi
@@ -43,16 +43,14 @@ if ! $dfp rev-parse -q --verify 'main@{upstream}' >/dev/null; then
   $dfp branch -u origin/main main
 fi
 
-# gstack (https://github.com/garrytan/gstack): setup runs on first install
-# only, because re-running it rewrites settings.json. gstack updates itself
-# with /gstack-upgrade. If setup fails, 05 stops; re-run
-# ~/.claude/skills/gstack/setup --no-plan-tune-hooks by hand. The flag keeps
-# setup from asking about its plan-tune hooks, which only enforce answers
-# saved with /plan-tune; `./setup --plan-tune-hooks` turns them on.
-if [[ ! -d ~/.claude/skills/gstack ]]; then
-  git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
-  ~/.claude/skills/gstack/setup --no-plan-tune-hooks
-fi
+# gstack (https://github.com/garrytan/gstack): setup runs until gstack's
+# install registry lists the global Claude install, so a re-run finishes a
+# failed one, and not after, since re-running setup rewrites settings.json.
+# gstack updates itself with /gstack-upgrade. The flag keeps setup from asking
+# about its plan-tune hooks, which only enforce answers saved with
+# /plan-tune; `./setup --plan-tune-hooks` turns them on.
+[[ -d ~/.claude/skills/gstack ]] || git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
+grep -qs $'^claude\tglobal' ~/.gstack/installs.tsv || ~/.claude/skills/gstack/setup --no-plan-tune-hooks
 
 # roborev's skills and agent hooks (both idempotent). Codex only: Claude's
 # roborev hooks are already in the dfp-tracked settings.json, and installing
@@ -71,5 +69,5 @@ Done. Still by hand, once per machine:
   claude                     log in (first launch)
   codex login
   claude-setup-github-mcp    GitHub MCP over OAuth (README: "GitHub MCP for Claude Code")
-After each dfp pull:   claude-sync-plugins && codex-sync-rules
+After each dfp pull:   codex-sync-rules; claude-sync-plugins
 EOF

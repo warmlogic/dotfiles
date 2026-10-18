@@ -11,10 +11,11 @@
 #
 # Installing enables a plugin in settings.json, so false ones are disabled
 # again right after. Adding a marketplace drops its autoUpdate flag there;
-# `dfp diff ~/.claude/settings.json` shows it, to restore by hand. Plugins
-# installed but not declared are listed, never removed. A `directory`
-# marketplace whose path this machine lacks (a work repo on a personal
-# machine) is skipped with a note, not counted as missing.
+# `dfp checkout ~/.claude/settings.json` restores it (and undoes any other
+# uncommitted edits there). Plugins installed but not declared are listed,
+# never removed. A `directory` marketplace whose path this machine lacks (a
+# work repo on a personal machine) is skipped with a note, not counted as
+# missing.
 #
 # Run it after a `dfp pull`. 05-agents.sh runs it on a new machine, and
 # check.sh reports what's missing.
@@ -26,7 +27,7 @@ set -euo pipefail
 mode="${1:-sync}"
 case "$mode" in
     sync|--check) ;;
-    -h|--help) sed -n '2,22p' "$0"; exit 0 ;;
+    -h|--help) sed -n '2,24p' "$0"; exit 0 ;;
     *) echo "Unknown argument: $mode (try --help)" >&2; exit 2 ;;
 esac
 
@@ -109,9 +110,9 @@ if [[ "$mode" == --check ]]; then
     (( missing == 0 )) || { echo "$missing missing; run claude-sync-plugins"; exit 1; }
     exit 0
 fi
-(( added == 0 )) || echo "Added $added marketplace(s), which drops their autoUpdate in settings.json; restore with dfp checkout ~/.claude/settings.json if dfp diff shows no other edits"
+(( added == 0 )) || echo "Added $added marketplace(s), which drops their autoUpdate in settings.json; dfp checkout ~/.claude/settings.json restores it (and undoes any other uncommitted edits there)"
+(( installed_now == 0 )) || echo "Installed $installed_now plugin(s); they load in the next session (or run /reload-plugins)."
 if (( failed )); then
     echo "$failed failed; re-run claude-sync-plugins to retry" >&2
     exit 1
 fi
-(( installed_now == 0 )) || echo "Installed $installed_now plugin(s); they load in the next session (or run /reload-plugins)."

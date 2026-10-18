@@ -11,6 +11,8 @@ case "${1:-}" in
 esac
 
 cd "${0:A:h}"
+# 05's sync tools live in ~/.local/bin, which a fresh shell may not have yet
+export PATH="$HOME/.local/bin:$PATH"
 
 fails=0
 ok()   { print -P "%F{green}✓%f $1"; }
@@ -85,9 +87,11 @@ for tool in claude codex roborev; do
 done
 check "private config restored (dfp)" "./05-agents.sh" \
   git --git-dir="$HOME/.dotfiles-private" rev-parse -q --verify 'main@{upstream}'
-check "gstack installed" "~/.claude/skills/gstack/setup --no-plan-tune-hooks" grep -q '^claude' ~/.gstack/installs.tsv
+check "gstack installed" "./05-agents.sh" grep -q $'^claude\tglobal' ~/.gstack/installs.tsv
 check "Claude plugins match settings.json" "claude-sync-plugins" claude-sync-plugins --check
-check "Codex rules mirrored" "codex-sync-rules" test -f ~/.codex/rules/claude-mirror.rules
+skipped_mkts=${(j:, :)${(M)${(f)"$(claude-sync-plugins --check 2>&1 >/dev/null)"}:#skip marketplace*}}
+[[ -z "$skipped_mkts" ]] || warn "claude-sync-plugins skipped: $skipped_mkts" "clone the marketplace's repo, then claude-sync-plugins"
+check "Codex rules match settings.json" "codex-sync-rules" codex-sync-rules --check
 
 print
 if (( fails )); then print -P "%F{red}$fails check(s) failed%f"; exit 1; else print -P "%F{green}All checks passed%f"; fi
