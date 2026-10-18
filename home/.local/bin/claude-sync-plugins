@@ -58,6 +58,7 @@ unavailable=()  # marketplaces that couldn't be added; their plugins are skipped
 marketplaces=$(jq -r '.extraKnownMarketplaces // {} | to_entries[]
     | [.key, .value.source.source, (.value.source | .repo // .url // .path // "")] | join("\u001f")' <<< "$json")
 while IFS=$'\x1f' read -r name type arg; do
+    [[ -n "$name" ]] || continue  # the here-string's one line when none are declared
     grep -qxF "$name" <<< "$known" && continue
     if [[ -z "$arg" ]]; then
         echo "skip marketplace $name: claude-sync-plugins can't add a '$type' source" >&2
