@@ -155,7 +155,7 @@ The oh-my-zsh `uv` plugin (enabled in `home/.zshrc`) provides completions and sh
 
 `~/.claude` and `~/.codex` config (CLAUDE.md, rules, settings, hooks, Codex `config.toml`) lives in the private repo [warmlogic/dotfiles-private](https://github.com/warmlogic/dotfiles-private). It's a bare repo whose work tree is `$HOME`, so the live files are the tracked files: an edit to `~/.claude/CLAUDE.md` shows up in `git status` with no copying and no symlinks. The `dfp` alias in `home/.aliases` is plain git pointed at that repo; `~/.config/dotfiles-private/allowlist` lists what's tracked, and everything else in `$HOME` is ignored.
 
-`05-agents.sh` restores it on a new machine, before Claude Code or Codex first runs: it clones the bare repo to `~/.dotfiles-private`, copies any existing `~/.claude` and `~/.codex` to `.bak`, and checks the tracked files out over them. If either tool already ran, quit it first.
+`05-agents.sh` restores it on a new machine, before Claude Code or Codex first runs: it clones the bare repo to `~/.dotfiles-private`, copies every tracked file already in `$HOME` (including `~/.exports.local` and `~/.gitconfig.local`) to `~/.dotfiles-private-backup-<time>`, and checks the tracked files out over them. If Claude Code or Codex already ran, quit it first. Adding marketplaces drops their `autoUpdate` flags from `settings.json`, so after the first run `dfp checkout ~/.claude/settings.json` puts them back.
 
 Day to day it's plain git:
 

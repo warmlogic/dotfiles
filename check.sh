@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Report whether each setup step (01–04) is complete. Read-only: changes
+# Report whether each setup step (01–05) is complete. Read-only: changes
 # nothing, so it's safe to run any time. Exits non-zero if anything failed.
 # Usage: ./check.sh [--work]
 
@@ -83,9 +83,10 @@ print "── 05-agents.sh"
 for tool in claude codex roborev; do
   check "$tool installed" "./05-agents.sh" command -v "$tool"
 done
-check "private config restored (dfp)" "./05-agents.sh" test -d ~/.dotfiles-private
-check "gstack installed" "./05-agents.sh" test -x ~/.claude/skills/gstack/setup
-check "Claude plugins match settings.json" "claude-sync-plugins --check" claude-sync-plugins --check
+check "private config restored (dfp)" "./05-agents.sh" \
+  git --git-dir="$HOME/.dotfiles-private" rev-parse -q --verify 'main@{upstream}'
+check "gstack installed" "./05-agents.sh" test -x ~/.claude/skills/gstack/browse/dist/browse
+check "Claude plugins match settings.json" "claude-sync-plugins" claude-sync-plugins --check
 
 print
 if (( fails )); then print -P "%F{red}$fails check(s) failed%f"; exit 1; else print -P "%F{green}All checks passed%f"; fi

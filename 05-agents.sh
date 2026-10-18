@@ -19,13 +19,18 @@ command -v roborev >/dev/null || curl -fsSL https://roborev.io/install.sh | bash
 
 # Private config: ~/.claude, ~/.codex and ~/.roborev files tracked in
 # warmlogic/dotfiles-private, a bare repo whose work tree is $HOME (see the
-# README's "Claude Code and Codex config"). First run only; anything already
-# in ~/.claude or ~/.codex is copied to a .bak beside it, then replaced.
+# README's "Claude Code and Codex config"). Runs until main tracks origin,
+# the last step, so a re-run finishes a restore that failed partway. Every
+# tracked file already in $HOME is copied to ~/.dotfiles-private-backup-<time>
+# first, then replaced.
 dfp=(git --git-dir="$HOME/.dotfiles-private" --work-tree="$HOME")
-if [[ ! -d ~/.dotfiles-private ]]; then
-  git clone --bare git@github.com:warmlogic/dotfiles-private.git ~/.dotfiles-private
-  for d in ~/.claude ~/.codex; do
-    [[ -d "$d" && ! -e "$d.bak" ]] && cp -R "$d" "$d.bak"
+[[ -d ~/.dotfiles-private ]] || git clone --bare git@github.com:warmlogic/dotfiles-private.git ~/.dotfiles-private
+if ! $dfp rev-parse -q --verify 'main@{upstream}' >/dev/null; then
+  backup=~/.dotfiles-private-backup-$(date +%Y%m%d-%H%M%S)
+  for f in ${(f)"$($dfp ls-tree -r --name-only HEAD)"}; do
+    if [[ -e ~/$f ]]; then
+      mkdir -p "$backup/${f:h}" && cp -p ~/"$f" "$backup/$f"
+    fi
   done
   $dfp checkout -f
   $dfp config core.excludesFile ~/.config/dotfiles-private/allowlist
@@ -35,13 +40,12 @@ if [[ ! -d ~/.dotfiles-private ]]; then
 fi
 
 # gstack (https://github.com/garrytan/gstack) updates itself with
-# /gstack-upgrade, so this only does the first install. Its plan-tune hooks
+# /gstack-upgrade, so this only does the first install; setup re-runs until
+# its browse binary exists, so a failed setup is retried. Its plan-tune hooks
 # are off: they only enforce answers saved with /plan-tune, and the flag keeps
 # setup from asking. Re-run ./setup --plan-tune-hooks there to turn them on.
-if [[ ! -d ~/.claude/skills/gstack ]]; then
-  git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
-  ~/.claude/skills/gstack/setup --no-plan-tune-hooks
-fi
+[[ -d ~/.claude/skills/gstack ]] || git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
+[[ -x ~/.claude/skills/gstack/browse/dist/browse ]] || ~/.claude/skills/gstack/setup --no-plan-tune-hooks
 
 # roborev's skills and agent hooks (both idempotent)
 roborev skills install

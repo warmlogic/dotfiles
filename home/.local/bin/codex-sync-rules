@@ -14,6 +14,8 @@ are skipped and listed on stderr.
 Claude Code's SessionStart hook runs this, so edits to Claude's permissions reach
 Codex at the next Claude session; the file is rewritten only when it changes.
 """
+from __future__ import annotations  # list[str] | None on macOS's Python 3.9
+
 import json
 import os
 import shlex
@@ -51,14 +53,14 @@ def main() -> int:
                     skipped.append(f"{key}: {rule}")
                 continue
             lines.append(f"prefix_rule(pattern={json.dumps(p)}, decision=\"{decision}\")")
+    for s in skipped:
+        print(f"skipped (not a prefix): {s}", file=sys.stderr)
     text = "\n".join(lines) + "\n"
     if OUT.exists() and OUT.read_text() == text:
         return 0
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(text)
     print(f"wrote {len(lines) - 1} rules to {OUT}")
-    for s in skipped:
-        print(f"skipped (not a prefix): {s}", file=sys.stderr)
     return 0
 
 
