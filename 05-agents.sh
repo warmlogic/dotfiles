@@ -43,23 +43,27 @@ if ! $dfp rev-parse -q --verify 'main@{upstream}' >/dev/null; then
   $dfp branch -u origin/main main
 fi
 
-# gstack (https://github.com/garrytan/gstack) updates itself with
-# /gstack-upgrade, so this clones it only once. Its setup is built to re-run
-# (it's what /gstack-upgrade runs), so it runs every time and finishes a
-# failed one. Its plan-tune hooks are off: they only enforce answers saved
-# with /plan-tune, and the flag keeps setup from asking. Re-run
-# ./setup --plan-tune-hooks there to turn them on.
-[[ -d ~/.claude/skills/gstack ]] || git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
-~/.claude/skills/gstack/setup --no-plan-tune-hooks
+# gstack (https://github.com/garrytan/gstack): setup runs on first install
+# only, because re-running it rewrites settings.json. gstack updates itself
+# with /gstack-upgrade. If setup fails, 05 stops; re-run
+# ~/.claude/skills/gstack/setup --no-plan-tune-hooks by hand. The flag keeps
+# setup from asking about its plan-tune hooks, which only enforce answers
+# saved with /plan-tune; `./setup --plan-tune-hooks` turns them on.
+if [[ ! -d ~/.claude/skills/gstack ]]; then
+  git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
+  ~/.claude/skills/gstack/setup --no-plan-tune-hooks
+fi
 
-# roborev's skills and agent hooks (both idempotent)
+# roborev's skills and agent hooks (both idempotent). Codex only: Claude's
+# roborev hooks are already in the dfp-tracked settings.json, and installing
+# them again re-sorts that whole file.
 roborev skills install
-roborev agent-hook install
+roborev agent-hook install --agent codex
 
-# Marketplaces and plugins from settings.json; Claude Code's SessionStart hook
-# re-runs both at every session
-claude-sync-plugins
+# Codex rules mirrored from Claude's permissions, then the marketplaces and
+# plugins settings.json declares. Re-run both after a `dfp pull`.
 codex-sync-rules
+claude-sync-plugins
 
 cat <<'EOF'
 
@@ -67,4 +71,5 @@ Done. Still by hand, once per machine:
   claude                     log in (first launch)
   codex login
   claude-setup-github-mcp    GitHub MCP over OAuth (README: "GitHub MCP for Claude Code")
+After each dfp pull:   claude-sync-plugins && codex-sync-rules
 EOF

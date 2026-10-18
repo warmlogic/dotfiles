@@ -12,10 +12,12 @@
 # Installing enables a plugin in settings.json, so false ones are disabled
 # again right after. Adding a marketplace drops its autoUpdate flag there;
 # `dfp diff ~/.claude/settings.json` shows it, to restore by hand. Plugins
-# installed but not declared are listed, never removed. A `directory` marketplace whose
-# path this machine lacks (a work repo on a personal machine) is skipped with
-# a note, not counted as missing. With nothing to do it takes under a
-# second, so the SessionStart hook simply runs it every session.
+# installed but not declared are listed, never removed. A `directory`
+# marketplace whose path this machine lacks (a work repo on a personal
+# machine) is skipped with a note, not counted as missing.
+#
+# Run it after a `dfp pull`. 05-agents.sh runs it on a new machine, and
+# check.sh reports what's missing.
 #
 # Usage: claude-sync-plugins [--check]
 #   --check  report what's missing and change nothing; exit 1 if anything is
@@ -24,7 +26,7 @@ set -euo pipefail
 mode="${1:-sync}"
 case "$mode" in
     sync|--check) ;;
-    -h|--help) sed -n '2,21p' "$0"; exit 0 ;;
+    -h|--help) sed -n '2,22p' "$0"; exit 0 ;;
     *) echo "Unknown argument: $mode (try --help)" >&2; exit 2 ;;
 esac
 
@@ -49,7 +51,7 @@ known=$(claude plugin marketplace list --json | jq -r '.[].name')
 # Only user scope: a project-scope install elsewhere doesn't count
 installed=$(claude plugin list --json | jq -r '.[] | select(.scope == "user") | .id')
 
-missing=0 failed=0 added=0
+missing=0 failed=0 added=0 installed_now=0
 unavailable=()  # marketplaces that couldn't be added; their plugins are skipped
 
 # Marketplaces: name, source type, and what `marketplace add` takes for it,
@@ -93,6 +95,8 @@ for id in $declared_plugins; do
     elif grep -qxF "$id" <<< "$declared_off" && ! claude plugin disable --scope user "$id"; then
         echo "failed to disable $id, which settings.json declared false; run: claude plugin disable --scope user $id" >&2
         (( ++failed ))
+    else
+        (( ++installed_now ))
     fi
 done
 
@@ -110,4 +114,4 @@ if (( failed )); then
     echo "$failed failed; re-run claude-sync-plugins to retry" >&2
     exit 1
 fi
-(( missing == 0 )) || echo "Installed $missing; they load in the next session (or run /reload-plugins)."
+(( installed_now == 0 )) || echo "Installed $installed_now plugin(s); they load in the next session (or run /reload-plugins)."

@@ -12,8 +12,8 @@ Patterns Codex prefix rules cannot express (a wildcard mid-command, globs in a t
 a bare `Bash` that covers every command) are skipped, listed on stderr and as comments
 in the generated file, where they stay visible when a hook discards the output.
 
-Claude Code's SessionStart hook runs this, so edits to Claude's permissions reach
-Codex at the next Claude session; the file is rewritten only when it changes.
+Re-run this after editing Claude's ask/deny rules or after `dfp pull`;
+05-agents.sh runs it on a new machine. The file is rewritten only when it changes.
 """
 from __future__ import annotations  # list[str] | None on macOS's Python 3.9
 

@@ -85,8 +85,9 @@ for tool in claude codex roborev; do
 done
 check "private config restored (dfp)" "./05-agents.sh" \
   git --git-dir="$HOME/.dotfiles-private" rev-parse -q --verify 'main@{upstream}'
-check "gstack installed" "./05-agents.sh" grep -q '^claude' ~/.gstack/installs.tsv
+check "gstack installed" "~/.claude/skills/gstack/setup --no-plan-tune-hooks" grep -q '^claude' ~/.gstack/installs.tsv
 check "Claude plugins match settings.json" "claude-sync-plugins" claude-sync-plugins --check
+check "Codex rules mirrored" "codex-sync-rules" test -f ~/.codex/rules/claude-mirror.rules
 
 print
 if (( fails )); then print -P "%F{red}$fails check(s) failed%f"; exit 1; else print -P "%F{green}All checks passed%f"; fi
