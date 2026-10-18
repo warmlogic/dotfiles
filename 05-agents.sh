@@ -32,7 +32,7 @@ if ! $dfp rev-parse -q --verify 'main@{upstream}' >/dev/null; then
   for f in ${(0)tracked}; do
     if [[ -e ~/$f || -L ~/$f ]]; then
       mkdir -p "$backup/${f:h}"
-      cp -p ~/"$f" "$backup/$f"
+      cp -pP ~/"$f" "$backup/$f"
     fi
   done
   [[ -d "$backup" ]] && print "Backed up the files dfp replaces to $backup"
