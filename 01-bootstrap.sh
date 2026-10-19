@@ -23,7 +23,9 @@ edited=();
 for f in ${(f)"$(rsync -rcn --out-format='%n' --exclude .DS_Store home/ ~ | grep -v '/$')"}; do
     [[ -f ~/$f ]] || continue;
     command diff -q -I "$ignore" "home/$f" ~/"$f" > /dev/null && continue;
-    git log --all --format= --raw --no-abbrev -- "home/$f" | grep -qF " $(git hash-object ~/"$f") " && continue;
+    # Hash ~'s copy with Docker's rewrite undone, so it can match history
+    hash=$(sed "s|$HOME/\.docker/bin|\$HOME/.docker/bin|g" ~/"$f" | git hash-object --stdin);
+    git log --all --format= --raw --no-abbrev -- "home/$f" | grep -qF " $hash " && continue;
     edited+=("$f");
 done
 if (( ${#edited} )) && [[ "${1:-}" != --force ]]; then
