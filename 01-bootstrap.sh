@@ -8,6 +8,33 @@ git pull origin $(git rev-parse --abbrev-ref HEAD);
 
 MY_SHELL=$(ps -p $$ -ocomm=)
 
+# A file in ~ that matches no version of its home/ copy in git history was
+# edited outside this repo, by you or by an app (an installer appending a PATH
+# line). The rsync below would drop that edit, so show it and stop; copy what
+# you want to keep into home/ (or ~/.exports.local), or pass --force.
+# Lines matching $ignore are ones apps rewrite on their own (Docker Desktop
+# swaps $HOME for the literal path), as in check.sh.
+case "${1:-}" in
+    "" | --force) ;;
+    *) echo "Usage: 01-bootstrap.sh [--force]" >&2; return 2 ;;
+esac
+ignore='\.docker/bin';
+edited=();
+for f in ${(f)"$(rsync -rcn --out-format='%n' --exclude .DS_Store home/ ~ | grep -v '/$')"}; do
+    [[ -f ~/$f ]] || continue;
+    command diff -q -I "$ignore" "home/$f" ~/"$f" > /dev/null && continue;
+    git log --all --format= --raw --no-abbrev -- "home/$f" | grep -qF " $(git hash-object ~/"$f") " && continue;
+    edited+=("$f");
+done
+if (( ${#edited} )) && [[ "${1:-}" != --force ]]; then
+    for f in $edited; do
+        print "── ~/$f: lines marked - exist only in ~ and would be lost";
+        command diff -u ~/"$f" "home/$f" | tail -n +3;
+    done
+    print "\nThese files in ~ were edited outside this repo. Copy what you want to keep into home/ (or ~/.exports.local) and re-run, or re-run with --force to overwrite them.";
+    return 1;
+fi
+
 function doIt() {
     # Note any existing git identity before rsync replaces ~/.gitconfig
     local git_name="$(git config --global user.name)";

@@ -74,7 +74,7 @@ Personal (`Brewfile.personal`):
 
 ### Using Git and the bootstrap script
 
-Clone the repository wherever you want (I keep it in `~/github/warmlogic/dotfiles`). The bootstrapper script (`01-bootstrap.sh`) will pull in the latest version and rsync everything under `home/` into your home folder.
+Clone the repository wherever you want (I keep it in `~/github/warmlogic/dotfiles`). The bootstrapper script (`01-bootstrap.sh`) will pull in the latest version and rsync everything under `home/` into your home folder. Before it does, it checks each file it would replace: one that matches no version of its `home/` copy in git history was edited outside this repo (by you, or by an app such as an installer appending a PATH line), so bootstrap shows the lines that would be lost and stops. Copy what you want to keep into `home/` (or `~/.exports.local`) and re-run, or re-run with `--force` to overwrite them.
 
 `cd` into your local `dotfiles` repository, and start the installation:
 
@@ -86,7 +86,7 @@ source 01-bootstrap.sh
 
 This repo is public, so personal values (PATH additions, account emails, SSO URLs) don't go in `home/`. They go in `~/.exports.local`, which `01-bootstrap.sh` creates once from `exports.local.template` and then never touches. Uncomment and fill in what you need. It's sourced right after `~/.exports`, so it can also override anything there. The git equivalent is `~/.gitconfig.local` (next section).
 
-Don't edit `~/.exports` (or any other file `home/` provides) directly: `01-bootstrap.sh` overwrites it, and `check.sh` reports the difference.
+Don't edit `~/.exports` (or any other file `home/` provides) directly: `check.sh` reports the difference, and `01-bootstrap.sh` stops until you copy the edit into `home/` or overwrite it with `--force`.
 
 ### Git identity
 
