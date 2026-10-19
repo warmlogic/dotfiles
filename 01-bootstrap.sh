@@ -12,7 +12,12 @@ function doIt() {
     # Note any existing git identity before rsync replaces ~/.gitconfig
     local git_name="$(git config --global user.name)";
     local git_email="$(git config --global user.email)";
-    rsync -avh --no-perms --exclude .DS_Store home/ ~;
+    # Re-running is always safe: any file rsync replaces (for example one an app
+    # appended a PATH line to) is kept in ~/.dotfiles-backup/<time>/. Copy
+    # anything worth keeping into home/ or ~/.exports.local.
+    local backup=~/.dotfiles-backup/$(date +%Y%m%d-%H%M%S);
+    rsync -avh --no-perms --exclude .DS_Store --backup --backup-dir="$backup" home/ ~;
+    [ -d "$backup" ] && echo "Replaced files were backed up to $backup";
     # Git identity lives in ~/.gitconfig.local (included by ~/.gitconfig) so
     # it never lands in this repo. Ask once; Enter keeps the shown default.
     if [ ! -f ~/.gitconfig.local ]; then
