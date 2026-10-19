@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Report whether each setup step (01–04) is complete. Read-only: changes
+# Report whether each setup step (01–05) is complete. Read-only: changes
 # nothing, so it's safe to run any time. Exits non-zero if anything failed.
 # Usage: ./check.sh [--work]
 
@@ -11,6 +11,8 @@ case "${1:-}" in
 esac
 
 cd "${0:A:h}"
+# 05's sync tools live in ~/.local/bin, which a fresh shell may not have yet
+export PATH="$HOME/.local/bin:$PATH"
 
 fails=0
 ok()   { print -P "%F{green}✓%f $1"; }
@@ -78,6 +80,18 @@ for tool in ruff pre-commit ipython jupyterlab; do
   check "uv tool: $tool" "./04-python.sh" eval "uv tool list | grep -q '^$tool '"
 done
 check "scratch venv" "./04-python.sh" test -d ~/.venvs/scratch
+
+print "── 05-agents.sh"
+for tool in claude codex roborev; do
+  check "$tool installed" "./05-agents.sh" command -v "$tool"
+done
+check "private config restored (dfp)" "./05-agents.sh" \
+  git --git-dir="$HOME/.dotfiles-private" rev-parse -q --verify 'main@{upstream}'
+check "gstack installed" "./05-agents.sh" grep -q $'^claude\tglobal' ~/.gstack/installs.tsv
+check "Claude plugins match settings.json" "claude-sync-plugins" claude-sync-plugins --check
+skipped_mkts=${(j:, :)${(M)${(f)"$(claude-sync-plugins --check 2>&1 >/dev/null)"}:#skip marketplace*}}
+[[ -z "$skipped_mkts" ]] || warn "claude-sync-plugins skipped: $skipped_mkts" "clone the marketplace's repo, then claude-sync-plugins"
+check "Codex rules match settings.json" "codex-sync-rules" codex-sync-rules --check
 
 print
 if (( fails )); then print -P "%F{red}$fails check(s) failed%f"; exit 1; else print -P "%F{green}All checks passed%f"; fi

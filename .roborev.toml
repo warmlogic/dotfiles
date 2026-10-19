@@ -1,0 +1,4 @@
+# one review per push (a range job queued by the pre-push hook) instead of one per commit
+post_commit_batch_size = 20
+# a push whose every commit carries this marker isn't reviewed
+excluded_commit_patterns = ['[no-roborev]']

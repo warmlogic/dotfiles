@@ -21,3 +21,6 @@ __pycache__
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+# roborev snapshots
+/.roborev/

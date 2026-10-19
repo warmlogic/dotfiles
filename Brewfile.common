@@ -23,6 +23,7 @@ brew 'awscli'
 brew 'bash' # Newest version of Bash
 brew 'bash-completion@2' # Bash tab completion for Bash
 brew 'beads' # `bd` issue tracker for coding agents https://github.com/gastownhall/beads
+brew 'bun' # JavaScript runtime; gstack (05-agents.sh) builds and runs its tools with it
 brew 'emacs'
 brew 'file-formula' # guess file type
 brew 'gh' # https://cli.github.com

@@ -32,7 +32,7 @@ This also includes `tmux` files from [this repo](https://github.com/gpakosz/.tmu
 1. Run `03-macos.sh` to set up macOS preferences (add `--work` on a work machine)
 1. Restart your computer
 1. Run `04-python.sh` to set up Python via `uv`
-1. Before first launching Claude Code or Codex, restore their config: see [Claude Code and Codex config](#claude-code-and-codex-config)
+1. Run `05-agents.sh` to install Claude Code, Codex, roborev and gstack, restore their private config, and install every Claude plugin it declares: see [Claude Code and Codex config](#claude-code-and-codex-config). Run it before first launching Claude Code or Codex
 1. Run `./check.sh` (add `--work` on a work machine) to confirm every step finished; it's read-only and safe to run any time
 1. Sign in to and set up apps: see [App sign-in checklist](#app-sign-in-checklist)
 1. [Set up "Open in Safari or Chrome URL in Other Browser AppleScript + Automator Workflow](https://gist.github.com/warmlogic/e6b2f30640b4c5de2077373fb53f6df3)
@@ -155,19 +155,17 @@ The oh-my-zsh `uv` plugin (enabled in `home/.zshrc`) provides completions and sh
 
 `~/.claude` and `~/.codex` config (CLAUDE.md, rules, settings, hooks, Codex `config.toml`) lives in the private repo [warmlogic/dotfiles-private](https://github.com/warmlogic/dotfiles-private). It's a bare repo whose work tree is `$HOME`, so the live files are the tracked files: an edit to `~/.claude/CLAUDE.md` shows up in `git status` with no copying and no symlinks. The `dfp` alias in `home/.aliases` is plain git pointed at that repo; `~/.config/dotfiles-private/allowlist` lists what's tracked, and everything else in `$HOME` is ignored.
 
-Restore it before first launching Claude Code or Codex. If either already ran, quit it; the backup keeps the files it created, and `-f` replaces them:
+`05-agents.sh` restores it on a new machine, before Claude Code or Codex first runs: it clones the bare repo to `~/.dotfiles-private`, copies every tracked file already in `$HOME` (including `~/.exports.local` and `~/.gitconfig.local`) to `~/.dotfiles-private-backup-<time>`, and checks the tracked files out over them. If Claude Code or Codex already ran, quit it first. Adding a marketplace, here or later, drops its `autoUpdate` flag from `settings.json`; `dfp diff` shows it, to restore by hand (`dfp checkout ~/.claude/settings.json` restores the flags and also undoes any other uncommitted edits to that file).
 
-```sh
-git clone --bare git@github.com:warmlogic/dotfiles-private.git ~/.dotfiles-private
-alias dfp='git --git-dir=$HOME/.dotfiles-private --work-tree=$HOME'   # already defined once bootstrap has run
-cp -R ~/.claude ~/.claude.bak 2>/dev/null; cp -R ~/.codex ~/.codex.bak 2>/dev/null
-dfp checkout -f
-dfp config core.excludesFile ~/.config/dotfiles-private/allowlist
-dfp config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
-dfp fetch && dfp branch -u origin/main main
-```
+Day to day it's plain git:
 
-Day to day: `dfp status`, then `dfp add <path> && dfp commit -m "..." && dfp push`. A new file to track needs a `!` line in the allowlist. Credentials, transcripts, plugin caches, and Claude's auto-memory are deliberately untracked; the private repo's README has the rest.
+- `dfp status` shows what you changed; `dfp diff` shows how.
+- `dfp add -u && dfp commit -m "..." && dfp push` saves your edits; `dfp pull` brings in another machine's.
+- To track a new file, add a `!` line for it to the allowlist, then `dfp add` it.
+
+Credentials, transcripts, plugin caches, and Claude's auto-memory are deliberately untracked; the private repo's README has the rest.
+
+Plugins are declared in `~/.claude/settings.json`, and `claude-sync-plugins` makes the machine match it: it adds each marketplace under `extraKnownMarketplaces` and installs each plugin under `enabledPlugins`, including ones set to `false`, which stay disabled. Claude Code on its own fetches only some of them. `05-agents.sh` runs it once on a new machine; run it yourself after a `dfp pull` that brings new plugins. `claude-sync-plugins --check` (and `check.sh`) shows what's missing. `codex-sync-rules` mirrors Claude's `ask` and `deny` Bash rules into `~/.codex/rules/claude-mirror.rules` so Codex prompts for and refuses the same commands; re-run it after editing those rules or after a pull.
 
 ### GitHub MCP for Claude Code
 
