@@ -59,6 +59,15 @@ defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
+# Switch between light and dark appearance automatically
+defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool true
+
+# Don't switch Spaces when activating an app that has windows in another Space
+defaults write NSGlobalDomain AppleSpacesSwitchOnActivate -bool false
+
+# Don't minimize a window when double-clicking its title bar
+defaults write NSGlobalDomain AppleMiniaturizeOnDoubleClick -bool false
+
 # # Disable the over-the-top focus ring animation
 # defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
 
@@ -152,6 +161,8 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeF
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 1
 # Silent clicking
 defaults write com.apple.AppleMultitouchTrackpad ActuationStrength -int 0
+# Set trackpad tracking speed
+defaults write NSGlobalDomain com.apple.trackpad.scaling -float 2
 
 # # Trackpad: enable tap to click for this user and for the login screen
 # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
@@ -266,6 +277,9 @@ sysadminctl -screenLock 5 -password -
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
+
+# Send screenshots to the clipboard instead of a file
+defaults write com.apple.screencapture target -string clipboard
 
 # Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
@@ -446,6 +460,12 @@ defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 
 # Don't automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
+
+# Disable margins between tiled windows
+defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
+
+# Disable tiling by dragging a window to the top edge of the screen
+defaults write com.apple.WindowManager EnableTopTilingByEdgeDrag -bool false
 
 # # Remove the auto-hiding Dock delay
 # defaults write com.apple.dock autohide-delay -float 0
@@ -717,6 +737,23 @@ sudo defaults write /Library/Preferences/com.apple.commerce AutoUpdate -bool tru
 
 # # Disable continuous spell checking
 # defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
+
+###############################################################################
+# Safari                                                                      #
+###############################################################################
+
+# Writing Safari's preferences needs Full Disk Access for the terminal
+# (System Settings → Privacy & Security → Full Disk Access)
+
+# Show the Develop menu and web inspector
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+
+# Press Tab to highlight each item on a web page
+defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
+
+# Don't open "safe" files automatically after downloading
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 
 ###############################################################################
 # Google Chrome & Google Chrome Canary                                        #
