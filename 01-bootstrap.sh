@@ -8,40 +8,16 @@ git pull origin $(git rev-parse --abbrev-ref HEAD);
 
 MY_SHELL=$(ps -p $$ -ocomm=)
 
-# A file in ~ that matches no version of its home/ copy in git history was
-# edited outside this repo, by you or by an app (an installer appending a PATH
-# line). The rsync below would drop that edit, so show it and stop; copy what
-# you want to keep into home/ (or ~/.exports.local), or pass --force.
-# Lines matching $ignore are ones apps rewrite on their own (Docker Desktop
-# swaps $HOME for the literal path), as in check.sh.
-case "${1:-}" in
-    "" | --force) ;;
-    *) echo "Usage: 01-bootstrap.sh [--force]" >&2; return 2 ;;
-esac
-ignore='\.docker/bin';
-edited=();
-for f in ${(f)"$(rsync -rcn --out-format='%n' --exclude .DS_Store home/ ~ | grep -v '/$')"}; do
-    [[ -f ~/$f ]] || continue;
-    command diff -q -I "$ignore" "home/$f" ~/"$f" > /dev/null && continue;
-    # Hash ~'s copy with Docker's rewrite undone, so it can match history
-    hash=$(sed "s|$HOME/\.docker/bin|\$HOME/.docker/bin|g" ~/"$f" | git hash-object --stdin);
-    git log --all --format= --raw --no-abbrev -- "home/$f" | grep -qF " $hash " && continue;
-    edited+=("$f");
-done
-if (( ${#edited} )) && [[ "${1:-}" != --force ]]; then
-    for f in $edited; do
-        print "── ~/$f: lines marked - exist only in ~ and would be lost";
-        command diff -u ~/"$f" "home/$f" | tail -n +3;
-    done
-    print "\nThese files in ~ were edited outside this repo. Copy what you want to keep into home/ (or ~/.exports.local) and re-run, or re-run with --force to overwrite them.";
-    return 1;
-fi
-
 function doIt() {
     # Note any existing git identity before rsync replaces ~/.gitconfig
     local git_name="$(git config --global user.name)";
     local git_email="$(git config --global user.email)";
-    rsync -avh --no-perms --exclude .DS_Store home/ ~;
+    # Re-running is always safe: any file rsync replaces (for example one an app
+    # appended a PATH line to) is kept in ~/.dotfiles-backup/<time>/. Copy
+    # anything worth keeping into home/ or ~/.exports.local.
+    local backup=~/.dotfiles-backup/$(date +%Y%m%d-%H%M%S);
+    rsync -avh --no-perms --exclude .DS_Store --backup --backup-dir="$backup" home/ ~;
+    [ -d "$backup" ] && echo "Replaced files were backed up to $backup";
     # Git identity lives in ~/.gitconfig.local (included by ~/.gitconfig) so
     # it never lands in this repo. Ask once; Enter keeps the shown default.
     if [ ! -f ~/.gitconfig.local ]; then
