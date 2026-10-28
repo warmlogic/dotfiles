@@ -46,10 +46,14 @@ def wait(out, i):
 def ts(t):
     return datetime.fromtimestamp(t).astimezone().strftime("%a %b %d %H:%M %Z") if t else "n/a"
 
+def dur(mins):
+    """Minutes as the largest whole units: 10080 -> 7d, 300 -> 5h, 9862 -> 6d20h22m."""
+    d, rest = divmod(mins, 1440); h, m = divmod(rest, 60)
+    return "".join(f"{n}{u}" for n, u in ((d, "d"), (h, "h"), (m, "m")) if n) or "0m"
+
 def rel(t):
     if not t: return ""
-    s = int(t - time.time()); h, m = divmod(max(s, 0) // 60, 60)
-    return f"in {h}h{m:02d}m"
+    return f"in {dur(max(int(t - time.time()), 0) // 60)}"
 
 def credits(r):
     cs = [c for c in (r.get("rateLimitResetCredits") or {}).get("credits") or [] if c.get("status") == "available"]
@@ -65,7 +69,7 @@ def summarize(r):
             if not w: continue
             exhausted |= w["usedPercent"] >= 100
             mins = w.get("windowDurationMins")
-            print(f"{s.get('limitName') or lid} {name} ({mins or '?'}m window): {w['usedPercent']}% used, resets {ts(w.get('resetsAt'))} ({rel(w.get('resetsAt'))})")
+            print(f"{s.get('limitName') or lid} {name} ({dur(mins) if mins else '?'} window): {w['usedPercent']}% used, resets {ts(w.get('resetsAt'))} ({rel(w.get('resetsAt'))})")
     print(f"ordinary usage allowed: {r.get('ordinaryUsageAllowed')}")
     cs = credits(r)
     print(f"reset credits available: {(r.get('rateLimitResetCredits') or {}).get('availableCount', 0)}")
