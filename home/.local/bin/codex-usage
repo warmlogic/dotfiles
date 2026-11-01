@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""codex-usage [status|reset] -- Codex plan usage and reset credits via `codex app-server` (stdio JSON-RPC)."""
+"""codex-usage [status|reset] -- Codex plan usage and reset credits via `codex app-server` (stdio JSON-RPC).
+
+`status --hint` prints one line in Claude Code hintline's format: `7d: 23% ↺3d13h · 1 reset credit(s)`."""
 import argparse, glob, json, os, subprocess, sys, threading, time, uuid
 from datetime import datetime
 
-TIMEOUT = 20
+# Per app-server reply; a status makes two (initialize, read), and the reply takes
+# ~0.5 s, so a hung server still leaves the SessionStart hook's 15 s for the fallback.
+TIMEOUT = 5
 
 def rpc(calls):
     """Run [(method, params)] against a fresh app-server; return results in order."""
@@ -51,25 +55,34 @@ def dur(mins):
     d, rest = divmod(mins, 1440); h, m = divmod(rest, 60)
     return "".join(f"{n}{u}" for n, u in ((d, "d"), (h, "h"), (m, "m")) if n) or "0m"
 
+def countdown(mins):
+    """Time until a reset, as Claude Code's hintline draws it: 3d04h, 1h44m, 41m."""
+    d, rest = divmod(mins, 1440); h, m = divmod(rest, 60)
+    if d: return f"{d}d{h:02d}h"
+    return f"{h}h{m:02d}m" if h else f"{m}m"
+
 def rel(t):
     if not t: return ""
-    return f"in {dur(max(int(t - time.time()), 0) // 60)}"
+    return f"in {countdown(max(int(t - time.time()), 0) // 60)}"
 
 def credits(r):
     cs = [c for c in (r.get("rateLimitResetCredits") or {}).get("credits") or [] if c.get("status") == "available"]
     return sorted(cs, key=lambda c: c.get("expiresAt") or float("inf"))
 
+def windows(r):
+    """Each reported window: (limit id, snapshot, primary|secondary, window)."""
+    snaps = r.get("rateLimitsByLimitId") or {"codex": r["rateLimits"]}
+    return [(lid, s, n, w) for lid, s in snaps.items() for n in ("primary", "secondary") if (w := (s or {}).get(n))]
+
+def is_exhausted(r):
+    return r.get("ordinaryUsageAllowed") is False or any((w.get("usedPercent") or 0) >= 100 for *_, w in windows(r))
+
 def summarize(r):
     """Print summary; return True if usage is exhausted."""
-    snaps = r.get("rateLimitsByLimitId") or {"codex": r["rateLimits"]}
-    exhausted = r.get("ordinaryUsageAllowed") is False
-    for lid, s in snaps.items():
-        for name in ("primary", "secondary"):
-            w = (s or {}).get(name)
-            if not w: continue
-            exhausted |= w["usedPercent"] >= 100
-            mins = w.get("windowDurationMins")
-            print(f"{s.get('limitName') or lid} {name} ({dur(mins) if mins else '?'} window): {w['usedPercent']}% used, resets {ts(w.get('resetsAt'))} ({rel(w.get('resetsAt'))})")
+    exhausted = is_exhausted(r)
+    for lid, s, name, w in windows(r):
+        mins = w.get("windowDurationMins")
+        print(f"{s.get('limitName') or lid} {name} ({dur(mins) if mins else '?'} window): {w['usedPercent']}% used, resets {ts(w.get('resetsAt'))} ({rel(w.get('resetsAt'))})")
     print(f"ordinary usage allowed: {r.get('ordinaryUsageAllowed')}")
     cs = credits(r)
     print(f"reset credits available: {(r.get('rateLimitResetCredits') or {}).get('availableCount', 0)}")
@@ -77,24 +90,48 @@ def summarize(r):
         print(f"  {c['id']}  {c['resetType']}  {c.get('title') or ''}  expires {ts(c.get('expiresAt'))}")
     return exhausted
 
-def rollout_fallback():
+def hint_part(name, mins, pct, resets_at):
+    """One window as hintline draws it: `7d: 23% ↺3d13h`, the limit's name first unless it's `codex`."""
+    label = dur(mins) if mins else "?"
+    if name and name != "codex": label = f"{name} {label}"
+    remaining = int(resets_at - time.time()) // 60 if resets_at else 0
+    return f"{label}: {int(pct + 0.5)}%" + (f" ↺{countdown(remaining)}" if remaining > 0 else "")
+
+def hint(r):
+    """Print the hint line; return True if usage is exhausted."""
+    parts = [hint_part(s.get("limitName") or lid, w.get("windowDurationMins"), w["usedPercent"], w.get("resetsAt"))
+             for lid, s, _, w in windows(r) if w.get("usedPercent") is not None]
+    n = (r.get("rateLimitResetCredits") or {}).get("availableCount", 0)
+    print(" · ".join(parts + [f"{n} reset credit(s)"]))
+    return is_exhausted(r)
+
+def rollout_snapshot():
+    """The newest rate-limit snapshot a Codex session wrote: (file name, rate_limits)."""
     files = sorted(glob.glob(os.path.expanduser("~/.codex/sessions/*/*/*/rollout-*.jsonl")))
     for f in reversed(files):
         for line in reversed(open(f).read().splitlines()):
             if '"rate_limits"' in line:
                 rl = (json.loads(line).get("payload") or {}).get("rate_limits")
-                if rl and rl.get("primary"):
-                    print(f"(fallback: rollout snapshot {os.path.basename(f)}; may be stale)")
-                    for n in ("primary", "secondary"):
-                        w = rl.get(n)
-                        if w: print(f"{n}: {w['used_percent']}% used, resets {ts(w.get('resets_at'))}")
-                    return max(w["used_percent"] for w in (rl["primary"], rl.get("secondary") or {"used_percent": 0})) >= 100
+                if rl and rl.get("primary"): return os.path.basename(f), rl
     raise RuntimeError("no rollout snapshot found")
+
+def rollout_fallback(as_hint=False):
+    f, rl = rollout_snapshot()
+    ws = [(n, w) for n in ("primary", "secondary") if (w := rl.get(n)) and w.get("used_percent") is not None]
+    if as_hint:
+        print(" · ".join(hint_part(rl.get("limit_name") or rl.get("limit_id"), w.get("window_minutes"), w["used_percent"], w.get("resets_at"))
+                         for _, w in ws) + " (stale snapshot)")
+    else:
+        print(f"(fallback: rollout snapshot {f}; may be stale)")
+        for n, w in ws: print(f"{n}: {w['used_percent']}% used, resets {ts(w.get('resets_at'))}")
+    return max((w["used_percent"] for _, w in ws), default=0) >= 100
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", nargs="?", default="status", choices=["status", "reset"])
-    ap.add_argument("--json", action="store_true")
+    fmt = ap.add_mutually_exclusive_group()
+    fmt.add_argument("--json", action="store_true")
+    fmt.add_argument("--hint", action="store_true", help="status as one hintline-style line")
     ap.add_argument("--yes", action="store_true")
     ap.add_argument("--id")
     a = ap.parse_args()
@@ -105,8 +142,9 @@ def main():
             except Exception as e:
                 if a.json: raise
                 print(f"app-server failed ({e})", file=sys.stderr)
-                return 3 if rollout_fallback() else 0
+                return 3 if rollout_fallback(a.hint) else 0
             if a.json: print(json.dumps(r, indent=2)); return 0
+            if a.hint: return 3 if hint(r) else 0
             return 3 if summarize(r) else 0
         if not a.yes:
             raise RuntimeError("refusing to consume a reset credit without --yes")
