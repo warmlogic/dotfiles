@@ -9,6 +9,7 @@ tap 'ruimarinho/tap'
 brew 'ruimarinho/tap/gsts' # AWS credentials via Google SAML, for credential_process https://github.com/ruimarinho/gsts
 brew 'k9s' # Kubernetes TUI https://k9scli.io
 brew 'kubectl'
+brew 'docker-credential-helper-ecr' # Docker's ECR login helper; aws-setup-ecr-eks points ECR registries at it
 
 cask 'lens' # Kubernetes IDE
 cask 'loom'

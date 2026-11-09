@@ -188,7 +188,7 @@ AWS credentials come from your Google Workspace account through its SAML app, so
 | `aws-login-chrome`        | each session, as a fallback       | Gets credentials through Chrome and the samltoawsstskeys extension and writes them to `~/.aws/credentials`                       |
 | `aws-login-chrome-manual` | when that automation fails        | Moves a credentials file you downloaded with the extension by hand into place                                                    |
 
-Setup: fill in `AWS_GOOGLE_IDP_ID` and `AWS_GOOGLE_SP_ID` in `~/.exports.local` (the `idpid=` and `spid=` values of the SAML app's SSO URL), plus the optional variables in `exports.local.template`, then run `aws-setup-gsts`. It needs `jq`, which ships with macOS 15+, and Docker Desktop's `docker-credential-ecr-login`.
+Setup: fill in `AWS_GOOGLE_IDP_ID` and `AWS_GOOGLE_SP_ID` in `~/.exports.local` (the `idpid=` and `spid=` values of the SAML app's SSO URL), plus the optional variables in `exports.local.template`, then run `aws-setup-gsts`. It needs `jq`, which ships with macOS 15+, and `docker-credential-ecr-login` from `Brewfile.work` (Docker Desktop does not ship it).
 
 Over time: AWS credentials last about 12 hours, and gsts renews them silently while its Google session lasts. When that expires, the next AWS call opens gsts's own Chromium window for a Google sign-in; your browsers aren't involved.
 

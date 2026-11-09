@@ -35,7 +35,7 @@ need() { command -v "$1" > /dev/null || { echo "$1 is required: $2" >&2; exit 1;
 need aws "brew install awscli"
 need jq "it ships with macOS 15+; otherwise: brew install jq"
 if command -v docker > /dev/null; then
-    need docker-credential-ecr-login "Docker Desktop ships it; otherwise: brew install docker-credential-helper-ecr"
+    need docker-credential-ecr-login "brew install docker-credential-helper-ecr (in Brewfile.work)"
 fi
 $check_only && exit 0
 
